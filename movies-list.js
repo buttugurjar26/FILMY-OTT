@@ -48,7 +48,7 @@ throw error;
 
 allMovies = data || [];
 
-
+console.log("MOVIES FROM SUPABASE:", data);
 
 displayMovies(allMovies);
 
