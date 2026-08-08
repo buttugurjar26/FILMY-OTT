@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edit Profile | FILMY OTT</title>
+
+<link rel="stylesheet" href="edit-profile.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<section class="profile-page">
+
+<div class="profile-card">
+
+<h2 data-lang="editProfile">
+Edit Profile
+</h2>
+
+<!-- CURRENT AVATAR -->
+
+<div
+class="selected-avatar"
+id="selectedAvatar">
+
+<img
+id="currentAvatar"
+src="avatar-1.png"
+alt="Avatar">
+
+</div>
+
+<p class="avatar-text" data-lang="tapAvatarToChange">
+Tap Avatar to Change
+</p>
+
+<!-- HIDDEN AVATAR LIST -->
+
+<div
+class="avatar-list"
+id="avatarList">
+
+<div class="avatar active">
+<img src="avatar-1.png">
+</div>
+
+<div class="avatar">
+<img src="avatar-2.png">
+</div>
+
+<div class="avatar">
+<img src="avatar-3.png">
+</div>
+
+<div class="avatar">
+<img src="avatar-4.png">
+</div>
+
+<div class="avatar">
+<img src="avatar-5.png">
+</div>
+
+<div class="avatar">
+<img src="avatar-6.png">
+</div>
+
+<div class="avatar">
+<img src="avatar-7.png">
+</div>
+
+<div class="avatar">
+<img src="avatar-8.png">
+</div>
+
+<div class="avatar">
+<img src="avatar-9.png">
+</div>
+
+<div class="avatar">
+<img src="avatar-10.png">
+</div>
+
+</div>
+
+<div class="input-box">
+
+<label data-lang="name">
+Name
+</label>
+
+<input
+type="text"
+id="userName"
+placeholder="Enter your name"
+data-lang-placeholder="enterYourName"
+
+</div>
+
+
+<div class="input-box">
+
+<label data-lang="email">
+Email
+</label>
+
+<input
+type="email"
+id="userContact"
+placeholder="Enter your email"
+readonly>
+
+</div>
+
+<button
+class="save-btn"
+id="saveProfile">
+
+<span data-lang="saveProfile">
+Save Profile
+</span>
+
+</button>
+
+</div>
+
+</section>
+
+<script type="module" src="edit-profile.js"></script>
+
+</body>
+</html>

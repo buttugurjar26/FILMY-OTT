@@ -1,0 +1,528 @@
+/* ===========================
+   RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+
+
+/* ===========================
+   BODY
+=========================== */
+
+body{
+
+    background:linear-gradient(
+    180deg,
+    #FFF4C2 0%,
+    #FFD54F 45%,
+    #D4AF37 100%
+    );
+
+    min-height:100vh;
+
+    padding-bottom:90px;
+
+    color:#3E2723;
+
+}
+
+
+
+/* ===========================
+   HEADER
+=========================== */
+
+.header{
+
+    width:100%;
+
+    padding:15px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:rgba(255,255,255,0.35);
+
+    backdrop-filter:blur(10px);
+
+    border-bottom:1px solid #d4af37;
+
+}
+
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+
+.brand img{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+}
+
+
+
+.brand h2{
+
+    font-size:22px;
+
+    color:#5b3500;
+
+}
+
+
+
+.brand p{
+
+    font-size:12px;
+
+}
+
+
+
+.profile{
+
+    font-size:24px;
+
+    color:#5b3500;
+
+}
+
+
+/* ===========================
+   PROFILE
+=========================== */
+
+.profile{
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#5b3500;
+
+}
+
+
+.profile img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+}
+
+
+
+/* ===========================
+   CATEGORY
+=========================== */
+
+
+.categories{
+
+    padding:15px;
+
+}
+
+
+
+.all-category-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:25px;
+
+    background:#d4af37;
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+}
+
+
+
+.category-scroll{
+
+    display:none;
+
+    margin-top:12px;
+
+    gap:10px;
+
+    overflow-x:auto;
+
+}
+
+
+
+.category-scroll.show{
+
+    display:flex;
+
+}
+
+
+
+.category-scroll button{
+
+    padding:8px 18px;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    color:#8a5a00;
+
+    white-space:nowrap;
+
+}
+
+
+
+.category-scroll .active{
+
+    background:#5b3500;
+
+    color:#fff;
+
+}
+
+
+
+/* ===========================
+   BANNER
+=========================== */
+
+.banner{
+
+    padding:10px;
+
+}
+
+
+.banner-slider{
+
+    width:100%;
+
+    aspect-ratio:16 / 9;
+
+    display:flex;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.3);
+
+    scroll-behavior:smooth;
+
+}
+
+
+.banner-slider img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    flex:0 0 100%;
+
+}
+
+
+
+/* ===========================
+   MOVIE SECTIONS
+=========================== */
+
+
+.movies{
+
+    padding:15px;
+
+}
+
+
+
+.movies h2{
+
+    margin-bottom:12px;
+
+    color:#5b3500;
+
+    font-size:20px;
+
+}
+
+
+
+/* 3 CARD HORIZONTAL FLOW */
+
+.home-scroll{
+
+    display:flex;
+
+    gap:12px;
+
+    overflow-x:auto;
+
+    scroll-behavior:smooth;
+
+    scrollbar-width:none;
+
+}
+
+
+
+.home-scroll::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+
+/* ===========================
+   MOVIE CARD
+=========================== */
+
+
+.movie-card{
+
+    flex:0 0 calc(33.33% - 8px);
+
+    background:#fff;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.18);
+
+    cursor:pointer;
+
+}
+
+
+
+.movie-card img{
+
+    width:100%;
+
+    height:170px;
+
+    object-fit:cover;
+
+}
+
+
+
+.movie-card h3{
+
+    font-size:13px;
+
+    padding:8px;
+
+    color:#5B3500;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+
+/* HOME SIMPLE CARD */
+
+.home-scroll .movie-card p,
+.home-scroll .movie-card button{
+
+    display:none;
+
+}
+
+
+
+/* ===========================
+   VIEW MORE
+=========================== */
+
+
+.view-more-right,
+.view-more-row{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-top:10px;
+
+}
+
+
+
+.view-more-right span,
+.view-more-row span{
+
+    color:#8a5a00;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+}
+
+
+
+/* ===========================
+   BOTTOM NAV
+=========================== */
+
+
+.bottom-nav{
+
+    position:fixed;
+
+    bottom:0;
+
+    left:0;
+
+    width:100%;
+
+    height:70px;
+
+    background:#d4af37;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    border-radius:20px 20px 0 0;
+
+    box-shadow:0 -5px 20px rgba(0,0,0,.25);
+
+}
+
+
+
+.bottom-nav a{
+
+    text-decoration:none;
+
+    color:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    font-size:12px;
+
+}
+
+
+
+.bottom-nav i{
+
+    font-size:22px;
+
+    margin-bottom:5px;
+
+}
+
+
+
+.bottom-nav .active{
+
+    color:#5b3500;
+
+    transform:translateY(-5px);
+
+}
+
+
+
+/* ===========================
+   MOBILE
+=========================== */
+
+
+@media(max-width:420px){
+
+
+.movie-card{
+
+    flex:0 0 calc(33.33% - 8px);
+
+}
+
+
+.movie-card img{
+
+    height:150px;
+
+}
+
+
+.movie-card h3{
+
+    font-size:12px;
+
+}
+
+
+}

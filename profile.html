@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile | FILMY OTT</title>
+
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="profile.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<section class="profile-page">
+
+<div class="profile-card">
+
+<div class="profile-image">
+
+<img
+src="avatar-1.png"
+id="profilePhoto"
+alt="Profile">
+
+</div>
+
+<h2 id="userName">Loading...</h2>
+
+<p id="userEmail">Loading...</p>
+
+<button
+class="profile-btn edit-btn"
+onclick="editProfile()">
+
+<i class="fa-solid fa-user-pen"></i>
+
+<span data-lang="editProfile">
+Edit Profile
+</span>
+
+</button>
+
+</div>
+
+<div class="profile-menu">
+
+<button onclick="location.href='my-list.html'">
+
+<i class="fa-solid fa-heart"></i>
+
+<span data-lang="myList">
+My List
+</span>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+<button onclick="location.href='watch-history.html'">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+<span data-lang="watchHistory">
+Watch History
+</span>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+<button onclick="location.href='subscription.html'">
+
+<i class="fa-solid fa-crown"></i>
+
+<span data-lang="subscription">
+Subscription
+</span>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+<button onclick="location.href='settings.html'">
+
+<i class="fa-solid fa-gear"></i>
+
+<span data-lang="settings">
+Settings
+</span>
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+<button
+class="logout-btn"
+onclick="logoutUser()">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+<span data-lang="logout">
+Logout
+</span>
+
+</button>
+
+</div>
+
+</section>
+
+<script type="module" src="profile.js"></script>
+
+</body>
+
+</html>

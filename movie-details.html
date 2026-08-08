@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Movie Details | FILMY OTT</title>
+
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="movie-details.css">
+
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+rel="stylesheet">
+
+</head>
+
+  <script>
+function openProfile() {
+    window.location.href = "profile.html";
+}
+  </script>
+
+  
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+<div class="brand">
+
+<img src="logo-192.png" alt="FILMY OTT">
+
+<div>
+<h2>FILMY OTT</h2>
+<p>Premium Entertainment</p>
+</div>
+
+</div>
+
+<div class="profile" onclick="openProfile()">
+    <img id="headerProfile" src="avatar-1.png" alt="Profile">
+</div>
+
+</header>
+
+
+
+<!-- MOVIE DETAILS -->
+
+<section class="movie-details">
+
+<img id="moviePoster" src="logo-192.png" alt="Movie Poster">
+
+<h1 id="movieName">Movie Name</h1>
+
+<div class="info">
+
+<span id="movieCategory">Category</span>
+
+<span id="movieYear">2026</span>
+
+<span id="movieDuration">2h 30m</span>
+
+<span id="movieQuality">1080P</span>
+
+<span id="movieLanguage">Hindi</span>
+
+<span id="movieRating">⭐ 0.0</span>
+
+</div>
+
+<p id="movieDescription">
+Movie description will appear here.
+</p>
+
+<button id="watchBtn">
+    <i class="fa-solid fa-play"></i>
+    <span data-lang="watchNow">Watch Now</span>
+</button>
+
+<button id="listBtn">
+    <i class="fa-solid fa-heart"></i>
+    <span data-lang="addToMyList">Add to My List</span>
+</button>
+
+<button id="shareBtn">
+    <i class="fa-solid fa-share-nodes"></i>
+    <span data-lang="shareMovie">Share Movie</span>
+</button>
+
+</section>
+
+
+
+<!-- PUBLIC RATING -->
+
+<section class="rating-box">
+
+<h3>⭐ <span data-lang="publicRating">Public Rating</span></h3>
+
+<div class="stars">
+
+<i class="fa-solid fa-star" data-rate="1"></i>
+
+<i class="fa-solid fa-star" data-rate="2"></i>
+
+<i class="fa-solid fa-star" data-rate="3"></i>
+
+<i class="fa-solid fa-star" data-rate="4"></i>
+
+<i class="fa-solid fa-star" data-rate="5"></i>
+
+</div>
+
+<p id="ratingMessage" data-lang="tapToRate">
+Tap a star to rate this movie.
+</p>
+
+</section>
+
+
+
+<!-- RELATED MOVIES -->
+
+<section class="related-movies">
+
+<h2>
+🎬 <span data-lang="relatedMovies">Related Movies</span>
+</h2>
+
+<div class="movie-row" id="relatedMovies">
+
+</div>
+
+</section>
+
+
+
+<!-- BOTTOM NAVIGATION -->
+
+<nav class="bottom-nav">
+
+<a href="home.html">
+<i class="fa-solid fa-house"></i>
+<span data-lang="home">Home</span>
+</a>
+
+<a href="movies-list.html">
+<i class="fa-solid fa-film"></i>
+<span data-lang="movies">Movies</span>
+</a>
+
+<a href="search.html">
+<i class="fa-solid fa-magnifying-glass"></i>
+<span data-lang="search">Search</span>
+</a>
+
+<a href="my-list.html">
+<i class="fa-solid fa-heart"></i>
+<span data-lang="myList">My List</span>
+</a>
+
+<a href="settings.html">
+<i class="fa-solid fa-gear"></i>
+<span data-lang="settings">Settings</span>
+</a>
+
+</nav>
+
+<script type="module" src="movie-details.js"></script>
+
+</body>
+
+</html>

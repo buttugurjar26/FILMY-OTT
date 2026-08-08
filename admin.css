@@ -1,0 +1,463 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    background:linear-gradient(
+        180deg,
+        #FFF4C2 0%,
+        #FFD54F 45%,
+        #D4AF37 100%
+    );
+
+    min-height:100vh;
+
+    padding-bottom:90px;
+
+    color:#3E2723;
+
+}
+
+
+
+/* ==========================
+   HEADER
+========================== */
+
+.header{
+
+    width:100%;
+
+    padding:15px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:rgba(255,255,255,.35);
+
+    backdrop-filter:blur(10px);
+
+    border-bottom:1px solid #D4AF37;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+
+.brand img{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+}
+
+
+
+.brand h2{
+
+    font-size:22px;
+
+    color:#5B3500;
+
+}
+
+
+
+.brand p{
+
+    font-size:12px;
+
+    color:#6D4C41;
+
+}
+
+
+
+/* ==========================
+   LOGOUT BUTTON
+========================== */
+
+.logout-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    border:none;
+
+    outline:none;
+
+    padding:12px 18px;
+
+    border-radius:25px;
+
+    background:#D4AF37;
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+.logout-btn:hover{
+
+    background:#B89016;
+
+    transform:scale(1.03);
+
+}
+
+
+
+/* ==========================
+   ADMIN CONTAINER
+========================== */
+
+.admin-container{
+
+    padding:20px;
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:18px;
+
+}
+
+
+
+/* ==========================
+   ADMIN CARD
+========================== */
+
+.admin-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    text-align:center;
+
+    border:1px solid #E6C45A;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.18);
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.admin-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+
+}
+
+.card-icon{
+
+    width:70px;
+
+    height:70px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:#D4AF37;
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:32px;
+
+}
+
+.admin-card h2{
+
+    margin-top:15px;
+
+    color:#5B3500;
+
+    font-size:22px;
+
+}
+
+.admin-card p{
+
+    margin-top:8px;
+
+    color:#6D4C41;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+}
+
+/* ==========================
+   LIVE DASHBOARD
+========================== */
+
+.dashboard{
+
+    padding:20px;
+
+}
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+}
+
+.card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    text-align:center;
+
+    border:1px solid #E6C45A;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+.card h3{
+
+    color:#5B3500;
+
+    font-size:15px;
+
+    margin-bottom:10px;
+
+}
+
+.card p{
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    color:#3E2723;
+
+}
+
+
+
+/* ==========================
+   DASHBOARD BOX
+========================== */
+
+.dashboard-box{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    margin-bottom:20px;
+
+    border:1px solid #E6C45A;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+.dashboard-box h2{
+
+    color:#5B3500;
+
+    font-size:20px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+/* ==========================
+   LIST ITEMS
+========================== */
+
+.list-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:10px;
+
+    margin-bottom:10px;
+
+    border-radius:12px;
+
+    background:#FFF8DC;
+
+    color:#3E2723;
+
+    font-weight:bold;
+
+}
+
+.list-item img{
+
+    width:50px;
+
+    height:65px;
+
+    object-fit:cover;
+
+    border-radius:8px;
+
+}
+
+
+
+/* ==========================
+   SCROLLBAR
+========================== */
+
+::-webkit-scrollbar{
+
+    width:6px;
+
+    height:6px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#D4AF37;
+
+    border-radius:10px;
+
+}
+
+
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media(max-width:768px){
+
+.admin-container{
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+padding:15px;
+
+}
+
+.admin-card{
+
+padding:18px;
+
+}
+
+.card-icon{
+
+width:60px;
+
+height:60px;
+
+font-size:28px;
+
+}
+
+.admin-card h2{
+
+font-size:18px;
+
+}
+
+.admin-card p{
+
+font-size:13px;
+
+}
+
+.stats{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.card p{
+
+font-size:24px;
+
+}
+
+}
+
+
+
+@media(max-width:480px){
+
+.admin-container{
+
+grid-template-columns:1fr;
+
+}
+
+}

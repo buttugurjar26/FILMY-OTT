@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>News Manager | FILMY OTT</title>
+
+<link rel="stylesheet" href="news-manager.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<header class="header">
+
+<h1>📰 News & Updates</h1>
+
+<a href="admin-dashboard.html"
+class="back-btn">
+
+<i class="fas fa-arrow-left"></i>
+
+Back
+
+</a>
+
+</header>
+
+
+
+<section class="upload-box">
+
+<h2>Add News</h2>
+
+<form id="newsForm">
+
+<div class="input-group">
+
+<label>News Title</label>
+
+<input
+type="text"
+id="newsTitle"
+placeholder="Enter News Title"
+required>
+
+</div>
+
+
+<div class="input-group">
+
+<label>News Type</label>
+
+<select id="newsType">
+
+<option value="Announcement">
+Announcement
+</option>
+
+<option value="Update">
+Update
+</option>
+
+<option value="New Movie">
+New Movie
+</option>
+
+<option value="Maintenance">
+Maintenance
+</option>
+
+</select>
+
+</div>
+
+
+<div class="input-group">
+
+<label>Description</label>
+
+<textarea
+id="newsDescription"
+rows="5"
+placeholder="Write News..."
+required>
+</textarea>
+
+</div>
+
+
+<button
+type="submit"
+class="save-btn">
+
+<i class="fas fa-save"></i>
+
+Save News
+
+</button>
+
+<p id="newsStatus"></p>
+
+</form>
+
+</section>
+
+
+
+<section class="list-box">
+
+<h2>All News</h2>
+
+<div
+id="newsList"
+class="news-list">
+
+</div>
+
+</section>
+
+
+<script
+type="module"
+src="news-manager.js">
+
+</script>
+
+</body>
+
+</html>

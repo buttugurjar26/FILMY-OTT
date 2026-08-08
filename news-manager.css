@@ -1,0 +1,252 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    background:linear-gradient(
+    180deg,
+    #FFF6D5,
+    #FFD54F,
+    #D4AF37
+    );
+
+    min-height:100vh;
+
+    color:#4E342E;
+
+}
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 20px;
+
+    background:#fff;
+
+    box-shadow:0 2px 12px rgba(0,0,0,.12);
+
+}
+
+.header h1{
+
+    font-size:24px;
+
+    color:#5D4037;
+
+}
+
+.back-btn{
+
+    text-decoration:none;
+
+    color:#5D4037;
+
+    font-weight:bold;
+
+}
+
+/* BOX */
+
+.upload-box,
+.list-box{
+
+    background:#fff;
+
+    width:92%;
+
+    margin:20px auto;
+
+    padding:20px;
+
+    border-radius:20px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+
+}
+
+.upload-box h2,
+.list-box h2{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    color:#5D4037;
+
+}
+
+/* INPUT */
+
+.input-group{
+
+    margin-bottom:18px;
+
+}
+
+.input-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select{
+
+    width:100%;
+
+    padding:12px;
+
+    border:2px solid #D4AF37;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:15px;
+
+}
+
+textarea{
+
+    resize:none;
+
+}
+
+/* BUTTON */
+
+.save-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#D4AF37;
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.save-btn:hover{
+
+    background:#B8860B;
+
+}
+
+#newsStatus{
+
+    text-align:center;
+
+    margin-top:15px;
+
+    font-weight:bold;
+
+}
+
+/* NEWS CARD */
+
+.news-card{
+
+    background:#FFFDF5;
+
+    border:1px solid #D4AF37;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+}
+
+.news-card h3{
+
+    color:#5D4037;
+
+    margin-bottom:10px;
+
+}
+
+.news-card p{
+
+    margin-bottom:10px;
+
+    line-height:1.5;
+
+}
+
+.news-card small{
+
+    color:#777;
+
+}
+
+/* ACTIONS */
+
+.card-actions{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:15px;
+
+}
+
+.edit-btn,
+.delete-btn{
+
+    flex:1;
+
+    border:none;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    color:#fff;
+
+    font-weight:bold;
+
+}
+
+.edit-btn{
+
+    background:#2196F3;
+
+}
+
+.delete-btn{
+
+    background:#F44336;
+
+}

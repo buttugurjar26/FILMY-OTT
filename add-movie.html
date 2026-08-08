@@ -1,0 +1,113 @@
+<!DOCTYPE html>  
+<html lang="en">  
+  
+<head>  
+  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  
+<title>Add Movie - FILMY OTT</title>  
+  
+<link rel="stylesheet" href="add-movie.css">  
+  
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">  
+  
+</head>  
+  
+<body>  
+  
+<header class="admin-header">  
+  
+<i class="fa-solid fa-film"></i>  
+  
+<h2>Add Movie</h2>  
+  
+</header>  
+  
+<section class="add-container">  
+  
+<input  
+type="text"  
+id="movieName"  
+placeholder="Movie Name"  
+required>  
+  
+<textarea  
+id="movieDescription"  
+placeholder="Movie Description"  
+required></textarea>  
+  
+<label>
+Poster Upload
+<br>
+<small>Recommended Size: 1280 × 720 (16:9)</small>
+</label>  
+  
+<input  
+type="file"  
+id="moviePoster"  
+accept="image/*">  
+  
+<label>  
+Video Upload  
+</label>  
+  
+<input  
+type="file"  
+id="movieVideo"  
+accept="video/*">  
+  
+<select id="movieCategory" required>  
+  
+<option value="">Select Category</option>  
+  
+<option value="Movie">🎬 Movie</option>  
+  
+<option value="Web Series">📺 Web Series</option>  
+  
+<option value="Action">🔥 Action</option>  
+  
+<option value="Romantic">❤️ Romantic</option>  
+  
+<option value="Comedy">😂 Comedy</option>  
+  
+<option value="Drama">🎭 Drama</option>  
+  
+<option value="Thriller">🔪 Thriller</option>  
+  
+<option value="Horror">👻 Horror</option>  
+  
+<option value="Crime">🚔 Crime</option>  
+  
+<option value="Sci-Fi">🚀 Sci-Fi</option>  
+  
+<option value="Animation">🧸 Animation</option>  
+  
+<option value="Documentary">🎥 Documentary</option>  
+  
+</select>  
+  
+<input  
+type="number"  
+id="movieYear"  
+placeholder="Release Year"  
+min="1900"  
+max="2100">  
+  
+<button onclick="saveMovie()">  
+  
+<i class="fa-solid fa-upload"></i>  
+  
+Upload Movie  
+  
+</button>  
+  
+<p id="uploadStatus" class="upload-status"></p>  
+  
+</section>  
+  
+<script type="module" src="add-movie.js"></script>  
+  
+</body>  
+  
+</html>

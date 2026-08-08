@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FILMY OTT Admin Panel</title>
+
+<link rel="stylesheet" href="admin.css">
+
+<link 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+
+<div class="brand">
+
+
+<img src="logo-192.png" alt="FILMY OTT Logo">
+
+
+<div>
+
+<h2>FILMY OTT</h2>
+
+<p>Admin Panel</p>
+
+</div>
+
+
+</div>
+
+
+
+
+<button class="logout-btn" onclick="adminLogout()">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</button>
+
+
+
+</header>
+
+
+
+
+
+
+
+<!-- ADMIN OPTIONS -->
+
+<section class="admin-container">
+
+
+<!-- ADD MOVIE -->
+
+<div class="admin-card" onclick="location.href='add-movie.html'">
+
+    <div class="card-icon">
+        <i class="fa-solid fa-film"></i>
+    </div>
+
+    <h2>Add Movie</h2>
+
+    <p>
+        Upload Poster & Movie
+    </p>
+
+</div>
+
+
+
+<!-- MANAGE MOVIES -->
+
+<div class="admin-card" onclick="location.href='manage-movies.html'">
+
+    <div class="card-icon">
+        <i class="fa-solid fa-list"></i>
+    </div>
+
+    <h2>Manage Movies</h2>
+
+    <p>
+        Edit • Delete • View
+    </p>
+
+</div>
+
+
+
+<!-- LIVE DASHBOARD -->
+
+<div class="admin-card" onclick="location.href='admin-dashboard.html'">
+
+    <div class="card-icon">
+        <i class="fa-solid fa-chart-line"></i>
+    </div>
+
+    <h2>Live Dashboard</h2>
+
+    <p>
+        Movies • Users • Views
+    </p>
+
+</div>
+
+
+
+<!-- CONTENT MANAGER -->
+
+<div class="admin-card" onclick="location.href='content-manager.html'">
+
+    <div class="card-icon">
+        <i class="fa-solid fa-layer-group"></i>
+    </div>
+
+    <h2>Content Manager</h2>
+
+    <p>
+        Banner • Featured • Categories
+    </p>
+
+</div>
+
+
+
+<!-- NEWS & UPDATES -->
+
+<div class="admin-card" onclick="window.location.href='news-manager.html'">
+
+    <div class="card-icon">
+        <i class="fa-solid fa-newspaper"></i>
+    </div>
+
+    <h2>News & Updates</h2>
+
+    <p>
+        Announcements • Updates
+    </p>
+
+</div>
+
+
+</section>
+
+
+<script src="admin.js"></script>
+
+</body>
+
+</html>

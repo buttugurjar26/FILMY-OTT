@@ -1,0 +1,130 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(
+180deg,
+#FFF4C2 0%,
+#FFD54F 45%,
+#D4AF37 100%
+);
+min-height:100vh;
+padding-bottom:90px;
+color:#3E2723;
+}
+
+.admin-header{
+height:70px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+background:rgba(255,255,255,0.35);
+backdrop-filter:blur(10px);
+border-bottom:1px solid #d4af37;
+}
+
+.admin-header i{
+font-size:28px;
+color:#6b4300;
+}
+
+.admin-header h2{
+color:#5b3500;
+}
+
+.add-container{
+margin:20px;
+padding:20px;
+background:rgba(255,255,255,0.5);
+border-radius:20px;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:14px;
+margin-bottom:15px;
+border:none;
+outline:none;
+border-radius:15px;
+background:white;
+font-size:15px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+textarea{
+height:120px;
+resize:none;
+}
+
+label{
+display:block;
+font-weight:bold;
+margin-bottom:8px;
+color:#5b3500;
+}
+
+label small{
+display:block;
+margin-top:4px;
+font-size:13px;
+color:#7a5a00;
+}
+
+input[type="file"]{
+padding:12px;
+background:#fff;
+}
+
+button{
+width:100%;
+padding:15px;
+border:none;
+border-radius:30px;
+background:#5b3500;
+color:white;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+transition:.3s;
+}
+
+button:hover{
+background:#734500;
+}
+
+button:disabled{
+opacity:.7;
+cursor:not-allowed;
+}
+
+button i{
+margin-right:8px;
+}
+
+/* ===========================
+   UPLOAD STATUS
+=========================== */
+
+#uploadStatus{
+margin-top:15px;
+padding:12px;
+border-radius:12px;
+text-align:center;
+font-size:15px;
+font-weight:bold;
+display:none;
+background:#FFF8DC;
+color:#5B3500;
+border:2px solid #D4AF37;
+box-shadow:0 3px 10px rgba(212,175,55,.25);
+word-break:break-word;
+}

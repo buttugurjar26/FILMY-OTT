@@ -1,0 +1,201 @@
+/* ===========================
+   FILMY OTT PROFILE PAGE
+=========================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(
+180deg,
+#FFF4C2 0%,
+#FFD54F 45%,
+#D4AF37 100%
+);
+min-height:100vh;
+color:#3E2723;
+padding:18px;
+}
+
+/* ===========================
+PROFILE PAGE
+=========================== */
+
+.profile-page{
+width:100%;
+max-width:520px;
+margin:auto;
+padding-bottom:90px;
+}
+
+/* ===========================
+PROFILE CARD
+=========================== */
+
+.profile-card{
+background:rgba(255,248,220,.45);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+border:2px solid #D4AF37;
+border-radius:30px;
+padding:35px 25px;
+text-align:center;
+box-shadow:
+0 12px 35px rgba(0,0,0,.22),
+0 0 20px rgba(212,175,55,.25);
+margin-bottom:20px;
+}
+
+/* ===========================
+PROFILE IMAGE
+=========================== */
+
+.profile-image img{
+width:130px;
+height:130px;
+border-radius:50%;
+border:4px solid #D4AF37;
+object-fit:cover;
+background:#fff;
+padding:4px;
+margin-bottom:18px;
+box-shadow:0 8px 20px rgba(0,0,0,.20);
+}
+
+/* ===========================
+NAME
+=========================== */
+
+.profile-card h2{
+font-size:30px;
+color:#5B3500;
+margin-bottom:8px;
+}
+
+.profile-card p{
+font-size:16px;
+color:#6B4A00;
+margin-bottom:25px;
+}
+
+/* ===========================
+EDIT PROFILE BUTTON
+=========================== */
+
+.profile-btn{
+width:100%;
+height:58px;
+border:none;
+border-radius:18px;
+background:linear-gradient(180deg,#F2C300,#C99700);
+color:#FFFFFF;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 8px 20px rgba(0,0,0,.20);
+}
+
+.profile-btn:hover{
+transform:translateY(-2px);
+}
+
+/* ===========================
+PROFILE MENU
+=========================== */
+
+.profile-menu{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.profile-menu button{
+width:100%;
+height:60px;
+background:rgba(255,248,220,.45);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+border:2px solid #D4AF37;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 18px;
+font-size:16px;
+font-weight:bold;
+color:#5B3500;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 6px 18px rgba(0,0,0,.15);
+}
+
+.profile-menu button:hover{
+transform:translateY(-2px);
+background:#FFF9E5;
+}
+
+.profile-menu button i:first-child{
+font-size:20px;
+width:28px;
+color:#C99700;
+}
+
+.profile-menu button i:last-child{
+color:#8A5A00;
+}
+
+/* ===========================
+LOGOUT
+=========================== */
+
+.logout-btn{
+margin-top:8px;
+background:linear-gradient(180deg,#E53935,#C62828)!important;
+border:none!important;
+color:#FFFFFF!important;
+}
+
+.logout-btn i{
+color:#FFFFFF!important;
+}
+
+/* ===========================
+MOBILE
+=========================== */
+
+@media(max-width:480px){
+
+body{
+padding:10px;
+}
+
+.profile-card{
+padding:28px 18px;
+border-radius:25px;
+}
+
+.profile-image img{
+width:110px;
+height:110px;
+}
+
+.profile-card h2{
+font-size:26px;
+}
+
+.profile-card p{
+font-size:14px;
+}
+
+.profile-btn,
+.profile-menu button{
+height:54px;
+font-size:15px;
+}
+
+}

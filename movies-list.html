@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FILMY OTT - Movies</title>
+
+
+<link rel="stylesheet" href="home.css">
+
+<link rel="stylesheet" href="movies-list.css">
+
+
+<link 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+rel="stylesheet">
+
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+
+<div class="brand">
+
+<img src="logo-192.png" alt="FILMY OTT Logo">
+
+
+<div>
+
+<h2>FILMY OTT</h2>
+
+<p>Premium Entertainment</p>
+
+</div>
+
+
+</div>
+
+
+
+<div class="profile" onclick="openProfile()">
+
+<img id="headerProfile" src="default-profile.png" alt="Profile">
+
+</div>
+
+
+</header>
+
+
+
+
+<!-- CATEGORY -->
+
+<section class="categories">
+
+
+<div class="category-title" onclick="toggleCategory()">
+
+
+
+<button class="all-category-btn">
+
+
+<span data-lang="allCategories">All Categories</span>
+
+
+<i class="fa-solid fa-chevron-down"></i>
+
+
+</button>
+
+
+</div>
+
+
+
+
+<div class="category-scroll" id="categoryMenu">
+
+
+<button class="active" onclick="filterMovies('All')">
+
+<span data-lang="all">All</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Movie')">
+
+🎬 <span data-lang="movie">Movie</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Web Series')">
+
+📺 <span data-lang="webSeries">Web Series</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Action')">
+
+💥 <span data-lang="action">Action</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Romantic')">
+
+❤️ <span data-lang="romantic">Romantic</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Comedy')">
+
+😂 <span data-lang="comedy">Comedy</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Drama')">
+
+🎭 <span data-lang="drama">Drama</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Thriller')">
+
+🔪 <span data-lang="thriller">Thriller</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Horror')">
+
+👻 <span data-lang="horror">Horror</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Crime')">
+
+🚔 <span data-lang="crime">Crime</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Sci-Fi')">
+
+🚀 <span data-lang="sciFi">Sci-Fi</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Animation')">
+
+🧸 <span data-lang="animation">Animation</span>
+
+</button>
+
+
+
+<button onclick="filterMovies('Documentary')">
+
+🎥 <span data-lang="documentary">Documentary</span>
+
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- MOVIES LIST -->
+
+
+<section class="movies">
+
+
+<h2>🎬 <span data-lang="allMovies">All Movies</span></h2>
+
+
+<div class="movies-grid" id="movieContainer">
+
+
+</div>
+
+
+</section>
+
+
+
+
+<p id="noResult" data-lang="noMovies">
+No Movies Found
+</p>
+
+
+
+
+
+
+<!-- BOTTOM NAVIGATION -->
+
+
+<nav class="bottom-nav">
+
+
+<a href="home.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span data-lang="home">Home</span>
+
+</a>
+
+
+
+<a class="active" href="movies-list.html">
+
+<i class="fa-solid fa-film"></i>
+
+<span data-lang="movies">Movies</span>
+
+</a>
+
+
+
+<a href="search.html">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<span data-lang="search">Search</span>
+
+</a>
+
+
+
+<a href="my-list.html">
+
+<i class="fa-solid fa-heart"></i>
+
+<span data-lang="myList">My List</span>
+
+</a>
+
+
+
+<a href="settings.html">
+
+<i class="fa-solid fa-gear"></i>
+
+<span data-lang="settings">Settings</span>
+
+</a>
+
+
+
+</nav>
+
+
+
+
+
+
+<script>
+
+
+function openProfile(){
+
+window.location.href = "profile.html";
+
+}
+
+
+
+
+function toggleCategory(){
+
+
+let menu = document.getElementById("categoryMenu");
+
+
+menu.classList.toggle("show");
+
+
+}
+
+
+</script>
+
+
+
+
+<script type="module" src="movies-list.js"></script>
+
+
+
+</body>
+
+</html>
