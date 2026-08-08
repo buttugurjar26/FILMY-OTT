@@ -87,7 +87,9 @@ async function loadMovies() {
 
 
         displayMovies(allMovies);
-
+        
+document.getElementById("movieContainer").innerHTML =
+    "<h2 style='padding:20px;text-align:center;'>JS IS WORKING</h2>";
 
     }
 
