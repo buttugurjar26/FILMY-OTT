@@ -1,247 +1,284 @@
 import { supabase } from "./supabase.js";
 import { applyLanguage } from "./language.js";
 
-
-
 let allMovies = [];
 
-
-
-
+// ===============================
 // CATEGORY TOGGLE
+// ===============================
 
-window.toggleCategory = function(){
+window.toggleCategory = function () {
 
-let menu = document.getElementById("categoryMenu");
+    const menu = document.getElementById("categoryMenu");
 
-menu.classList.toggle("show");
+    if (menu) {
+        menu.classList.toggle("show");
+    }
 
 };
 
 
-
-
-
-
+// ===============================
 // LOAD MOVIES
+// ===============================
 
-async function loadMovies(){
+async function loadMovies() {
 
+    const container =
+        document.getElementById("movieContainer");
 
-try{
-
-
-const { data, error } = await supabase
-.from("movies")
-.select("*")
-.order("created_at",{ascending:false});
+    const noResult =
+        document.getElementById("noResult");
 
 
+    try {
 
-if(error){
-    console.log("SUPABASE ERROR:", error);
-    throw error;
+        if (container) {
+
+            container.innerHTML = `
+                <p style="text-align:center;padding:20px;">
+                    Loading Movies...
+                </p>
+            `;
+
+        }
+
+
+        const { data, error } = await supabase
+
+            .from("movies")
+
+            .select("*")
+
+            .order("created_at", {
+                ascending: false
+            });
+
+
+        if (error) {
+
+            console.error(
+                "SUPABASE ERROR:",
+                error
+            );
+
+            if (container) {
+
+                container.innerHTML = `
+                    <p style="text-align:center;padding:20px;">
+                        Unable to load movies.
+                    </p>
+                `;
+
+            }
+
+            return;
+
+        }
+
+
+        console.log(
+            "MOVIES FROM SUPABASE:",
+            data
+        );
+
+
+        allMovies = data || [];
+
+
+        displayMovies(allMovies);
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "MOVIE LOAD ERROR:",
+            error
+        );
+
+
+        if (container) {
+
+            container.innerHTML = `
+                <p style="text-align:center;padding:20px;">
+                    Unable to load movies.
+                </p>
+            `;
+
+        }
+
+    }
+
 }
 
-console.log("MOVIES FROM SUPABASE:", data);
 
-if (!data || data.length === 0) {
-    console.log("NO MOVIES FOUND");
-}
-
-allMovies = data || [];
-
-displayMovies(allMovies);
-
-
-}
-
-catch(error){
-
-
-console.log("Movie Load Error:",error);
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-
+// ===============================
 // DISPLAY MOVIES
+// ===============================
 
-function displayMovies(movies){
+function displayMovies(movies) {
 
+    const container =
+        document.getElementById("movieContainer");
 
-let container =
-document.getElementById("movieContainer");
-
-
-let noResult =
-document.getElementById("noResult");
-
+    const noResult =
+        document.getElementById("noResult");
 
 
-if(!container) return;
+    if (!container) {
+
+        console.error(
+            "movieContainer not found"
+        );
+
+        return;
+
+    }
 
 
-
-container.innerHTML="";
-
+    container.innerHTML = "";
 
 
+    if (!movies || movies.length === 0) {
+
+        if (noResult) {
+
+            noResult.style.display =
+                "block";
+
+        }
+
+        return;
+
+    }
 
 
-if(movies.length === 0){
+    if (noResult) {
+
+        noResult.style.display =
+            "none";
+
+    }
 
 
-if(noResult){
+    movies.forEach(movie => {
 
-noResult.style.display="block";
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "movie-card";
+
+
+        card.onclick = function () {
+
+            window.location.href =
+                "movie-details.html?id=" +
+                movie.id;
+
+        };
+
+
+        card.innerHTML = `
+
+            <img
+                src="${movie.poster_url || "logo-192.png"}"
+                alt="${movie.title || "Movie"}"
+            >
+
+            <h3>
+                ${movie.title || "Movie"}
+            </h3>
+
+            <p>
+                ${movie.category || "Movie"}
+            </p>
+
+            <button
+                data-lang="watchNow"
+                onclick="event.stopPropagation(); window.location.href='movie-details.html?id=${movie.id}'"
+            >
+                ▶ Watch Now
+            </button>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
 
 }
 
 
-return;
-
-}
-
-
-else{
-
-
-if(noResult){
-
-noResult.style.display="none";
-
-}
-
-
-}
-
-
-
-
-
-
-
-movies.forEach(movie => {
-
-    let card = document.createElement("div");
-
-    card.className = "movie-card";
-
-    card.onclick = function () {
-
-        window.location.href =
-        "movie-details.html?id=" + movie.id;
-
-    };
-
-    card.innerHTML = `
-
-        <img src="${movie.poster_url || 'logo-192.png'}">
-
-        <h3>${movie.title || "Movie"}</h3>
-
-        <p>${movie.category || "Movie"}</p>
-
-<button data-lang="watchNow">
-
-▶ Watch Now
-
-</button>
-
-    `;
-
-    container.appendChild(card);
-
-});
-
-
-}
-
-
-
-
-
-
-
-
-
-
+// ===============================
 // CATEGORY FILTER
+// ===============================
 
-window.filterMovies = function(category){
-
-
-
-if(category==="All"){
+window.filterMovies = function (category) {
 
 
-displayMovies(allMovies);
+    if (category === "All") {
+
+        displayMovies(allMovies);
+
+        return;
+
+    }
 
 
-return;
-
-}
-
-
-
+    const filteredMovies =
+        allMovies.filter(movie =>
+            movie.category === category
+        );
 
 
-let filteredMovies =
-allMovies.filter(movie=>{
-
-
-return movie.category === category;
-
-
-});
-
-
-
-displayMovies(filteredMovies);
-
-
+    displayMovies(filteredMovies);
 
 };
 
 
+// ===============================
+// HEADER PROFILE
+// ===============================
 
+const headerProfile =
+    document.getElementById(
+        "headerProfile"
+    );
 
-
-
-
-loadMovies().then(()=>{
-
-    applyLanguage();
-
-});
-
-
-// HEADER PROFILE AVATAR
-
-const headerProfile = document.getElementById("headerProfile");
 
 if (headerProfile) {
 
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    const userAvatar = localStorage.getItem("userAvatar");
+    const isLoggedIn =
+        localStorage.getItem(
+            "isLoggedIn"
+        );
 
-    if (isLoggedIn === "true" && userAvatar) {
 
-        headerProfile.src = userAvatar;
+    const userAvatar =
+        localStorage.getItem(
+            "userAvatar"
+        );
+
+
+    if (
+        isLoggedIn === "true" &&
+        userAvatar
+    ) {
+
+        headerProfile.src =
+            userAvatar;
 
     } else {
 
-        headerProfile.src = "avatar-1.png";
+        headerProfile.src =
+            "avatar-1.png";
 
     }
 
@@ -252,9 +289,21 @@ if (headerProfile) {
 // EDIT MOVIE
 // ===============================
 
-window.editMovie = function(movieId){
+window.editMovie = function (movieId) {
 
     window.location.href =
-    "edit-movie.html?id=" + movieId;
+        "edit-movie.html?id=" +
+        movieId;
 
 };
+
+
+// ===============================
+// START
+// ===============================
+
+loadMovies().then(() => {
+
+    applyLanguage();
+
+});
