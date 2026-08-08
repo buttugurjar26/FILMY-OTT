@@ -1,6 +1,8 @@
 import { supabase } from "./supabase.js";
 import { applyLanguage } from "./language.js";
 
+alert("MOVIES JS LOADED");
+
 let allMovies = [];
 
 // ===============================
