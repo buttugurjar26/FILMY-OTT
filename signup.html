@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title data-lang="createAccount">Create Account</title>
+
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="signup.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- SIGN UP -->
+
+<section class="login">
+
+<div class="login-card">
+
+<img src="logo-192.png"
+class="login-logo"
+alt="FILMY OTT Logo">
+
+<h2 data-lang="createAccount">
+Create Account
+</h2>
+
+<p data-lang="signupDescription">
+Create your FILMY OTT account to start watching your favourite Movies & Web Series.
+</p>
+
+<form id="signupForm">
+
+<div class="input-box">
+
+<label data-lang="fullName">
+Full Name
+</label>
+
+<input
+type="text"
+id="fullName"
+data-lang-placeholder="enterFullName"
+placeholder="Enter your full name"
+required>
+
+</div>
+
+<div class="input-box">
+
+<label data-lang="emailAddress">
+Email Address
+</label>
+
+<input
+type="email"
+id="email"
+data-lang-placeholder="enterEmail"
+placeholder="Enter your email"
+required>
+
+</div>
+
+<div class="input-box">
+
+<label data-lang="password">
+Password
+</label>
+
+<div class="password-box">
+
+<input
+type="password"
+id="password"
+data-lang-placeholder="createPassword"
+placeholder="Create a password"
+required>
+
+<button
+type="button"
+id="togglePassword"
+class="eye-btn">
+
+<i class="fa-solid fa-eye"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<div class="input-box">
+
+<label data-lang="confirmPassword">
+Confirm Password
+</label>
+
+<input
+type="password"
+id="confirmPassword"
+data-lang-placeholder="confirmPasswordPlaceholder"
+placeholder="Confirm your password"
+required>
+
+</div>
+
+  <button
+type="submit"
+class="login-btn"
+data-lang="createAccount">
+
+Create Account
+
+</button>
+
+<p class="signup-text">
+
+<span data-lang="alreadyHaveAccount">
+Already have an account?
+</span>
+
+<a
+href="login.html"
+data-lang="login">
+
+Login
+
+</a>
+
+</p>
+
+</form>
+
+</div>
+
+</section>
+
+<!-- SIGNUP SCRIPT -->
+
+<script type="module" src="signup.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+/* ===========================
+   WATCH HISTORY
+=========================== */
+
+.movies{
+
+    padding:15px;
+
+}
+
+.movies h2{
+
+    color:#5b3500;
+
+    margin-bottom:15px;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+/* ===========================
+   MOVIE GRID
+=========================== */
+
+.movie-row{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:12px;
+
+}
+
+/* ===========================
+   MOVIE CARD
+=========================== */
+
+.movie-card{
+
+    background:#fff;
+
+    border:2px solid #D4AF37;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    box-shadow:0 4px 12px rgba(212,175,55,.25);
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.movie-card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+/* ===========================
+   POSTER
+=========================== */
+
+.movie-card img{
+
+    width:100%;
+
+    aspect-ratio:2/3;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+/* ===========================
+   TITLE
+=========================== */
+
+.movie-card h3{
+
+    padding:8px;
+
+    font-size:14px;
+
+    color:#5b3500;
+
+    text-align:center;
+
+    height:40px;
+
+    overflow:hidden;
+
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.watchBtn,
+.removeBtn{
+
+    width:calc(100% - 12px);
+
+    margin:6px;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:8px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+.watchBtn{
+
+    background:#D4AF37;
+
+    color:#fff;
+
+}
+
+.removeBtn{
+
+    background:#c62828;
+
+    color:#fff;
+
+}
+
+/* ===========================
+   EMPTY MESSAGE
+=========================== */
+
+.empty{
+
+    grid-column:1/-1;
+
+    text-align:center;
+
+    padding:40px 20px;
+
+    color:#5b3500;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width:480px){
+
+.movie-row{
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:10px;
+
+}
+
+.movie-card h3{
+
+    font-size:12px;
+
+    height:34px;
+
+}
+
+.watchBtn,
+.removeBtn{
+
+    font-size:11px;
+
+    padding:7px;
+
+}
+
+}

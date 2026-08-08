@@ -1,0 +1,180 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+
+    background:linear-gradient(
+    180deg,
+    #FFF4C2,
+    #FFD54F,
+    #D4AF37
+    );
+
+    min-height:100vh;
+
+    color:#3E2723;
+
+}
+
+
+/* HEADER */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px;
+
+    background:rgba(255,255,255,.35);
+
+    backdrop-filter:blur(10px);
+
+    border-bottom:1px solid #D4AF37;
+
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.brand img{
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:12px;
+
+}
+
+.brand h2{
+
+    font-size:22px;
+
+    color:#5D4037;
+
+}
+
+.brand p{
+
+    font-size:13px;
+
+    color:#6D4C41;
+
+}
+
+.back-btn{
+
+    text-decoration:none;
+
+    color:#6D4C41;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+
+/* VERSION */
+
+.version-section{
+
+    padding:20px;
+
+}
+
+.version-section h2{
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+}
+
+.release-date{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    color:#5D4037;
+
+    font-weight:bold;
+
+}
+
+
+/* CARD */
+
+.version-card{
+
+    background:rgba(255,255,255,.40);
+
+    backdrop-filter:blur(10px);
+
+    border:1px solid #D4AF37;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    margin-bottom:18px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+.version-card h3{
+
+    margin-bottom:15px;
+
+    color:#5D4037;
+
+}
+
+.version-card ul{
+
+    padding-left:20px;
+
+}
+
+.version-card li{
+
+    margin-bottom:10px;
+
+    line-height:1.6;
+
+}
+
+.version-card p{
+
+    line-height:1.7;
+
+}
+
+.version-card h1{
+
+    text-align:center;
+
+    color:#B8860B;
+
+    font-size:42px;
+
+    margin-top:10px;
+
+}

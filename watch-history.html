@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Watch History | FILMY OTT</title>
+
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="watch-history.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+<div class="brand">
+
+<img src="logo-192.png" alt="FILMY OTT">
+
+<div>
+
+<h2>FILMY OTT</h2>
+
+<p>Premium Entertainment</p>
+
+</div>
+
+</div>
+
+<div class="profile" onclick="history.back()">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</div>
+
+</header>
+
+<!-- WATCH HISTORY -->
+
+<section class="movies">
+
+<h2>
+
+🕒 <span data-lang="watchHistory">Watch History</span>
+
+</h2>
+
+<div id="historyMovies" class="movie-row">
+
+<p data-lang="loading">
+
+Loading...
+
+</p>
+
+</div>
+
+</section>
+
+<!-- BOTTOM NAVIGATION -->
+
+<nav class="bottom-nav">
+
+<a href="home.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span data-lang="home">Home</span>
+
+</a>
+
+<a href="movies-list.html">
+
+<i class="fa-solid fa-film"></i>
+
+<span data-lang="movies">Movies</span>
+
+</a>
+
+<a href="search.html">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<span data-lang="search">Search</span>
+
+</a>
+
+<a href="my-list.html">
+
+<i class="fa-solid fa-heart"></i>
+
+<span data-lang="myList">My List</span>
+
+</a>
+
+<a href="settings.html">
+
+<i class="fa-solid fa-gear"></i>
+
+<span data-lang="settings">Settings</span>
+
+</a>
+
+</nav>
+
+<script>
+
+function openProfile(){
+
+window.location.href="profile.html";
+
+}
+
+</script>
+
+<script type="module" src="watch-history.js"></script>
+
+</body>
+
+</html>
