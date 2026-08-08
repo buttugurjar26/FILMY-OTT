@@ -39,19 +39,19 @@ const { data, error } = await supabase
 
 
 if(error){
-
-throw error;
-
+    console.log("SUPABASE ERROR:", error);
+    throw error;
 }
-
-
-
-allMovies = data || [];
 
 console.log("MOVIES FROM SUPABASE:", data);
 
-displayMovies(allMovies);
+if (!data || data.length === 0) {
+    console.log("NO MOVIES FOUND");
+}
 
+allMovies = data || [];
+
+displayMovies(allMovies);
 
 
 }
