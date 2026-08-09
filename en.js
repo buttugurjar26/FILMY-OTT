@@ -157,7 +157,6 @@ const en = {
     password: "Password",
     enterPassword: "Enter your password",
     keepSignedIn: "Keep me signed in",
-    forgotPassword: "Forgot Password?",
     dontHaveAccount: "Don't have an account?",
     createAccount: "Create Account",
     enterEmailPassword: "Please enter your email and password.",
