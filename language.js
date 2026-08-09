@@ -3,10 +3,12 @@
 // ===============================
 
 import en from "./languages/en.js";
+import hi from "./languages/hi.js";
 
 const languages = {
 
-    en: en
+    en: en,
+    hi: hi
 
 };
 
