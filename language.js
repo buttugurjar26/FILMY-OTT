@@ -8,7 +8,6 @@ import kn from "./kn.js";
 import ml from "./ml.js";
 import ta from "./ta.js";
 import te from "./te.js";
-console.log("LANGUAGE JS LOADED");
 
 const languages = {
 
@@ -21,12 +20,11 @@ const languages = {
 
 };
 
+
 // DEFAULT LANGUAGE
 
 let currentLanguage =
-localStorage.getItem("language") || "en";
-
-
+    localStorage.getItem("language") || "en";
 
 
 // CHANGE LANGUAGE
@@ -46,9 +44,6 @@ export function changeLanguage(lang){
 }
 
 
-
-
-
 // GET TEXT
 
 export function t(key){
@@ -58,50 +53,44 @@ export function t(key){
 }
 
 
-
-
-
 // APPLY LANGUAGE
 
 export function applyLanguage(){
 
     document.querySelectorAll("[data-lang]")
-    .forEach(element=>{
-
+    .forEach(element => {
 
         const key =
-        element.getAttribute("data-lang");
+            element.getAttribute("data-lang");
 
+        if(element.tagName === "INPUT"){
 
-        if (element.tagName === "INPUT") {
+            element.placeholder = t(key);
 
-    element.placeholder = t(key);
+        }
+        else if(element.tagName === "TEXTAREA"){
 
-} else if (element.tagName === "TEXTAREA") {
+            element.placeholder = t(key);
 
-    element.placeholder = t(key);
+        }
+        else{
 
-} else {
+            element.innerHTML = t(key);
 
-    element.innerHTML = t(key);
-
-}
-
+        }
 
     });
 
 }
 
 
-
-
-
 // AUTO LOAD
 
 document.addEventListener(
-"DOMContentLoaded",
-()=>{
+    "DOMContentLoaded",
+    () => {
 
-    applyLanguage();
+        applyLanguage();
 
-});
+    }
+);
