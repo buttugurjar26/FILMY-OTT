@@ -1,5 +1,5 @@
 import { supabase } from "./supabase.js";
-
+import { applyLanguage } from "./language.js";
 
 let allMovies = [];
 
@@ -401,14 +401,14 @@ document.addEventListener(
         // Load movies
         await loadMovies();
 
-
         // Load Admin Banner Manager banners
         await loadBanners();
-
 
         // Start auto slider
         autoSlider();
 
+        // Apply language
+        applyLanguage();
 
     }
 );
