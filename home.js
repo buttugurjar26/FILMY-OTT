@@ -20,7 +20,8 @@ async function loadMovies(){
         if(error) throw error;
 
         allMovies = data || [];
-
+        
+console.log("HOME MOVIES:", allMovies);
 
         // ===============================
         // COMING SOON
