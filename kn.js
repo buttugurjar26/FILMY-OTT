@@ -157,7 +157,6 @@ const kn = {
     password: "ಪಾಸ್‌ವರ್ಡ್",
     enterPassword: "ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ",
     keepSignedIn: "ನನ್ನನ್ನು ಲಾಗಿನ್‌ನಲ್ಲೇ ಇರಿಸಿ",
-    forgotPassword: "ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿರಾ?",
     dontHaveAccount: "ಖಾತೆ ಇಲ್ಲವೇ?",
     createAccount: "ಖಾತೆ ರಚಿಸಿ",
     enterEmailPassword: "ದಯವಿಟ್ಟು ಇಮೇಲ್ ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ.",
