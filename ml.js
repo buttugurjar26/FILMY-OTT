@@ -157,7 +157,6 @@ const ml = {
     password: "പാസ്‌വേഡ്",
     enterPassword: "നിങ്ങളുടെ പാസ്‌വേഡ് നൽകുക",
     keepSignedIn: "എന്നെ ലോഗിൻ ചെയ്ത നിലയിൽ നിലനിർത്തുക",
-    forgotPassword: "പാസ്‌വേഡ് മറന്നോ?",
     dontHaveAccount: "അക്കൗണ്ട് ഇല്ലേ?",
     createAccount: "അക്കൗണ്ട് സൃഷ്ടിക്കുക",
     enterEmailPassword: "ദയവായി ഇമെയിലും പാസ്‌വേഡും നൽകുക.",
