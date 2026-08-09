@@ -157,7 +157,6 @@ const te = {
     password: "పాస్‌వర్డ్",
     enterPassword: "మీ పాస్‌వర్డ్ నమోదు చేయండి",
     keepSignedIn: "నన్ను లాగిన్‌లో ఉంచండి",
-    forgotPassword: "పాస్‌వర్డ్ మర్చిపోయారా?",
     dontHaveAccount: "ఖాతా లేదా?",
     createAccount: "ఖాతా సృష్టించండి",
     enterEmailPassword: "దయచేసి ఇమెయిల్ మరియు పాస్‌వర్డ్ నమోదు చేయండి.",
