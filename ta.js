@@ -157,7 +157,6 @@ const ta = {
     password: "கடவுச்சொல்",
     enterPassword: "உங்கள் கடவுச்சொல்லை உள்ளிடவும்",
     keepSignedIn: "உள்நுழைந்தே இரு",
-    forgotPassword: "கடவுச்சொல் மறந்துவிட்டதா?",
     dontHaveAccount: "கணக்கு இல்லையா?",
     createAccount: "கணக்கை உருவாக்கவும்",
     enterEmailPassword: "மின்னஞ்சல் மற்றும் கடவுச்சொல்லை உள்ளிடவும்.",
