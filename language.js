@@ -2,12 +2,22 @@
 // FILMY OTT LANGUAGE SYSTEM
 // ===============================
 
-import en from "./languages/en.js";
+import en from "./en.js";
+import hi from "./hi.js";
+import kn from "./kn.js";
+import ml from "./ml.js";
+import ta from "./ta.js";
+import te from "./te.js";
 console.log("LANGUAGE JS LOADED");
 
 const languages = {
 
     en: en,
+    hi: hi,
+    kn: kn,
+    ml: ml,
+    ta: ta,
+    te: te
 
 };
 
