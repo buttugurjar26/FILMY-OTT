@@ -3,12 +3,11 @@
 // ===============================
 
 import en from "./languages/en.js";
-import hi from "./languages/hi.js";
+console.log("LANGUAGE JS LOADED");
 
 const languages = {
 
     en: en,
-    hi: hi
 
 };
 
