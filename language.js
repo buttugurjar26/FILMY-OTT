@@ -3,23 +3,12 @@
 // ===============================
 
 import en from "./languages/en.js";
-import hi from "./languages/hi.js";
-import kn from "./languages/kn.js";
-import ml from "./languages/ml.js";
-import ta from "./languages/ta.js";
-import te from "./languages/te.js";
 
 const languages = {
 
-    en: en,
-    hi: hi,
-    kn: kn,
-    ml: ml,
-    ta: ta,
-    te: te,
+    en: en
 
 };
-
 
 // DEFAULT LANGUAGE
 
