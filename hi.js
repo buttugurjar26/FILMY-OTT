@@ -157,7 +157,6 @@ const hi = {
     password: "पासवर्ड",
     enterPassword: "अपना पासवर्ड दर्ज करें",
     keepSignedIn: "मुझे लॉगिन रखें",
-    forgotPassword: "पासवर्ड भूल गए?",
     dontHaveAccount: "क्या आपका खाता नहीं है?",
     createAccount: "खाता बनाएँ",
     enterEmailPassword: "कृपया ईमेल और पासवर्ड दर्ज करें।",
