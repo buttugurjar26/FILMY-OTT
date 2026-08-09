@@ -1,5 +1,5 @@
 import { supabase } from "./supabase.js";
-import { applyLanguage } from "./language.js";
+
 
 let allMovies = [];
 
@@ -409,9 +409,6 @@ document.addEventListener(
         // Start auto slider
         autoSlider();
 
-
-        // Apply language
-        applyLanguage();
 
     }
 );
