@@ -43,6 +43,14 @@ const hi = {
     ratingCouldNotBeSaved: "रेटिंग सहेजी नहीं जा सकी।",
     thanksYouRated: "धन्यवाद! आपने रेटिंग दी",
     yourRating: "आपकी रेटिंग",
+    // Movie Request
+    movieRequest: "मूवी रिक्वेस्ट",
+    movieRequestDescription: "हमें बताएं कि आप कौन सी मूवी या वेब सीरीज देखना चाहते हैं।",
+    movieWebSeriesName: "मूवी / वेब सीरीज का नाम",
+    actorActress: "अभिनेता / अभिनेत्री",
+    optional: "(वैकल्पिक)",
+    message: "संदेश",
+    sendRequest: "रिक्वेस्ट भेजें",
 
     // Player
     back: "वापस",
