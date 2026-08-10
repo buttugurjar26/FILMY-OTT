@@ -10,79 +10,12 @@
 
 <link rel="stylesheet" href="home.css">
 <link rel="stylesheet" href="settings.css">
+<link rel="stylesheet" href="movie-request.css">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-<style>
-
-.request-page {
-    padding: 25px 16px 100px;
-}
-
-.request-header {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.request-header h2 {
-    margin-bottom: 8px;
-}
-
-.request-header p {
-    margin: 0;
-    opacity: 0.75;
-}
-
-.request-form {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.request-form label {
-    display: block !important;
-    width: 100%;
-    margin: 15px 0 7px;
-    font-weight: 600;
-}
-
-.request-form input,
-.request-form textarea {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100%;
-    padding: 13px;
-    border: 1px solid #d6b45c;
-    border-radius: 10px;
-    box-sizing: border-box;
-    font-size: 15px;
-    outline: none;
-}
-
-.request-form textarea {
-    min-height: 120px;
-    resize: vertical;
-}
-
-.request-button {
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    background: #d4af37;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.request-button:active {
-    transform: scale(0.98);
-}
-
-</style>
+<link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet"
+>
 
 </head>
 
@@ -92,19 +25,19 @@
 
 <header class="header">
 
-<div class="brand">
+    <div class="brand">
 
-<img src="logo-192.png" alt="FILMY OTT Logo">
+        <img src="logo-192.png" alt="FILMY OTT Logo">
 
-<div>
+        <div>
 
-<h2>FILMY OTT</h2>
+            <h2>FILMY OTT</h2>
 
-<p>Premium Entertainment</p>
+            <p>Premium Entertainment</p>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </header>
 
@@ -113,57 +46,113 @@
 
 <section class="request-page">
 
-<div class="request-header">
+    <div class="request-header">
 
-<h2>🎬 <span data-lang="movieRequest">Movie Request</span></h2>
+        <h2>
+            🎬
+            <span data-lang="movieRequest">
+                Movie Request
+            </span>
+        </h2>
 
-<p data-lang="movieRequestDescription">
-Tell us which movie or web series you want to watch.
-</p>
+        <p data-lang="movieRequestDescription">
+            Tell us which movie or web series you want to watch.
+        </p>
 
-<label for="movieName" data-lang="movieWebSeriesName">
-Movie / Web Series Name
-</label>
+    </div>
 
-<input
-type="text"
-id="movieName"
-data-lang-placeholder="movieNamePlaceholder"
-placeholder="Enter movie or web series name"
-required
->
 
-<label for="castName">
-<span data-lang="actorActress">Actor / Actress</span>
-<span style="opacity:0.6;" data-lang="optional">(Optional)</span>
-</label>
+    <!-- REQUEST FORM -->
 
-<input
-type="text"
-id="castName"
-data-lang-placeholder="castNamePlaceholder"
-placeholder="Enter actor or actress name"
->
+    <form class="request-form" id="movieRequestForm">
 
-<label for="requestMessage">
-<span data-lang="message">Message</span>
-<span style="opacity:0.6;" data-lang="optional">(Optional)</span>
-</label>
+        <!-- Movie Name -->
 
-<textarea
-id="requestMessage"
-data-lang-placeholder="messagePlaceholder"
-placeholder="Any additional information..."
-></textarea>
+        <label
+            for="movieName"
+            data-lang="movieWebSeriesName"
+        >
+            Movie / Web Series Name
+        </label>
 
-<button
-type="submit"
-class="request-button"
->
-🎬 <span data-lang="sendRequest">Send Request</span>
-</button>
+        <input
+            type="text"
+            id="movieName"
+            name="movieName"
+            data-lang-placeholder="movieNamePlaceholder"
+            placeholder="Enter movie or web series name"
+            required
+        >
 
-</form>
+
+        <!-- Actor / Actress -->
+
+        <label for="castName">
+
+            <span data-lang="actorActress">
+                Actor / Actress
+            </span>
+
+            <span
+                class="optional-text"
+                data-lang="optional"
+            >
+                (Optional)
+            </span>
+
+        </label>
+
+        <input
+            type="text"
+            id="castName"
+            name="castName"
+            data-lang-placeholder="castNamePlaceholder"
+            placeholder="Enter actor or actress name"
+        >
+
+
+        <!-- Message -->
+
+        <label for="requestMessage">
+
+            <span data-lang="message">
+                Message
+            </span>
+
+            <span
+                class="optional-text"
+                data-lang="optional"
+            >
+                (Optional)
+            </span>
+
+        </label>
+
+        <textarea
+            id="requestMessage"
+            name="requestMessage"
+            data-lang-placeholder="messagePlaceholder"
+            placeholder="Any additional information..."
+        ></textarea>
+
+
+        <!-- Submit -->
+
+        <button
+            type="submit"
+            class="request-button"
+            id="requestButton"
+        >
+
+            🎬
+
+            <span data-lang="sendRequest">
+                Send Request
+            </span>
+
+        </button>
+
+    </form>
 
 </section>
 
@@ -172,45 +161,59 @@ class="request-button"
 
 <nav class="bottom-nav">
 
-<a href="home.html">
+    <a href="home.html">
 
-<i class="fa-solid fa-house"></i>
+        <i class="fa-solid fa-house"></i>
 
-<span>Home</span>
+        <span data-lang="home">
+            Home
+        </span>
 
-</a>
+    </a>
 
-<a href="movies-list.html">
 
-<i class="fa-solid fa-film"></i>
+    <a href="movies-list.html">
 
-<span>Movies</span>
+        <i class="fa-solid fa-film"></i>
 
-</a>
+        <span data-lang="movies">
+            Movies
+        </span>
 
-<a href="search.html">
+    </a>
 
-<i class="fa-solid fa-magnifying-glass"></i>
 
-<span>Search</span>
+    <a href="search.html">
 
-</a>
+        <i class="fa-solid fa-magnifying-glass"></i>
 
-<a href="my-list.html">
+        <span data-lang="search">
+            Search
+        </span>
 
-<i class="fa-solid fa-heart"></i>
+    </a>
 
-<span>My List</span>
 
-</a>
+    <a href="my-list.html">
 
-<a href="settings.html">
+        <i class="fa-solid fa-heart"></i>
 
-<i class="fa-solid fa-gear"></i>
+        <span data-lang="myList">
+            My List
+        </span>
 
-<span>Settings</span>
+    </a>
 
-</a>
+
+    <a href="settings.html">
+
+        <i class="fa-solid fa-gear"></i>
+
+        <span data-lang="settings">
+            Settings
+        </span>
+
+    </a>
 
 </nav>
 
