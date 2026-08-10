@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Movie Requests | FILMY OTT Admin</title>
+
+<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="movie-requests-admin.css">
+
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+rel="stylesheet">
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="brand">
+
+        <img src="logo-192.png" alt="FILMY OTT Logo">
+
+        <div>
+
+            <h2>FILMY OTT</h2>
+
+            <p>Movie Requests</p>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="logout-btn"
+        onclick="adminLogout()"
+    >
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Logout
+
+    </button>
+
+</header>
+
+
+
+<!-- PAGE -->
+
+<main class="movie-requests-page">
+
+
+    <!-- TITLE -->
+
+    <div class="page-title">
+
+        <h1>
+
+            <i class="fa-solid fa-envelope-open-text"></i>
+
+            Movie Requests
+
+        </h1>
+
+        <p>
+            View and manage movie requests from users.
+        </p>
+
+    </div>
+
+
+
+    <!-- REQUEST LIST -->
+
+    <div
+        id="requestsContainer"
+        class="requests-container"
+    >
+
+        <div class="loading">
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            Loading requests...
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- JAVASCRIPT -->
+
+<script src="admin.js"></script>
+
+<script type="module" src="movie-requests-admin.js"></script>
+
+
+</body>
+
+</html>
