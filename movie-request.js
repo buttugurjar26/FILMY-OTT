@@ -6,6 +6,27 @@ form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
+    // ==============================
+    // LOGIN CHECK
+    // ==============================
+
+    const {
+        data: { user },
+        error: userError
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+
+        alert("❌ Please login to send a movie request.");
+
+        return;
+    }
+
+
+    // ==============================
+    // GET FORM DATA
+    // ==============================
+
     const movieName =
         document.getElementById("movieName").value.trim();
 
@@ -16,7 +37,10 @@ form.addEventListener("submit", async (e) => {
         document.getElementById("requestMessage").value.trim();
 
 
-    // Movie name required
+    // ==============================
+    // MOVIE NAME CHECK
+    // ==============================
+
     if (!movieName) {
 
         alert("Please enter a movie or web series name.");
@@ -25,19 +49,23 @@ form.addEventListener("submit", async (e) => {
     }
 
 
+    // ==============================
+    // BUTTON
+    // ==============================
+
     const button = form.querySelector("button");
 
-
-    // Disable button while sending
     button.disabled = true;
 
     button.textContent = "Sending...";
 
 
+    // ==============================
+    // SEND REQUEST
+    // ==============================
+
     const { error } = await supabase
-
         .from("movie_requests")
-
         .insert([
             {
                 movie_name: movieName,
@@ -48,14 +76,16 @@ form.addEventListener("submit", async (e) => {
         ]);
 
 
-    // Error
+    // ==============================
+    // ERROR
+    // ==============================
+
     if (error) {
 
         console.error(
             "Movie request error:",
             error
         );
-
 
         if (error.code === "42501") {
 
@@ -70,10 +100,6 @@ form.addEventListener("submit", async (e) => {
             );
         }
 
-
-        // IMPORTANT:
-        // Error par form reset nahi hoga
-
         button.disabled = false;
 
         button.textContent = "🎬 Send Request";
@@ -82,16 +108,15 @@ form.addEventListener("submit", async (e) => {
     }
 
 
+    // ==============================
     // SUCCESS
+    // ==============================
 
     alert(
         "✅ Movie request successfully sent!"
     );
 
-
-    // Sirf successful request ke baad clear hoga
     form.reset();
-
 
     button.disabled = false;
 
