@@ -44,6 +44,18 @@ const en = {
     thanksYouRated: "Thanks! You rated",
     yourRating: "Your Rating",
 
+    // Movie Request
+    movieRequest: "Movie Request",
+    movieRequestDescription: "Tell us which movie or web series you want to watch.",
+    movieWebSeriesName: "Movie / Web Series Name",
+    movieNamePlaceholder: "Enter movie or web series name",
+    actorActress: "Actor / Actress",
+    castNamePlaceholder: "Enter actor or actress name",
+    optional: "(Optional)",
+    message: "Message",
+    messagePlaceholder: "Any additional information...",
+    sendRequest: "Send Request",
+
     // Player
     back: "Back",
     videoNotSupported: "Your browser does not support the video tag.",
