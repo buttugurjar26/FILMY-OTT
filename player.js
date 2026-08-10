@@ -614,18 +614,11 @@ document.addEventListener(
 // ===============================
 
 const lockBtn =
-    document.getElementById(
-        "lockBtn"
-    );
+    document.getElementById("lockBtn");
 
 let videoLocked = false;
+let lockedTime = 0;
 
-let savedTime = 0;
-
-
-// ===============================
-// LOCK BUTTON
-// ===============================
 
 if (lockBtn) {
 
@@ -633,9 +626,12 @@ if (lockBtn) {
 
         event.stopPropagation();
 
-        videoLocked =
-            !videoLocked;
+        // Lock केवल fullscreen में
+        if (!document.fullscreenElement) {
+            return;
+        }
 
+        videoLocked = !videoLocked;
 
         const icon =
             lockBtn.querySelector("i");
@@ -643,44 +639,28 @@ if (lockBtn) {
 
         if (videoLocked) {
 
-            // Current position save
-            savedTime =
+            // Current video position save
+            lockedTime =
                 player.currentTime;
 
+            playerContainer.classList.add(
+                "video-locked"
+            );
 
             if (icon) {
-
                 icon.className =
                     "fa-solid fa-lock";
-
             }
-
-
-            if (playerContainer) {
-
-                playerContainer.classList.add(
-                    "video-locked"
-                );
-
-            }
-
 
         } else {
 
-            if (icon) {
+            playerContainer.classList.remove(
+                "video-locked"
+            );
 
+            if (icon) {
                 icon.className =
                     "fa-solid fa-lock-open";
-
-            }
-
-
-            if (playerContainer) {
-
-                playerContainer.classList.remove(
-                    "video-locked"
-                );
-
             }
 
         }
@@ -691,35 +671,74 @@ if (lockBtn) {
 
 
 // ===============================
-// PREVENT SEEK WHEN LOCKED
+// BLOCK SEEK WHEN LOCKED
+// ===============================
+
+player.addEventListener(
+    "seeking",
+    () => {
+
+        if (videoLocked) {
+
+            player.currentTime =
+                lockedTime;
+
+        }
+
+    }
+);
+
+
+// ===============================
+// SAVE POSITION
 // ===============================
 
 player.addEventListener(
     "timeupdate",
     () => {
 
-        if (videoLocked) {
+        if (!videoLocked) {
 
-            /*
-             * अगर किसी तरह video position
-             * बदलने की कोशिश हुई तो
-             * पुरानी position पर वापस रखें
-             */
+            lockedTime =
+                player.currentTime;
 
-            if (
-                Math.abs(
-                    player.currentTime -
-                    savedTime
-                ) > 1
-            ) {
+        }
 
-                player.currentTime =
-                    savedTime;
+    }
+);
 
-            } else {
 
-                savedTime =
-                    player.currentTime;
+// ===============================
+// RESET LOCK WHEN EXIT FULLSCREEN
+// ===============================
+
+document.addEventListener(
+    "fullscreenchange",
+    () => {
+
+        if (!document.fullscreenElement) {
+
+            videoLocked = false;
+
+            if (playerContainer) {
+
+                playerContainer.classList.remove(
+                    "video-locked"
+                );
+
+            }
+
+            if (lockBtn) {
+
+                const icon =
+                    lockBtn.querySelector("i");
+
+                if (icon) {
+
+                    icon.className =
+                        "fa-solid fa-lock-open";
+
+                }
 
             }
 
@@ -727,7 +746,6 @@ player.addEventListener(
 
     }
 );
-
 
 // ===============================
 // TIME FORMAT
