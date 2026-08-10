@@ -529,6 +529,16 @@ document.addEventListener(
 
         const isFullscreen =
             !!document.fullscreenElement;
+        
+        const lockBtn =
+    document.getElementById("lockBtn");
+
+if (lockBtn) {
+
+    lockBtn.style.display =
+        isFullscreen ? "flex" : "none";
+
+}
 
 
         if (isFullscreen) {
