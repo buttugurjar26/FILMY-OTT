@@ -110,53 +110,52 @@
 
 <div class="request-header">
 
-<h2>🎬 Movie Request</h2>
+<h2>🎬 <span data-lang="movieRequest">Movie Request</span></h2>
 
-<p>Tell us which movie or web series you want to watch.</p>
+<p data-lang="movieRequestDescription">
+Tell us which movie or web series you want to watch.
+</p>
 
-</div>
-
-
-<form class="request-form" id="movieRequestForm">
-
-<label for="movieName">
+<label for="movieName" data-lang="movieWebSeriesName">
 Movie / Web Series Name
 </label>
 
 <input
 type="text"
 id="movieName"
+data-lang-placeholder="movieNamePlaceholder"
 placeholder="Enter movie or web series name"
 required
 >
 
-
 <label for="castName">
-Actor / Actress <span style="opacity:0.6;">(Optional)</span>
+<span data-lang="actorActress">Actor / Actress</span>
+<span style="opacity:0.6;" data-lang="optional">(Optional)</span>
 </label>
 
 <input
 type="text"
 id="castName"
+data-lang-placeholder="castNamePlaceholder"
 placeholder="Enter actor or actress name"
 >
 
-
 <label for="requestMessage">
-Message <span style="opacity:0.6;">(Optional)</span>
+<span data-lang="message">Message</span>
+<span style="opacity:0.6;" data-lang="optional">(Optional)</span>
 </label>
 
 <textarea
 id="requestMessage"
+data-lang-placeholder="messagePlaceholder"
 placeholder="Any additional information..."
 ></textarea>
-
 
 <button
 type="submit"
 class="request-button"
 >
-🎬 Send Request
+🎬 <span data-lang="sendRequest">Send Request</span>
 </button>
 
 </form>
