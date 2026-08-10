@@ -44,6 +44,15 @@ const kn = {
     thanksYouRated: "ಧನ್ಯವಾದಗಳು! ನೀವು ರೇಟಿಂಗ್ ನೀಡಿದ್ದೀರಿ",
     yourRating: "ನಿಮ್ಮ ರೇಟಿಂಗ್",
 
+    // Movie Request
+    movieRequest: "ಮೂವಿ ವಿನಂತಿ",
+    movieRequestDescription: "ನೀವು ನೋಡಲು ಬಯಸುವ ಸಿನಿಮಾ ಅಥವಾ ವೆಬ್ ಸೀರೀಸ್ ಅನ್ನು ನಮಗೆ ತಿಳಿಸಿ.",
+    movieWebSeriesName: "ಸಿನಿಮಾ / ವೆಬ್ ಸೀರೀಸ್ ಹೆಸರು",
+    actorActress: "ನಟ / ನಟಿ",
+    optional: "(ಐಚ್ಛಿಕ)",
+    message: "ಸಂದೇಶ",
+    sendRequest: "ವಿನಂತಿ ಕಳುಹಿಸಿ",
+
     // Player
     back: "ಹಿಂದೆ",
     videoNotSupported: "ನಿಮ್ಮ ಬ್ರೌಸರ್ ವೀಡಿಯೊ ಟ್ಯಾಗ್ ಅನ್ನು ಬೆಂಬಲಿಸುವುದಿಲ್ಲ.",
