@@ -44,6 +44,15 @@ const ta = {
     thanksYouRated: "நன்றி! நீங்கள் மதிப்பிட்டீர்கள்",
     yourRating: "உங்கள் மதிப்பீடு",
 
+    // Movie Request
+    movieRequest: "திரைப்பட கோரிக்கை",
+    movieRequestDescription: "நீங்கள் பார்க்க விரும்பும் திரைப்படம் அல்லது வெப் சீரிஸை எங்களிடம் தெரிவிக்கவும்.",
+    movieWebSeriesName: "திரைப்படம் / வெப் சீரிஸ் பெயர்",
+    actorActress: "நடிகர் / நடிகை",
+    optional: "(விருப்பத்திற்குரியது)",
+    message: "செய்தி",
+    sendRequest: "கோரிக்கையை அனுப்பவும்",
+
     // Player
     back: "பின்",
     videoNotSupported: "உங்கள் உலாவி வீடியோவை ஆதரிக்கவில்லை.",
