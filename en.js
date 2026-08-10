@@ -48,12 +48,9 @@ const en = {
     movieRequest: "Movie Request",
     movieRequestDescription: "Tell us which movie or web series you want to watch.",
     movieWebSeriesName: "Movie / Web Series Name",
-    movieNamePlaceholder: "Enter movie or web series name",
     actorActress: "Actor / Actress",
-    castNamePlaceholder: "Enter actor or actress name",
     optional: "(Optional)",
     message: "Message",
-    messagePlaceholder: "Any additional information...",
     sendRequest: "Send Request",
 
     // Player
