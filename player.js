@@ -608,6 +608,127 @@ document.addEventListener(
     }
 );
 
+
+// ===============================
+// VIDEO LOCK
+// ===============================
+
+const lockBtn =
+    document.getElementById(
+        "lockBtn"
+    );
+
+let videoLocked = false;
+
+let savedTime = 0;
+
+
+// ===============================
+// LOCK BUTTON
+// ===============================
+
+if (lockBtn) {
+
+    lockBtn.onclick = (event) => {
+
+        event.stopPropagation();
+
+        videoLocked =
+            !videoLocked;
+
+
+        const icon =
+            lockBtn.querySelector("i");
+
+
+        if (videoLocked) {
+
+            // Current position save
+            savedTime =
+                player.currentTime;
+
+
+            if (icon) {
+
+                icon.className =
+                    "fa-solid fa-lock";
+
+            }
+
+
+            if (playerContainer) {
+
+                playerContainer.classList.add(
+                    "video-locked"
+                );
+
+            }
+
+
+        } else {
+
+            if (icon) {
+
+                icon.className =
+                    "fa-solid fa-lock-open";
+
+            }
+
+
+            if (playerContainer) {
+
+                playerContainer.classList.remove(
+                    "video-locked"
+                );
+
+            }
+
+        }
+
+    };
+
+}
+
+
+// ===============================
+// PREVENT SEEK WHEN LOCKED
+// ===============================
+
+player.addEventListener(
+    "timeupdate",
+    () => {
+
+        if (videoLocked) {
+
+            /*
+             * अगर किसी तरह video position
+             * बदलने की कोशिश हुई तो
+             * पुरानी position पर वापस रखें
+             */
+
+            if (
+                Math.abs(
+                    player.currentTime -
+                    savedTime
+                ) > 1
+            ) {
+
+                player.currentTime =
+                    savedTime;
+
+            } else {
+
+                savedTime =
+                    player.currentTime;
+
+            }
+
+        }
+
+    }
+);
+
+
 // ===============================
 // TIME FORMAT
 // ===============================
