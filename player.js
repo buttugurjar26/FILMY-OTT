@@ -448,9 +448,8 @@ if (forwardBtn) {
 
 }
 
-
 // ===============================
-// FULLSCREEN + LANDSCAPE + LOCK
+// FULLSCREEN
 // ===============================
 
 const fullscreenBtn =
@@ -463,18 +462,6 @@ const playerContainer =
         ".player-container"
     );
 
-const lockBtn =
-    document.getElementById(
-        "lockBtn"
-    );
-
-let videoLocked = false;
-let lockedTime = 0;
-
-
-// ===============================
-// FULLSCREEN BUTTON
-// ===============================
 
 if (fullscreenBtn && playerContainer) {
 
@@ -488,7 +475,7 @@ if (fullscreenBtn && playerContainer) {
 
                 await playerContainer.requestFullscreen();
 
-                // Landscape
+                // Landscape mode
                 if (
                     screen.orientation &&
                     screen.orientation.lock
@@ -500,11 +487,11 @@ if (fullscreenBtn && playerContainer) {
                             "landscape"
                         );
 
-                    } catch (error) {
+                    } catch (orientationError) {
 
                         console.log(
                             "Landscape lock not supported:",
-                            error
+                            orientationError
                         );
 
                     }
@@ -543,42 +530,9 @@ document.addEventListener(
             !!document.fullscreenElement;
 
 
-        // ===========================
-        // LOCK BUTTON
-        // ===========================
-
-        if (lockBtn) {
-
-            if (isFullscreen) {
-
-                lockBtn.classList.add(
-                    "lock-visible"
-                );
-
-                lockBtn.style.display =
-                    "flex";
-
-            } else {
-
-                lockBtn.classList.remove(
-                    "lock-visible"
-                );
-
-                lockBtn.style.display =
-                    "none";
-
-            }
-
-        }
-
-
-        // ===========================
-        // ENTER FULLSCREEN
-        // ===========================
-
         if (isFullscreen) {
 
-            // Landscape
+            // Landscape mode
             if (
                 screen.orientation &&
                 screen.orientation.lock
@@ -602,7 +556,7 @@ document.addEventListener(
             }
 
 
-            // Fullscreen icon
+            // Fullscreen icon → exit
             const icon =
                 fullscreenBtn?.querySelector("i");
 
@@ -613,16 +567,9 @@ document.addEventListener(
 
             }
 
-        }
+        } else {
 
-
-        // ===========================
-        // EXIT FULLSCREEN
-        // ===========================
-
-        else {
-
-            // Unlock orientation
+            // Back to portrait
             if (
                 screen.orientation &&
                 screen.orientation.unlock
@@ -644,7 +591,7 @@ document.addEventListener(
             }
 
 
-            // Reset fullscreen icon
+            // Exit fullscreen icon → expand
             const icon =
                 fullscreenBtn?.querySelector("i");
 
@@ -655,142 +602,11 @@ document.addEventListener(
 
             }
 
-
-            // Reset video lock
-            videoLocked = false;
-
-            if (playerContainer) {
-
-                playerContainer.classList.remove(
-                    "video-locked"
-                );
-
-            }
-
-
-            if (lockBtn) {
-
-                const icon =
-                    lockBtn.querySelector("i");
-
-                if (icon) {
-
-                    icon.className =
-                        "fa-solid fa-lock-open";
-
-                }
-
-            }
-
         }
 
     }
 );
 
-
-// ===============================
-// LOCK / UNLOCK BUTTON
-// ===============================
-
-if (lockBtn) {
-
-    lockBtn.onclick = (event) => {
-
-        event.stopPropagation();
-
-
-        // Lock only in fullscreen
-        if (!document.fullscreenElement) {
-
-            return;
-
-        }
-
-
-        videoLocked =
-            !videoLocked;
-
-
-        const icon =
-            lockBtn.querySelector("i");
-
-
-        if (videoLocked) {
-
-            // Save current position
-            lockedTime =
-                player.currentTime;
-
-
-            playerContainer.classList.add(
-                "video-locked"
-            );
-
-
-            if (icon) {
-
-                icon.className =
-                    "fa-solid fa-lock";
-
-            }
-
-        } else {
-
-            playerContainer.classList.remove(
-                "video-locked"
-            );
-
-
-            if (icon) {
-
-                icon.className =
-                    "fa-solid fa-lock-open";
-
-            }
-
-        }
-
-    };
-
-}
-
-
-// ===============================
-// BLOCK SEEK WHEN LOCKED
-// ===============================
-
-player.addEventListener(
-    "seeking",
-    () => {
-
-        if (videoLocked) {
-
-            player.currentTime =
-                lockedTime;
-
-        }
-
-    }
-);
-
-
-// ===============================
-// SAVE POSITION
-// ===============================
-
-player.addEventListener(
-    "timeupdate",
-    () => {
-
-        if (!videoLocked) {
-
-            lockedTime =
-                player.currentTime;
-
-        }
-
-    }
-);
 
 // ===============================
 // TIME FORMAT
