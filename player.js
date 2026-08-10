@@ -450,7 +450,7 @@ if (forwardBtn) {
 
 
 // ===============================
-// FULLSCREEN
+// FULLSCREEN + LANDSCAPE + LOCK
 // ===============================
 
 const fullscreenBtn =
@@ -463,6 +463,18 @@ const playerContainer =
         ".player-container"
     );
 
+const lockBtn =
+    document.getElementById(
+        "lockBtn"
+    );
+
+let videoLocked = false;
+let lockedTime = 0;
+
+
+// ===============================
+// FULLSCREEN BUTTON
+// ===============================
 
 if (fullscreenBtn && playerContainer) {
 
@@ -476,7 +488,7 @@ if (fullscreenBtn && playerContainer) {
 
                 await playerContainer.requestFullscreen();
 
-                // Landscape mode
+                // Landscape
                 if (
                     screen.orientation &&
                     screen.orientation.lock
@@ -488,11 +500,11 @@ if (fullscreenBtn && playerContainer) {
                             "landscape"
                         );
 
-                    } catch (orientationError) {
+                    } catch (error) {
 
                         console.log(
                             "Landscape lock not supported:",
-                            orientationError
+                            error
                         );
 
                     }
@@ -529,21 +541,44 @@ document.addEventListener(
 
         const isFullscreen =
             !!document.fullscreenElement;
-        
-        const lockBtn =
-    document.getElementById("lockBtn");
 
-if (lockBtn) {
 
-    lockBtn.style.display =
-        isFullscreen ? "flex" : "none";
+        // ===========================
+        // LOCK BUTTON
+        // ===========================
 
-}
+        if (lockBtn) {
 
+            if (isFullscreen) {
+
+                lockBtn.classList.add(
+                    "lock-visible"
+                );
+
+                lockBtn.style.display =
+                    "flex";
+
+            } else {
+
+                lockBtn.classList.remove(
+                    "lock-visible"
+                );
+
+                lockBtn.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        // ===========================
+        // ENTER FULLSCREEN
+        // ===========================
 
         if (isFullscreen) {
 
-            // Landscape mode
+            // Landscape
             if (
                 screen.orientation &&
                 screen.orientation.lock
@@ -567,7 +602,7 @@ if (lockBtn) {
             }
 
 
-            // Fullscreen icon → exit
+            // Fullscreen icon
             const icon =
                 fullscreenBtn?.querySelector("i");
 
@@ -578,9 +613,16 @@ if (lockBtn) {
 
             }
 
-        } else {
+        }
 
-            // Back to portrait
+
+        // ===========================
+        // EXIT FULLSCREEN
+        // ===========================
+
+        else {
+
+            // Unlock orientation
             if (
                 screen.orientation &&
                 screen.orientation.unlock
@@ -602,7 +644,7 @@ if (lockBtn) {
             }
 
 
-            // Exit fullscreen icon → expand
+            // Reset fullscreen icon
             const icon =
                 fullscreenBtn?.querySelector("i");
 
@@ -613,6 +655,33 @@ if (lockBtn) {
 
             }
 
+
+            // Reset video lock
+            videoLocked = false;
+
+            if (playerContainer) {
+
+                playerContainer.classList.remove(
+                    "video-locked"
+                );
+
+            }
+
+
+            if (lockBtn) {
+
+                const icon =
+                    lockBtn.querySelector("i");
+
+                if (icon) {
+
+                    icon.className =
+                        "fa-solid fa-lock-open";
+
+                }
+
+            }
+
         }
 
     }
@@ -620,15 +689,8 @@ if (lockBtn) {
 
 
 // ===============================
-// VIDEO LOCK
+// LOCK / UNLOCK BUTTON
 // ===============================
-
-const lockBtn =
-    document.getElementById("lockBtn");
-
-let videoLocked = false;
-let lockedTime = 0;
-
 
 if (lockBtn) {
 
@@ -636,12 +698,18 @@ if (lockBtn) {
 
         event.stopPropagation();
 
-        // Lock केवल fullscreen में
+
+        // Lock only in fullscreen
         if (!document.fullscreenElement) {
+
             return;
+
         }
 
-        videoLocked = !videoLocked;
+
+        videoLocked =
+            !videoLocked;
+
 
         const icon =
             lockBtn.querySelector("i");
@@ -649,17 +717,21 @@ if (lockBtn) {
 
         if (videoLocked) {
 
-            // Current video position save
+            // Save current position
             lockedTime =
                 player.currentTime;
+
 
             playerContainer.classList.add(
                 "video-locked"
             );
 
+
             if (icon) {
+
                 icon.className =
                     "fa-solid fa-lock";
+
             }
 
         } else {
@@ -668,9 +740,12 @@ if (lockBtn) {
                 "video-locked"
             );
 
+
             if (icon) {
+
                 icon.className =
                     "fa-solid fa-lock-open";
+
             }
 
         }
@@ -711,46 +786,6 @@ player.addEventListener(
 
             lockedTime =
                 player.currentTime;
-
-        }
-
-    }
-);
-
-
-// ===============================
-// RESET LOCK WHEN EXIT FULLSCREEN
-// ===============================
-
-document.addEventListener(
-    "fullscreenchange",
-    () => {
-
-        if (!document.fullscreenElement) {
-
-            videoLocked = false;
-
-            if (playerContainer) {
-
-                playerContainer.classList.remove(
-                    "video-locked"
-                );
-
-            }
-
-            if (lockBtn) {
-
-                const icon =
-                    lockBtn.querySelector("i");
-
-                if (icon) {
-
-                    icon.className =
-                        "fa-solid fa-lock-open";
-
-                }
-
-            }
 
         }
 
