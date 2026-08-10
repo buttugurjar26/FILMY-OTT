@@ -892,85 +892,52 @@ body:has(.player-container:fullscreen) .player-section {
 
 
 /* ===========================
-   VIDEO LOCK BUTTON
+   LOCK BUTTON
 =========================== */
 
 #lockBtn {
 
-    width:42px;
+    display: none;
 
-    height:42px;
+    width: 42px;
+    height: 42px;
 
-    border:none;
+    border: none;
+    border-radius: 50%;
 
-    border-radius:50%;
+    background: #D4AF37;
+    color: #fff;
 
-    background:#D4AF37;
+    font-size: 18px;
+    cursor: pointer;
 
-    color:#fff;
-
-    font-size:18px;
-
-    cursor:pointer;
-
-    display:none;
-
-}
-
-
-#lockBtn:hover {
-
-    background:#B8860B;
-
-    transform:scale(1.08);
-
-}
-
-
-/* Fullscreen में Lock button दिखे */
-
-.player-container:fullscreen #lockBtn {
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
+    align-items: center;
+    justify-content: center;
 
 }
 
 
 /* Locked state */
 
-.player-container.video-locked
-#lockBtn {
+.player-container.video-locked #lockBtn {
 
-    background:#B8860B;
+    display: flex;
 
-}
-
-
-/* Locked होने पर seek bar disable जैसा दिखाई दे */
-
-.player-container.video-locked
-#progressBar {
-
-    opacity:.45;
-
-    pointer-events:none;
+    background: #B8860B;
 
 }
 
 
-/* Locked होने पर forward/backward disable */
+/* Locked होने पर बाकी custom controls बंद */
 
-.player-container.video-locked
-#backwardBtn,
-.player-container.video-locked
-#forwardBtn {
+.player-container.video-locked #playPauseBtn,
+.player-container.video-locked #backwardBtn,
+.player-container.video-locked #forwardBtn,
+.player-container.video-locked #fullscreenBtn,
+.player-container.video-locked #progressBar {
 
-    opacity:.4;
+    opacity: .4;
 
-    pointer-events:none;
+    pointer-events: none;
 
 }
