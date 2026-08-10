@@ -44,6 +44,15 @@ const te = {
     thanksYouRated: "ధన్యవాదాలు! మీరు రేట్ చేశారు",
     yourRating: "మీ రేటింగ్",
 
+    // Movie Request
+    movieRequest: "మూవీ రిక్వెస్ట్",
+    movieRequestDescription: "మీరు చూడాలనుకుంటున్న సినిమా లేదా వెబ్ సిరీస్‌ను మాకు తెలియజేయండి.",
+    movieWebSeriesName: "సినిమా / వెబ్ సిరీస్ పేరు",
+    actorActress: "నటుడు / నటి",
+    optional: "(ఐచ్ఛికం)",
+    message: "సందేశం",
+    sendRequest: "రిక్వెస్ట్ పంపండి",
+
     // Player
     back: "వెనుకకు",
     videoNotSupported: "మీ బ్రౌజర్ వీడియో ట్యాగ్‌ను మద్దతు ఇవ్వదు.",
