@@ -1,23 +1,23 @@
 /* =========================================
    MOVIE REQUESTS ADMIN
+   FILMY OTT — GOLDEN CARD DESIGN
 ========================================= */
 
 .movie-requests-page {
 
     width: 100%;
-
     max-width: 1100px;
-
     margin: 0 auto;
 
     padding: 30px 20px 50px;
 
     box-sizing: border-box;
-
 }
 
 
-/* TITLE */
+/* =========================================
+   TITLE
+========================================= */
 
 .page-title {
 
@@ -48,16 +48,252 @@
 }
 
 
-/* CONTAINER */
+/* =========================================
+   REQUEST CONTAINER
+========================================= */
 
 .requests-container {
 
     width: 100%;
 
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
 }
 
 
-/* LOADING */
+/* =========================================
+   EACH MOVIE REQUEST CARD
+========================================= */
+
+.request-card {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+
+    border: 1px solid rgba(212, 175, 55, 0.25);
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================
+   CARD TOP
+========================================= */
+
+.request-card-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 14px;
+
+}
+
+
+/* MOVIE NAME */
+
+.request-card h3 {
+
+    margin: 0;
+
+    font-size: 21px;
+
+    line-height: 1.35;
+
+    color: #3b2508;
+
+    word-break: break-word;
+
+}
+
+
+/* PENDING STATUS */
+
+.request-status {
+
+    flex-shrink: 0;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    background: #fff4c2;
+
+    color: #8a6500;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================
+   REQUEST DETAILS
+========================================= */
+
+.request-details {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.request-details p {
+
+    margin: 0;
+
+    color: #4b4b4b;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    word-break: break-word;
+
+    overflow-wrap: anywhere;
+
+}
+
+
+.request-details i {
+
+    width: 20px;
+
+    margin-right: 5px;
+
+    color: #c79a18;
+
+}
+
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.request-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding-top: 16px;
+
+    border-top: 1px solid #eeeeee;
+
+    flex-wrap: wrap;
+
+}
+
+
+.request-actions button {
+
+    min-height: 40px;
+
+    padding: 9px 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    box-sizing: border-box;
+
+    transition: transform 0.15s ease,
+                box-shadow 0.15s ease;
+
+}
+
+
+.request-actions button:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+
+}
+
+
+/* APPROVE */
+
+.request-actions .approve-btn {
+
+    background: #e8f7ed;
+
+    color: #187a38;
+
+}
+
+
+/* REJECT */
+
+.request-actions .reject-btn {
+
+    background: #fff0f0;
+
+    color: #c62828;
+
+}
+
+
+/* DELETE */
+
+.request-actions .delete-btn {
+
+    background: #eeeeee;
+
+    color: #555555;
+
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
 
 .loading {
 
@@ -74,5 +310,142 @@
 .loading i {
 
     margin-right: 8px;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .movie-requests-page {
+
+        padding: 20px 12px 40px;
+
+    }
+
+
+    .page-title {
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .page-title h1 {
+
+        font-size: 23px;
+
+    }
+
+
+    .page-title p {
+
+        font-size: 14px;
+
+        line-height: 1.5;
+
+    }
+
+
+    .requests-container {
+
+        gap: 18px;
+
+    }
+
+
+    .request-card {
+
+        padding: 17px;
+
+        border-radius: 16px;
+
+    }
+
+
+    .request-card-header {
+
+        gap: 10px;
+
+    }
+
+
+    .request-card h3 {
+
+        font-size: 18px;
+
+    }
+
+
+    .request-status {
+
+        font-size: 12px;
+
+        padding: 5px 9px;
+
+    }
+
+
+    .request-details p {
+
+        font-size: 14px;
+
+    }
+
+
+    .request-actions {
+
+        justify-content: stretch;
+
+        gap: 8px;
+
+    }
+
+
+    .request-actions button {
+
+        flex: 1 1 auto;
+
+        min-width: 0;
+
+        padding: 9px 8px;
+
+        font-size: 13px;
+
+    }
+
+}
+
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+
+    .request-card-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .request-actions {
+
+        flex-direction: column;
+
+    }
+
+
+    .request-actions button {
+
+        width: 100%;
+
+    }
 
 }
