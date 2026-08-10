@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlLang">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Movie Request | FILMY OTT</title>
+
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="settings.css">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+
+.request-page {
+    padding: 25px 16px 100px;
+}
+
+.request-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.request-header h2 {
+    margin-bottom: 8px;
+}
+
+.request-header p {
+    margin: 0;
+    opacity: 0.75;
+}
+
+.request-form {
+    max-width: 600px;
+    margin: auto;
+}
+
+.request-form label {
+    display: block;
+    margin: 15px 0 7px;
+    font-weight: 600;
+}
+
+.request-form input,
+.request-form textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d6b45c;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 15px;
+    outline: none;
+}
+
+.request-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.request-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #d4af37;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.request-button:active {
+    transform: scale(0.98);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="header">
+
+<div class="brand">
+
+<img src="logo-192.png" alt="FILMY OTT Logo">
+
+<div>
+
+<h2>FILMY OTT</h2>
+
+<p>Premium Entertainment</p>
+
+</div>
+
+</div>
+
+</header>
+
+
+<!-- MOVIE REQUEST -->
+
+<section class="request-page">
+
+<div class="request-header">
+
+<h2>🎬 Movie Request</h2>
+
+<p>Tell us which movie or web series you want to watch.</p>
+
+</div>
+
+
+<form class="request-form" id="movieRequestForm">
+
+<label for="movieName">
+Movie / Web Series Name
+</label>
+
+<input
+type="text"
+id="movieName"
+placeholder="Enter movie or web series name"
+required
+>
+
+
+<label for="castName">
+Actor / Actress <span style="opacity:0.6;">(Optional)</span>
+</label>
+
+<input
+type="text"
+id="castName"
+placeholder="Enter actor or actress name"
+>
+
+
+<label for="requestMessage">
+Message <span style="opacity:0.6;">(Optional)</span>
+</label>
+
+<textarea
+id="requestMessage"
+placeholder="Any additional information..."
+></textarea>
+
+
+<button
+type="submit"
+class="request-button"
+>
+🎬 Send Request
+</button>
+
+</form>
+
+</section>
+
+
+<!-- BOTTOM NAVIGATION -->
+
+<nav class="bottom-nav">
+
+<a href="home.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</a>
+
+<a href="movies-list.html">
+
+<i class="fa-solid fa-film"></i>
+
+<span>Movies</span>
+
+</a>
+
+<a href="search.html">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<span>Search</span>
+
+</a>
+
+<a href="my-list.html">
+
+<i class="fa-solid fa-heart"></i>
+
+<span>My List</span>
+
+</a>
+
+<a href="settings.html">
+
+<i class="fa-solid fa-gear"></i>
+
+<span>Settings</span>
+
+</a>
+
+</nav>
+
+
+<script type="module" src="movie-request.js"></script>
+
+</body>
+
+</html>
