@@ -458,22 +458,46 @@ const fullscreenBtn =
         "fullscreenBtn"
     );
 
-if (fullscreenBtn) {
+const playerContainer =
+    document.querySelector(
+        ".player-container"
+    );
+
+
+if (fullscreenBtn && playerContainer) {
 
     fullscreenBtn.onclick = async (event) => {
 
         event.stopPropagation();
 
-        const container =
-            document.querySelector(
-                ".player-container"
-            );
-
         try {
 
             if (!document.fullscreenElement) {
 
-                await container.requestFullscreen();
+                await playerContainer.requestFullscreen();
+
+                // Landscape mode
+                if (
+                    screen.orientation &&
+                    screen.orientation.lock
+                ) {
+
+                    try {
+
+                        await screen.orientation.lock(
+                            "landscape"
+                        );
+
+                    } catch (orientationError) {
+
+                        console.log(
+                            "Landscape lock not supported:",
+                            orientationError
+                        );
+
+                    }
+
+                }
 
             } else {
 
@@ -494,6 +518,95 @@ if (fullscreenBtn) {
 
 }
 
+
+// ===============================
+// FULLSCREEN CHANGE
+// ===============================
+
+document.addEventListener(
+    "fullscreenchange",
+    async () => {
+
+        const isFullscreen =
+            !!document.fullscreenElement;
+
+
+        if (isFullscreen) {
+
+            // Landscape mode
+            if (
+                screen.orientation &&
+                screen.orientation.lock
+            ) {
+
+                try {
+
+                    await screen.orientation.lock(
+                        "landscape"
+                    );
+
+                } catch (error) {
+
+                    console.log(
+                        "Orientation lock unavailable:",
+                        error
+                    );
+
+                }
+
+            }
+
+
+            // Fullscreen icon → exit
+            const icon =
+                fullscreenBtn?.querySelector("i");
+
+            if (icon) {
+
+                icon.className =
+                    "fa-solid fa-compress";
+
+            }
+
+        } else {
+
+            // Back to portrait
+            if (
+                screen.orientation &&
+                screen.orientation.unlock
+            ) {
+
+                try {
+
+                    screen.orientation.unlock();
+
+                } catch (error) {
+
+                    console.log(
+                        "Orientation unlock unavailable:",
+                        error
+                    );
+
+                }
+
+            }
+
+
+            // Exit fullscreen icon → expand
+            const icon =
+                fullscreenBtn?.querySelector("i");
+
+            if (icon) {
+
+                icon.className =
+                    "fa-solid fa-expand";
+
+            }
+
+        }
+
+    }
+);
 
 // ===============================
 // TIME FORMAT
