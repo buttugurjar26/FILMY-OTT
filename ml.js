@@ -44,6 +44,15 @@ const ml = {
     thanksYouRated: "നന്ദി! നിങ്ങൾ റേറ്റിംഗ് നൽകി",
     yourRating: "നിങ്ങളുടെ റേറ്റിംഗ്",
 
+    // Movie Request
+    movieRequest: "മൂവി അഭ്യർത്ഥന",
+    movieRequestDescription: "നിങ്ങൾ കാണാൻ ആഗ്രഹിക്കുന്ന സിനിമ അല്ലെങ്കിൽ വെബ് സീരീസ് ഞങ്ങളെ അറിയിക്കുക.",
+    movieWebSeriesName: "സിനിമ / വെബ് സീരീസ് പേര്",
+    actorActress: "നടൻ / നടി",
+    optional: "(ഓപ്ഷണൽ)",
+    message: "സന്ദേശം",
+    sendRequest: "അഭ്യർത്ഥന അയയ്ക്കുക",
+    
     // Player
     back: "തിരികെ",
     videoNotSupported: "നിങ്ങളുടെ ബ്രൗസർ വീഡിയോ ടാഗ് പിന്തുണയ്ക്കുന്നില്ല.",
