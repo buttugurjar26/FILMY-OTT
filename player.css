@@ -791,3 +791,101 @@
     }
 
 }
+
+
+/* ===========================
+   FULLSCREEN VIDEO MODE
+=========================== */
+
+.player-container:fullscreen {
+
+    width: 100vw;
+    height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    border-radius: 0;
+
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+/* Fullscreen में video पूरी available screen लेगा */
+
+.player-container:fullscreen #videoPlayer {
+
+    width: 100vw;
+    height: 100vh;
+
+    object-fit: contain;
+
+    background: #000;
+
+}
+
+
+/* Fullscreen overlay भी पूरी screen */
+
+.player-container:fullscreen .video-overlay {
+
+    width: 100vw;
+    height: 100vh;
+
+}
+
+
+/* Fullscreen में बाकी page hide */
+
+body:has(.player-container:fullscreen) .header,
+body:has(.player-container:fullscreen) .movie-details,
+body:has(.player-container:fullscreen) .related-section,
+body:has(.player-container:fullscreen) .bottom-nav {
+
+    display: none !important;
+
+}
+
+
+/* Fullscreen में player section की extra spacing हटे */
+
+body:has(.player-container:fullscreen) .player-section {
+
+    padding: 0;
+
+    margin: 0;
+
+}
+
+
+/* Firefox */
+
+.player-container:-moz-full-screen {
+
+    width: 100vw;
+    height: 100vh;
+
+    border-radius: 0;
+
+    background: #000;
+
+}
+
+
+/* पुराने browser/WebView support */
+
+.player-container:-webkit-full-screen {
+
+    width: 100vw;
+    height: 100vh;
+
+    border-radius: 0;
+
+    background: #000;
+
+}
