@@ -889,3 +889,152 @@ body:has(.player-container:fullscreen) .player-section {
     background: #000;
 
 }
+
+/* ===============================
+   CUSTOM FULLSCREEN FALLBACK
+=============================== */
+
+.player-container.custom-fullscreen {
+
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-radius: 0 !important;
+
+    background: #000 !important;
+
+    z-index: 999999 !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+}
+
+
+/* ===============================
+   FULLSCREEN VIDEO
+=============================== */
+
+.player-container.custom-fullscreen #videoPlayer {
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    object-fit: contain !important;
+
+    background: #000 !important;
+
+}
+
+
+/* ===============================
+   FULLSCREEN OVERLAY
+=============================== */
+
+.player-container.custom-fullscreen .video-overlay {
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    z-index: 1000000 !important;
+
+}
+
+
+/* ===============================
+   HIDE OTHER PAGE CONTENT
+=============================== */
+
+body:has(
+    .player-container.custom-fullscreen
+) .header,
+
+body:has(
+    .player-container.custom-fullscreen
+) .movie-details,
+
+body:has(
+    .player-container.custom-fullscreen
+) .related-section,
+
+body:has(
+    .player-container.custom-fullscreen
+) .bottom-nav {
+
+    display: none !important;
+
+}
+
+
+/* ===============================
+   PLAYER SECTION
+=============================== */
+
+body:has(
+    .player-container.custom-fullscreen
+) .player-section {
+
+    position: static !important;
+
+    width: 100% !important;
+
+    height: 100% !important;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+}
+
+
+/* ===============================
+   FULLSCREEN BUTTON
+=============================== */
+
+.player-container.custom-fullscreen
+#fullscreenBtn {
+
+    z-index: 1000001 !important;
+
+}
+
+
+/* ===============================
+   MOBILE LANDSCAPE
+=============================== */
+
+@media screen and (orientation: landscape) {
+
+    .player-container.custom-fullscreen {
+
+        width: 100vw !important;
+        height: 100vh !important;
+
+    }
+
+    .player-container.custom-fullscreen #videoPlayer {
+
+        width: 100vw !important;
+        height: 100vh !important;
+
+    }
+
+}
