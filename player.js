@@ -448,19 +448,16 @@ if (forwardBtn) {
 
 }
 
+
 // ===============================
 // FULLSCREEN
 // ===============================
 
 const fullscreenBtn =
-    document.getElementById(
-        "fullscreenBtn"
-    );
+    document.getElementById("fullscreenBtn");
 
 const playerContainer =
-    document.querySelector(
-        ".player-container"
-    );
+    document.querySelector(".player-container");
 
 
 if (fullscreenBtn && playerContainer) {
@@ -471,11 +468,28 @@ if (fullscreenBtn && playerContainer) {
 
         try {
 
+            // ===============================
+            // ENTER FULLSCREEN
+            // ===============================
+
             if (!document.fullscreenElement) {
 
-                await playerContainer.requestFullscreen();
+                if (playerContainer.requestFullscreen) {
 
-                // Landscape mode
+                    await playerContainer.requestFullscreen();
+
+                } else if (playerContainer.webkitRequestFullscreen) {
+
+                    playerContainer.webkitRequestFullscreen();
+
+                } else if (player.webkitEnterFullscreen) {
+
+                    player.webkitEnterFullscreen();
+
+                }
+
+
+                // Landscape
                 if (
                     screen.orientation &&
                     screen.orientation.lock
@@ -487,20 +501,33 @@ if (fullscreenBtn && playerContainer) {
                             "landscape"
                         );
 
-                    } catch (orientationError) {
+                    } catch (error) {
 
                         console.log(
-                            "Landscape lock not supported:",
-                            orientationError
+                            "Landscape lock unavailable"
                         );
 
                     }
 
                 }
 
-            } else {
+            }
 
-                await document.exitFullscreen();
+            // ===============================
+            // EXIT FULLSCREEN
+            // ===============================
+
+            else {
+
+                if (document.exitFullscreen) {
+
+                    await document.exitFullscreen();
+
+                } else if (document.webkitExitFullscreen) {
+
+                    document.webkitExitFullscreen();
+
+                }
 
             }
 
@@ -522,17 +549,63 @@ if (fullscreenBtn && playerContainer) {
 // FULLSCREEN CHANGE
 // ===============================
 
+function updateFullscreenIcon() {
+
+    const icon =
+        fullscreenBtn?.querySelector("i");
+
+    if (!icon) return;
+
+
+    const isFullscreen =
+        !!document.fullscreenElement ||
+        !!document.webkitFullscreenElement;
+
+
+    if (isFullscreen) {
+
+        icon.className =
+            "fa-solid fa-compress";
+
+    } else {
+
+        icon.className =
+            "fa-solid fa-expand";
+
+    }
+
+}
+
+
+// Standard Fullscreen
+document.addEventListener(
+    "fullscreenchange",
+    updateFullscreenIcon
+);
+
+
+// WebKit Fullscreen
+document.addEventListener(
+    "webkitfullscreenchange",
+    updateFullscreenIcon
+);
+
+
+// ===============================
+// ORIENTATION
+// ===============================
+
 document.addEventListener(
     "fullscreenchange",
     async () => {
 
         const isFullscreen =
-            !!document.fullscreenElement;
+            !!document.fullscreenElement ||
+            !!document.webkitFullscreenElement;
 
 
         if (isFullscreen) {
 
-            // Landscape mode
             if (
                 screen.orientation &&
                 screen.orientation.lock
@@ -547,29 +620,15 @@ document.addEventListener(
                 } catch (error) {
 
                     console.log(
-                        "Orientation lock unavailable:",
-                        error
+                        "Landscape lock unavailable"
                     );
 
                 }
 
             }
 
-
-            // Fullscreen icon → exit
-            const icon =
-                fullscreenBtn?.querySelector("i");
-
-            if (icon) {
-
-                icon.className =
-                    "fa-solid fa-compress";
-
-            }
-
         } else {
 
-            // Back to portrait
             if (
                 screen.orientation &&
                 screen.orientation.unlock
@@ -582,23 +641,10 @@ document.addEventListener(
                 } catch (error) {
 
                     console.log(
-                        "Orientation unlock unavailable:",
-                        error
+                        "Orientation unlock unavailable"
                     );
 
                 }
-
-            }
-
-
-            // Exit fullscreen icon → expand
-            const icon =
-                fullscreenBtn?.querySelector("i");
-
-            if (icon) {
-
-                icon.className =
-                    "fa-solid fa-expand";
 
             }
 
@@ -606,7 +652,6 @@ document.addEventListener(
 
     }
 );
-
 
 // ===============================
 // TIME FORMAT
