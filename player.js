@@ -459,110 +459,235 @@ const fullscreenBtn =
 const playerContainer =
     document.querySelector(".player-container");
 
+function isFullscreenActive() {
 
-if (fullscreenBtn && playerContainer) {
+    return !!(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement
+    );
 
-    fullscreenBtn.onclick = async (event) => {
+}
 
-        event.stopPropagation();
+async function enterFullscreen() {
 
-        try {
+    try {
 
-            // ===============================
-            // ENTER FULLSCREEN
-            // ===============================
+        // ===============================
+        // NATIVE FULLSCREEN
+        // ===============================
 
-            if (!document.fullscreenElement) {
+        if (playerContainer.requestFullscreen) {
 
-                if (playerContainer.requestFullscreen) {
+            await playerContainer.requestFullscreen();
 
-                    await playerContainer.requestFullscreen();
+        }
 
-                } else if (playerContainer.webkitRequestFullscreen) {
+        else if (playerContainer.webkitRequestFullscreen) {
 
-                    playerContainer.webkitRequestFullscreen();
+            playerContainer.webkitRequestFullscreen();
 
-                } else if (player.webkitEnterFullscreen) {
+        }
 
-                    player.webkitEnterFullscreen();
+        else if (playerContainer.msRequestFullscreen) {
 
-                }
+            playerContainer.msRequestFullscreen();
 
+        }
 
-                // Landscape
-                if (
-                    screen.orientation &&
-                    screen.orientation.lock
-                ) {
+        // ===============================
+        // VIDEO FULLSCREEN
+        // ===============================
 
-                    try {
+        else if (player.webkitEnterFullscreen) {
 
-                        await screen.orientation.lock(
-                            "landscape"
-                        );
+            player.webkitEnterFullscreen();
 
-                    } catch (error) {
+        }
 
-                        console.log(
-                            "Landscape lock unavailable"
-                        );
+        // ===============================
+        // CSS FALLBACK
+        // ===============================
 
-                    }
+        else {
 
-                }
-
-            }
-
-            // ===============================
-            // EXIT FULLSCREEN
-            // ===============================
-
-            else {
-
-                if (document.exitFullscreen) {
-
-                    await document.exitFullscreen();
-
-                } else if (document.webkitExitFullscreen) {
-
-                    document.webkitExitFullscreen();
-
-                }
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Fullscreen Error:",
-                error
+            playerContainer.classList.add(
+                "custom-fullscreen"
             );
 
         }
 
-    };
+        // ===============================
+        // LANDSCAPE
+        // ===============================
+
+        if (
+            screen.orientation &&
+            screen.orientation.lock
+        ) {
+
+            try {
+
+                await screen.orientation.lock(
+                    "landscape"
+                );
+
+            } catch (error) {
+
+                console.log(
+                    "Landscape lock unavailable"
+                );
+
+            }
+
+        }
+
+        updateFullscreenIcon();
+
+    }
+
+    catch (error) {
+
+        console.log(
+            "Native fullscreen unavailable, using fallback"
+        );
+
+        // CSS fullscreen fallback
+
+        playerContainer.classList.add(
+            "custom-fullscreen"
+        );
+
+        updateFullscreenIcon();
+
+    }
+
+}
+
+
+async function exitFullscreen() {
+
+    try {
+
+        if (document.exitFullscreen) {
+
+            await document.exitFullscreen();
+
+        }
+
+        else if (
+            document.webkitExitFullscreen
+        ) {
+
+            document.webkitExitFullscreen();
+
+        }
+
+        else if (
+            document.msExitFullscreen
+        ) {
+
+            document.msExitFullscreen();
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.log(
+            "Exit fullscreen error:",
+            error
+        );
+
+    }
+
+    // Remove CSS fallback
+
+    playerContainer.classList.remove(
+        "custom-fullscreen"
+    );
+
+    // Unlock orientation
+
+    if (
+        screen.orientation &&
+        screen.orientation.unlock
+    ) {
+
+        try {
+
+            screen.orientation.unlock();
+
+        } catch (error) {
+
+            console.log(
+                "Orientation unlock unavailable"
+            );
+
+        }
+
+    }
+
+    updateFullscreenIcon();
 
 }
 
 
 // ===============================
-// FULLSCREEN CHANGE
+// FULLSCREEN BUTTON
+// ===============================
+
+if (fullscreenBtn && playerContainer) {
+
+    fullscreenBtn.addEventListener(
+        "click",
+        async (event) => {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (
+                isFullscreenActive() ||
+                playerContainer.classList.contains(
+                    "custom-fullscreen"
+                )
+            ) {
+
+                await exitFullscreen();
+
+            } else {
+
+                await enterFullscreen();
+
+            }
+
+        }
+    );
+
+}
+
+
+// ===============================
+// UPDATE FULLSCREEN ICON
 // ===============================
 
 function updateFullscreenIcon() {
 
+    if (!fullscreenBtn) return;
+
     const icon =
-        fullscreenBtn?.querySelector("i");
+        fullscreenBtn.querySelector("i");
 
     if (!icon) return;
 
+    const active =
+        isFullscreenActive() ||
+        playerContainer.classList.contains(
+            "custom-fullscreen"
+        );
 
-    const isFullscreen =
-        !!document.fullscreenElement ||
-        !!document.webkitFullscreenElement;
-
-
-    if (isFullscreen) {
+    if (active) {
 
         icon.className =
             "fa-solid fa-compress";
@@ -577,14 +702,15 @@ function updateFullscreenIcon() {
 }
 
 
-// Standard Fullscreen
+// ===============================
+// FULLSCREEN CHANGE
+// ===============================
+
 document.addEventListener(
     "fullscreenchange",
     updateFullscreenIcon
 );
 
-
-// WebKit Fullscreen
 document.addEventListener(
     "webkitfullscreenchange",
     updateFullscreenIcon
@@ -592,66 +718,26 @@ document.addEventListener(
 
 
 // ===============================
-// ORIENTATION
+// ESC / BACK / FULLSCREEN EXIT
 // ===============================
 
 document.addEventListener(
     "fullscreenchange",
-    async () => {
+    () => {
 
-        const isFullscreen =
-            !!document.fullscreenElement ||
-            !!document.webkitFullscreenElement;
+        if (!isFullscreenActive()) {
 
-
-        if (isFullscreen) {
-
-            if (
-                screen.orientation &&
-                screen.orientation.lock
-            ) {
-
-                try {
-
-                    await screen.orientation.lock(
-                        "landscape"
-                    );
-
-                } catch (error) {
-
-                    console.log(
-                        "Landscape lock unavailable"
-                    );
-
-                }
-
-            }
-
-        } else {
-
-            if (
-                screen.orientation &&
-                screen.orientation.unlock
-            ) {
-
-                try {
-
-                    screen.orientation.unlock();
-
-                } catch (error) {
-
-                    console.log(
-                        "Orientation unlock unavailable"
-                    );
-
-                }
-
-            }
+            playerContainer?.classList.remove(
+                "custom-fullscreen"
+            );
 
         }
 
+        updateFullscreenIcon();
+
     }
 );
+
 
 // ===============================
 // TIME FORMAT
