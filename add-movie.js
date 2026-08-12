@@ -14,8 +14,13 @@ async function uploadFile(file) {
     formData.append("file", file);
     formData.append("upload_preset", UPLOAD_PRESET);
 
+    const resourceType =
+        file.type.startsWith("video/")
+            ? "video"
+            : "image";
+
     const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`,
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`,
         {
             method: "POST",
             body: formData
@@ -24,12 +29,18 @@ async function uploadFile(file) {
 
     const data = await response.json();
 
-    if (!data.secure_url) {
-        throw new Error("Cloudinary Upload Failed");
+    if (!response.ok || !data.secure_url) {
+
+        console.error("Cloudinary Error:", data);
+
+        throw new Error(
+            data.error?.message ||
+            "Cloudinary Upload Failed"
+        );
+
     }
 
     return data.secure_url;
-
 }
 
 // ===============================
