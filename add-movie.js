@@ -2,135 +2,54 @@ import { supabase } from "./supabase.js";
 
 
 // =====================================================
-// CLOUDINARY
+// CONFIG
 // =====================================================
 
 const CLOUD_NAME = "peni6puh";
+
 const UPLOAD_PRESET = "filmy-ott";
 
-
-// =====================================================
-// SUPABASE EDGE FUNCTION
-// =====================================================
-
-const EDGE_FUNCTION = "cloudinary-sign";
+const SIGN_URL =
+    "https://ochfxvxxrvunlxuwdcop.supabase.co/functions/v1/cloudinary-sign";
 
 
 // =====================================================
-// VIDEO CHUNK SIZE
-// 20 MB
+// CLOUDINARY SIGNATURE
 // =====================================================
 
-const CHUNK_SIZE = 20 * 1024 * 1024;
-
-
-// =====================================================
-// STATUS
-// =====================================================
-
-function setStatus(message) {
-
-    const status =
-        document.getElementById("uploadStatus");
-
-    if (!status) return;
-
-    status.style.display = "block";
-    status.innerHTML = message;
-}
-
-
-// =====================================================
-// GET CLOUDINARY SIGNATURE
-// =====================================================
-
-async function getSignature() {
+async function getCloudinarySignature() {
 
     const timestamp =
         Math.floor(Date.now() / 1000);
 
-    const { data, error } =
-        await supabase.functions.invoke(
-            EDGE_FUNCTION,
-            {
-                body: {
-                    timestamp: timestamp
-                }
-            }
-        );
+    const response = await fetch(SIGN_URL, {
 
-    if (error) {
+        method: "POST",
 
-        console.error(
-            "Edge Function Error:",
-            error
-        );
+        headers: {
+            "Content-Type": "application/json"
+        },
 
-        throw new Error(
-            "Cloudinary signature नहीं मिली."
-        );
-    }
+        body: JSON.stringify({
 
-    if (
-        !data ||
-        !data.signature
-    ) {
+            timestamp: timestamp,
 
-        console.error(
-            "Invalid Edge Function Response:",
-            data
-        );
+            upload_preset: UPLOAD_PRESET
+
+        })
+
+    });
+
+
+    if (!response.ok) {
+
+        const text = await response.text();
 
         throw new Error(
-            "Invalid Cloudinary signature."
+            "Signature request failed: " + text
         );
+
     }
-
-    return {
-
-        signature:
-            data.signature,
-
-        timestamp:
-            data.timestamp || timestamp
-
-    };
-}
-
-
-// =====================================================
-// UPLOAD POSTER
-// =====================================================
-
-async function uploadPoster(file) {
-
-    const formData =
-        new FormData();
-
-    formData.append(
-        "file",
-        file
-    );
-
-    formData.append(
-        "upload_preset",
-        UPLOAD_PRESET
-    );
-
-
-    setStatus(
-        "📤 Uploading Poster..."
-    );
-
-
-    const response =
-        await fetch(
-            `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-            {
-                method: "POST",
-                body: formData
-            }
-        );
 
 
     const data =
@@ -138,257 +57,398 @@ async function uploadPoster(file) {
 
 
     if (
-        !response.ok ||
-        !data.secure_url
+        !data.signature ||
+        !data.timestamp
     ) {
 
-        console.error(
-            "Poster Error:",
-            data
+        throw new Error(
+            "Cloudinary signature not received."
         );
 
-        throw new Error(
-            data.error?.message ||
-            "Poster upload failed."
-        );
     }
 
 
-    return data.secure_url;
+    return {
+
+        signature: data.signature,
+
+        timestamp: data.timestamp,
+
+        upload_preset:
+            data.upload_preset ||
+            UPLOAD_PRESET
+
+    };
+
 }
 
 
 // =====================================================
-// UPLOAD VIDEO
-// LARGE FILE / CHUNKED
+// CLOUDINARY CHUNK UPLOAD
 // =====================================================
 
-async function uploadVideo(file) {
+function uploadToCloudinary(file) {
 
-    setStatus(
-        "🔐 Preparing secure Movie Upload..."
-    );
+    return new Promise(async (resolve, reject) => {
 
+        try {
 
-    // -------------------------------------------------
-    // SIGNATURE
-    // -------------------------------------------------
+            // -------------------------------------------------
+            // CHUNK SIZE
+            // 20 MB
+            // -------------------------------------------------
 
-    const {
-        signature,
-        timestamp
-    } = await getSignature();
+            const CHUNK_SIZE =
+                20 * 1024 * 1024;
 
 
-    // -------------------------------------------------
-    // API KEY
-    //
-    // यह SECRET नहीं है.
-    // यहाँ अपना Cloudinary API KEY डालें.
-    // -------------------------------------------------
-
-    const CLOUDINARY_API_KEY =
-        "351391556181673";
+            const totalSize =
+                file.size;
 
 
-    if (
-    CLOUDINARY_API_KEY ===
-    "YOUR_CLOUDINARY_API_KEY"
-) {
-
-        throw new Error(
-            "add-movie.js में Cloudinary API Key डालें."
-        );
-    }
+            const totalChunks =
+                Math.ceil(
+                    totalSize / CHUNK_SIZE
+                );
 
 
-    // -------------------------------------------------
-    // UNIQUE UPLOAD ID
-    // -------------------------------------------------
+            // -------------------------------------------------
+            // GET SIGNATURE
+            // -------------------------------------------------
 
-    const uploadId =
-        "filmyott-" +
-        Date.now() +
-        "-" +
-        Math.random()
-            .toString(36)
-            .substring(2);
+            const signed =
+                await getCloudinarySignature();
 
 
-    let start = 0;
+            // -------------------------------------------------
+            // UNIQUE UPLOAD ID
+            // -------------------------------------------------
 
-    let finalData = null;
-
-
-    const totalChunks =
-        Math.ceil(
-            file.size / CHUNK_SIZE
-        );
-
-
-    let chunkNumber = 0;
-
-
-    // -------------------------------------------------
-    // CHUNK LOOP
-    // -------------------------------------------------
-
-    while (
-        start < file.size
-    ) {
-
-        chunkNumber++;
+            const uploadId =
+                "filmyott-" +
+                Date.now() +
+                "-" +
+                Math.random()
+                    .toString(36)
+                    .substring(2);
 
 
-        const end =
-            Math.min(
-                start + CHUNK_SIZE,
-                file.size
-            );
+            let start = 0;
+
+            let chunkNumber = 0;
+
+            let finalResult = null;
 
 
-        const chunk =
-            file.slice(
-                start,
-                end
-            );
+            // -------------------------------------------------
+            // UPLOAD CHUNKS
+            // -------------------------------------------------
+
+            while (start < totalSize) {
+
+                const end =
+                    Math.min(
+                        start + CHUNK_SIZE,
+                        totalSize
+                    );
 
 
-        const progress =
-            Math.round(
-                (end / file.size) * 100
-            );
+                const chunk =
+                    file.slice(
+                        start,
+                        end
+                    );
 
 
-        setStatus(
-            `🎬 Uploading Movie... ${progress}%<br>` +
-            `📦 Part ${chunkNumber} / ${totalChunks}`
-        );
+                chunkNumber++;
 
 
-        // -------------------------------------------------
-        // FORM DATA
-        // -------------------------------------------------
-
-        const formData =
-            new FormData();
+                const formData =
+                    new FormData();
 
 
-        formData.append(
-            "file",
-            chunk,
-            file.name
-        );
+                formData.append(
+                    "file",
+                    chunk,
+                    file.name
+                );
 
 
-        formData.append(
-            "api_key",
-            CLOUDINARY_API_KEY
-        );
+                formData.append(
+                    "api_key",
+                    ""
+                );
 
 
-        formData.append(
-            "timestamp",
-            String(timestamp)
-        );
+                formData.append(
+                    "timestamp",
+                    signed.timestamp
+                );
 
 
-        formData.append(
-            "upload_preset",
-            UPLOAD_PRESET
-        );
+                formData.append(
+                    "upload_preset",
+                    signed.upload_preset
+                );
 
 
-        formData.append(
-            "signature",
-            signature
-        );
+                formData.append(
+                    "signature",
+                    signed.signature
+                );
 
 
-        // -------------------------------------------------
-        // CLOUDINARY VIDEO UPLOAD
-        // -------------------------------------------------
-
-        const response =
-            await fetch(
-                `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`,
-                {
-                    method: "POST",
-
-                    headers: {
-
-                        "X-Unique-Upload-Id":
-                            uploadId,
-
-                        "Content-Range":
-                            `bytes ${start}-${end - 1}/${file.size}`
-
-                    },
-
-                    body:
-                        formData
-                }
-            );
+                const xhr =
+                    new XMLHttpRequest();
 
 
-        const data =
-            await response.json();
+                const uploadUrl =
+                    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`;
 
 
-        if (!response.ok) {
+                xhr.open(
+                    "POST",
+                    uploadUrl,
+                    true
+                );
 
-            console.error(
-                "Cloudinary Video Error:",
-                data
-            );
 
-            throw new Error(
-                data.error?.message ||
-                `Video upload failed at ${progress}%`
-            );
+                // -------------------------------------------------
+                // CHUNK HEADERS
+                // -------------------------------------------------
+
+                xhr.setRequestHeader(
+                    "X-Unique-Upload-Id",
+                    uploadId
+                );
+
+
+                xhr.setRequestHeader(
+                    "Content-Range",
+                    `bytes ${start}-${end - 1}/${totalSize}`
+                );
+
+
+                // -------------------------------------------------
+                // PROGRESS
+                // -------------------------------------------------
+
+                xhr.upload.onprogress =
+                    function (event) {
+
+                        if (!event.lengthComputable) {
+                            return;
+                        }
+
+
+                        const chunkProgress =
+                            event.loaded /
+                            event.total;
+
+
+                        const completedBytes =
+                            start;
+
+
+                        const currentBytes =
+                            completedBytes +
+                            event.loaded;
+
+
+                        const percent =
+                            Math.min(
+                                100,
+                                Math.round(
+                                    (
+                                        currentBytes /
+                                        totalSize
+                                    ) * 100
+                                )
+                            );
+
+
+                        const status =
+                            document.getElementById(
+                                "uploadStatus"
+                            );
+
+
+                        if (status) {
+
+                            status.style.display =
+                                "block";
+
+
+                            status.innerHTML =
+                                `🎬 Uploading Movie... ${percent}%`;
+                        }
+
+                    };
+
+
+                // -------------------------------------------------
+                // RESPONSE
+                // -------------------------------------------------
+
+                xhr.onload =
+                    async function () {
+
+                        if (
+                            xhr.status < 200 ||
+                            xhr.status >= 300
+                        ) {
+
+                            reject(
+                                new Error(
+                                    "Cloudinary upload failed: " +
+                                    xhr.responseText
+                                )
+                            );
+
+                            return;
+                        }
+
+
+                        let data;
+
+
+                        try {
+
+                            data =
+                                JSON.parse(
+                                    xhr.responseText
+                                );
+
+                        } catch (error) {
+
+                            reject(
+                                new Error(
+                                    "Invalid Cloudinary response."
+                                )
+                            );
+
+                            return;
+                        }
+
+
+                        finalResult =
+                            data;
+
+
+                        start = end;
+
+
+                        // -------------------------------------------------
+                        // NEXT CHUNK
+                        // -------------------------------------------------
+
+                        if (start < totalSize) {
+
+                            uploadNextChunk();
+
+                        } else {
+
+                            // -------------------------------------------------
+                            // COMPLETE
+                            // -------------------------------------------------
+
+                            if (
+                                finalResult &&
+                                finalResult.secure_url
+                            ) {
+
+                                resolve(
+                                    finalResult.secure_url
+                                );
+
+                            } else {
+
+                                reject(
+                                    new Error(
+                                        "Cloudinary did not return secure_url."
+                                    )
+                                );
+
+                            }
+
+                        }
+
+                    };
+
+
+                xhr.onerror =
+                    function () {
+
+                        reject(
+                            new Error(
+                                "Network error while uploading to Cloudinary."
+                            )
+                        );
+
+                    };
+
+
+                xhr.onabort =
+                    function () {
+
+                        reject(
+                            new Error(
+                                "Upload cancelled."
+                            )
+                        );
+
+                    };
+
+
+                xhr.send(formData);
+
+
+                // -------------------------------------------------
+                // WAIT FOR CURRENT CHUNK
+                // -------------------------------------------------
+
+                await new Promise(
+                    function (next) {
+
+                        const oldStart =
+                            start;
+
+
+                        const check =
+                            setInterval(
+                                function () {
+
+                                    if (
+                                        start !==
+                                        oldStart
+                                    ) {
+
+                                        clearInterval(
+                                            check
+                                        );
+
+                                        next();
+
+                                    }
+
+                                },
+                                100
+                            );
+
+                    }
+                );
+
+            }
+
+
+        } catch (error) {
+
+            reject(error);
+
         }
 
+    });
 
-        // -------------------------------------------------
-        // FINAL CHUNK
-        // -------------------------------------------------
-
-        if (
-            data.secure_url
-        ) {
-
-            finalData =
-                data;
-
-        }
-
-
-        start =
-            end;
-    }
-
-
-    // -------------------------------------------------
-    // CHECK FINAL RESULT
-    // -------------------------------------------------
-
-    if (
-        !finalData ||
-        !finalData.secure_url
-    ) {
-
-        throw new Error(
-            "Cloudinary ने final video URL नहीं दिया."
-        );
-    }
-
-
-    setStatus(
-        "✅ Movie uploaded to Cloudinary."
-    );
-
-
-    return finalData.secure_url;
 }
 
 
@@ -396,266 +456,317 @@ async function uploadVideo(file) {
 // SAVE MOVIE
 // =====================================================
 
-window.saveMovie =
-    async function () {
+window.saveMovie = async function () {
 
-        const title =
-            document
-                .getElementById("movieName")
-                .value
-                .trim();
+    const status =
+        document.getElementById(
+            "uploadStatus"
+        );
 
 
-        const description =
-            document
-                .getElementById("movieDescription")
-                .value
-                .trim();
+    const title =
+        document
+            .getElementById("movieName")
+            .value
+            .trim();
 
 
-        const posterFile =
-            document
-                .getElementById("moviePoster")
-                .files[0];
+    const description =
+        document
+            .getElementById("movieDescription")
+            .value
+            .trim();
 
 
-        const videoFile =
-            document
-                .getElementById("movieVideo")
-                .files[0];
+    const posterFile =
+        document
+            .getElementById("moviePoster")
+            .files[0];
 
 
-        const category =
-            document
-                .getElementById("movieCategory")
-                .value;
+    const videoFile =
+        document
+            .getElementById("movieVideo")
+            .files[0];
 
 
-        const year =
-            document
-                .getElementById("movieYear")
-                .value;
+    const category =
+        document
+            .getElementById("movieCategory")
+            .value;
 
 
-        // =================================================
-        // VALIDATION
-        // =================================================
+    const year =
+        document
+            .getElementById("movieYear")
+            .value;
 
-        if (
-            title === "" ||
-            description === "" ||
-            category === "" ||
-            year === "" ||
-            !posterFile ||
-            !videoFile
-        ) {
 
-            setStatus(
-                "❌ Please fill all required fields."
+    // =================================================
+    // VALIDATION
+    // =================================================
+
+    if (
+
+        title === "" ||
+
+        description === "" ||
+
+        category === "" ||
+
+        year === "" ||
+
+        !posterFile ||
+
+        !videoFile
+
+    ) {
+
+        status.style.display =
+            "block";
+
+
+        status.innerHTML =
+            "❌ Please fill all required fields.";
+
+
+        return;
+
+    }
+
+
+    // =================================================
+    // DISABLE BUTTON
+    // =================================================
+
+    const saveButton =
+        document.querySelector(
+            '[onclick="saveMovie()"]'
+        );
+
+
+    if (saveButton) {
+
+        saveButton.disabled =
+            true;
+
+        saveButton.style.opacity =
+            "0.6";
+
+    }
+
+
+    try {
+
+        // =============================================
+        // POSTER
+        // =============================================
+
+        status.style.display =
+            "block";
+
+
+        status.innerHTML =
+            "🖼️ Uploading Poster...";
+
+
+        const posterUrl =
+            await uploadToCloudinary(
+                posterFile
             );
 
-            return;
+
+        // =============================================
+        // MOVIE
+        // =============================================
+
+        status.innerHTML =
+            "🎬 Uploading Movie... 0%";
+
+
+        const videoUrl =
+            await uploadToCloudinary(
+                videoFile
+            );
+
+
+        // =============================================
+        // SAVE TO SUPABASE
+        // =============================================
+
+        status.innerHTML =
+            "☁️ Saving Movie...";
+
+
+        const {
+            data,
+            error
+        } = await supabase
+
+            .from("movies")
+
+            .insert([
+
+                {
+
+                    title: title,
+
+                    category: category,
+
+                    movieyear:
+                        Number(year),
+
+                    description:
+                        description,
+
+                    poster_url:
+                        posterUrl,
+
+                    video_url:
+                        videoUrl
+
+                }
+
+            ])
+
+            .select()
+
+            .single();
+
+
+        if (error) {
+
+            throw error;
+
         }
 
 
-        // =================================================
-        // SAVE BUTTON
-        // =================================================
+        // =============================================
+        // NOTIFICATION
+        // =============================================
 
-        const saveButton =
-            document.querySelector(
-                '[onclick="saveMovie()"]'
+        const {
+            error: notificationError
+        } = await supabase
+
+            .from("notifications")
+
+            .insert([
+
+                {
+
+                    title:
+                        "🎬 New Movie Added",
+
+                    message:
+                        `"${title}" is now available to watch.`,
+
+                    movie_id:
+                        data.id,
+
+                    poster_url:
+                        posterUrl
+
+                }
+
+            ]);
+
+
+        if (notificationError) {
+
+            console.log(
+                "Notification Error:",
+                notificationError
             );
 
+        }
+
+
+        // =============================================
+        // SUCCESS
+        // =============================================
+
+        status.innerHTML =
+            "✅ Movie Uploaded Successfully.";
+
+
+        // =============================================
+        // CLEAR FORM
+        // =============================================
+
+        document
+            .getElementById("movieName")
+            .value = "";
+
+
+        document
+            .getElementById(
+                "movieDescription"
+            )
+            .value = "";
+
+
+        document
+            .getElementById(
+                "moviePoster"
+            )
+            .value = "";
+
+
+        document
+            .getElementById(
+                "movieVideo"
+            )
+            .value = "";
+
+
+        document
+            .getElementById(
+                "movieCategory"
+            )
+            .selectedIndex = 0;
+
+
+        document
+            .getElementById(
+                "movieYear"
+            )
+            .value = "";
+
+
+    } catch (error) {
+
+        console.error(
+            "UPLOAD ERROR:",
+            error
+        );
+
+
+        status.style.display =
+            "block";
+
+
+        status.innerHTML =
+            "❌ Upload Failed : " +
+            error.message;
+
+
+    } finally {
+
+        // =============================================
+        // ENABLE BUTTON AGAIN
+        // =============================================
 
         if (saveButton) {
 
             saveButton.disabled =
-                true;
+                false;
+
+            saveButton.style.opacity =
+                "1";
+
         }
 
+    }
 
-        try {
-
-            // =================================================
-            // POSTER
-            // =================================================
-
-            const posterUrl =
-                await uploadPoster(
-                    posterFile
-                );
-
-
-            // =================================================
-            // VIDEO
-            // =================================================
-
-            const videoUrl =
-                await uploadVideo(
-                    videoFile
-                );
-
-
-            // =================================================
-            // SUPABASE
-            // =================================================
-
-            setStatus(
-                "☁️ Saving Movie..."
-            );
-
-
-            const {
-                data,
-                error
-            } =
-                await supabase
-                    .from("movies")
-                    .insert([
-                        {
-
-                            title:
-                                title,
-
-                            category:
-                                category,
-
-                            movieyear:
-                                Number(year),
-
-                            description:
-                                description,
-
-                            poster_url:
-                                posterUrl,
-
-                            video_url:
-                                videoUrl
-
-                        }
-                    ])
-                    .select()
-                    .single();
-
-
-            if (error) {
-
-                console.error(
-                    "Supabase Error:",
-                    error
-                );
-
-                throw error;
-            }
-
-
-            // =================================================
-            // NOTIFICATION
-            // =================================================
-
-            const {
-                error:
-                    notificationError
-            } =
-                await supabase
-                    .from("notifications")
-                    .insert([
-                        {
-
-                            title:
-                                "🎬 New Movie Added",
-
-                            message:
-                                `"${title}" is now available to watch.`,
-
-                            movie_id:
-                                data.id,
-
-                            poster_url:
-                                posterUrl
-
-                        }
-                    ]);
-
-
-            if (
-                notificationError
-            ) {
-
-                console.log(
-                    "Notification Error:",
-                    notificationError
-                );
-            }
-
-
-            // =================================================
-            // SUCCESS
-            // =================================================
-
-            setStatus(
-                "✅ Movie Uploaded Successfully."
-            );
-
-
-            // =================================================
-            // CLEAR FORM
-            // =================================================
-
-            document.getElementById(
-                "movieName"
-            ).value = "";
-
-
-            document.getElementById(
-                "movieDescription"
-            ).value = "";
-
-
-            document.getElementById(
-                "moviePoster"
-            ).value = "";
-
-
-            document.getElementById(
-                "movieVideo"
-            ).value = "";
-
-
-            document.getElementById(
-                "movieCategory"
-            ).selectedIndex = 0;
-
-
-            document.getElementById(
-                "movieYear"
-            ).value = "";
-
-
-        } catch (error) {
-
-            console.error(
-                "Upload Error:",
-                error
-            );
-
-
-            setStatus(
-                "❌ Upload Failed : " +
-                (
-                    error.message ||
-                    "Unknown error"
-                )
-            );
-
-
-        } finally {
-
-            if (saveButton) {
-
-                saveButton.disabled =
-                    false;
-            }
-        }
-    };
+};
