@@ -56,10 +56,10 @@ async function getCloudinarySignature() {
 
                     "Authorization":
                         "Bearer " +
-                        "351391556181673";
+                        SUPABASE_PUBLISHABLE_KEY,
 
                     "apikey":
-                        "sb_publishable_3VILNZNCEMCUBO2h45YOKg_adfNG9Ld";
+                        SUPABASE_PUBLISHABLE_KEY
 
                 },
 
