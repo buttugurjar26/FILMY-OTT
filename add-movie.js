@@ -28,8 +28,8 @@ async function getCloudinarySignature() {
 
     headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer YOUR_SUPABASE_ANON_KEY",
-        "apikey": "YOUR_SUPABASE_ANON_KEY"
+        "Authorization": "Bearer sb_publishable_3VILNZNCEMCUBO2h45YOKg_adfNG9Ld",
+        "apikey": "sb_publishable_3VILNZNCEMCUBO2h45YOKg_adfNG9Ld"
     },
 
     body: JSON.stringify({
