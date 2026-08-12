@@ -19,30 +19,54 @@ async function uploadFile(file) {
             ? "video"
             : "image";
 
-    const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`,
-        {
-            method: "POST",
-            body: formData
-        }
-    );
+    const uploadUrl =
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
 
-    const data = await response.json();
+    try {
 
-    if (!response.ok || !data.secure_url) {
-
-        console.error("Cloudinary Error:", data);
-
-        throw new Error(
-            data.error?.message ||
-            "Cloudinary Upload Failed"
+        const response = await fetch(
+            uploadUrl,
+            {
+                method: "POST",
+                body: formData
+            }
         );
+
+        const data = await response.json();
+
+        console.log("Cloudinary Response:", data);
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error?.message ||
+                `Cloudinary Error (${response.status})`
+            );
+
+        }
+
+        if (!data.secure_url) {
+
+            throw new Error(
+                "Cloudinary did not return a video URL."
+            );
+
+        }
+
+        return data.secure_url;
+
+    } catch (error) {
+
+        console.error(
+            "Cloudinary Upload Error:",
+            error
+        );
+
+        throw error;
 
     }
 
-    return data.secure_url;
 }
-
 // ===============================
 // SAVE MOVIE
 // ===============================
