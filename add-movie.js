@@ -192,9 +192,9 @@ async function uploadVideo(file) {
 
 
     if (
-        CLOUDINARY_API_KEY ===
-        "351391556181673"
-    ) {
+    CLOUDINARY_API_KEY ===
+    "YOUR_CLOUDINARY_API_KEY"
+) {
 
         throw new Error(
             "add-movie.js में Cloudinary API Key डालें."
