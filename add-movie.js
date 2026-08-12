@@ -24,22 +24,23 @@ async function getCloudinarySignature() {
 
     const response = await fetch(SIGN_URL, {
 
-        method: "POST",
+    method: "POST",
 
-        headers: {
-            "Content-Type": "application/json"
-        },
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer YOUR_SUPABASE_ANON_KEY",
+        "apikey": "YOUR_SUPABASE_ANON_KEY"
+    },
 
-        body: JSON.stringify({
+    body: JSON.stringify({
 
-            timestamp: timestamp,
+        timestamp: timestamp,
 
-            upload_preset: UPLOAD_PRESET
+        upload_preset: UPLOAD_PRESET
 
-        })
+    })
 
-    });
-
+});
 
     if (!response.ok) {
 
