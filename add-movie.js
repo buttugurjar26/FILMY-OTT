@@ -176,9 +176,9 @@ function uploadToCloudinary(file) {
 
 
                 formData.append(
-                    "api_key",
-                    ""
-                );
+    "api_key",
+    "YOUR_CLOUDINARY_API_KEY"
+);
 
 
                 formData.append(
