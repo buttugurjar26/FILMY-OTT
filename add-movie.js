@@ -13,7 +13,7 @@ const CLOUDINARY_API_KEY =
     "YOUR_CLOUDINARY_API_KEY";
 
 const SUPABASE_PUBLISHABLE_KEY =
-    "YOUR_SUPABASE_PUBLISHABLE_KEY";
+    "sb_publishable_3VILNZNCEMCUBO2h45YOKg_adfNG9Ld";
 
 const SIGN_URL =
     "https://ochfxvxxrvunlxuwdcop.supabase.co/functions/v1/cloudinary-sign";
@@ -56,10 +56,10 @@ async function getCloudinarySignature() {
 
                     "Authorization":
                         "Bearer " +
-                        SUPABASE_PUBLISHABLE_KEY,
+                        sb_publishable_3VILNZNCEMCUBO2h45YOKg_adfNG9Ld,
 
                     "apikey":
-                        SUPABASE_PUBLISHABLE_KEY
+                        sb_publishable_3VILNZNCEMCUBO2h45YOKg_adfNG9Ld
 
                 },
 
