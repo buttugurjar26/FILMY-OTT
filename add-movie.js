@@ -10,7 +10,7 @@ const CLOUD_NAME = "peni6puh";
 const UPLOAD_PRESET = "filmy-ott";
 
 const CLOUDINARY_API_KEY =
-    "YOUR_CLOUDINARY_API_KEY";
+    "351391556181673";
 
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_3VILNZNCEMCUBO2h45YOKg_adfNG9Ld";
