@@ -5,6 +5,10 @@ import { supabase } from "./supabase.js";
 // CONFIG
 // =====================================================
 
+// =====================================================
+// CLOUDINARY - POSTER ONLY
+// =====================================================
+
 const CLOUD_NAME = "peni6puh";
 
 const UPLOAD_PRESET = "filmy-ott";
@@ -20,7 +24,15 @@ const SIGN_URL =
 
 
 // =====================================================
-// GET ELEMENT
+// BACKBLAZE B2 - VIDEO
+// =====================================================
+
+const BACKBLAZE_FUNCTION_URL =
+    "https://ochfxvxxrvunlxuwdcop.supabase.co/functions/v1/backblaze-upload";
+
+
+// =====================================================
+// GET STATUS
 // =====================================================
 
 function getStatus() {
@@ -39,7 +51,9 @@ function getStatus() {
 async function getCloudinarySignature() {
 
     const timestamp =
-        Math.floor(Date.now() / 1000);
+        Math.floor(
+            Date.now() / 1000
+        );
 
 
     const response =
@@ -124,65 +138,274 @@ async function getCloudinarySignature() {
 
 
 // =====================================================
-// XHR CHUNK UPLOAD
+// CLOUDINARY POSTER UPLOAD
 // =====================================================
 
-function uploadChunk({
-
-    file,
-    start,
-    end,
-    totalSize,
-    uploadId,
-    signed,
-    resourceType
-
-}) {
+function uploadPosterToCloudinary(
+    file
+) {
 
     return new Promise(
-        (resolve, reject) => {
+        async (
+            resolve,
+            reject
+        ) => {
+
+            try {
+
+                const signed =
+                    await getCloudinarySignature();
+
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "file",
+                    file,
+                    file.name
+                );
+
+
+                formData.append(
+                    "api_key",
+                    CLOUDINARY_API_KEY
+                );
+
+
+                formData.append(
+                    "timestamp",
+                    signed.timestamp
+                );
+
+
+                formData.append(
+                    "upload_preset",
+                    signed.upload_preset
+                );
+
+
+                formData.append(
+                    "signature",
+                    signed.signature
+                );
+
+
+                const xhr =
+                    new XMLHttpRequest();
+
+
+                const uploadUrl =
+                    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+
+                xhr.open(
+                    "POST",
+                    uploadUrl,
+                    true
+                );
+
+
+                xhr.upload.onprogress =
+                    function (event) {
+
+                        if (
+                            !event.lengthComputable
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        const percent =
+                            Math.round(
+                                (
+                                    event.loaded /
+                                    event.total
+                                ) * 100
+                            );
+
+
+                        const status =
+                            getStatus();
+
+
+                        if (status) {
+
+                            status.style.display =
+                                "block";
+
+                            status.innerHTML =
+                                `🖼️ Uploading Poster... ${percent}%`;
+
+                        }
+
+                    };
+
+
+                xhr.onload =
+                    function () {
+
+                        if (
+                            xhr.status < 200 ||
+                            xhr.status >= 300
+                        ) {
+
+                            reject(
+
+                                new Error(
+                                    "Cloudinary poster upload failed: " +
+                                    xhr.responseText
+                                )
+
+                            );
+
+                            return;
+
+                        }
+
+
+                        let data;
+
+
+                        try {
+
+                            data =
+                                JSON.parse(
+                                    xhr.responseText
+                                );
+
+                        } catch (error) {
+
+                            reject(
+
+                                new Error(
+                                    "Invalid Cloudinary response."
+                                )
+
+                            );
+
+                            return;
+
+                        }
+
+
+                        if (
+                            !data.secure_url
+                        ) {
+
+                            reject(
+
+                                new Error(
+                                    "Cloudinary did not return poster URL."
+                                )
+
+                            );
+
+                            return;
+
+                        }
+
+
+                        resolve(
+                            data.secure_url
+                        );
+
+                    };
+
+
+                xhr.onerror =
+                    function () {
+
+                        reject(
+
+                            new Error(
+                                "Network error while uploading poster."
+                            )
+
+                        );
+
+                    };
+
+
+                xhr.onabort =
+                    function () {
+
+                        reject(
+
+                            new Error(
+                                "Poster upload cancelled."
+                            )
+
+                        );
+
+                    };
+
+
+                xhr.send(
+                    formData
+                );
+
+
+            } catch (error) {
+
+                reject(error);
+
+            }
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// BACKBLAZE B2 VIDEO UPLOAD
+// =====================================================
+
+function uploadVideoToBackblaze(
+    file
+) {
+
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
 
             const xhr =
                 new XMLHttpRequest();
 
 
-            // IMPORTANT:
-            // Cloudinary REST API upload endpoint
-            // is /upload.
-            //
-            // Large upload is achieved using
-            // Content-Range + X-Unique-Upload-Id.
-
-            const uploadUrl =
-                `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
-
-
             xhr.open(
                 "POST",
-                uploadUrl,
+                BACKBLAZE_FUNCTION_URL,
                 true
             );
 
 
-            // =================================================
-            // CHUNK HEADERS
-            // =================================================
+            // -------------------------------------------------
+            // SUPABASE EDGE FUNCTION AUTH
+            // -------------------------------------------------
 
             xhr.setRequestHeader(
-                "X-Unique-Upload-Id",
-                uploadId
+                "apikey",
+                SUPABASE_PUBLISHABLE_KEY
             );
 
 
             xhr.setRequestHeader(
-                "Content-Range",
-                `bytes ${start}-${end - 1}/${totalSize}`
+                "Authorization",
+                "Bearer " +
+                SUPABASE_PUBLISHABLE_KEY
             );
 
 
-            // =================================================
-            // PROGRESS
-            // =================================================
+            // -------------------------------------------------
+            // UPLOAD PROGRESS
+            // -------------------------------------------------
 
             xhr.upload.onprogress =
                 function (event) {
@@ -196,35 +419,33 @@ function uploadChunk({
                     }
 
 
+                    const percent =
+                        Math.round(
+                            (
+                                event.loaded /
+                                event.total
+                            ) * 100
+                        );
+
+
+                    const uploadedMB =
+                        (
+                            event.loaded /
+                            1024 /
+                            1024
+                        ).toFixed(1);
+
+
+                    const totalMB =
+                        (
+                            event.total /
+                            1024 /
+                            1024
+                        ).toFixed(1);
+
+
                     const status =
                         getStatus();
-
-
-                    const chunkLoaded =
-                        event.loaded;
-
-
-                    const uploadedBytes =
-                        start +
-                        chunkLoaded;
-
-
-                    const percent =
-                        Math.min(
-
-                            100,
-
-                            Math.round(
-
-                                (
-                                    uploadedBytes /
-                                    totalSize
-
-                                ) * 100
-
-                            )
-
-                        );
 
 
                     if (status) {
@@ -233,16 +454,16 @@ function uploadChunk({
                             "block";
 
                         status.innerHTML =
-                            `🎬 Uploading Movie... ${percent}%`;
+                            `🎬 Uploading Movie... ${percent}% (${uploadedMB} MB / ${totalMB} MB)`;
 
                     }
 
                 };
 
 
-            // =================================================
+            // -------------------------------------------------
             // RESPONSE
-            // =================================================
+            // -------------------------------------------------
 
             xhr.onload =
                 function () {
@@ -255,10 +476,8 @@ function uploadChunk({
                         reject(
 
                             new Error(
-
-                                "Cloudinary upload failed: " +
+                                "Backblaze upload failed: " +
                                 xhr.responseText
-
                             )
 
                         );
@@ -283,7 +502,7 @@ function uploadChunk({
                         reject(
 
                             new Error(
-                                "Invalid Cloudinary response."
+                                "Invalid Backblaze response."
                             )
 
                         );
@@ -293,14 +512,35 @@ function uploadChunk({
                     }
 
 
-                    resolve(data);
+                    if (
+                        !data.success ||
+                        !data.url
+                    ) {
+
+                        reject(
+
+                            new Error(
+                                data.error ||
+                                "Backblaze did not return video URL."
+                            )
+
+                        );
+
+                        return;
+
+                    }
+
+
+                    resolve(
+                        data.url
+                    );
 
                 };
 
 
-            // =================================================
+            // -------------------------------------------------
             // NETWORK ERROR
-            // =================================================
+            // -------------------------------------------------
 
             xhr.onerror =
                 function () {
@@ -308,7 +548,7 @@ function uploadChunk({
                     reject(
 
                         new Error(
-                            "Network error while uploading to Cloudinary."
+                            "Network error while uploading movie to Backblaze."
                         )
 
                     );
@@ -316,9 +556,9 @@ function uploadChunk({
                 };
 
 
-            // =================================================
+            // -------------------------------------------------
             // ABORT
-            // =================================================
+            // -------------------------------------------------
 
             xhr.onabort =
                 function () {
@@ -326,7 +566,7 @@ function uploadChunk({
                     reject(
 
                         new Error(
-                            "Upload cancelled."
+                            "Movie upload cancelled."
                         )
 
                     );
@@ -334,253 +574,30 @@ function uploadChunk({
                 };
 
 
-            // =================================================
+            // -------------------------------------------------
             // FORM DATA
-            // =================================================
+            // -------------------------------------------------
 
             const formData =
                 new FormData();
 
 
-            const chunk =
-                file.slice(
-                    start,
-                    end
-                );
-
-
             formData.append(
                 "file",
-                chunk,
+                file,
                 file.name
             );
 
 
-            formData.append(
-                "api_key",
-                CLOUDINARY_API_KEY
-            );
-
-
-            formData.append(
-                "timestamp",
-                signed.timestamp
-            );
-
-
-            formData.append(
-                "upload_preset",
-                signed.upload_preset
-            );
-
-
-            formData.append(
-                "signature",
-                signed.signature
-            );
-
+            // IMPORTANT:
+            // Do NOT manually set Content-Type.
+            // Browser creates the correct multipart boundary.
 
             xhr.send(
                 formData
             );
 
         }
-    );
-
-}
-
-
-// =====================================================
-// CLOUDINARY CHUNKED UPLOAD
-// =====================================================
-
-async function uploadToCloudinary(file) {
-
-    // -------------------------------------------------
-    // 20 MB CHUNKS
-    // -------------------------------------------------
-
-    const CHUNK_SIZE =
-        20 * 1024 * 1024;
-
-
-    const totalSize =
-        file.size;
-
-
-    if (!totalSize) {
-
-        throw new Error(
-            "Invalid file."
-        );
-
-    }
-
-
-    // -------------------------------------------------
-    // GET SIGNATURE
-    // -------------------------------------------------
-
-    const signed =
-        await getCloudinarySignature();
-
-
-    // -------------------------------------------------
-    // UNIQUE ID
-    // -------------------------------------------------
-
-    const uploadId =
-        "filmyott-" +
-        Date.now() +
-        "-" +
-        Math.random()
-            .toString(36)
-            .substring(2);
-
-
-    let start =
-        0;
-
-
-    let finalResult =
-        null;
-
-
-    const resourceType =
-        file.type.startsWith("video/")
-            ? "video"
-            : "image";
-
-
-    // =================================================
-    // UPLOAD EACH CHUNK
-    // =================================================
-
-    while (
-        start < totalSize
-    ) {
-
-        const end =
-            Math.min(
-                start +
-                CHUNK_SIZE,
-                totalSize
-            );
-
-
-        const status =
-            getStatus();
-
-
-        if (status) {
-
-            const uploadedMB =
-                (
-                    start /
-                    1024 /
-                    1024
-                ).toFixed(1);
-
-
-            const totalMB =
-                (
-                    totalSize /
-                    1024 /
-                    1024
-                ).toFixed(1);
-
-
-            status.innerHTML =
-                `🎬 Uploading Movie... ${uploadedMB} MB / ${totalMB} MB`;
-
-        }
-
-
-        const result =
-            await uploadChunk({
-
-                file:
-                    file,
-
-                start:
-                    start,
-
-                end:
-                    end,
-
-                totalSize:
-                    totalSize,
-
-                uploadId:
-                    uploadId,
-
-                signed:
-                    signed,
-
-                resourceType:
-                    resourceType
-
-            });
-
-
-        finalResult =
-            result;
-
-
-        // -------------------------------------------------
-        // NEXT CHUNK
-        // -------------------------------------------------
-
-        start =
-            end;
-
-
-        // -------------------------------------------------
-        // SERVER INTERMEDIATE RESPONSE
-        // -------------------------------------------------
-
-        const statusAfterChunk =
-            getStatus();
-
-
-        if (
-            start < totalSize &&
-            statusAfterChunk
-        ) {
-
-            const percent =
-                Math.round(
-                    (
-                        start /
-                        totalSize
-                    ) * 100
-                );
-
-
-            statusAfterChunk.innerHTML =
-                `🎬 Uploading Movie... ${percent}%`;
-
-        }
-
-    }
-
-
-    // =================================================
-    // FINAL RESULT
-    // =================================================
-
-    if (
-        finalResult &&
-        finalResult.secure_url
-    ) {
-
-        return finalResult.secure_url;
-
-    }
-
-
-    throw new Error(
-        "Cloudinary did not return secure_url."
     );
 
 }
@@ -689,7 +706,7 @@ window.saveMovie =
 
 
         // =================================================
-        // SAVE BUTTON
+        // DISABLE SAVE BUTTON
         // =================================================
 
         const saveButton =
@@ -724,13 +741,13 @@ window.saveMovie =
 
 
             const posterUrl =
-                await uploadToCloudinary(
+                await uploadPosterToCloudinary(
                     posterFile
                 );
 
 
             // =================================================
-            // MOVIE
+            // VIDEO
             // =================================================
 
             status.innerHTML =
@@ -738,13 +755,13 @@ window.saveMovie =
 
 
             const videoUrl =
-                await uploadToCloudinary(
+                await uploadVideoToBackblaze(
                     videoFile
                 );
 
 
             // =================================================
-            // SAVE TO SUPABASE
+            // SAVE MOVIE
             // =================================================
 
             status.innerHTML =
