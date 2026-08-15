@@ -911,10 +911,7 @@ window.saveMovie =
                 "🖼️ Uploading Poster...";
 
 
-            const posterUrl =
-                await uploadPosterToCloudinary(
-                    posterFile
-                );
+            const posterUrl = "TEST";
 
 
             // =================================================
