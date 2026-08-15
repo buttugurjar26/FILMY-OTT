@@ -1121,3 +1121,5 @@ window.saveMovie =
         }
 
     };
+
+console.log("ADD MOVIE JS LOADED");
