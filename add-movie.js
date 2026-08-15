@@ -112,85 +112,117 @@ async function getCloudinarySignature() {
             Date.now() / 1000
         );
 
+    try {
 
-    const response =
-        await fetch(
-            SIGN_URL,
-            {
+        const response =
+            await fetch(
+                SIGN_URL,
+                {
+                    method: "POST",
 
-                method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json",
 
-                headers: {
+                        "apikey":
+                            SUPABASE_PUBLISHABLE_KEY,
 
-                    "Content-Type":
-                        "application/json",
+                        "Authorization":
+                            "Bearer " +
+                            SUPABASE_PUBLISHABLE_KEY
+                    },
 
-                    "Authorization":
-                        "Bearer " +
-                        SUPABASE_PUBLISHABLE_KEY,
+                    body:
+                        JSON.stringify({
+                            timestamp:
+                                timestamp,
 
-                    "apikey":
-                        SUPABASE_PUBLISHABLE_KEY
+                            upload_preset:
+                                UPLOAD_PRESET
+                        })
+                }
+            );
 
-                },
-
-                body:
-                    JSON.stringify({
-
-                        timestamp:
-                            timestamp,
-
-                        upload_preset:
-                            UPLOAD_PRESET
-
-                    })
-
-            }
-        );
-
-
-    if (!response.ok) {
 
         const text =
             await response.text();
 
-        throw new Error(
-            "Signature request failed: " +
+
+        console.log(
+            "CLOUDINARY SIGN RESPONSE:",
+            response.status,
             text
         );
 
-    }
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Cloudinary signature function error (" +
+                response.status +
+                "): " +
+                text
+            );
+
+        }
 
 
-    const data =
-        await response.json();
+        let data;
+
+        try {
+
+            data =
+                JSON.parse(
+                    text
+                );
+
+        } catch (error) {
+
+            throw new Error(
+                "Signature function returned invalid JSON: " +
+                text
+            );
+
+        }
 
 
-    if (
-        !data.signature ||
-        !data.timestamp
-    ) {
+        if (
+            !data.signature ||
+            !data.timestamp
+        ) {
 
-        throw new Error(
-            "Cloudinary signature not received."
+            throw new Error(
+                "Cloudinary signature missing: " +
+                JSON.stringify(data)
+            );
+
+        }
+
+
+        return {
+
+            signature:
+                data.signature,
+
+            timestamp:
+                data.timestamp,
+
+            upload_preset:
+                data.upload_preset ||
+                UPLOAD_PRESET
+
+        };
+
+    } catch (error) {
+
+        console.error(
+            "CLOUDINARY SIGN ERROR:",
+            error
         );
 
+        throw error;
+
     }
-
-
-    return {
-
-        signature:
-            data.signature,
-
-        timestamp:
-            data.timestamp,
-
-        upload_preset:
-            data.upload_preset ||
-            UPLOAD_PRESET
-
-    };
 
 }
 
