@@ -34,12 +34,19 @@ const BACKBLAZE_FUNCTION_URL =
 
 
 // =====================================================
-// CHUNK SIZE
+// CHUNK SETTINGS
 // =====================================================
 
-// 10 MB per chunk
+// 50 MB per chunk
 const CHUNK_SIZE =
-    10 * 1024 * 1024;
+    50 * 1024 * 1024;
+
+
+// Retry settings
+const MAX_RETRIES = 3;
+
+const RETRY_DELAY =
+    2000;
 
 
 // =====================================================
@@ -50,6 +57,45 @@ function getStatus() {
 
     return document.getElementById(
         "uploadStatus"
+    );
+
+}
+
+
+// =====================================================
+// UPDATE STATUS
+// =====================================================
+
+function updateStatus(message) {
+
+    const status =
+        getStatus();
+
+    if (status) {
+
+        status.style.display =
+            "block";
+
+        status.innerHTML =
+            message;
+
+    }
+
+}
+
+
+// =====================================================
+// WAIT
+// =====================================================
+
+function wait(ms) {
+
+    return new Promise(
+        resolve =>
+            setTimeout(
+                resolve,
+                ms
+            )
     );
 
 }
@@ -88,15 +134,16 @@ async function getCloudinarySignature() {
 
                 },
 
-                body: JSON.stringify({
+                body:
+                    JSON.stringify({
 
-                    timestamp:
-                        timestamp,
+                        timestamp:
+                            timestamp,
 
-                    upload_preset:
-                        UPLOAD_PRESET
+                        upload_preset:
+                            UPLOAD_PRESET
 
-                })
+                    })
 
             }
         );
@@ -218,10 +265,6 @@ function uploadPosterToCloudinary(
                 );
 
 
-                // =================================================
-                // POSTER PROGRESS
-                // =================================================
-
                 xhr.upload.onprogress =
                     function (event) {
 
@@ -243,26 +286,12 @@ function uploadPosterToCloudinary(
                             );
 
 
-                        const status =
-                            getStatus();
-
-
-                        if (status) {
-
-                            status.style.display =
-                                "block";
-
-                            status.innerHTML =
-                                `🖼️ Uploading Poster... ${percent}%`;
-
-                        }
+                        updateStatus(
+                            `🖼️ Uploading Poster... ${percent}%`
+                        );
 
                     };
 
-
-                // =================================================
-                // RESPONSE
-                // =================================================
 
                 xhr.onload =
                     function () {
@@ -329,10 +358,6 @@ function uploadPosterToCloudinary(
                     };
 
 
-                // =================================================
-                // NETWORK ERROR
-                // =================================================
-
                 xhr.onerror =
                     function () {
 
@@ -344,10 +369,6 @@ function uploadPosterToCloudinary(
 
                     };
 
-
-                // =================================================
-                // ABORT
-                // =================================================
 
                 xhr.onabort =
                     function () {
@@ -456,7 +477,7 @@ async function backblazeRequest(
 
 
 // =====================================================
-// START BACKBLAZE LARGE FILE
+// START BACKBLAZE UPLOAD
 // =====================================================
 
 async function startBackblazeUpload(
@@ -494,7 +515,7 @@ async function startBackblazeUpload(
 
 
 // =====================================================
-// UPLOAD BACKBLAZE PART
+// UPLOAD ONE PART
 // =====================================================
 
 async function uploadBackblazePart(
@@ -503,44 +524,113 @@ async function uploadBackblazePart(
     chunk
 ) {
 
-    const formData =
-        new FormData();
+    let lastError =
+        null;
 
 
-    formData.append(
-        "action",
-        "part"
-    );
+    // =================================================
+    // RETRY
+    // =================================================
+
+    for (
+        let attempt = 1;
+        attempt <= MAX_RETRIES;
+        attempt++
+    ) {
+
+        try {
+
+            updateStatus(
+                `🎬 Uploading Part ${partNumber}... Attempt ${attempt}/${MAX_RETRIES}`
+            );
 
 
-    formData.append(
-        "fileId",
-        fileId
-    );
+            const formData =
+                new FormData();
 
 
-    formData.append(
-        "partNumber",
-        String(partNumber)
-    );
+            formData.append(
+                "action",
+                "part"
+            );
 
 
-    formData.append(
-        "file",
-        chunk,
-        `part-${partNumber}`
-    );
+            formData.append(
+                "fileId",
+                fileId
+            );
 
 
-    return await backblazeRequest(
-        formData
+            formData.append(
+                "partNumber",
+                String(partNumber)
+            );
+
+
+            formData.append(
+                "file",
+                chunk,
+                `part-${partNumber}`
+            );
+
+
+            const result =
+                await backblazeRequest(
+                    formData
+                );
+
+
+            if (
+                !result.sha1
+            ) {
+
+                throw new Error(
+                    "Backblaze SHA-1 missing."
+                );
+
+            }
+
+
+            return result;
+
+        } catch (error) {
+
+            lastError =
+                error;
+
+
+            if (
+                attempt <
+                MAX_RETRIES
+            ) {
+
+                updateStatus(
+                    `⚠️ Part ${partNumber} failed. Retrying...`
+                );
+
+
+                await wait(
+                    RETRY_DELAY *
+                    attempt
+                );
+
+            }
+
+        }
+
+    }
+
+
+    throw new Error(
+        `Part ${partNumber} failed after ${MAX_RETRIES} attempts: ` +
+        lastError.message
     );
 
 }
 
 
 // =====================================================
-// FINISH BACKBLAZE LARGE FILE
+// FINISH BACKBLAZE UPLOAD
 // =====================================================
 
 async function finishBackblazeUpload(
@@ -609,6 +699,19 @@ async function uploadVideoToBackblaze(
         file.size;
 
 
+    const totalParts =
+        Math.ceil(
+            totalSize /
+            CHUNK_SIZE
+        );
+
+
+    updateStatus(
+        `🎬 Preparing Movie Upload...<br>` +
+        `📦 ${totalParts} parts × 50 MB`
+    );
+
+
     // =================================================
     // START LARGE FILE
     // =================================================
@@ -634,19 +737,12 @@ async function uploadVideoToBackblaze(
         startResult.fileId;
 
 
-    const totalParts =
-        Math.ceil(
-            totalSize /
-            CHUNK_SIZE
-        );
-
-
     const sha1Array =
         [];
 
 
     // =================================================
-    // UPLOAD EACH CHUNK
+    // UPLOAD PARTS
     // =================================================
 
     for (
@@ -685,30 +781,19 @@ async function uploadVideoToBackblaze(
             );
 
 
-        if (
-            !result.sha1
-        ) {
-
-            throw new Error(
-                `Backblaze SHA-1 missing for part ${partNumber}.`
-            );
-
-        }
-
-
         sha1Array.push(
             result.sha1
         );
 
 
-        // =================================================
-        // PROGRESS
-        // =================================================
+        const uploadedBytes =
+            end;
+
 
         const percent =
             Math.round(
                 (
-                    end /
+                    uploadedBytes /
                     totalSize
                 ) * 100
             );
@@ -716,7 +801,7 @@ async function uploadVideoToBackblaze(
 
         const uploadedMB =
             (
-                end /
+                uploadedBytes /
                 1024 /
                 1024
             ).toFixed(1);
@@ -730,19 +815,11 @@ async function uploadVideoToBackblaze(
             ).toFixed(1);
 
 
-        const status =
-            getStatus();
-
-
-        if (status) {
-
-            status.style.display =
-                "block";
-
-            status.innerHTML =
-                `🎬 Uploading Movie... ${percent}% (${uploadedMB} MB / ${totalMB} MB)`;
-
-        }
+        updateStatus(
+            `🎬 Uploading Movie... ${percent}%<br>` +
+            `📦 Part ${partNumber}/${totalParts}<br>` +
+            `☁️ ${uploadedMB} MB / ${totalMB} MB`
+        );
 
     }
 
@@ -750,6 +827,11 @@ async function uploadVideoToBackblaze(
     // =================================================
     // FINISH
     // =================================================
+
+    updateStatus(
+        "⏳ Finalizing Movie Upload..."
+    );
+
 
     const finishResult =
         await finishBackblazeUpload(
@@ -786,7 +868,7 @@ window.saveMovie =
 
 
         // =================================================
-        // GET FORM VALUES
+        // FORM
         // =================================================
 
         const title =
@@ -863,13 +945,9 @@ window.saveMovie =
 
         ) {
 
-            status.style.display =
-                "block";
-
-
-            status.innerHTML =
-                "❌ Please fill all required fields.";
-
+            updateStatus(
+                "❌ Please fill all required fields."
+            );
 
             return;
 
@@ -877,7 +955,7 @@ window.saveMovie =
 
 
         // =================================================
-        // DISABLE BUTTON
+        // SAVE BUTTON
         // =================================================
 
         const saveButton =
@@ -903,23 +981,24 @@ window.saveMovie =
             // POSTER
             // =================================================
 
-            status.style.display =
-                "block";
+            updateStatus(
+                "🖼️ Uploading Poster..."
+            );
 
 
-            status.innerHTML =
-                "🖼️ Uploading Poster...";
-
-
-            const posterUrl = "TEST";
+            const posterUrl =
+                await uploadPosterToCloudinary(
+                    posterFile
+                );
 
 
             // =================================================
             // VIDEO
             // =================================================
 
-            status.innerHTML =
-                "🎬 Preparing Movie Upload...";
+            updateStatus(
+                "🎬 Preparing Movie Upload..."
+            );
 
 
             const videoUrl =
@@ -929,11 +1008,12 @@ window.saveMovie =
 
 
             // =================================================
-            // SAVE MOVIE TO SUPABASE
+            // SAVE DATABASE
             // =================================================
 
-            status.innerHTML =
-                "☁️ Saving Movie...";
+            updateStatus(
+                "☁️ Saving Movie..."
+            );
 
 
             const {
@@ -1033,8 +1113,9 @@ window.saveMovie =
             // SUCCESS
             // =================================================
 
-            status.innerHTML =
-                "✅ Movie Uploaded Successfully.";
+            updateStatus(
+                "✅ Movie Uploaded Successfully."
+            );
 
 
             // =================================================
@@ -1091,19 +1172,12 @@ window.saveMovie =
             );
 
 
-            status.style.display =
-                "block";
-
-
-            status.innerHTML =
+            updateStatus(
                 "❌ Upload Failed : " +
-                error.message;
+                error.message
+            );
 
         } finally {
-
-            // =================================================
-            // ENABLE BUTTON
-            // =================================================
 
             if (saveButton) {
 
@@ -1119,4 +1193,7 @@ window.saveMovie =
 
     };
 
-console.log("ADD MOVIE JS LOADED");
+
+console.log(
+    "ADD MOVIE JS LOADED - 50MB CHUNKS"
+);
