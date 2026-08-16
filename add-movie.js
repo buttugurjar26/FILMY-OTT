@@ -1286,6 +1286,4 @@ window.saveMovie =
     };
 
 
-console.log(
-    "ADD MOVIE JS LOADED - DIRECT B2 UPLOAD"
-);
+console.log("ADD MOVIE JS LOADED");
