@@ -2,24 +2,20 @@ import { supabase } from "./supabase.js";
 
 
 // =====================================================
-// CLOUDINARY
+// CLOUDINARY - POSTER
 // =====================================================
 
 const CLOUD_NAME =
     "peni6puh";
 
-
 const UPLOAD_PRESET =
     "filmy-ott";
-
 
 const CLOUDINARY_API_KEY =
     "351391556181673";
 
-
 const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_3VILNZNCEMCUBO2h45YOKg_adfNG9Ld";
-
 
 const SIGN_URL =
     "https://ochfxvxxrvunlxuwdcop.supabase.co/functions/v1/cloudinary-sign";
@@ -37,20 +33,17 @@ const BACKBLAZE_FUNCTION_URL =
 // UPLOAD SETTINGS
 // =====================================================
 
-// 50 MB CHUNK
-
+// 50 MB
 const CHUNK_SIZE =
     50 * 1024 * 1024;
 
 
-// 3 CHUNKS AT SAME TIME
-
-const MAX_PARALLEL_UPLOADS =
+// 3 parts simultaneously
+const PARALLEL_UPLOADS =
     3;
 
 
-// RETRIES
-
+// Retry each direct upload
 const MAX_RETRIES =
     3;
 
@@ -59,56 +52,60 @@ const MAX_RETRIES =
 // STATUS
 // =====================================================
 
-function getStatus() {
-
-    return document.getElementById(
-        "uploadStatus"
-    );
-
-}
-
-
 function updateStatus(
     message
 ) {
 
     const status =
-        getStatus();
-
+        document.getElementById(
+            "uploadStatus"
+        );
 
     if (!status) {
-
         return;
-
     }
-
 
     status.style.display =
         "block";
 
-
     status.innerHTML =
         message;
-
 }
 
 
 // =====================================================
-// SLEEP
+// SHA-1
 // =====================================================
 
-function sleep(
-    milliseconds
+async function sha1(
+    blob
 ) {
 
-    return new Promise(
-        resolve =>
-            setTimeout(
-                resolve,
-                milliseconds
-            )
-    );
+    const buffer =
+        await blob.arrayBuffer();
 
+    const hash =
+        await crypto.subtle.digest(
+            "SHA-1",
+            buffer
+        );
+
+    return Array
+        .from(
+            new Uint8Array(
+                hash
+            )
+        )
+        .map(
+            byte =>
+                byte
+                    .toString(16)
+                    .padStart(
+                        2,
+                        "0"
+                    )
+        )
+        .join("");
 }
 
 
@@ -120,9 +117,9 @@ async function getCloudinarySignature() {
 
     const timestamp =
         Math.floor(
-            Date.now() / 1000
+            Date.now() /
+            1000
         );
-
 
     const response =
         await fetch(
@@ -132,34 +129,27 @@ async function getCloudinarySignature() {
                 method:
                     "POST",
 
-                headers:
-                    {
+                headers: {
 
-                        "Content-Type":
-                            "application/json",
+                    "Content-Type":
+                        "application/json",
 
-                        "Authorization":
-                            "Bearer " +
-                            SUPABASE_PUBLISHABLE_KEY,
+                    "Authorization":
+                        "Bearer " +
+                        SUPABASE_PUBLISHABLE_KEY,
 
-                        "apikey":
-                            SUPABASE_PUBLISHABLE_KEY
-
-                    },
+                    "apikey":
+                        SUPABASE_PUBLISHABLE_KEY
+                },
 
                 body:
-                    JSON.stringify(
-                        {
+                    JSON.stringify({
 
-                            timestamp:
-                                timestamp,
+                        timestamp,
 
-                            upload_preset:
-                                UPLOAD_PRESET
-
-                        }
-                    )
-
+                        upload_preset:
+                            UPLOAD_PRESET
+                    })
             }
         );
 
@@ -171,13 +161,260 @@ async function getCloudinarySignature() {
     if (!response.ok) {
 
         throw new Error(
-            "Cloudinary signature function error (" +
-            response.status +
-            "): " +
+            "Cloudinary signature error: " +
+            text
+        );
+    }
+
+
+    const data =
+        JSON.parse(
             text
         );
 
+
+    if (
+        !data.signature ||
+        !data.timestamp
+    ) {
+
+        throw new Error(
+            "Cloudinary signature not received."
+        );
     }
+
+
+    return {
+
+        signature:
+            data.signature,
+
+        timestamp:
+            data.timestamp,
+
+        upload_preset:
+            data.upload_preset ||
+            UPLOAD_PRESET
+    };
+}
+
+
+// =====================================================
+// CLOUDINARY POSTER
+// =====================================================
+
+async function uploadPosterToCloudinary(
+    file
+) {
+
+    const signed =
+        await getCloudinarySignature();
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "file",
+        file,
+        file.name
+    );
+
+
+    formData.append(
+        "api_key",
+        CLOUDINARY_API_KEY
+    );
+
+
+    formData.append(
+        "timestamp",
+        signed.timestamp
+    );
+
+
+    formData.append(
+        "upload_preset",
+        signed.upload_preset
+    );
+
+
+    formData.append(
+        "signature",
+        signed.signature
+    );
+
+
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
+
+            const xhr =
+                new XMLHttpRequest();
+
+
+            const uploadUrl =
+                `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+
+            xhr.open(
+                "POST",
+                uploadUrl,
+                true
+            );
+
+
+            xhr.upload.onprogress =
+                event => {
+
+                    if (
+                        event.lengthComputable
+                    ) {
+
+                        const percent =
+                            Math.round(
+                                (
+                                    event.loaded /
+                                    event.total
+                                ) *
+                                100
+                            );
+
+                        updateStatus(
+                            `🖼️ Uploading Poster... ${percent}%`
+                        );
+                    }
+                };
+
+
+            xhr.onload =
+                () => {
+
+                    if (
+                        xhr.status < 200 ||
+                        xhr.status >= 300
+                    ) {
+
+                        reject(
+                            new Error(
+                                "Cloudinary poster upload failed: " +
+                                xhr.responseText
+                            )
+                        );
+
+                        return;
+                    }
+
+
+                    try {
+
+                        const data =
+                            JSON.parse(
+                                xhr.responseText
+                            );
+
+
+                        if (
+                            !data.secure_url
+                        ) {
+
+                            reject(
+                                new Error(
+                                    "Cloudinary did not return poster URL."
+                                )
+                            );
+
+                            return;
+                        }
+
+
+                        resolve(
+                            data.secure_url
+                        );
+
+                    } catch {
+
+                        reject(
+                            new Error(
+                                "Invalid Cloudinary response."
+                            )
+                        );
+                    }
+                };
+
+
+            xhr.onerror =
+                () => {
+
+                    reject(
+                        new Error(
+                            "Network error while uploading poster."
+                        )
+                    );
+                };
+
+
+            xhr.onabort =
+                () => {
+
+                    reject(
+                        new Error(
+                            "Poster upload cancelled."
+                        )
+                    );
+                };
+
+
+            xhr.send(
+                formData
+            );
+        }
+    );
+}
+
+
+// =====================================================
+// BACKBLAZE REQUEST
+// =====================================================
+
+async function backblazeRequest(
+    body
+) {
+
+    const response =
+        await fetch(
+            BACKBLAZE_FUNCTION_URL,
+            {
+
+                method:
+                    "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json",
+
+                    "apikey":
+                        SUPABASE_PUBLISHABLE_KEY,
+
+                    "Authorization":
+                        "Bearer " +
+                        SUPABASE_PUBLISHABLE_KEY
+                },
+
+                body:
+                    JSON.stringify(
+                        body
+                    )
+            }
+        );
+
+
+    const text =
+        await response.text();
 
 
     let data;
@@ -193,276 +430,80 @@ async function getCloudinarySignature() {
     } catch {
 
         throw new Error(
-            "Invalid Cloudinary signature response."
+            "Invalid Backblaze response: " +
+            text
         );
-
     }
 
 
     if (
+        !response.ok ||
         data.success === false
     ) {
 
         throw new Error(
             data.error ||
-            "Cloudinary signature error."
+            "Backblaze request failed."
         );
-
     }
 
 
-    if (
-        !data.signature ||
-        !data.timestamp
-    ) {
-
-        throw new Error(
-            "Cloudinary signature not received."
-        );
-
-    }
-
-
-    return {
-
-        signature:
-            data.signature,
-
-        timestamp:
-            data.timestamp,
-
-        upload_preset:
-            data.upload_preset ||
-            UPLOAD_PRESET
-
-    };
-
+    return data;
 }
 
 
 // =====================================================
-// CLOUDINARY POSTER
+// START
 // =====================================================
 
-function uploadPosterToCloudinary(
+async function startUpload(
     file
 ) {
 
-    return new Promise(
-        async (
-            resolve,
-            reject
-        ) => {
+    return await backblazeRequest({
 
-            try {
+        action:
+            "start",
 
-                const signed =
-                    await getCloudinarySignature();
+        fileName:
+            `movies/${Date.now()}-${file.name}`,
 
-
-                const formData =
-                    new FormData();
-
-
-                formData.append(
-                    "file",
-                    file,
-                    file.name
-                );
-
-
-                formData.append(
-                    "api_key",
-                    CLOUDINARY_API_KEY
-                );
-
-
-                formData.append(
-                    "timestamp",
-                    String(
-                        signed.timestamp
-                    )
-                );
-
-
-                formData.append(
-                    "upload_preset",
-                    signed.upload_preset
-                );
-
-
-                formData.append(
-                    "signature",
-                    signed.signature
-                );
-
-
-                const xhr =
-                    new XMLHttpRequest();
-
-
-                const uploadUrl =
-                    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
-
-
-                xhr.open(
-                    "POST",
-                    uploadUrl,
-                    true
-                );
-
-
-                xhr.upload.onprogress =
-                    function (
-                        event
-                    ) {
-
-                        if (
-                            !event.lengthComputable
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        const percent =
-                            Math.round(
-                                (
-                                    event.loaded /
-                                    event.total
-                                ) *
-                                100
-                            );
-
-
-                        updateStatus(
-                            `🖼️ Uploading Poster... ${percent}%`
-                        );
-
-                    };
-
-
-                xhr.onload =
-                    function () {
-
-                        if (
-                            xhr.status < 200 ||
-                            xhr.status >= 300
-                        ) {
-
-                            reject(
-                                new Error(
-                                    "Cloudinary poster upload failed: " +
-                                    xhr.responseText
-                                )
-                            );
-
-                            return;
-
-                        }
-
-
-                        let data;
-
-
-                        try {
-
-                            data =
-                                JSON.parse(
-                                    xhr.responseText
-                                );
-
-                        } catch {
-
-                            reject(
-                                new Error(
-                                    "Invalid Cloudinary response."
-                                )
-                            );
-
-                            return;
-
-                        }
-
-
-                        if (
-                            !data.secure_url
-                        ) {
-
-                            reject(
-                                new Error(
-                                    "Cloudinary did not return poster URL."
-                                )
-                            );
-
-                            return;
-
-                        }
-
-
-                        resolve(
-                            data.secure_url
-                        );
-
-                    };
-
-
-                xhr.onerror =
-                    function () {
-
-                        reject(
-                            new Error(
-                                "Network error while uploading poster."
-                            )
-                        );
-
-                    };
-
-
-                xhr.onabort =
-                    function () {
-
-                        reject(
-                            new Error(
-                                "Poster upload cancelled."
-                            )
-                        );
-
-                    };
-
-
-                xhr.send(
-                    formData
-                );
-
-
-            } catch (
-                error
-            ) {
-
-                reject(
-                    error
-                );
-
-            }
-
-        }
-    );
-
+        contentType:
+            file.type ||
+            "video/mp4"
+    });
 }
 
 
 // =====================================================
-// BACKBLAZE REQUEST
+// GET DIRECT PART URL
 // =====================================================
 
-async function backblazeRequest(
-    formData
+async function getPartUploadUrl(
+    fileId
 ) {
 
-    let lastError;
+    return await backblazeRequest({
 
+        action:
+            "getPartUrl",
+
+        fileId
+    });
+}
+
+
+// =====================================================
+// DIRECT BACKBLAZE PART UPLOAD
+// =====================================================
+
+async function uploadPartDirect(
+    uploadUrl,
+    authorizationToken,
+    partNumber,
+    chunk,
+    sha1Hash
+) {
 
     for (
         let attempt = 1;
@@ -474,27 +515,31 @@ async function backblazeRequest(
 
             const response =
                 await fetch(
-                    BACKBLAZE_FUNCTION_URL,
+                    uploadUrl,
                     {
 
                         method:
                             "POST",
 
-                        headers:
-                            {
+                        headers: {
 
-                                "apikey":
-                                    SUPABASE_PUBLISHABLE_KEY,
+                            "Authorization":
+                                authorizationToken,
 
-                                "Authorization":
-                                    "Bearer " +
-                                    SUPABASE_PUBLISHABLE_KEY
+                            "X-Bz-Part-Number":
+                                String(
+                                    partNumber
+                                ),
 
-                            },
+                            "X-Bz-Content-Sha1":
+                                sha1Hash,
+
+                            "Content-Type":
+                                "application/octet-stream"
+                        },
 
                         body:
-                            formData
-
+                            chunk
                     }
                 );
 
@@ -503,217 +548,146 @@ async function backblazeRequest(
                 await response.text();
 
 
-            let data;
-
-
-            try {
-
-                data =
-                    JSON.parse(
-                        text
-                    );
-
-            } catch {
+            if (
+                !response.ok
+            ) {
 
                 throw new Error(
-                    "Invalid Backblaze response: " +
+                    text ||
+                    `HTTP ${response.status}`
+                );
+            }
+
+
+            const data =
+                JSON.parse(
                     text
                 );
 
-            }
-
 
             if (
-                !response.ok ||
-                data.success === false
+                !data.sha1
             ) {
 
                 throw new Error(
-                    data.error ||
-                    "Backblaze request failed."
+                    "Backblaze SHA-1 missing."
                 );
-
             }
 
 
-            return data;
+            return data.sha1;
 
-
-        } catch (
-            error
-        ) {
-
-            lastError =
-                error;
-
+        } catch (error) {
 
             if (
-                attempt <
+                attempt >=
                 MAX_RETRIES
             ) {
 
-                updateStatus(
-                    `🔄 Connection retry... ${attempt}/${MAX_RETRIES}`
+                throw new Error(
+                    `Part ${partNumber} failed after ${MAX_RETRIES} attempts: ` +
+                    (
+                        error.message ||
+                        error
+                    )
                 );
-
-
-                await sleep(
-                    1500 * attempt
-                );
-
             }
 
-        }
 
-    }
-
-
-    throw (
-        lastError ||
-        new Error(
-            "Backblaze request failed."
-        )
-    );
-
-}
-
-
-// =====================================================
-// START BACKBLAZE UPLOAD
-// =====================================================
-
-async function startBackblazeUpload(
-    file
-) {
-
-    const safeName =
-        file.name
-            .replace(
-                /[^a-zA-Z0-9._-]/g,
-                "_"
+            updateStatus(
+                `🔄 Part ${partNumber} retry ${attempt}/${MAX_RETRIES}...`
             );
 
 
-    const formData =
-        new FormData();
-
-
-    formData.append(
-        "action",
-        "start"
-    );
-
-
-    formData.append(
-        "fileName",
-        `movies/${Date.now()}-${safeName}`
-    );
-
-
-    formData.append(
-        "contentType",
-        file.type ||
-        "video/mp4"
-    );
-
-
-    return await backblazeRequest(
-        formData
-    );
-
+            await new Promise(
+                resolve =>
+                    setTimeout(
+                        resolve,
+                        1500 *
+                        attempt
+                    )
+            );
+        }
+    }
 }
 
 
 // =====================================================
-// UPLOAD BACKBLAZE PART
+// UPLOAD ONE PART
 // =====================================================
 
-async function uploadBackblazePart(
+async function uploadOnePart(
+    file,
     fileId,
     partNumber,
-    chunk
+    totalParts
 ) {
 
-    const formData =
-        new FormData();
+    const start =
+        (
+            partNumber -
+            1
+        ) *
+        CHUNK_SIZE;
 
 
-    formData.append(
-        "action",
-        "part"
+    const end =
+        Math.min(
+            start +
+            CHUNK_SIZE,
+            file.size
+        );
+
+
+    const chunk =
+        file.slice(
+            start,
+            end
+        );
+
+
+    updateStatus(
+        `🔐 Preparing Part ${partNumber}/${totalParts}...`
     );
 
 
-    formData.append(
-        "fileId",
-        fileId
-    );
+    const hash =
+        await sha1(
+            chunk
+        );
 
 
-    formData.append(
-        "partNumber",
-        String(
-            partNumber
-        )
-    );
+    const urlData =
+        await getPartUploadUrl(
+            fileId
+        );
 
 
-    formData.append(
-        "file",
-        chunk,
-        `part-${partNumber}`
-    );
+    const sha1Result =
+        await uploadPartDirect(
+            urlData.uploadUrl,
+            urlData.authorizationToken,
+            partNumber,
+            chunk,
+            hash
+        );
 
 
-    return await backblazeRequest(
-        formData
-    );
+    return {
 
+        partNumber,
+
+        sha1:
+            sha1Result,
+
+        size:
+            chunk.size
+    };
 }
 
 
 // =====================================================
-// FINISH BACKBLAZE
-// =====================================================
-
-async function finishBackblazeUpload(
-    fileId,
-    sha1Array
-) {
-
-    const formData =
-        new FormData();
-
-
-    formData.append(
-        "action",
-        "finish"
-    );
-
-
-    formData.append(
-        "fileId",
-        fileId
-    );
-
-
-    formData.append(
-        "sha1Array",
-        JSON.stringify(
-            sha1Array
-        )
-    );
-
-
-    return await backblazeRequest(
-        formData
-    );
-
-}
-
-
-// =====================================================
-// UPLOAD VIDEO
+// FAST PARALLEL VIDEO UPLOAD
 // =====================================================
 
 async function uploadVideoToBackblaze(
@@ -725,63 +699,52 @@ async function uploadVideoToBackblaze(
         throw new Error(
             "Video file not selected."
         );
-
     }
-
-
-    if (!file.size) {
-
-        throw new Error(
-            "Invalid video file."
-        );
-
-    }
-
-
-    const totalSize =
-        file.size;
 
 
     const totalParts =
         Math.ceil(
-            totalSize /
+            file.size /
             CHUNK_SIZE
         );
 
 
-    updateStatus(
-        "🎬 Preparing Movie Upload..."
-    );
-
-
-    // =================================================
-    // START
-    // =================================================
-
-    const startResult =
-        await startBackblazeUpload(
-            file
-        );
-
-
     if (
-        !startResult.fileId
+        totalParts < 2
     ) {
 
         throw new Error(
-            "Backblaze did not return fileId."
+            "Video must be larger than one Backblaze part."
         );
-
     }
+
+
+    // ================================================
+    // START
+    // ================================================
+
+    updateStatus(
+        "🎬 Starting direct Backblaze upload..."
+    );
+
+
+    const startResult =
+        await startUpload(
+            file
+        );
 
 
     const fileId =
         startResult.fileId;
 
 
-    // =================================================
-    // SHA ARRAY
-    // =================================================
+    if (!fileId) {
+
+        throw new Error(
+            "Backblaze did not return fileId."
+        );
+    }
+
 
     const sha1Array =
         new Array(
@@ -789,229 +752,127 @@ async function uploadVideoToBackblaze(
         );
 
 
-    // =================================================
-    // PART STATE
-    // =================================================
-
-    const partState =
+    const partSizes =
         new Array(
             totalParts
-        ).fill(
-            "waiting"
         );
 
 
-    let uploadedBytes =
+    let completed =
         0;
 
 
-    // =================================================
+    let nextPart =
+        1;
+
+
+    // ================================================
     // WORKER
-    // =================================================
+    // ================================================
 
     async function worker() {
 
-        while (true) {
+        while (
+            true
+        ) {
 
-            let index =
-                -1;
-
-
-            for (
-                let i = 0;
-                i < totalParts;
-                i++
-            ) {
-
-                if (
-                    partState[i] ===
-                    "waiting"
-                ) {
-
-                    partState[i] =
-                        "uploading";
-
-                    index =
-                        i;
-
-                    break;
-
-                }
-
-            }
+            const partNumber =
+                nextPart++;
 
 
             if (
-                index === -1
+                partNumber >
+                totalParts
             ) {
 
                 return;
-
             }
 
 
-            const partNumber =
-                index + 1;
-
-
-            const start =
-                index *
-                CHUNK_SIZE;
-
-
-            const end =
-                Math.min(
-                    start +
-                    CHUNK_SIZE,
-                    totalSize
+            const result =
+                await uploadOnePart(
+                    file,
+                    fileId,
+                    partNumber,
+                    totalParts
                 );
 
 
-            const chunk =
-                file.slice(
-                    start,
-                    end
-                );
+            sha1Array[
+                partNumber - 1
+            ] =
+                result.sha1;
 
 
-            try {
-
-                let result =
-                    null;
-
-
-                let lastError;
+            partSizes[
+                partNumber - 1
+            ] =
+                result.size;
 
 
-                for (
-                    let attempt = 1;
-                    attempt <= MAX_RETRIES;
-                    attempt++
-                ) {
-
-                    try {
-
-                        result =
-                            await uploadBackblazePart(
-                                fileId,
-                                partNumber,
-                                chunk
-                            );
+            completed++;
 
 
-                        break;
-
-                    } catch (
-                        error
-                    ) {
-
-                        lastError =
-                            error;
-
-
-                        if (
-                            attempt <
-                            MAX_RETRIES
-                        ) {
-
-                            updateStatus(
-                                `🔄 Part ${partNumber} retry ${attempt}/${MAX_RETRIES}...`
-                            );
-
-
-                            await sleep(
-                                1500 * attempt
-                            );
-
-                        }
-
-                    }
-
-                }
-
-
-                if (
-                    !result ||
-                    !result.sha1
-                ) {
-
-                    throw (
-                        lastError ||
-                        new Error(
-                            `Part ${partNumber} failed.`
-                        )
-                    );
-
-                }
-
-
-                sha1Array[index] =
-                    result.sha1;
-
-
-                partState[index] =
-                    "done";
-
-
-                uploadedBytes +=
-                    chunk.size;
-
-
-                const percent =
-                    Math.round(
+            const uploadedBytes =
+                partSizes
+                    .slice(
+                        0,
+                        totalParts
+                    )
+                    .reduce(
                         (
-                            uploadedBytes /
-                            totalSize
-                        ) *
-                        100
+                            total,
+                            size
+                        ) =>
+                            total +
+                            (
+                                size ||
+                                0
+                            ),
+                        0
                     );
 
 
-                const uploadedMB =
+            const percent =
+                Math.round(
                     (
                         uploadedBytes /
-                        1024 /
-                        1024
-                    ).toFixed(
-                        1
-                    );
-
-
-                const totalMB =
-                    (
-                        totalSize /
-                        1024 /
-                        1024
-                    ).toFixed(
-                        1
-                    );
-
-
-                updateStatus(
-                    `🎬 Uploading Movie... ${percent}% (${uploadedMB} MB / ${totalMB} MB)`
+                        file.size
+                    ) *
+                    100
                 );
 
 
-            } catch (
-                error
-            ) {
+            const uploadedMB =
+                (
+                    uploadedBytes /
+                    1024 /
+                    1024
+                ).toFixed(
+                    1
+                );
 
-                partState[index] =
-                    "waiting";
+
+            const totalMB =
+                (
+                    file.size /
+                    1024 /
+                    1024
+                ).toFixed(
+                    1
+                );
 
 
-                throw error;
-
-            }
-
+            updateStatus(
+                `🚀 Uploading Movie... ${percent}% (${uploadedMB} MB / ${totalMB} MB) • ${completed}/${totalParts} parts`
+            );
         }
-
     }
 
 
-    // =================================================
-    // PARALLEL WORKERS
-    // =================================================
+    // ================================================
+    // 3 PARALLEL WORKERS
+    // ================================================
 
     const workers =
         [];
@@ -1019,7 +880,7 @@ async function uploadVideoToBackblaze(
 
     const workerCount =
         Math.min(
-            MAX_PARALLEL_UPLOADS,
+            PARALLEL_UPLOADS,
             totalParts
         );
 
@@ -1033,52 +894,61 @@ async function uploadVideoToBackblaze(
         workers.push(
             worker()
         );
-
     }
 
 
-    await Promise.all(
-        workers
-    );
+    try {
 
+        await Promise.all(
+            workers
+        );
 
-    // =================================================
-    // CHECK SHA
-    // =================================================
+    } catch (error) {
 
-    for (
-        let i = 0;
-        i < sha1Array.length;
-        i++
-    ) {
+        try {
 
-        if (
-            !sha1Array[i]
+            await backblazeRequest({
+
+                action:
+                    "cancel",
+
+                fileId
+            });
+
+        } catch (
+            cancelError
         ) {
 
-            throw new Error(
-                `SHA-1 missing for part ${i + 1}.`
+            console.error(
+                "Cancel error:",
+                cancelError
             );
-
         }
 
+
+        throw error;
     }
 
 
-    // =================================================
+    // ================================================
     // FINISH
-    // =================================================
+    // ================================================
 
     updateStatus(
-        "☁️ Finalizing Movie..."
+        "🔗 Combining movie parts..."
     );
 
 
     const finishResult =
-        await finishBackblazeUpload(
+        await backblazeRequest({
+
+            action:
+                "finish",
+
             fileId,
+
             sha1Array
-        );
+        });
 
 
     if (
@@ -1088,12 +958,10 @@ async function uploadVideoToBackblaze(
         throw new Error(
             "Backblaze did not return video URL."
         );
-
     }
 
 
     return finishResult.url;
-
 }
 
 
@@ -1101,279 +969,205 @@ async function uploadVideoToBackblaze(
 // SAVE MOVIE
 // =====================================================
 
-async function saveMovie() {
+window.saveMovie =
+    async function () {
 
-    const status =
-        getStatus();
-
-
-    const saveButton =
-        document.getElementById(
-            "saveMovieButton"
-        );
-
-
-    console.log(
-        "SAVE MOVIE STARTED"
-    );
-
-
-    // =================================================
-    // FORM
-    // =================================================
-
-    const movieNameElement =
-        document.getElementById(
-            "movieName"
-        );
-
-
-    const descriptionElement =
-        document.getElementById(
-            "movieDescription"
-        );
-
-
-    const posterElement =
-        document.getElementById(
-            "moviePoster"
-        );
-
-
-    const videoElement =
-        document.getElementById(
-            "movieVideo"
-        );
-
-
-    const categoryElement =
-        document.getElementById(
-            "movieCategory"
-        );
-
-
-    const yearElement =
-        document.getElementById(
-            "movieYear"
-        );
-
-
-    if (
-        !movieNameElement ||
-        !descriptionElement ||
-        !posterElement ||
-        !videoElement ||
-        !categoryElement ||
-        !yearElement
-    ) {
-
-        throw new Error(
-            "Movie form elements not found."
-        );
-
-    }
-
-
-    const title =
-        movieNameElement
-            .value
-            .trim();
-
-
-    const description =
-        descriptionElement
-            .value
-            .trim();
-
-
-    const posterFile =
-        posterElement
-            .files[0];
-
-
-    const videoFile =
-        videoElement
-            .files[0];
-
-
-    const category =
-        categoryElement
-            .value;
-
-
-    const year =
-        yearElement
-            .value;
-
-
-    // =================================================
-    // VALIDATION
-    // =================================================
-
-    if (
-        !title ||
-        !description ||
-        !category ||
-        !year ||
-        !posterFile ||
-        !videoFile
-    ) {
-
-        updateStatus(
-            "❌ Please fill all required fields."
-        );
-
-
-        return;
-
-    }
-
-
-    // =================================================
-    // DISABLE BUTTON
-    // =================================================
-
-    if (
-        saveButton
-    ) {
-
-        saveButton.disabled =
-            true;
-
-        saveButton.style.opacity =
-            "0.6";
-
-    }
-
-
-    try {
-
-        // =================================================
-        // POSTER
-        // =================================================
-
-        updateStatus(
-            "🖼️ Uploading Poster..."
-        );
-
-
-        const posterUrl =
-            await uploadPosterToCloudinary(
-                posterFile
+        const status =
+            document.getElementById(
+                "uploadStatus"
             );
 
 
-        if (
-            !posterUrl
-        ) {
-
-            throw new Error(
-                "Poster URL not received."
-            );
-
-        }
-
-
-        // =================================================
-        // VIDEO
-        // =================================================
-
-        updateStatus(
-            "🎬 Preparing Movie Upload..."
-        );
-
-
-        const videoUrl =
-            await uploadVideoToBackblaze(
-                videoFile
-            );
-
-
-        if (
-            !videoUrl
-        ) {
-
-            throw new Error(
-                "Video URL not received."
-            );
-
-        }
-
-
-        // =================================================
-        // SUPABASE
-        // =================================================
-
-        updateStatus(
-            "☁️ Saving Movie..."
-        );
-
-
-        const {
-            data,
-            error
-        } =
-            await supabase
-                .from(
-                    "movies"
+        const title =
+            document
+                .getElementById(
+                    "movieName"
                 )
-                .insert(
-                    [
+                .value
+                .trim();
 
+
+        const description =
+            document
+                .getElementById(
+                    "movieDescription"
+                )
+                .value
+                .trim();
+
+
+        const posterInput =
+            document.getElementById(
+                "moviePoster"
+            );
+
+
+        const videoInput =
+            document.getElementById(
+                "movieVideo"
+            );
+
+
+        const posterFile =
+            posterInput.files[0];
+
+
+        const videoFile =
+            videoInput.files[0];
+
+
+        const category =
+            document
+                .getElementById(
+                    "movieCategory"
+                )
+                .value;
+
+
+        const year =
+            document
+                .getElementById(
+                    "movieYear"
+                )
+                .value;
+
+
+        // ================================================
+        // VALIDATION
+        // ================================================
+
+        if (
+
+            !title ||
+
+            !description ||
+
+            !category ||
+
+            !year ||
+
+            !posterFile ||
+
+            !videoFile
+
+        ) {
+
+            updateStatus(
+                "❌ Please fill all required fields."
+            );
+
+            return;
+        }
+
+
+        const saveButton =
+            document.querySelector(
+                '[onclick="saveMovie()"]'
+            );
+
+
+        if (saveButton) {
+
+            saveButton.disabled =
+                true;
+
+            saveButton.style.opacity =
+                "0.6";
+        }
+
+
+        try {
+
+            // ==========================================
+            // POSTER
+            // ==========================================
+
+            updateStatus(
+                "🖼️ Uploading Poster..."
+            );
+
+
+            const posterUrl =
+                await uploadPosterToCloudinary(
+                    posterFile
+                );
+
+
+            // ==========================================
+            // VIDEO
+            // ==========================================
+
+            updateStatus(
+                "🎬 Preparing direct video upload..."
+            );
+
+
+            const videoUrl =
+                await uploadVideoToBackblaze(
+                    videoFile
+                );
+
+
+            // ==========================================
+            // SAVE MOVIE
+            // ==========================================
+
+            updateStatus(
+                "☁️ Saving Movie..."
+            );
+
+
+            const {
+                data,
+                error
+            } =
+                await supabase
+                    .from(
+                        "movies"
+                    )
+                    .insert([
                         {
 
-                            title:
-                                title,
+                            title,
 
-                            category:
-                                category,
+                            category,
 
                             movieyear:
                                 Number(
                                     year
                                 ),
 
-                            description:
-                                description,
+                            description,
 
                             poster_url:
                                 posterUrl,
 
                             video_url:
                                 videoUrl
-
                         }
-
-                    ]
-                )
-                .select()
-                .single();
+                    ])
+                    .select()
+                    .single();
 
 
-        if (
-            error
-        ) {
-
-            throw error;
-
-        }
+            if (error) {
+                throw error;
+            }
 
 
-        // =================================================
-        // NOTIFICATION
-        // =================================================
+            // ==========================================
+            // NOTIFICATION
+            // ==========================================
 
-        const {
-            error:
-                notificationError
-        } =
-            await supabase
-                .from(
-                    "notifications"
-                )
-                .insert(
-                    [
-
+            const {
+                error:
+                    notificationError
+            } =
+                await supabase
+                    .from(
+                        "notifications"
+                    )
+                    .insert([
                         {
 
                             title:
@@ -1387,158 +1181,111 @@ async function saveMovie() {
 
                             poster_url:
                                 posterUrl
-
                         }
-
-                    ]
-                );
+                    ]);
 
 
-        if (
-            notificationError
-        ) {
-
-            console.log(
-                "Notification Error:",
+            if (
                 notificationError
-            );
+            ) {
 
-        }
-
-
-        // =================================================
-        // SUCCESS
-        // =================================================
-
-        updateStatus(
-            "✅ Movie Uploaded Successfully."
-        );
+                console.error(
+                    "Notification Error:",
+                    notificationError
+                );
+            }
 
 
-        // =================================================
-        // CLEAR
-        // =================================================
+            // ==========================================
+            // SUCCESS
+            // ==========================================
 
-        movieNameElement
-            .value = "";
-
-
-        descriptionElement
-            .value = "";
-
-
-        posterElement
-            .value = "";
-
-
-        videoElement
-            .value = "";
-
-
-        categoryElement
-            .selectedIndex = 0;
-
-
-        yearElement
-            .value = "";
-
-
-    } catch (
-        error
-    ) {
-
-        console.error(
-            "UPLOAD ERROR:",
-            error
-        );
-
-
-        updateStatus(
-            "❌ Upload Failed : " +
-            (
-                error &&
-                error.message
-                    ? error.message
-                    : String(
-                        error
-                    )
-            )
-        );
-
-
-    } finally {
-
-        if (
-            saveButton
-        ) {
-
-            saveButton.disabled =
-                false;
-
-            saveButton.style.opacity =
-                "1";
-
-        }
-
-    }
-
-}
-
-
-// =====================================================
-// BUTTON INITIALIZATION
-// =====================================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        const saveButton =
-            document.getElementById(
-                "saveMovieButton"
+            updateStatus(
+                "✅ Movie Uploaded Successfully."
             );
 
 
-        if (
-            !saveButton
-        ) {
+            // ==========================================
+            // CLEAR FORM
+            // ==========================================
+
+            document
+                .getElementById(
+                    "movieName"
+                )
+                .value =
+                "";
+
+
+            document
+                .getElementById(
+                    "movieDescription"
+                )
+                .value =
+                "";
+
+
+            document
+                .getElementById(
+                    "moviePoster"
+                )
+                .value =
+                "";
+
+
+            document
+                .getElementById(
+                    "movieVideo"
+                )
+                .value =
+                "";
+
+
+            document
+                .getElementById(
+                    "movieCategory"
+                )
+                .selectedIndex =
+                0;
+
+
+            document
+                .getElementById(
+                    "movieYear"
+                )
+                .value =
+                "";
+
+        } catch (error) {
 
             console.error(
-                "UPLOAD BUTTON NOT FOUND"
+                "UPLOAD ERROR:",
+                error
             );
 
-            return;
 
-        }
+            updateStatus(
+                "❌ Upload Failed : " +
+                (
+                    error.message ||
+                    error
+                )
+            );
 
+        } finally {
 
-        console.log(
-            "UPLOAD BUTTON READY"
-        );
+            if (saveButton) {
 
+                saveButton.disabled =
+                    false;
 
-        saveButton.addEventListener(
-            "click",
-            function () {
-
-                console.log(
-                    "UPLOAD BUTTON CLICKED"
-                );
-
-
-                saveMovie();
-
+                saveButton.style.opacity =
+                    "1";
             }
-        );
+        }
+    };
 
-    }
-);
-
-
-// =====================================================
-// JS LOADED
-// =====================================================
 
 console.log(
-    "ADD MOVIE JS LOADED"
+    "ADD MOVIE JS LOADED - DIRECT B2 UPLOAD"
 );
