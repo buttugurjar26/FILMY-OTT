@@ -654,3 +654,218 @@
     }
 
 }
+/* =========================================
+   FINAL ACTION LAYOUT
+   LIST | LIKE | SHARE | DOWNLOAD
+========================================= */
+
+.action-buttons {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 5px !important;
+    margin: 15px 0 20px !important;
+}
+
+
+/* ALL FOUR BUTTONS */
+
+.action-buttons button,
+.action-buttons #listBtn,
+.action-buttons #likeBtn,
+.action-buttons #shareBtn,
+.action-buttons #downloadBtn {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 72px !important;
+    min-height: 72px !important;
+
+    margin: 0 !important;
+    padding: 5px 2px !important;
+
+    border: none !important;
+    border-radius: 12px !important;
+
+    background: transparent !important;
+    color: #5b3500 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    font-size: 12px !important;
+    font-weight: 700 !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* ICON */
+
+.action-buttons button i {
+    font-size: 24px !important;
+    color: #5b3500 !important;
+}
+
+
+/* TEXT */
+
+.action-buttons button span {
+    display: block !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+}
+
+
+/* LIKE COUNT */
+
+.action-buttons button small {
+    display: block !important;
+    font-size: 10px !important;
+    margin: 0 !important;
+}
+
+
+/* HOVER */
+
+.action-buttons button:hover {
+    background: rgba(212, 175, 55, .12) !important;
+}
+
+
+/* LIKED */
+
+.action-buttons #likeBtn.liked i {
+    color: #d4af37 !important;
+}
+
+
+/* =========================================
+   MOVIE DETAILS + VIEWS + COMMENTS
+========================================= */
+
+.movie-details-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 18px 0 12px;
+    box-sizing: border-box;
+}
+
+.movie-details-header h2 {
+    margin: 0;
+    padding: 0;
+    color: #5b3500;
+    font-size: 20px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.movie-details-header .movie-stats {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    gap: 10px !important;
+}
+
+.movie-details-header .movie-stats > span {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+
+    color: #795548 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+
+    white-space: nowrap !important;
+}
+
+.movie-details-header .movie-stats i {
+    color: #d4af37 !important;
+}
+
+
+/* DESCRIPTION */
+
+.description-box {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.description-box p {
+    margin: 0 !important;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .action-buttons {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 2px !important;
+    }
+
+    .action-buttons button,
+    .action-buttons #listBtn,
+    .action-buttons #likeBtn,
+    .action-buttons #shareBtn,
+    .action-buttons #downloadBtn {
+        height: 68px !important;
+        min-height: 68px !important;
+        padding: 4px 1px !important;
+    }
+
+    .action-buttons button i {
+        font-size: 22px !important;
+    }
+
+    .action-buttons button span {
+        font-size: 10px !important;
+    }
+
+    .action-buttons button small {
+        font-size: 9px !important;
+    }
+
+    .movie-details-header h2 {
+        font-size: 17px !important;
+    }
+
+    .movie-details-header .movie-stats {
+        gap: 6px !important;
+    }
+
+    .movie-details-header .movie-stats > span {
+        font-size: 9px !important;
+    }
+
+}
+
+
+@media (max-width: 360px) {
+
+    .action-buttons button i {
+        font-size: 20px !important;
+    }
+
+    .action-buttons button span {
+        font-size: 9px !important;
+    }
+
+    .movie-details-header h2 {
+        font-size: 16px !important;
+    }
+
+}
