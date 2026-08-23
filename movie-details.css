@@ -1,399 +1,682 @@
-/* MOVIE DETAILS */
+/* =========================================================
+   FILMY OTT - MOVIE DETAILS
+   ========================================================= */
 
 .movie-details{
-
-    padding:20px;
-
-}
-
-.movie-details img{
-
     width:100%;
-
-    max-height:420px;
-
-    object-fit:cover;
-
-    border-radius:20px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.25);
-
+    max-width:1100px;
+    margin:0 auto;
+    padding:18px 16px 35px;
+    box-sizing:border-box;
 }
+
+
+/* =========================================================
+   TRAILER / PLAYER
+   ========================================================= */
+
+.movie-trailer{
+    width:100%;
+    position:relative;
+    background:#000;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+    margin-bottom:18px;
+}
+
+.movie-trailer video,
+.movie-trailer iframe{
+    width:100%;
+    height:220px;
+    display:block;
+    border:0;
+    object-fit:contain;
+    background:#000;
+}
+
+
+/* =========================================================
+   POSTER
+   ========================================================= */
+
+.movie-details > img{
+    width:100%;
+    max-height:420px;
+    display:block;
+    object-fit:cover;
+    border-radius:20px;
+    box-shadow:0 6px 22px rgba(0,0,0,.22);
+    margin-bottom:18px;
+}
+
+
+/* =========================================================
+   MOVIE TITLE
+   ========================================================= */
 
 .movie-details h1{
-
-    margin:18px 0 12px;
-
+    margin:8px 0 12px;
     font-size:28px;
-
+    line-height:1.25;
     color:#5b3500;
-
-    text-align:center;
-
+    text-align:left;
+    font-weight:800;
 }
 
+
+/* =========================================================
+   MOVIE INFORMATION TAGS
+   ========================================================= */
+
 .info{
-
     display:flex;
-
-    justify-content:center;
-
+    justify-content:flex-start;
+    align-items:center;
     flex-wrap:wrap;
-
-    gap:10px;
-
-    margin-bottom:20px;
-
+    gap:7px;
+    margin:0 0 18px;
 }
 
 .info span{
-
-    padding:8px 15px;
-
+    padding:6px 11px;
     background:#d4af37;
-
     color:#fff;
-
-    border-radius:20px;
-
-    font-size:14px;
-
-    font-weight:bold;
-
+    border-radius:15px;
+    font-size:12px;
+    font-weight:700;
+    line-height:1.2;
 }
 
-.movie-details p{
 
-    margin:20px 0;
-
-    font-size:15px;
-
-    line-height:1.7;
-
-    color:#5D4037;
-
-    text-align:justify;
-
-}
+/* =========================================================
+   WATCH NOW
+   ========================================================= */
 
 #watchBtn{
-
     width:100%;
-
-    padding:15px;
-
+    min-height:48px;
+    padding:13px 18px;
     border:none;
-
-    border-radius:30px;
-
+    border-radius:14px;
     background:#d4af37;
-
     color:#fff;
-
-    font-size:17px;
-
-    font-weight:bold;
-
+    font-size:16px;
+    font-weight:800;
     cursor:pointer;
-
-    margin-bottom:15px;
-
+    margin:0 0 14px;
+    box-shadow:0 5px 14px rgba(212,175,55,.28);
+    transition:.25s;
 }
 
 #watchBtn:hover{
-
     background:#b8860b;
-
+    transform:translateY(-1px);
 }
 
-#listBtn{
 
-    width:100%;
+/* =========================================================
+   MOVIE ACTIONS
+   + LIST / LIKE / SHARE / DOWNLOAD
+   ========================================================= */
 
-    padding:15px;
+.movie-actions{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:9px;
+    margin:0 0 22px;
+}
 
-    border:2px solid #d4af37;
-
-    border-radius:30px;
-
+.movie-actions button,
+.movie-actions a{
+    min-height:48px;
+    padding:8px 5px;
+    border:1px solid rgba(212,175,55,.55);
+    border-radius:13px;
     background:#fff;
-
     color:#5b3500;
-
-    font-size:17px;
-
-    font-weight:bold;
-
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    text-decoration:none;
+    font-size:11px;
+    font-weight:700;
     cursor:pointer;
+    box-sizing:border-box;
+    transition:.25s;
+}
 
+.movie-actions button i,
+.movie-actions a i{
+    font-size:17px;
+}
+
+.movie-actions button:hover,
+.movie-actions a:hover{
+    background:#d4af37;
+    color:#fff;
+}
+
+
+/* Existing List Button */
+
+#listBtn{
+    width:100%;
+    min-height:48px;
+    padding:12px 18px;
+    border:2px solid #d4af37;
+    border-radius:14px;
+    background:#fff;
+    color:#5b3500;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
     margin-bottom:15px;
-
+    transition:.25s;
 }
 
 #listBtn:hover{
-
     background:#d4af37;
-
     color:#fff;
-
 }
 
 
-/* SHARE BUTTON */
+/* Existing Share Button */
 
 #shareBtn{
-
     width:100%;
-
-    padding:15px;
-
+    min-height:48px;
+    padding:12px 18px;
     border:none;
-
-    border-radius:30px;
-
+    border-radius:14px;
     background:#5b3500;
-
     color:#fff;
-
-    font-size:17px;
-
-    font-weight:bold;
-
+    font-size:15px;
+    font-weight:700;
     cursor:pointer;
-
-    transition:.3s;
-
+    transition:.25s;
 }
 
 #shareBtn:hover{
-
     background:#3d2400;
-
 }
 
 
-/* PUBLIC RATING */
+/* =========================================================
+   DETAILS / COMMENTS / TRAILER TABS
+   ========================================================= */
+
+.movie-tabs{
+    display:flex;
+    width:100%;
+    overflow-x:auto;
+    gap:0;
+    margin:5px 0 20px;
+    border-bottom:1px solid rgba(91,53,0,.18);
+    scrollbar-width:none;
+}
+
+.movie-tabs::-webkit-scrollbar{
+    display:none;
+}
+
+.movie-tabs button{
+    flex:1;
+    min-width:90px;
+    padding:12px 10px;
+    border:none;
+    border-bottom:3px solid transparent;
+    background:transparent;
+    color:#76552d;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.movie-tabs button.active{
+    color:#5b3500;
+    border-bottom-color:#d4af37;
+}
+
+
+/* =========================================================
+   TAB CONTENT
+   ========================================================= */
+
+.movie-tab-content{
+    display:none;
+}
+
+.movie-tab-content.active{
+    display:block;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.movie-description{
+    padding:2px 0 10px;
+}
+
+.movie-description h2,
+.movie-description h3{
+    margin:0 0 10px;
+    color:#5b3500;
+    font-size:20px;
+}
+
+.movie-details p{
+    margin:0 0 18px;
+    font-size:14px;
+    line-height:1.7;
+    color:#5D4037;
+    text-align:left;
+}
+
+
+/* =========================================================
+   CAST & CREW
+   ========================================================= */
+
+.cast-section{
+    margin-top:10px;
+}
+
+.cast-section h2{
+    color:#5b3500;
+    font-size:20px;
+    margin:0 0 14px;
+}
+
+.cast-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.cast-card{
+    background:#fff;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 4px 14px rgba(0,0,0,.12);
+    text-align:center;
+}
+
+.cast-card img{
+    width:100%;
+    height:130px;
+    object-fit:cover;
+    display:block;
+    border-radius:0;
+    box-shadow:none;
+}
+
+.cast-card h4{
+    margin:8px 5px 2px;
+    color:#5b3500;
+    font-size:13px;
+}
+
+.cast-card p{
+    margin:0 5px 9px;
+    color:#80684c;
+    font-size:11px;
+    text-align:center;
+}
+
+
+/* =========================================================
+   PUBLIC RATING
+   ========================================================= */
 
 .rating-box{
-
-    margin:20px;
-
-    padding:20px;
-
+    margin:20px 0;
+    padding:18px;
     background:#FFFDF8;
-
-    border-radius:20px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.15);
-
+    border-radius:18px;
+    box-shadow:0 5px 15px rgba(0,0,0,.12);
 }
 
 .rating-box h3{
-
     color:#5b3500;
-
     text-align:center;
-
-    margin-bottom:15px;
-
+    margin:0 0 14px;
+    font-size:18px;
 }
 
 .stars{
-
     display:flex;
-
     justify-content:center;
-
-    gap:12px;
-
+    align-items:center;
+    gap:10px;
 }
 
 .stars i{
-
-    font-size:30px;
-
+    font-size:27px;
     color:#ccc;
-
     cursor:pointer;
-
-    transition:.3s;
-
+    transition:.25s;
 }
 
 .stars i.active{
-
     color:#d4af37;
-
-    transform:scale(1.15);
-
+    transform:scale(1.12);
 }
 
 #ratingMessage{
-
     text-align:center;
-
-    margin-top:15px;
-
+    margin-top:12px;
     color:#5b3500;
-
-    font-size:14px;
-
+    font-size:13px;
 }
 
 
-/* RELATED MOVIES */
+/* =========================================================
+   COMMENTS
+   ========================================================= */
+
+.comments-section{
+    margin-top:20px;
+}
+
+.comments-section h2{
+    color:#5b3500;
+    font-size:20px;
+    margin-bottom:14px;
+}
+
+.comment-box{
+    background:#fff;
+    border-radius:14px;
+    padding:13px;
+    margin-bottom:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,.09);
+}
+
+.comment-user{
+    color:#5b3500;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.comment-text{
+    color:#5D4037;
+    font-size:13px;
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   MORE LIKE THIS
+   ========================================================= */
 
 .related-movies{
-
-    padding:20px;
-
+    padding:0;
+    margin-top:25px;
 }
 
-
 .related-movies h2{
-
     color:#5b3500;
-
-    margin-bottom:15px;
-
-    font-size:22px;
-
+    margin:0 0 14px;
+    font-size:21px;
 }
 
 
 /* 3 CARDS IN ONE ROW */
 
 .related-movies .movie-row{
-
     display:grid;
-
     grid-template-columns:repeat(3,1fr);
-
     gap:12px;
-
 }
 
 
 /* MOVIE CARD */
 
 .related-movies .movie-card{
-
     width:100%;
-
+    min-width:0;
     background:#fff;
-
     border-radius:15px;
-
     overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.13);
+    transition:.25s;
+}
 
-    box-shadow:0 5px 15px rgba(0,0,0,.15);
-
+.related-movies .movie-card:hover{
+    transform:translateY(-3px);
 }
 
 
-/* POSTER SIZE SAME */
+/* POSTER */
 
 .related-movies .movie-card img{
-
     width:100%;
-
-    height:170px;
-
+    height:180px;
     object-fit:cover;
-
     display:block;
-
+    border-radius:0;
+    box-shadow:none;
 }
 
 
 /* MOVIE TITLE */
 
 .related-movies .movie-card h3{
-
-    padding:8px 5px;
-
+    padding:9px 6px;
     margin:0;
-
     text-align:center;
-
-    font-size:14px;
-
+    font-size:13px;
     color:#5b3500;
-
     white-space:nowrap;
-
     overflow:hidden;
-
     text-overflow:ellipsis;
+}
+
+
+/* =========================================================
+   MOVIE META
+   ========================================================= */
+
+.movie-meta{
+    display:flex;
+    justify-content:flex-start;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:0 0 18px;
+}
+
+.movie-meta span{
+    color:#76552d;
+    font-size:12px;
+    font-weight:600;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media(min-width:600px){
+
+    .movie-details{
+        padding:25px;
+    }
+
+    .movie-trailer video,
+    .movie-trailer iframe{
+        height:360px;
+    }
+
+    .movie-details h1{
+        font-size:31px;
+    }
+
+    .movie-actions{
+        max-width:650px;
+    }
 
 }
 
 
-/* MOBILE SMALL SCREEN */
-
-@media(max-width:360px){
-
-.related-movies .movie-row{
-
-    gap:10px;
-
-}
-
-.related-movies .movie-card img{
-
-    height:150px;
-
-}
-
-}
-
-
-/* MOBILE */
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media(max-width:480px){
 
-.movie-details{
+    .movie-details{
+        padding:14px 12px 30px;
+    }
 
-    padding:15px;
+    .movie-trailer{
+        border-radius:15px;
+    }
+
+    .movie-trailer video,
+    .movie-trailer iframe{
+        height:210px;
+    }
+
+    .movie-details > img{
+        max-height:320px;
+        border-radius:16px;
+    }
+
+    .movie-details h1{
+        font-size:22px;
+        margin:6px 0 10px;
+    }
+
+    .info{
+        gap:6px;
+        margin-bottom:15px;
+    }
+
+    .info span{
+        padding:5px 9px;
+        font-size:11px;
+    }
+
+    #watchBtn{
+        min-height:46px;
+        font-size:15px;
+        border-radius:13px;
+    }
+
+    .movie-actions{
+        grid-template-columns:repeat(4,1fr);
+        gap:6px;
+    }
+
+    .movie-actions button,
+    .movie-actions a{
+        min-height:48px;
+        padding:6px 2px;
+        font-size:10px;
+        border-radius:11px;
+    }
+
+    .movie-actions button i,
+    .movie-actions a i{
+        font-size:16px;
+    }
+
+    .movie-tabs button{
+        font-size:12px;
+        min-width:80px;
+        padding:11px 7px;
+    }
+
+    .movie-details p{
+        font-size:13px;
+        line-height:1.65;
+    }
+
+    .cast-grid{
+        grid-template-columns:repeat(3,1fr);
+        gap:8px;
+    }
+
+    .cast-card img{
+        height:105px;
+    }
+
+    .cast-card h4{
+        font-size:11px;
+    }
+
+    .cast-card p{
+        font-size:10px;
+    }
+
+    .related-movies .movie-row{
+        grid-template-columns:repeat(3,1fr);
+        gap:8px;
+    }
+
+    .related-movies .movie-card{
+        border-radius:12px;
+    }
+
+    .related-movies .movie-card img{
+        height:155px;
+    }
+
+    .related-movies .movie-card h3{
+        font-size:11px;
+        padding:7px 3px;
+    }
 
 }
 
-.movie-details img{
 
-    max-height:320px;
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
 
-}
+@media(max-width:360px){
 
-.movie-details h1{
+    .movie-details{
+        padding:12px 10px 25px;
+    }
 
-    font-size:22px;
+    .movie-trailer video,
+    .movie-trailer iframe{
+        height:185px;
+    }
 
-}
+    .movie-details h1{
+        font-size:20px;
+    }
 
-.info span{
+    .movie-actions{
+        gap:4px;
+    }
 
-    font-size:12px;
+    .movie-actions button,
+    .movie-actions a{
+        font-size:9px;
+        min-height:46px;
+    }
 
-}
+    .movie-actions button i,
+    .movie-actions a i{
+        font-size:14px;
+    }
 
-#watchBtn,
-#listBtn,
-#shareBtn{
+    .related-movies .movie-row{
+        gap:6px;
+    }
 
-    font-size:15px;
-
-}
-
-.related-movies .movie-card{
-
-    min-width:120px;
-
-}
-
-.related-movies .movie-card img{
-
-    height:170px;
-
-}
+    .related-movies .movie-card img{
+        height:140px;
+    }
 
 }
