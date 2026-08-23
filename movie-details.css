@@ -37,7 +37,7 @@
 
 
 /* =========================================
-   MOVIE INFORMATION TAGS
+   MOVIE INFORMATION
 ========================================= */
 
 .info {
@@ -61,20 +61,7 @@
 
 
 /* =========================================
-   DESCRIPTION
-========================================= */
-
-.movie-details > p {
-    margin: 18px 0;
-    font-size: 15px;
-    line-height: 1.7;
-    color: #5D4037;
-    text-align: justify;
-}
-
-
-/* =========================================
-   MAIN ACTION BUTTONS
+   MAIN WATCH BUTTONS
 ========================================= */
 
 .action-btn {
@@ -86,11 +73,13 @@
     font-weight: 800;
     cursor: pointer;
     margin-bottom: 12px;
-    transition: .25s ease;
+
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
+
+    transition: .25s ease;
 }
 
 
@@ -102,8 +91,11 @@
         #f5d76e,
         #d4af37
     );
+
     color: #fff;
-    box-shadow: 0 5px 15px rgba(212, 175, 55, .30);
+
+    box-shadow:
+        0 5px 15px rgba(212, 175, 55, .30);
 }
 
 #watchBtn:hover {
@@ -124,252 +116,297 @@
 }
 
 
-/* DOWNLOAD */
-
-#downloadBtn {
-    background: #fff;
-    border: 2px solid #d4af37;
-    color: #5b3500;
-}
-
-#downloadBtn:hover {
-    background: #d4af37;
-    color: #fff;
-}
-
-
 /* =========================================
-   FOUR ACTION ICONS
-   LIST / LIKE / SHARE / DOWNLOAD
-========================================= */
-
-.movie-details .list-btn,
-.movie-details .like-btn,
-.movie-details .share-btn,
-.movie-details .download-btn {
-    width: auto;
-}
-
-
-/*
-   These four buttons are placed in one row.
-*/
-
-.movie-details {
-    --action-gap: 8px;
-}
-
-
-/* =========================================
-   ACTION AREA
+   LIST | LIKE | SHARE | DOWNLOAD
 ========================================= */
 
 .action-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin: 18px 0;
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(4, 1fr) !important;
+
+    gap: 5px !important;
+
+    margin: 15px 0 20px !important;
+
+    box-sizing: border-box !important;
 }
 
 
-/* =========================================
-   LIST BUTTON
-========================================= */
+.action-buttons button {
+    width: 100% !important;
 
-#listBtn {
-    width: 100%;
-    min-height: 70px;
-    padding: 8px 4px;
-    margin: 0;
-    border: none;
-    background: transparent;
-    color: #5b3500;
-    font-size: 13px;
-    font-weight: 800;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
+    min-width: 0 !important;
+
+    height: 72px !important;
+
+    min-height: 72px !important;
+
+    margin: 0 !important;
+
+    padding: 5px 2px !important;
+
+    border: none !important;
+
+    border-radius: 12px !important;
+
+    background: transparent !important;
+
+    color: #5b3500 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    font-size: 12px !important;
+
+    font-weight: 700 !important;
+
+    box-sizing: border-box !important;
+
+    cursor: pointer !important;
 }
 
-#listBtn i {
-    font-size: 25px;
-    color: #5b3500;
+
+.action-buttons button i {
+    font-size: 24px !important;
+
+    color: #5b3500 !important;
 }
 
-#listBtn:hover {
-    background: rgba(212, 175, 55, .12);
+
+.action-buttons button span {
+    display: block !important;
+
+    font-size: 12px !important;
+
+    white-space: nowrap !important;
 }
 
 
-/* =========================================
-   LIKE BUTTON
-========================================= */
+.action-buttons button small {
+    display: block !important;
 
-#likeBtn {
-    width: 100%;
-    min-height: 70px;
-    padding: 8px 4px;
-    margin: 0;
-    border: none;
-    background: transparent;
-    color: #5b3500;
-    font-size: 13px;
-    font-weight: 800;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
+    font-size: 10px !important;
+
+    margin: 0 !important;
 }
 
-#likeBtn i {
-    font-size: 25px;
-    color: #5b3500;
+
+.action-buttons button:hover {
+    background:
+        rgba(212, 175, 55, .12) !important;
 }
 
-#likeBtn:hover {
-    background: rgba(212, 175, 55, .12);
-}
 
-#likeBtn.liked i {
-    color: #d4af37;
+.action-buttons #likeBtn.liked i {
+    color: #d4af37 !important;
+
     transform: scale(1.08);
 }
 
 
 /* =========================================
-   SHARE BUTTON
+   MOVIE DETAILS | VIEWS | COMMENTS
 ========================================= */
 
-#shareBtn {
+.details-action-buttons {
+    width: 100% !important;
+
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(3, 1fr) !important;
+
+    gap: 5px !important;
+
+    margin: 18px 0 15px !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.details-action-btn {
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    height: 68px !important;
+
+    min-height: 68px !important;
+
+    margin: 0 !important;
+
+    padding: 5px 3px !important;
+
+    border: none !important;
+
+    border-radius: 12px !important;
+
+    background: transparent !important;
+
+    color: #5b3500 !important;
+
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    gap: 5px !important;
+
+    font-size: 11px !important;
+
+    font-weight: 700 !important;
+
+    box-sizing: border-box !important;
+
+    cursor: pointer !important;
+
+    transition: .25s ease;
+}
+
+
+.details-action-btn i {
+    font-size: 23px !important;
+
+    color: #5b3500 !important;
+}
+
+
+.details-action-btn span {
+    display: block !important;
+
+    font-size: 11px !important;
+
+    white-space: nowrap !important;
+}
+
+
+.details-action-btn b {
+    font-size: 11px !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* ACTIVE */
+
+.details-action-btn.active {
+    background:
+        rgba(212, 175, 55, .15) !important;
+}
+
+
+.details-action-btn.active i {
+    color: #d4af37 !important;
+}
+
+
+.details-action-btn:hover {
+    background:
+        rgba(212, 175, 55, .12) !important;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.description-box {
     width: 100%;
-    min-height: 70px;
-    padding: 8px 4px;
-    margin: 0;
-    border: none;
-    background: transparent;
-    color: #5b3500;
-    font-size: 13px;
-    font-weight: 800;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
+
+    box-sizing: border-box;
+
+    margin-top: 5px;
 }
 
-#shareBtn i {
-    font-size: 25px;
-    color: #5b3500;
-}
 
-#shareBtn:hover {
-    background: rgba(212, 175, 55, .12);
+.description-box p {
+    margin: 0 !important;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: #5D4037;
+
+    text-align: justify;
 }
 
 
 /* =========================================
-   DOWNLOAD ACTION
-========================================= */
-
-#downloadBtn {
-    width: 100%;
-    min-height: 70px;
-    padding: 8px 4px;
-    margin: 0;
-    border: none;
-    background: transparent;
-    color: #5b3500;
-    font-size: 13px;
-    font-weight: 800;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-}
-
-#downloadBtn i {
-    font-size: 25px;
-    color: #5b3500;
-}
-
-#downloadBtn:hover {
-    background: rgba(212, 175, 55, .12);
-}
-
-
-/* =========================================
-   MOVIE STATS
-========================================= */
-
-.movie-stats {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    margin: 5px 0 15px;
-    color: #795548;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.movie-stats span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.movie-stats i {
-    color: #d4af37;
-}
-
-
-/* =========================================
-   RATING BOX
+   RATING
 ========================================= */
 
 .rating-box {
     margin: 20px;
+
     padding: 20px;
+
     background: #FFFDF8;
+
     border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .12);
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, .12);
 }
+
 
 .rating-box h3 {
     color: #5b3500;
+
     text-align: center;
+
     margin-bottom: 15px;
 }
 
+
 .stars {
     display: flex;
+
     justify-content: center;
+
     gap: 12px;
 }
 
+
 .stars i {
     font-size: 30px;
+
     color: #ccc;
+
     cursor: pointer;
+
     transition: .25s;
 }
 
+
 .stars i.active {
     color: #d4af37;
+
     transform: scale(1.15);
 }
 
+
 #ratingMessage {
     text-align: center;
+
     margin-top: 15px;
+
     color: #5b3500;
+
     font-size: 14px;
 }
 
@@ -380,15 +417,25 @@
 
 .comments-section {
     margin: 20px;
+
     padding: 20px;
+
     background: #FFFDF8;
+
     border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .12);
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, .12);
+
+    scroll-margin-top: 20px;
 }
+
 
 .comments-section h2 {
     margin: 0 0 18px;
+
     color: #5b3500;
+
     font-size: 21px;
 }
 
@@ -397,38 +444,63 @@
 
 .comment-form {
     display: flex;
+
     flex-direction: column;
+
     gap: 10px;
 }
 
+
 #commentInput {
     width: 100%;
+
     box-sizing: border-box;
+
     padding: 13px;
+
     border: 1px solid #d4af37;
+
     border-radius: 12px;
+
     outline: none;
+
     resize: vertical;
+
     color: #5b3500;
+
     background: #fff;
+
     font-family: inherit;
 }
 
+
 #commentInput:focus {
     border-color: #b8860b;
-    box-shadow: 0 0 0 2px rgba(212, 175, 55, .15);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(212, 175, 55, .15);
 }
+
 
 #commentBtn {
     padding: 12px 18px;
+
     border: none;
+
     border-radius: 25px;
+
     background: #d4af37;
+
     color: #fff;
+
     font-size: 15px;
+
     font-weight: 700;
+
     cursor: pointer;
 }
+
 
 #commentBtn:hover {
     background: #b8860b;
@@ -441,39 +513,58 @@
     margin-top: 18px;
 }
 
+
 .comment-card {
     padding: 13px;
+
     margin-bottom: 10px;
+
     background: #fff;
+
     border-left: 3px solid #d4af37;
+
     border-radius: 10px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, .08);
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, .08);
 }
+
 
 .comment-header {
     display: flex;
+
     justify-content: space-between;
+
     gap: 10px;
+
     margin-bottom: 7px;
 }
+
 
 .comment-header strong {
     color: #5b3500;
 }
 
+
 .comment-header small {
     color: #8d6e63;
 }
 
+
 .comment-card p {
     margin: 0;
+
     color: #5D4037;
+
     line-height: 1.5;
+
     font-size: 14px;
 }
 
+
 .no-comments {
     text-align: center;
+
     color: #8d6e63;
 }
 
@@ -486,54 +577,68 @@
     padding: 20px;
 }
 
+
 .related-movies h2 {
     color: #5b3500;
+
     margin-bottom: 15px;
+
     font-size: 22px;
 }
 
 
-/* 3 CARDS IN ONE ROW */
-
 .related-movies .movie-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
     gap: 12px;
 }
 
 
-/* MOVIE CARD */
-
 .related-movies .movie-card {
     width: 100%;
+
     background: #fff;
+
     border-radius: 15px;
+
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .15);
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, .15);
+
     cursor: pointer;
 }
 
 
-/* POSTER */
-
 .related-movies .movie-card img {
     width: 100%;
+
     height: 170px;
+
     object-fit: cover;
+
     display: block;
 }
 
 
-/* TITLE */
-
 .related-movies .movie-card h3 {
     padding: 8px 5px;
+
     margin: 0;
+
     text-align: center;
+
     font-size: 14px;
+
     color: #5b3500;
+
     white-space: nowrap;
+
     overflow: hidden;
+
     text-overflow: ellipsis;
 }
 
@@ -544,74 +649,139 @@
 
 @media (max-width: 480px) {
 
+
     .movie-details {
         padding: 15px;
     }
 
+
     .movie-details > img {
         max-height: 320px;
+
         border-radius: 17px;
     }
+
 
     .movie-details h1 {
         font-size: 23px;
     }
 
+
     .info {
         gap: 6px;
     }
 
+
     .info span {
         padding: 7px 10px;
+
         font-size: 12px;
     }
 
-    .movie-details > p {
-        font-size: 14px;
-    }
 
     .action-btn {
         min-height: 50px;
+
         font-size: 15px;
     }
 
+
+    /* FOUR BUTTONS */
+
     .action-buttons {
-        gap: 3px;
+        grid-template-columns:
+            repeat(4, 1fr) !important;
+
+        gap: 2px !important;
     }
 
-    #listBtn,
-    #likeBtn,
-    #shareBtn,
-    #downloadBtn {
-        min-height: 65px;
-        font-size: 11px;
+
+    .action-buttons button {
+        height: 68px !important;
+
+        min-height: 68px !important;
+
+        padding: 4px 1px !important;
     }
 
-    #listBtn i,
-    #likeBtn i,
-    #shareBtn i,
-    #downloadBtn i {
-        font-size: 23px;
+
+    .action-buttons button i {
+        font-size: 22px !important;
     }
 
-    .movie-stats {
-        gap: 15px;
-        font-size: 12px;
+
+    .action-buttons button span {
+        font-size: 10px !important;
     }
+
+
+    .action-buttons button small {
+        font-size: 9px !important;
+    }
+
+
+    /* THREE BUTTONS */
+
+    .details-action-buttons {
+        grid-template-columns:
+            repeat(3, 1fr) !important;
+
+        gap: 3px !important;
+    }
+
+
+    .details-action-btn {
+        height: 64px !important;
+
+        min-height: 64px !important;
+
+        padding: 4px 2px !important;
+    }
+
+
+    .details-action-btn i {
+        font-size: 21px !important;
+    }
+
+
+    .details-action-btn span {
+        font-size: 10px !important;
+    }
+
+
+    .details-action-btn b {
+        font-size: 10px !important;
+    }
+
+
+    /* DESCRIPTION */
+
+    .description-box p {
+        font-size: 14px;
+    }
+
+
+    /* RATING + COMMENTS */
 
     .rating-box,
     .comments-section {
         margin: 15px;
+
         padding: 16px;
     }
+
+
+    /* RELATED */
 
     .related-movies {
         padding: 15px;
     }
 
+
     .related-movies .movie-row {
         gap: 10px;
     }
+
 
     .related-movies .movie-card img {
         height: 170px;
@@ -626,246 +796,50 @@
 
 @media (max-width: 360px) {
 
+
     .movie-details h1 {
         font-size: 21px;
     }
 
+
     .info span {
         font-size: 11px;
+
         padding: 6px 8px;
     }
 
-    #listBtn,
-    #likeBtn,
-    #shareBtn,
-    #downloadBtn {
-        font-size: 10px;
-    }
 
-    #listBtn i,
-    #likeBtn i,
-    #shareBtn i,
-    #downloadBtn i {
-        font-size: 21px;
-    }
-
-    .related-movies .movie-card img {
-        height: 150px;
-    }
-
-}
-/* =========================================
-   FINAL ACTION LAYOUT
-   LIST | LIKE | SHARE | DOWNLOAD
-========================================= */
-
-.action-buttons {
-    width: 100% !important;
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 5px !important;
-    margin: 15px 0 20px !important;
-}
-
-
-/* ALL FOUR BUTTONS */
-
-.action-buttons button,
-.action-buttons #listBtn,
-.action-buttons #likeBtn,
-.action-buttons #shareBtn,
-.action-buttons #downloadBtn {
-    width: 100% !important;
-    min-width: 0 !important;
-    height: 72px !important;
-    min-height: 72px !important;
-
-    margin: 0 !important;
-    padding: 5px 2px !important;
-
-    border: none !important;
-    border-radius: 12px !important;
-
-    background: transparent !important;
-    color: #5b3500 !important;
-
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    gap: 5px !important;
-
-    font-size: 12px !important;
-    font-weight: 700 !important;
-
-    box-sizing: border-box !important;
-}
-
-
-/* ICON */
-
-.action-buttons button i {
-    font-size: 24px !important;
-    color: #5b3500 !important;
-}
-
-
-/* TEXT */
-
-.action-buttons button span {
-    display: block !important;
-    font-size: 12px !important;
-    white-space: nowrap !important;
-}
-
-
-/* LIKE COUNT */
-
-.action-buttons button small {
-    display: block !important;
-    font-size: 10px !important;
-    margin: 0 !important;
-}
-
-
-/* HOVER */
-
-.action-buttons button:hover {
-    background: rgba(212, 175, 55, .12) !important;
-}
-
-
-/* LIKED */
-
-.action-buttons #likeBtn.liked i {
-    color: #d4af37 !important;
-}
-
-
-/* =========================================
-   MOVIE DETAILS + VIEWS + COMMENTS
-========================================= */
-
-.movie-details-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin: 18px 0 12px;
-    box-sizing: border-box;
-}
-
-.movie-details-header h2 {
-    margin: 0;
-    padding: 0;
-    color: #5b3500;
-    font-size: 20px;
-    font-weight: 800;
-    white-space: nowrap;
-}
-
-.movie-details-header .movie-stats {
-    margin: 0 !important;
-    padding: 0 !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-
-    gap: 10px !important;
-}
-
-.movie-details-header .movie-stats > span {
-    display: flex !important;
-    align-items: center !important;
-    gap: 4px !important;
-
-    color: #795548 !important;
-    font-size: 11px !important;
-    font-weight: 700 !important;
-
-    white-space: nowrap !important;
-}
-
-.movie-details-header .movie-stats i {
-    color: #d4af37 !important;
-}
-
-
-/* DESCRIPTION */
-
-.description-box {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.description-box p {
-    margin: 0 !important;
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 480px) {
-
-    .action-buttons {
-        grid-template-columns: repeat(4, 1fr) !important;
-        gap: 2px !important;
-    }
-
-    .action-buttons button,
-    .action-buttons #listBtn,
-    .action-buttons #likeBtn,
-    .action-buttons #shareBtn,
-    .action-buttons #downloadBtn {
-        height: 68px !important;
-        min-height: 68px !important;
-        padding: 4px 1px !important;
-    }
-
-    .action-buttons button i {
-        font-size: 22px !important;
-    }
-
-    .action-buttons button span {
-        font-size: 10px !important;
-    }
-
-    .action-buttons button small {
-        font-size: 9px !important;
-    }
-
-    .movie-details-header h2 {
-        font-size: 17px !important;
-    }
-
-    .movie-details-header .movie-stats {
-        gap: 6px !important;
-    }
-
-    .movie-details-header .movie-stats > span {
-        font-size: 9px !important;
-    }
-
-}
-
-
-@media (max-width: 360px) {
+    /* FOUR BUTTONS */
 
     .action-buttons button i {
         font-size: 20px !important;
     }
 
+
     .action-buttons button span {
         font-size: 9px !important;
     }
 
-    .movie-details-header h2 {
-        font-size: 16px !important;
+
+    /* THREE BUTTONS */
+
+    .details-action-btn i {
+        font-size: 19px !important;
+    }
+
+
+    .details-action-btn span {
+        font-size: 9px !important;
+    }
+
+
+    .details-action-btn b {
+        font-size: 9px !important;
+    }
+
+
+    .related-movies .movie-card img {
+        height: 150px;
     }
 
 }
