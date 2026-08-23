@@ -245,55 +245,65 @@ function openProfile() {
 
 
 
-    <!-- =================================
-         MOVIE DETAILS HEADER
-    ================================== -->
+<!-- =================================
+     MOVIE DETAILS | VIEWS | COMMENTS
+================================= -->
 
-    <div class="movie-details-header">
+<div class="details-action-buttons">
 
+    <!-- MOVIE DETAILS -->
 
-        <h2>
+    <button
+        type="button"
+        id="detailsTabBtn"
+        class="details-action-btn active"
+    >
+
+        <i class="fa-solid fa-circle-info"></i>
+
+        <span>
             Movie Details
-        </h2>
+        </span>
+
+    </button>
 
 
-        <div class="movie-stats">
+    <!-- VIEWS -->
+
+    <button
+        type="button"
+        id="viewsBtn"
+        class="details-action-btn"
+    >
+
+        <i class="fa-solid fa-eye"></i>
+
+        <span>
+            <b id="viewCount">0</b>
+            Views
+        </span>
+
+    </button>
 
 
-            <!-- VIEWS -->
+    <!-- COMMENTS -->
 
-            <span>
+    <button
+        type="button"
+        id="commentsBtn"
+        class="details-action-btn"
+    >
 
-                <i class="fa-solid fa-eye"></i>
+        <i class="fa-solid fa-comment"></i>
 
-                <span id="viewCount">
-                    0
-                </span>
+        <span>
+            <b id="commentCount">0</b>
+            Comments
+        </span>
 
-                Views
+    </button>
 
-            </span>
-
-
-
-            <!-- COMMENTS -->
-
-            <span>
-
-                <i class="fa-solid fa-comment"></i>
-
-                <span id="commentCount">
-                    0
-                </span>
-
-                Comments
-
-            </span>
-
-
-        </div>
-
-    </div>
+</div>
 
 
 
