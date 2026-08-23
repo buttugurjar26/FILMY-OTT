@@ -1,1171 +1,721 @@
-import { supabase } from "./supabase.js";
-import { applyLanguage } from "./language.js";
+/* =========================================
+   FILMY OTT - MOVIE DETAILS UI
+========================================= */
 
 
-// =====================================
-// GET MOVIE ID
-// =====================================
+/* =========================================
+   PROFILE
+========================================= */
 
-const params = new URLSearchParams(window.location.search);
-const movieId = params.get("id");
+window.openProfile = function () {
+
+    window.location.href = "profile.html";
+
+};
 
 
-// =====================================
-// LOAD MOVIE
-// =====================================
+/* =========================================
+   DOM READY
+========================================= */
 
-async function loadMovie() {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    if (!movieId) return;
 
-    try {
+        /* =====================================
+           TAB ELEMENTS
+        ===================================== */
 
-        const { data: movie, error } = await supabase
-            .from("movies")
-            .select("*")
-            .eq("id", movieId)
-            .single();
+        const detailsTabBtn =
+            document.getElementById(
+                "detailsTabBtn"
+            );
 
-        if (error || !movie) {
 
-            document.querySelector(".movie-details").innerHTML =
-                "<h2>Movie Not Found</h2>";
+        const ratingTabBtn =
+            document.getElementById(
+                "ratingTabBtn"
+            );
 
-            return;
+
+        const commentsTabBtn =
+            document.getElementById(
+                "commentsTabBtn"
+            );
+
+
+        const detailsContent =
+            document.getElementById(
+                "detailsContent"
+            );
+
+
+        const ratingContent =
+            document.getElementById(
+                "ratingContent"
+            );
+
+
+        const commentsContent =
+            document.getElementById(
+                "commentsContent"
+            );
+
+
+
+        /* =====================================
+           TAB FUNCTION
+        ===================================== */
+
+        function showTab(
+            selectedButton,
+            selectedContent
+        ) {
+
+
+            /* REMOVE ACTIVE FROM ALL BUTTONS */
+
+            detailsTabBtn.classList.remove(
+                "active"
+            );
+
+            ratingTabBtn.classList.remove(
+                "active"
+            );
+
+            commentsTabBtn.classList.remove(
+                "active"
+            );
+
+
+            /* HIDE ALL CONTENT */
+
+            detailsContent.classList.remove(
+                "active-content"
+            );
+
+            ratingContent.classList.remove(
+                "active-content"
+            );
+
+            commentsContent.classList.remove(
+                "active-content"
+            );
+
+
+            /* SHOW SELECTED */
+
+            selectedButton.classList.add(
+                "active"
+            );
+
+            selectedContent.classList.add(
+                "active-content"
+            );
+
         }
 
 
-        // =====================================
-        // MOVIE INFORMATION
-        // =====================================
 
-        document.getElementById("moviePoster").src =
-            movie.poster_url || "logo-192.png";
+        /* =====================================
+           MOVIE DETAILS
+        ===================================== */
 
-        document.getElementById("movieName").innerText =
-            movie.title || "Movie";
+        if (
+            detailsTabBtn &&
+            detailsContent
+        ) {
 
-        document.getElementById("movieCategory").innerText =
-            movie.category || "Movie";
+            detailsTabBtn.addEventListener(
+                "click",
+                function () {
 
-        document.getElementById("movieYear").innerText =
-            movie.year || "2026";
-
-        document.getElementById("movieDuration").innerText =
-            movie.duration || "N/A";
-
-        document.getElementById("movieQuality").innerText =
-            movie.quality || "HD";
-
-        document.getElementById("movieLanguage").innerText =
-            movie.language || "Hindi";
-
-        document.getElementById("movieRating").innerText =
-            "⭐ " + (movie.rating || "0.0");
-
-        document.getElementById("movieDescription").innerText =
-            movie.description || "No Description Available.";
-
-
-        // =====================================
-        // TRAILER
-        // =====================================
-
-        const trailerBtn =
-            document.getElementById("trailerBtn");
-
-        if (trailerBtn) {
-
-            if (movie.trailer_url) {
-
-                trailerBtn.onclick = function () {
-
-                    window.location.href =
-                        "player.html?id=" +
-                        encodeURIComponent(movieId) +
-                        "&type=trailer";
-
-                };
-
-            } else {
-
-                trailerBtn.onclick = function () {
-
-                    alert("Trailer Not Available");
-
-                };
-
-            }
-
-        }
-
-
-        // =====================================
-        // WATCH MOVIE - DISKWALA
-        // =====================================
-
-        const watchBtn =
-            document.getElementById("watchBtn");
-
-        if (watchBtn) {
-
-            if (movie.diskwala_url) {
-
-                watchBtn.onclick = function () {
-
-                    window.open(
-                        movie.diskwala_url,
-                        "_blank",
-                        "noopener,noreferrer"
+                    showTab(
+                        detailsTabBtn,
+                        detailsContent
                     );
 
-                };
-
-            } else {
-
-                watchBtn.onclick = function () {
-
-                    alert("Watch Link Not Available");
-
-                };
-
-            }
+                }
+            );
 
         }
 
 
-        // =====================================
-        // DOWNLOAD MOVIE - NITROFLARE
-        // =====================================
 
-        const downloadBtn =
-            document.getElementById("downloadBtn");
+        /* =====================================
+           RATING
+        ===================================== */
 
-        if (downloadBtn) {
+        if (
+            ratingTabBtn &&
+            ratingContent
+        ) {
 
-            if (movie.nitroflare_url) {
+            ratingTabBtn.addEventListener(
+                "click",
+                function () {
 
-                downloadBtn.onclick = function () {
-
-                    window.open(
-                        movie.nitroflare_url,
-                        "_blank",
-                        "noopener,noreferrer"
+                    showTab(
+                        ratingTabBtn,
+                        ratingContent
                     );
 
-                };
-
-            } else {
-
-                downloadBtn.onclick = function () {
-
-                    alert("Download Link Not Available");
-
-                };
-
-            }
+                }
+            );
 
         }
 
 
-        // =====================================
-        // MY LIST
-        // =====================================
 
-        const listBtn =
-            document.getElementById("listBtn");
+        /* =====================================
+           COMMENTS
+        ===================================== */
 
-        let myList =
-            JSON.parse(localStorage.getItem("myList")) || [];
+        if (
+            commentsTabBtn &&
+            commentsContent
+        ) {
 
-        myList = [...new Set(myList)];
+            commentsTabBtn.addEventListener(
+                "click",
+                function () {
 
-        localStorage.setItem(
-            "myList",
-            JSON.stringify(myList)
+                    showTab(
+                        commentsTabBtn,
+                        commentsContent
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =====================================
+           RATING STARS
+        ===================================== */
+
+        const stars =
+            document.querySelectorAll(
+                ".stars i"
+            );
+
+
+        const ratingMessage =
+            document.getElementById(
+                "ratingMessage"
+            );
+
+
+        stars.forEach(
+            function (star) {
+
+                star.addEventListener(
+                    "click",
+                    function () {
+
+
+                        const rate =
+                            Number(
+                                star.dataset.rate
+                            );
+
+
+                        stars.forEach(
+                            function (item) {
+
+                                const itemRate =
+                                    Number(
+                                        item.dataset.rate
+                                    );
+
+
+                                if (
+                                    itemRate <= rate
+                                ) {
+
+                                    item.classList.add(
+                                        "active"
+                                    );
+
+                                } else {
+
+                                    item.classList.remove(
+                                        "active"
+                                    );
+
+                                }
+
+                            }
+                        );
+
+
+                        if (ratingMessage) {
+
+                            ratingMessage.textContent =
+                                "You rated this movie " +
+                                rate +
+                                " out of 5.";
+
+                        }
+
+                    }
+                );
+
+            }
         );
 
 
-        function updateListButton() {
 
-            if (myList.includes(movieId)) {
+        /* =====================================
+           LIKE BUTTON
+        ===================================== */
 
-                listBtn.innerHTML =
-                    '<i class="fa-solid fa-heart-crack"></i> ' +
-                    '<span data-lang="removeFromMyList">' +
-                    'Remove From My List' +
-                    '</span>';
+        const likeBtn =
+            document.getElementById(
+                "likeBtn"
+            );
 
-            } else {
 
-                listBtn.innerHTML =
-                    '<i class="fa-solid fa-heart"></i> ' +
-                    '<span data-lang="addToMyList">' +
-                    'Add to My List' +
-                    '</span>';
+        const likeCount =
+            document.getElementById(
+                "likeCount"
+            );
 
-            }
 
-            setTimeout(() => {
-                applyLanguage();
-            }, 50);
+        if (likeBtn) {
+
+            likeBtn.addEventListener(
+                "click",
+                function () {
+
+
+                    const liked =
+                        likeBtn.classList.toggle(
+                            "liked"
+                        );
+
+
+                    if (likeCount) {
+
+                        likeCount.textContent =
+                            liked ? "1" : "0";
+
+                    }
+
+                }
+            );
 
         }
 
 
-        updateListButton();
 
-
-        listBtn.onclick = function () {
-
-            let currentList =
-                JSON.parse(localStorage.getItem("myList")) || [];
-
-            currentList =
-                [...new Set(currentList)];
-
-            const index =
-                currentList.indexOf(movieId);
-
-
-            if (index > -1) {
-
-                currentList.splice(index, 1);
-
-                localStorage.setItem(
-                    "myList",
-                    JSON.stringify(currentList)
-                );
-
-                myList = currentList;
-
-                updateListButton();
-
-                alert("Removed From My List");
-
-
-            } else {
-
-                currentList.push(movieId);
-
-                localStorage.setItem(
-                    "myList",
-                    JSON.stringify(currentList)
-                );
-
-                myList = currentList;
-
-                updateListButton();
-
-                alert("Added To My List");
-
-            }
-
-        };
-
-
-        // =====================================
-        // SHARE MOVIE
-        // =====================================
+        /* =====================================
+           SHARE BUTTON
+        ===================================== */
 
         const shareBtn =
-            document.getElementById("shareBtn");
+            document.getElementById(
+                "shareBtn"
+            );
+
 
         if (shareBtn) {
 
-            shareBtn.onclick = async function () {
+            shareBtn.addEventListener(
+                "click",
+                async function () {
 
-                try {
 
-                    if (navigator.share) {
+                    const titleElement =
+                        document.getElementById(
+                            "movieName"
+                        );
 
-                        await navigator.share({
 
-                            title: movie.title,
+                    const title =
+                        titleElement
+                            ? titleElement.textContent.trim()
+                            : "FILMY OTT Movie";
 
-                            text:
-                                movie.description ||
-                                "Watch " + movie.title +
-                                " on FILMY OTT",
 
-                            url: window.location.href
+                    const shareData = {
 
-                        });
+                        title: title,
+
+                        text:
+                            "Watch " +
+                            title +
+                            " on FILMY OTT",
+
+                        url:
+                            window.location.href
+
+                    };
+
+
+                    try {
+
+
+                        if (
+                            navigator.share
+                        ) {
+
+                            await navigator.share(
+                                shareData
+                            );
+
+                        } else if (
+                            navigator.clipboard
+                        ) {
+
+                            await navigator.clipboard.writeText(
+                                window.location.href
+                            );
+
+                            alert(
+                                "Movie link copied!"
+                            );
+
+                        }
+
+
+                    } catch (error) {
+
+                        console.log(
+                            "Share cancelled."
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* =====================================
+           DOWNLOAD BUTTON
+        ===================================== */
+
+        const downloadBtn =
+            document.getElementById(
+                "downloadBtn"
+            );
+
+
+        if (downloadBtn) {
+
+            downloadBtn.addEventListener(
+                "click",
+                function () {
+
+                    const message =
+                        "Download option will be available after the movie download link is added.";
+
+                    alert(message);
+
+                }
+            );
+
+        }
+
+
+
+        /* =====================================
+           LIST BUTTON
+        ===================================== */
+
+        const listBtn =
+            document.getElementById(
+                "listBtn"
+            );
+
+
+        if (listBtn) {
+
+            listBtn.addEventListener(
+                "click",
+                function () {
+
+                    listBtn.classList.toggle(
+                        "saved"
+                    );
+
+
+                    if (
+                        listBtn.classList.contains(
+                            "saved"
+                        )
+                    ) {
+
+                        listBtn
+                            .querySelector("i")
+                            ?.classList.replace(
+                                "fa-bookmark",
+                                "fa-bookmark"
+                            );
+
+                        alert(
+                            "Added to My List"
+                        );
 
                     } else {
 
-                        await navigator.clipboard.writeText(
-                            window.location.href
+                        alert(
+                            "Removed from My List"
                         );
 
-                        alert("Movie Link Copied");
-
                     }
-
-                } catch (error) {
-
-                    console.log("Share cancelled");
 
                 }
-
-            };
-
-        }
-
-
-        // =====================================
-        // LOAD RELATED MOVIES
-        // =====================================
-
-        loadRelatedMovies(movie.category);
-
-
-        // =====================================
-        // LOAD LIKE
-        // =====================================
-
-        loadLikeStatus();
-
-
-        // =====================================
-        // LOAD COMMENTS
-        // =====================================
-
-        loadComments();
-
-
-        // =====================================
-        // ADD VIEW
-        // =====================================
-
-        addMovieView();
-
-    }
-    catch (error) {
-
-        console.log("Movie Load Error:", error);
-
-    }
-
-}
-
-
-
-// =====================================
-// RELATED MOVIES
-// =====================================
-
-async function loadRelatedMovies(category) {
-
-    const container =
-        document.getElementById("relatedMovies");
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    const { data, error } = await supabase
-        .from("movies")
-        .select("*")
-        .eq("category", category)
-        .neq("id", movieId)
-        .limit(10);
-
-    if (error) {
-
-        console.log(error);
-
-        return;
-    }
-
-
-    if (!data || data.length === 0) {
-
-        container.innerHTML =
-            "<p>No related movies found.</p>";
-
-        return;
-    }
-
-
-    data.forEach(movie => {
-
-        container.innerHTML += `
-
-            <div
-                class="movie-card"
-                onclick="location.href='movie-details.html?id=${encodeURIComponent(movie.id)}'"
-            >
-
-                <img
-                    src="${movie.poster_url || "logo-192.png"}"
-                    alt="${movie.title || "Movie"}"
-                >
-
-                <h3>
-                    ${movie.title || "Movie"}
-                </h3>
-
-            </div>
-
-        `;
-
-    });
-
-}
-
-
-
-// =====================================
-// PUBLIC RATING
-// =====================================
-
-const stars =
-    document.querySelectorAll(".stars i");
-
-const message =
-    document.getElementById("ratingMessage");
-
-
-stars.forEach((star, index) => {
-
-    star.onclick = async function () {
-
-        const rating = index + 1;
-
-        stars.forEach(s =>
-            s.classList.remove("active")
-        );
-
-        for (let i = 0; i <= index; i++) {
-
-            stars[i].classList.add("active");
+            );
 
         }
 
 
-        const userId =
-            localStorage.getItem("userId");
 
+        /* =====================================
+           COMMENTS
+        ===================================== */
 
-        if (!userId) {
-
-            message.innerText =
-                "Please login first.";
-
-            return;
-
-        }
-
-
-        const { error } =
-            await supabase
-                .from("movie_ratings")
-                .upsert(
-                    {
-                        movie_id: Number(movieId),
-                        user_id: userId,
-                        rating: rating
-                    },
-                    {
-                        onConflict:
-                            "movie_id,user_id"
-                    }
-                );
-
-
-        if (error) {
-
-            console.log(error);
-
-            alert(error.message);
-
-            message.innerText =
-                "Rating could not be saved.";
-
-            return;
-
-        }
-
-
-        const {
-            data: ratings,
-            error: ratingError
-        } = await supabase
-            .from("movie_ratings")
-            .select("rating")
-            .eq("movie_id", movieId);
-
-
-        if (ratingError) {
-
-            console.log(ratingError);
-
-            return;
-
-        }
-
-
-        let total = 0;
-
-        ratings.forEach(item => {
-
-            total += Number(item.rating);
-
-        });
-
-
-        const average =
-            ratings.length
-                ? Number(
-                    (total / ratings.length)
-                    .toFixed(1)
-                )
-                : 0;
-
-
-        const {
-            error: updateError
-        } = await supabase
-            .from("movies")
-            .update({
-                rating: average
-            })
-            .eq("id", movieId);
-
-
-        if (updateError) {
-
-            console.log(updateError);
-
-            return;
-
-        }
-
-
-        message.innerText =
-            "Thanks! You rated " +
-            rating +
-            " ⭐";
-
-
-        const movieRating =
+        const commentBtn =
             document.getElementById(
-                "movieRating"
+                "commentBtn"
             );
 
 
-        if (movieRating) {
-
-            movieRating.innerText =
-                "⭐ " + average;
-
-        }
-
-    };
-
-});
-
-
-
-// =====================================
-// LOAD USER RATING
-// =====================================
-
-async function loadUserRating() {
-
-    const userId =
-        localStorage.getItem("userId");
-
-    if (!userId) return;
-
-
-    const {
-        data,
-        error
-    } = await supabase
-        .from("movie_ratings")
-        .select("rating")
-        .eq("movie_id", movieId)
-        .eq("user_id", userId)
-        .single();
-
-
-    if (error || !data) return;
-
-
-    stars.forEach(s =>
-        s.classList.remove("active")
-    );
-
-
-    for (
-        let i = 0;
-        i < data.rating;
-        i++
-    ) {
-
-        stars[i].classList.add("active");
-
-    }
-
-
-    message.innerText =
-        "Your Rating: " +
-        data.rating +
-        " ⭐";
-
-}
-
-
-
-// =====================================
-// LIKE SYSTEM
-// =====================================
-
-async function loadLikeStatus() {
-
-    const likeBtn =
-        document.getElementById("likeBtn");
-
-    const likeCount =
-        document.getElementById("likeCount");
-
-    if (!likeBtn) return;
-
-
-    const userId =
-        localStorage.getItem("userId");
-
-
-    const {
-        count,
-        error: countError
-    } = await supabase
-        .from("movie_likes")
-        .select("*", {
-            count: "exact",
-            head: true
-        })
-        .eq("movie_id", movieId);
-
-
-    if (!countError && likeCount) {
-
-        likeCount.innerText =
-            count || 0;
-
-    }
-
-
-    if (!userId) return;
-
-
-    const {
-        data,
-        error
-    } = await supabase
-        .from("movie_likes")
-        .select("id")
-        .eq("movie_id", movieId)
-        .eq("user_id", userId)
-        .maybeSingle();
-
-
-    if (!error && data) {
-
-        likeBtn.classList.add("liked");
-
-    }
-
-
-    likeBtn.onclick = async function () {
-
-        const currentUser =
-            localStorage.getItem("userId");
-
-
-        if (!currentUser) {
-
-            alert("Please login first.");
-
-            return;
-
-        }
-
-
-        const {
-            data: existingLike,
-            error: findError
-        } = await supabase
-            .from("movie_likes")
-            .select("id")
-            .eq("movie_id", movieId)
-            .eq("user_id", currentUser)
-            .maybeSingle();
-
-
-        if (findError) {
-
-            console.log(findError);
-
-            return;
-
-        }
-
-
-        if (existingLike) {
-
-            const { error: deleteError } =
-                await supabase
-                    .from("movie_likes")
-                    .delete()
-                    .eq("id", existingLike.id);
-
-
-            if (deleteError) {
-
-                console.log(deleteError);
-
-                return;
-
-            }
-
-
-            likeBtn.classList.remove("liked");
-
-
-        } else {
-
-            const { error: insertError } =
-                await supabase
-                    .from("movie_likes")
-                    .insert({
-
-                        movie_id:
-                            Number(movieId),
-
-                        user_id:
-                            currentUser
-
-                    });
-
-
-            if (insertError) {
-
-                console.log(insertError);
-
-                return;
-
-            }
-
-
-            likeBtn.classList.add("liked");
-
-        }
-
-
-        const {
-            count: newCount
-        } = await supabase
-            .from("movie_likes")
-            .select("*", {
-                count: "exact",
-                head: true
-            })
-            .eq("movie_id", movieId);
-
-
-        if (likeCount) {
-
-            likeCount.innerText =
-                newCount || 0;
-
-        }
-
-    };
-
-}
-
-
-
-// =====================================
-// COMMENT SYSTEM
-// =====================================
-
-async function loadComments() {
-
-    const list =
-        document.getElementById(
-            "commentsList"
-        );
-
-    const commentCount =
-        document.getElementById(
-            "commentCount"
-        );
-
-
-    if (!list) return;
-
-
-    const {
-        data,
-        error
-    } = await supabase
-        .from("movie_comments")
-        .select("*")
-        .eq("movie_id", movieId)
-        .order("created_at", {
-            ascending: false
-        });
-
-
-    if (error) {
-
-        console.log(error);
-
-        return;
-
-    }
-
-
-    if (commentCount) {
-
-        commentCount.innerText =
-            data ? data.length : 0;
-
-    }
-
-
-    if (!data || data.length === 0) {
-
-        list.innerHTML =
-            `<p class="no-comments">
-                No comments yet.
-            </p>`;
-
-        return;
-
-    }
-
-
-    list.innerHTML = "";
-
-
-    data.forEach(comment => {
-
-        const div =
-            document.createElement("div");
-
-        div.className =
-            "comment-card";
-
-
-        div.innerHTML = `
-
-            <div class="comment-header">
-
-                <strong>
-                    ${escapeHTML(
-                        comment.user_name ||
-                        "User"
-                    )}
-                </strong>
-
-                <small>
-                    ${formatDate(
-                        comment.created_at
-                    )}
-                </small>
-
-            </div>
-
-            <p>
-                ${escapeHTML(
-                    comment.comment || ""
-                )}
-            </p>
-
-        `;
-
-
-        list.appendChild(div);
-
-    });
-
-}
-
-
-
-// =====================================
-// POST COMMENT
-// =====================================
-
-const commentBtn =
-    document.getElementById(
-        "commentBtn"
-    );
-
-
-if (commentBtn) {
-
-    commentBtn.onclick =
-        async function () {
-
-            const userId =
-                localStorage.getItem(
-                    "userId"
-                );
-
-
-            if (!userId) {
-
-                alert(
-                    "Please login first."
-                );
-
-                return;
-
-            }
-
-
-            const input =
-                document.getElementById(
-                    "commentInput"
-                );
-
-
-            const comment =
-                input.value.trim();
-
-
-            if (!comment) {
-
-                alert(
-                    "Please write a comment."
-                );
-
-                return;
-
-            }
-
-
-            const userName =
-                localStorage.getItem(
-                    "userName"
-                ) ||
-                "User";
-
-
-            const {
-                error
-            } = await supabase
-                .from("movie_comments")
-                .insert({
-
-                    movie_id:
-                        Number(movieId),
-
-                    user_id:
-                        userId,
-
-                    user_name:
-                        userName,
-
-                    comment:
-                        comment
-
-                });
-
-
-            if (error) {
-
-                console.log(error);
-
-                alert(
-                    "Comment could not be posted."
-                );
-
-                return;
-
-            }
-
-
-            input.value = "";
-
-            await loadComments();
-
-            alert(
-                "Comment Posted"
+        const commentInput =
+            document.getElementById(
+                "commentInput"
             );
 
-        };
 
-}
-
-
-
-// =====================================
-// MOVIE VIEW
-// =====================================
-
-async function addMovieView() {
-
-    const userId =
-        localStorage.getItem(
-            "userId"
-        );
+        const commentsList =
+            document.getElementById(
+                "commentsList"
+            );
 
 
-    if (!userId) return;
+        const commentCount =
+            document.getElementById(
+                "commentCount"
+            );
 
 
-    const {
-        error
-    } = await supabase
-        .from("movie_views")
-        .insert({
-
-            movie_id:
-                Number(movieId),
-
-            user_id:
-                userId
-
-        });
+        let comments = [];
 
 
-    if (error) {
+        function updateCommentCount() {
 
-        console.log(
-            "View Error:",
-            error
-        );
+            if (commentCount) {
 
-        return;
+                commentCount.textContent =
+                    comments.length;
+
+            }
+
+        }
+
+
+        function renderComments() {
+
+
+            if (!commentsList) {
+                return;
+            }
+
+
+            if (
+                comments.length === 0
+            ) {
+
+                commentsList.innerHTML = `
+                    <p class="no-comments">
+                        No comments yet.
+                    </p>
+                `;
+
+                updateCommentCount();
+
+                return;
+
+            }
+
+
+            commentsList.innerHTML =
+                comments
+                    .map(
+                        function (comment) {
+
+                            return `
+                                <div class="comment-card">
+
+                                    <div class="comment-header">
+
+                                        <strong>
+                                            User
+                                        </strong>
+
+                                        <small>
+                                            Just now
+                                        </small>
+
+                                    </div>
+
+                                    <p>
+                                        ${escapeHtml(
+                                            comment
+                                        )}
+                                    </p>
+
+                                </div>
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+
+            updateCommentCount();
+
+        }
+
+
+        function escapeHtml(text) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.textContent = text;
+
+            return div.innerHTML;
+
+        }
+
+
+        if (commentBtn) {
+
+            commentBtn.addEventListener(
+                "click",
+                function () {
+
+
+                    const text =
+                        commentInput
+                            ? commentInput.value.trim()
+                            : "";
+
+
+                    if (!text) {
+
+                        alert(
+                            "Please write a comment."
+                        );
+
+                        return;
+
+                    }
+
+
+                    comments.push(
+                        text
+                    );
+
+
+                    if (commentInput) {
+
+                        commentInput.value =
+                            "";
+
+                    }
+
+
+                    renderComments();
+
+                }
+            );
+
+        }
+
+
+        renderComments();
+
+
+
+        /* =====================================
+           WATCH TRAILER
+        ===================================== */
+
+        const trailerBtn =
+            document.getElementById(
+                "trailerBtn"
+            );
+
+
+        if (trailerBtn) {
+
+            trailerBtn.addEventListener(
+                "click",
+                function () {
+
+                    console.log(
+                        "Trailer button clicked"
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =====================================
+           WATCH MOVIE
+        ===================================== */
+
+        const watchBtn =
+            document.getElementById(
+                "watchBtn"
+            );
+
+
+        if (watchBtn) {
+
+            watchBtn.addEventListener(
+                "click",
+                function () {
+
+                    const movieId =
+                        new URLSearchParams(
+                            window.location.search
+                        ).get("id");
+
+
+                    if (movieId) {
+
+                        window.location.href =
+                            "player.html?id=" +
+                            encodeURIComponent(
+                                movieId
+                            );
+
+                    } else {
+
+                        window.location.href =
+                            "player.html";
+
+                    }
+
+                }
+            );
+
+        }
 
     }
-
-
-    const {
-        count
-    } = await supabase
-        .from("movie_views")
-        .select("*", {
-            count: "exact",
-            head: true
-        })
-        .eq("movie_id", movieId);
-
-
-    const viewCount =
-        document.getElementById(
-            "viewCount"
-        );
-
-
-    if (viewCount) {
-
-        viewCount.innerText =
-            count || 0;
-
-    }
-
-}
-
-
-
-// =====================================
-// HTML SECURITY
-// =====================================
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-
-// =====================================
-// DATE FORMAT
-// =====================================
-
-function formatDate(date) {
-
-    if (!date) return "";
-
-    try {
-
-        return new Date(date)
-            .toLocaleDateString();
-
-    } catch {
-
-        return "";
-
-    }
-
-}
-
-
-
-// =====================================
-// LOAD EVERYTHING
-// =====================================
-
-loadMovie().then(() => {
-
-    loadUserRating();
-
-    applyLanguage();
-
-});
-
-
-
-// =====================================
-// HEADER PROFILE AVATAR
-// =====================================
-
-const headerProfile =
-    document.getElementById(
-        "headerProfile"
-    );
-
-
-if (headerProfile) {
-
-    const isLoggedIn =
-        localStorage.getItem(
-            "isLoggedIn"
-        );
-
-    const userAvatar =
-        localStorage.getItem(
-            "userAvatar"
-        );
-
-
-    if (
-        isLoggedIn === "true" &&
-        userAvatar
-    ) {
-
-        headerProfile.src =
-            userAvatar;
-
-    } else {
-
-        headerProfile.src =
-            "avatar-1.png";
-
-    }
-
-}
+);
