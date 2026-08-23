@@ -3,9 +3,10 @@ import { supabase } from "./supabase.js";
 const CLOUD_NAME = "peni6puh";
 const UPLOAD_PRESET = "filmy-ott";
 
-// ===============================
+
+// =====================================
 // CLOUDINARY UPLOAD
-// ===============================
+// =====================================
 
 async function uploadFile(file) {
 
@@ -24,120 +25,289 @@ async function uploadFile(file) {
 
     const data = await response.json();
 
-    if (!data.secure_url) {
-        throw new Error("Cloudinary Upload Failed");
+    if (!response.ok || !data.secure_url) {
+        console.log("Cloudinary Error:", data);
+        throw new Error("Cloudinary upload failed.");
     }
 
     return data.secure_url;
-
 }
 
-// ===============================
+
+// =====================================
 // SAVE MOVIE
-// ===============================
+// =====================================
 
 window.saveMovie = async function () {
 
-    const status = document.getElementById("uploadStatus");
+    const status =
+        document.getElementById("uploadStatus");
 
-    const title = document.getElementById("movieName").value.trim();
+    const saveButton =
+        document.getElementById("saveMovieBtn");
+
+
+    // =================================
+    // GET VALUES
+    // =================================
+
+    const title =
+        document.getElementById("movieName")
+            .value
+            .trim();
 
     const description =
-        document.getElementById("movieDescription").value.trim();
+        document.getElementById("movieDescription")
+            .value
+            .trim();
 
     const posterFile =
-        document.getElementById("moviePoster").files[0];
+        document.getElementById("moviePoster")
+            .files[0];
 
-    const videoFile =
-        document.getElementById("movieVideo").files[0];
+    const trailerFile =
+        document.getElementById("movieTrailer")
+            .files[0];
+
+    const watchUrl =
+        document.getElementById("watchMovieLink")
+            .value
+            .trim();
+
+    const downloadUrl =
+        document.getElementById("downloadMovieLink")
+            .value
+            .trim();
 
     const category =
-        document.getElementById("movieCategory").value;
+        document.getElementById("movieCategory")
+            .value;
 
     const year =
-        document.getElementById("movieYear").value;
+        document.getElementById("movieYear")
+            .value;
+
+
+    // =================================
+    // VALIDATION
+    // =================================
 
     if (
-        title === "" ||
-        description === "" ||
-        category === "" ||
-        year === "" ||
+        !title ||
+        !description ||
         !posterFile ||
-        !videoFile
+        !trailerFile ||
+        !watchUrl ||
+        !downloadUrl ||
+        !category ||
+        !year
     ) {
 
         status.style.display = "block";
-        status.innerHTML = "❌ Please fill all required fields.";
+
+        status.innerHTML =
+            "❌ Please fill all required fields.";
 
         return;
-
     }
+
+
+    // =================================
+    // URL VALIDATION
+    // =================================
 
     try {
 
-        status.style.display = "block";
-        status.innerHTML = "📤 Uploading Poster...";
-
-        const posterUrl = await uploadFile(posterFile);
-
-        status.innerHTML = "🎬 Uploading Movie...";
-
-        const videoUrl = await uploadFile(videoFile);
-
-        status.innerHTML = "☁️ Saving Movie...";
-
-              const { data, error } = await supabase
-    .from("movies")
-    .insert([
-        {
-            title: title,
-            category: category,
-            movieyear: Number(year),
-            description: description,
-            poster_url: posterUrl,
-            video_url: videoUrl
-        }
-    ])
-    .select()
-    .single();
-
-if (error) {
-    throw error;
-}
-
-// ===============================
-// SAVE NOTIFICATION
-// ===============================
-
-const { error: notificationError } = await supabase
-    .from("notifications")
-    .insert([
-        {
-            title: "🎬 New Movie Added",
-            message: `"${title}" is now available to watch.`,
-            movie_id: data.id,
-            poster_url: posterUrl
-        }
-    ]);
-
-if (notificationError) {
-    console.log("Notification Error:", notificationError);
-}
-
-        status.innerHTML = "✅ Movie Uploaded Successfully.";
-
-        document.getElementById("movieName").value = "";
-        document.getElementById("movieDescription").value = "";
-        document.getElementById("moviePoster").value = "";
-        document.getElementById("movieVideo").value = "";
-        document.getElementById("movieCategory").selectedIndex = 0;
-        document.getElementById("movieYear").value = "";
+        new URL(watchUrl);
+        new URL(downloadUrl);
 
     } catch (error) {
 
-        console.log(error);
+        status.style.display = "block";
 
-        status.innerHTML = "❌ Upload Failed : " + error.message;
+        status.innerHTML =
+            "❌ Please enter valid Watch Movie and Download links.";
+
+        return;
+    }
+
+
+    try {
+
+        saveButton.disabled = true;
+
+        status.style.display = "block";
+
+
+        // =================================
+        // POSTER UPLOAD
+        // =================================
+
+        status.innerHTML =
+            "📤 Uploading Poster...";
+
+        const posterUrl =
+            await uploadFile(posterFile);
+
+
+        // =================================
+        // TRAILER UPLOAD
+        // =================================
+
+        status.innerHTML =
+            "🎬 Uploading Trailer...";
+
+        const trailerUrl =
+            await uploadFile(trailerFile);
+
+
+        // =================================
+        // SAVE MOVIE TO SUPABASE
+        // =================================
+
+        status.innerHTML =
+            "☁️ Saving Movie...";
+
+
+        const { data, error } =
+            await supabase
+                .from("movies")
+                .insert([
+                    {
+                        title: title,
+                        category: category,
+                        movieyear: Number(year),
+                        description: description,
+
+                        poster_url: posterUrl,
+
+                        trailer_url: trailerUrl,
+
+                        watch_url: watchUrl,
+
+                        download_url: downloadUrl
+                    }
+                ])
+                .select()
+                .single();
+
+
+        if (error) {
+
+            console.log(
+                "Supabase Movie Error:",
+                error
+            );
+
+            throw error;
+        }
+
+
+        // =================================
+        // NOTIFICATION
+        // =================================
+
+        status.innerHTML =
+            "🔔 Creating notification...";
+
+
+        const { error: notificationError } =
+            await supabase
+                .from("notifications")
+                .insert([
+                    {
+                        title: "🎬 New Movie Added",
+
+                        message:
+                            `"${title}" is now available to watch.`,
+
+                        movie_id: data.id,
+
+                        poster_url: posterUrl
+                    }
+                ]);
+
+
+        if (notificationError) {
+
+            console.log(
+                "Notification Error:",
+                notificationError
+            );
+
+        }
+
+
+        // =================================
+        // SUCCESS
+        // =================================
+
+        status.innerHTML =
+            "✅ Movie Added Successfully.";
+
+
+        // =================================
+        // RESET FORM
+        // =================================
+
+        document.getElementById(
+            "movieName"
+        ).value = "";
+
+
+        document.getElementById(
+            "movieDescription"
+        ).value = "";
+
+
+        document.getElementById(
+            "moviePoster"
+        ).value = "";
+
+
+        document.getElementById(
+            "movieTrailer"
+        ).value = "";
+
+
+        document.getElementById(
+            "watchMovieLink"
+        ).value = "";
+
+
+        document.getElementById(
+            "downloadMovieLink"
+        ).value = "";
+
+
+        document.getElementById(
+            "movieCategory"
+        ).selectedIndex = 0;
+
+
+        document.getElementById(
+            "movieYear"
+        ).value = "";
+
+
+    } catch (error) {
+
+        console.error(
+            "Add Movie Error:",
+            error
+        );
+
+
+        status.style.display = "block";
+
+        status.innerHTML =
+            "❌ Upload Failed: " +
+            error.message;
+
+
+    } finally {
+
+        saveButton.disabled = false;
 
     }
 
