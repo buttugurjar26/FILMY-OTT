@@ -17,39 +17,66 @@ rel="stylesheet">
 
 </head>
 
+
 <script>
 function openProfile() {
     window.location.href = "profile.html";
 }
 </script>
 
+
 <body>
 
-<!-- HEADER -->
+
+<!-- =====================================
+     HEADER
+===================================== -->
 
 <header class="header">
 
     <div class="brand">
 
-        <img src="logo-192.png" alt="FILMY OTT">
+        <img
+            src="logo-192.png"
+            alt="FILMY OTT"
+        >
 
         <div>
+
             <h2>FILMY OTT</h2>
+
             <p>Premium Entertainment</p>
+
         </div>
 
     </div>
 
-    <div class="profile" onclick="openProfile()">
-        <img id="headerProfile" src="avatar-1.png" alt="Profile">
+
+    <div
+        class="profile"
+        onclick="openProfile()"
+    >
+
+        <img
+            id="headerProfile"
+            src="avatar-1.png"
+            alt="Profile"
+        >
+
     </div>
 
 </header>
 
 
-<!-- MOVIE DETAILS -->
+
+<!-- =====================================
+     MOVIE DETAILS
+===================================== -->
 
 <section class="movie-details">
+
+
+    <!-- MOVIE POSTER -->
 
     <img
         id="moviePoster"
@@ -57,182 +84,312 @@ function openProfile() {
         alt="Movie Poster"
     >
 
-    <h1 id="movieName">Movie Name</h1>
+
+    <!-- MOVIE NAME -->
+
+    <h1 id="movieName">
+        Movie Name
+    </h1>
+
+
+    <!-- MOVIE INFORMATION -->
 
     <div class="info">
 
-        <span id="movieCategory">Category</span>
+        <span id="movieCategory">
+            Category
+        </span>
 
-        <span id="movieYear">2026</span>
+        <span id="movieYear">
+            2026
+        </span>
 
-        <span id="movieDuration">2h 30m</span>
+        <span id="movieDuration">
+            2h 30m
+        </span>
 
-        <span id="movieQuality">1080P</span>
+        <span id="movieQuality">
+            HD
+        </span>
 
-        <span id="movieLanguage">Hindi</span>
+        <span id="movieLanguage">
+            Hindi
+        </span>
 
-        <span id="movieRating">⭐ 0.0</span>
+        <span id="movieRating">
+            ⭐ 0.0
+        </span>
 
     </div>
 
-    <p id="movieDescription">
-        Movie description will appear here.
-    </p>
 
 
-    <!-- TRAILER BUTTON -->
+    <!-- =================================
+         WATCH TRAILER
+    ================================== -->
 
-    <button id="trailerBtn" class="action-btn trailer-btn">
+    <button
+        id="trailerBtn"
+        class="action-btn trailer-btn"
+    >
 
         <i class="fa-solid fa-film"></i>
 
-        <span>Watch Trailer</span>
+        <span>
+            Watch Trailer
+        </span>
 
     </button>
 
 
-    <!-- WATCH MOVIE -->
 
-    <button id="watchBtn" class="action-btn watch-btn">
+    <!-- =================================
+         WATCH MOVIE
+    ================================== -->
+
+    <button
+        id="watchBtn"
+        class="action-btn watch-btn"
+    >
 
         <i class="fa-solid fa-play"></i>
 
-        <span>Watch Movie</span>
-
-    </button>
-
-
-    <!-- DOWNLOAD MOVIE -->
-
-    <button id="downloadBtn" class="action-btn download-btn">
-
-        <i class="fa-solid fa-download"></i>
-
-        <span>Download Movie</span>
-
-    </button>
-
-
-    <!-- MY LIST -->
-
-    <button id="listBtn" class="action-btn list-btn">
-
-        <i class="fa-solid fa-heart"></i>
-
-        <span data-lang="addToMyList">
-            Add to My List
-        </span>
-
-    </button>
-
-
-    <!-- LIKE -->
-
-    <button id="likeBtn" class="action-btn like-btn">
-
-        <i class="fa-solid fa-thumbs-up"></i>
-
-        <span>Like</span>
-
-        <span id="likeCount">0</span>
-
-    </button>
-
-
-    <!-- SHARE -->
-
-    <button id="shareBtn" class="action-btn share-btn">
-
-        <i class="fa-solid fa-share-nodes"></i>
-
-        <span data-lang="shareMovie">
-            Share Movie
-        </span>
-
-    </button>
-
-
-    <!-- VIEW COUNT -->
-
-    <div class="movie-stats">
-
         <span>
-
-            <i class="fa-solid fa-eye"></i>
-
-            <span id="viewCount">0</span>
-
-            Views
-
+            Watch Movie
         </span>
 
-        <span>
+    </button>
 
-            <i class="fa-solid fa-comment"></i>
 
-            <span id="commentCount">0</span>
 
-            Comments
+    <!-- =================================
+         FOUR ACTION BUTTONS
+         ONE LINE
+    ================================== -->
 
-        </span>
+    <div class="action-buttons">
+
+
+        <!-- LIST -->
+
+        <button
+            id="listBtn"
+            class="small-action-btn"
+        >
+
+            <i class="fa-solid fa-bookmark"></i>
+
+            <span>
+                List
+            </span>
+
+        </button>
+
+
+
+        <!-- LIKE -->
+
+        <button
+            id="likeBtn"
+            class="small-action-btn"
+        >
+
+            <i class="fa-solid fa-thumbs-up"></i>
+
+            <span>
+                Like
+            </span>
+
+            <small id="likeCount">
+                0
+            </small>
+
+        </button>
+
+
+
+        <!-- SHARE -->
+
+        <button
+            id="shareBtn"
+            class="small-action-btn"
+        >
+
+            <i class="fa-solid fa-share-nodes"></i>
+
+            <span>
+                Share
+            </span>
+
+        </button>
+
+
+
+        <!-- DOWNLOAD -->
+
+        <button
+            id="downloadBtn"
+            class="small-action-btn"
+        >
+
+            <i class="fa-solid fa-download"></i>
+
+            <span>
+                Download
+            </span>
+
+        </button>
+
 
     </div>
+
+
+
+    <!-- =================================
+         MOVIE DETAILS HEADER
+    ================================== -->
+
+    <div class="movie-details-header">
+
+
+        <h2>
+            Movie Details
+        </h2>
+
+
+        <div class="movie-stats">
+
+
+            <!-- VIEWS -->
+
+            <span>
+
+                <i class="fa-solid fa-eye"></i>
+
+                <span id="viewCount">
+                    0
+                </span>
+
+                Views
+
+            </span>
+
+
+
+            <!-- COMMENTS -->
+
+            <span>
+
+                <i class="fa-solid fa-comment"></i>
+
+                <span id="commentCount">
+                    0
+                </span>
+
+                Comments
+
+            </span>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================
+         DESCRIPTION
+    ================================== -->
+
+    <div class="description-box">
+
+        <p id="movieDescription">
+
+            Movie description will appear here.
+
+        </p>
+
+    </div>
+
 
 </section>
 
 
 
-<!-- PUBLIC RATING -->
+<!-- =====================================
+     PUBLIC RATING
+===================================== -->
 
 <section class="rating-box">
 
+
     <h3>
+
         ⭐
+
         <span data-lang="publicRating">
             Public Rating
         </span>
+
     </h3>
+
 
     <div class="stars">
 
-        <i
-            class="fa-solid fa-star"
-            data-rate="1">
-        </i>
 
         <i
             class="fa-solid fa-star"
-            data-rate="2">
-        </i>
+            data-rate="1"
+        ></i>
+
 
         <i
             class="fa-solid fa-star"
-            data-rate="3">
-        </i>
+            data-rate="2"
+        ></i>
+
 
         <i
             class="fa-solid fa-star"
-            data-rate="4">
-        </i>
+            data-rate="3"
+        ></i>
+
 
         <i
             class="fa-solid fa-star"
-            data-rate="5">
-        </i>
+            data-rate="4"
+        ></i>
+
+
+        <i
+            class="fa-solid fa-star"
+            data-rate="5"
+        ></i>
+
 
     </div>
 
-    <p id="ratingMessage" data-lang="tapToRate">
+
+    <p
+        id="ratingMessage"
+        data-lang="tapToRate"
+    >
+
         Tap a star to rate this movie.
+
     </p>
+
 
 </section>
 
 
 
-<!-- COMMENTS -->
+<!-- =====================================
+     COMMENTS
+===================================== -->
 
 <section class="comments-section">
+
 
     <h2>
 
@@ -243,15 +400,19 @@ function openProfile() {
     </h2>
 
 
-    <!-- ADD COMMENT -->
+
+    <!-- COMMENT FORM -->
 
     <div class="comment-form">
+
 
         <textarea
             id="commentInput"
             placeholder="Write a comment..."
-            rows="3">
-        </textarea>
+            rows="3"
+        ></textarea>
+
+
 
         <button id="commentBtn">
 
@@ -261,51 +422,67 @@ function openProfile() {
 
         </button>
 
+
     </div>
+
 
 
     <!-- COMMENTS LIST -->
 
     <div
         id="commentsList"
-        class="comments-list">
+        class="comments-list"
+    >
 
         <p class="no-comments">
+
             No comments yet.
+
         </p>
 
     </div>
+
 
 </section>
 
 
 
-<!-- RELATED MOVIES -->
+<!-- =====================================
+     MORE LIKE THIS
+===================================== -->
 
 <section class="related-movies">
+
 
     <h2>
 
         🎬
 
         <span data-lang="relatedMovies">
-            Related Movies
+            More Like This
         </span>
 
     </h2>
 
+
     <div
         class="movie-row"
-        id="relatedMovies">
-    </div>
+        id="relatedMovies"
+    ></div>
+
 
 </section>
 
 
 
-<!-- BOTTOM NAVIGATION -->
+<!-- =====================================
+     BOTTOM NAVIGATION
+===================================== -->
 
 <nav class="bottom-nav">
+
+
+    <!-- HOME -->
 
     <a href="home.html">
 
@@ -318,6 +495,9 @@ function openProfile() {
     </a>
 
 
+
+    <!-- MOVIES -->
+
     <a href="movies-list.html">
 
         <i class="fa-solid fa-film"></i>
@@ -328,6 +508,9 @@ function openProfile() {
 
     </a>
 
+
+
+    <!-- SEARCH -->
 
     <a href="search.html">
 
@@ -340,6 +523,9 @@ function openProfile() {
     </a>
 
 
+
+    <!-- MY LIST -->
+
     <a href="my-list.html">
 
         <i class="fa-solid fa-heart"></i>
@@ -351,6 +537,9 @@ function openProfile() {
     </a>
 
 
+
+    <!-- SETTINGS -->
+
     <a href="settings.html">
 
         <i class="fa-solid fa-gear"></i>
@@ -361,16 +550,20 @@ function openProfile() {
 
     </a>
 
+
 </nav>
 
 
 
-<!-- MOVIE DETAILS JS -->
+<!-- =====================================
+     MOVIE DETAILS JAVASCRIPT
+===================================== -->
 
 <script
     type="module"
-    src="movie-details.js">
-</script>
+    src="movie-details.js"
+></script>
+
 
 </body>
 
