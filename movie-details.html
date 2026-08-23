@@ -17,80 +17,166 @@ rel="stylesheet">
 
 </head>
 
-  <script>
+<script>
 function openProfile() {
     window.location.href = "profile.html";
 }
-  </script>
+</script>
 
-  
 <body>
 
 <!-- HEADER -->
 
 <header class="header">
 
-<div class="brand">
+    <div class="brand">
 
-<img src="logo-192.png" alt="FILMY OTT">
+        <img src="logo-192.png" alt="FILMY OTT">
 
-<div>
-<h2>FILMY OTT</h2>
-<p>Premium Entertainment</p>
-</div>
+        <div>
+            <h2>FILMY OTT</h2>
+            <p>Premium Entertainment</p>
+        </div>
 
-</div>
+    </div>
 
-<div class="profile" onclick="openProfile()">
-    <img id="headerProfile" src="avatar-1.png" alt="Profile">
-</div>
+    <div class="profile" onclick="openProfile()">
+        <img id="headerProfile" src="avatar-1.png" alt="Profile">
+    </div>
 
 </header>
-
 
 
 <!-- MOVIE DETAILS -->
 
 <section class="movie-details">
 
-<img id="moviePoster" src="logo-192.png" alt="Movie Poster">
+    <img
+        id="moviePoster"
+        src="logo-192.png"
+        alt="Movie Poster"
+    >
 
-<h1 id="movieName">Movie Name</h1>
+    <h1 id="movieName">Movie Name</h1>
 
-<div class="info">
+    <div class="info">
 
-<span id="movieCategory">Category</span>
+        <span id="movieCategory">Category</span>
 
-<span id="movieYear">2026</span>
+        <span id="movieYear">2026</span>
 
-<span id="movieDuration">2h 30m</span>
+        <span id="movieDuration">2h 30m</span>
 
-<span id="movieQuality">1080P</span>
+        <span id="movieQuality">1080P</span>
 
-<span id="movieLanguage">Hindi</span>
+        <span id="movieLanguage">Hindi</span>
 
-<span id="movieRating">⭐ 0.0</span>
+        <span id="movieRating">⭐ 0.0</span>
 
-</div>
+    </div>
 
-<p id="movieDescription">
-Movie description will appear here.
-</p>
+    <p id="movieDescription">
+        Movie description will appear here.
+    </p>
 
-<button id="watchBtn">
-    <i class="fa-solid fa-play"></i>
-    <span data-lang="watchNow">Watch Now</span>
-</button>
 
-<button id="listBtn">
-    <i class="fa-solid fa-heart"></i>
-    <span data-lang="addToMyList">Add to My List</span>
-</button>
+    <!-- TRAILER BUTTON -->
 
-<button id="shareBtn">
-    <i class="fa-solid fa-share-nodes"></i>
-    <span data-lang="shareMovie">Share Movie</span>
-</button>
+    <button id="trailerBtn" class="action-btn trailer-btn">
+
+        <i class="fa-solid fa-film"></i>
+
+        <span>Watch Trailer</span>
+
+    </button>
+
+
+    <!-- WATCH MOVIE -->
+
+    <button id="watchBtn" class="action-btn watch-btn">
+
+        <i class="fa-solid fa-play"></i>
+
+        <span>Watch Movie</span>
+
+    </button>
+
+
+    <!-- DOWNLOAD MOVIE -->
+
+    <button id="downloadBtn" class="action-btn download-btn">
+
+        <i class="fa-solid fa-download"></i>
+
+        <span>Download Movie</span>
+
+    </button>
+
+
+    <!-- MY LIST -->
+
+    <button id="listBtn" class="action-btn list-btn">
+
+        <i class="fa-solid fa-heart"></i>
+
+        <span data-lang="addToMyList">
+            Add to My List
+        </span>
+
+    </button>
+
+
+    <!-- LIKE -->
+
+    <button id="likeBtn" class="action-btn like-btn">
+
+        <i class="fa-solid fa-thumbs-up"></i>
+
+        <span>Like</span>
+
+        <span id="likeCount">0</span>
+
+    </button>
+
+
+    <!-- SHARE -->
+
+    <button id="shareBtn" class="action-btn share-btn">
+
+        <i class="fa-solid fa-share-nodes"></i>
+
+        <span data-lang="shareMovie">
+            Share Movie
+        </span>
+
+    </button>
+
+
+    <!-- VIEW COUNT -->
+
+    <div class="movie-stats">
+
+        <span>
+
+            <i class="fa-solid fa-eye"></i>
+
+            <span id="viewCount">0</span>
+
+            Views
+
+        </span>
+
+        <span>
+
+            <i class="fa-solid fa-comment"></i>
+
+            <span id="commentCount">0</span>
+
+            Comments
+
+        </span>
+
+    </div>
 
 </section>
 
@@ -100,25 +186,95 @@ Movie description will appear here.
 
 <section class="rating-box">
 
-<h3>⭐ <span data-lang="publicRating">Public Rating</span></h3>
+    <h3>
+        ⭐
+        <span data-lang="publicRating">
+            Public Rating
+        </span>
+    </h3>
 
-<div class="stars">
+    <div class="stars">
 
-<i class="fa-solid fa-star" data-rate="1"></i>
+        <i
+            class="fa-solid fa-star"
+            data-rate="1">
+        </i>
 
-<i class="fa-solid fa-star" data-rate="2"></i>
+        <i
+            class="fa-solid fa-star"
+            data-rate="2">
+        </i>
 
-<i class="fa-solid fa-star" data-rate="3"></i>
+        <i
+            class="fa-solid fa-star"
+            data-rate="3">
+        </i>
 
-<i class="fa-solid fa-star" data-rate="4"></i>
+        <i
+            class="fa-solid fa-star"
+            data-rate="4">
+        </i>
 
-<i class="fa-solid fa-star" data-rate="5"></i>
+        <i
+            class="fa-solid fa-star"
+            data-rate="5">
+        </i>
 
-</div>
+    </div>
 
-<p id="ratingMessage" data-lang="tapToRate">
-Tap a star to rate this movie.
-</p>
+    <p id="ratingMessage" data-lang="tapToRate">
+        Tap a star to rate this movie.
+    </p>
+
+</section>
+
+
+
+<!-- COMMENTS -->
+
+<section class="comments-section">
+
+    <h2>
+
+        <i class="fa-solid fa-comments"></i>
+
+        Comments
+
+    </h2>
+
+
+    <!-- ADD COMMENT -->
+
+    <div class="comment-form">
+
+        <textarea
+            id="commentInput"
+            placeholder="Write a comment..."
+            rows="3">
+        </textarea>
+
+        <button id="commentBtn">
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+            Post Comment
+
+        </button>
+
+    </div>
+
+
+    <!-- COMMENTS LIST -->
+
+    <div
+        id="commentsList"
+        class="comments-list">
+
+        <p class="no-comments">
+            No comments yet.
+        </p>
+
+    </div>
 
 </section>
 
@@ -128,13 +284,20 @@ Tap a star to rate this movie.
 
 <section class="related-movies">
 
-<h2>
-🎬 <span data-lang="relatedMovies">Related Movies</span>
-</h2>
+    <h2>
 
-<div class="movie-row" id="relatedMovies">
+        🎬
 
-</div>
+        <span data-lang="relatedMovies">
+            Related Movies
+        </span>
+
+    </h2>
+
+    <div
+        class="movie-row"
+        id="relatedMovies">
+    </div>
 
 </section>
 
@@ -144,34 +307,70 @@ Tap a star to rate this movie.
 
 <nav class="bottom-nav">
 
-<a href="home.html">
-<i class="fa-solid fa-house"></i>
-<span data-lang="home">Home</span>
-</a>
+    <a href="home.html">
 
-<a href="movies-list.html">
-<i class="fa-solid fa-film"></i>
-<span data-lang="movies">Movies</span>
-</a>
+        <i class="fa-solid fa-house"></i>
 
-<a href="search.html">
-<i class="fa-solid fa-magnifying-glass"></i>
-<span data-lang="search">Search</span>
-</a>
+        <span data-lang="home">
+            Home
+        </span>
 
-<a href="my-list.html">
-<i class="fa-solid fa-heart"></i>
-<span data-lang="myList">My List</span>
-</a>
+    </a>
 
-<a href="settings.html">
-<i class="fa-solid fa-gear"></i>
-<span data-lang="settings">Settings</span>
-</a>
+
+    <a href="movies-list.html">
+
+        <i class="fa-solid fa-film"></i>
+
+        <span data-lang="movies">
+            Movies
+        </span>
+
+    </a>
+
+
+    <a href="search.html">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <span data-lang="search">
+            Search
+        </span>
+
+    </a>
+
+
+    <a href="my-list.html">
+
+        <i class="fa-solid fa-heart"></i>
+
+        <span data-lang="myList">
+            My List
+        </span>
+
+    </a>
+
+
+    <a href="settings.html">
+
+        <i class="fa-solid fa-gear"></i>
+
+        <span data-lang="settings">
+            Settings
+        </span>
+
+    </a>
 
 </nav>
 
-<script type="module" src="movie-details.js"></script>
+
+
+<!-- MOVIE DETAILS JS -->
+
+<script
+    type="module"
+    src="movie-details.js">
+</script>
 
 </body>
 
