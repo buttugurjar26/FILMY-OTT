@@ -719,3 +719,10 @@ document.addEventListener(
 
     }
 );
+
+// =====================================
+// START MOVIE DETAILS PAGE
+// =====================================
+
+loadMovie();
+loadUserRating();
