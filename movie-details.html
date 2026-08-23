@@ -4,24 +4,34 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Movie Details | FILMY OTT</title>
 
 <link rel="stylesheet" href="home.css">
+
 <link rel="stylesheet" href="movie-details.css">
 
 <link
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-rel="stylesheet">
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet"
+>
 
 </head>
 
 
 <script>
+
 function openProfile() {
+
     window.location.href = "profile.html";
+
 }
+
 </script>
 
 
@@ -131,6 +141,7 @@ function openProfile() {
     <button
         id="trailerBtn"
         class="action-btn trailer-btn"
+        type="button"
     >
 
         <i class="fa-solid fa-film"></i>
@@ -150,6 +161,7 @@ function openProfile() {
     <button
         id="watchBtn"
         class="action-btn watch-btn"
+        type="button"
     >
 
         <i class="fa-solid fa-play"></i>
@@ -163,9 +175,8 @@ function openProfile() {
 
 
     <!-- =================================
-         FOUR ACTION BUTTONS
-         ONE LINE
-    ================================== -->
+         LIST | LIKE | SHARE | DOWNLOAD
+================================= -->
 
     <div class="action-buttons">
 
@@ -175,6 +186,7 @@ function openProfile() {
         <button
             id="listBtn"
             class="small-action-btn"
+            type="button"
         >
 
             <i class="fa-solid fa-bookmark"></i>
@@ -192,6 +204,7 @@ function openProfile() {
         <button
             id="likeBtn"
             class="small-action-btn"
+            type="button"
         >
 
             <i class="fa-solid fa-thumbs-up"></i>
@@ -213,6 +226,7 @@ function openProfile() {
         <button
             id="shareBtn"
             class="small-action-btn"
+            type="button"
         >
 
             <i class="fa-solid fa-share-nodes"></i>
@@ -230,6 +244,7 @@ function openProfile() {
         <button
             id="downloadBtn"
             class="small-action-btn"
+            type="button"
         >
 
             <i class="fa-solid fa-download"></i>
@@ -245,73 +260,90 @@ function openProfile() {
 
 
 
-<!-- =================================
-     MOVIE DETAILS | VIEWS | COMMENTS
+    <!-- =================================
+         MOVIE DETAILS | VIEWS | COMMENTS
 ================================= -->
 
-<div class="details-action-buttons">
-
-    <!-- MOVIE DETAILS -->
-
-    <button
-        type="button"
-        id="detailsTabBtn"
-        class="details-action-btn active"
-    >
-
-        <i class="fa-solid fa-circle-info"></i>
-
-        <span>
-            Movie Details
-        </span>
-
-    </button>
+    <div class="details-action-buttons">
 
 
-    <!-- VIEWS -->
+        <!-- MOVIE DETAILS -->
 
-    <button
-        type="button"
-        id="viewsBtn"
-        class="details-action-btn"
-    >
+        <button
+            type="button"
+            id="detailsTabBtn"
+            class="details-action-btn active"
+        >
 
-        <i class="fa-solid fa-eye"></i>
+            <i class="fa-solid fa-circle-info"></i>
 
-        <span>
-            <b id="viewCount">0</b>
-            Views
-        </span>
+            <span>
+                Movie Details
+            </span>
 
-    </button>
+        </button>
 
 
-    <!-- COMMENTS -->
 
-    <button
-        type="button"
-        id="commentsBtn"
-        class="details-action-btn"
-    >
+        <!-- VIEWS -->
 
-        <i class="fa-solid fa-comment"></i>
+        <button
+            type="button"
+            id="viewsBtn"
+            class="details-action-btn"
+        >
 
-        <span>
-            <b id="commentCount">0</b>
-            Comments
-        </span>
+            <i class="fa-solid fa-eye"></i>
 
-    </button>
+            <span>
 
-</div>
+                <b id="viewCount">
+                    0
+                </b>
+
+                Views
+
+            </span>
+
+        </button>
+
+
+
+        <!-- COMMENTS -->
+
+        <button
+            type="button"
+            id="commentsBtn"
+            class="details-action-btn"
+        >
+
+            <i class="fa-solid fa-comment"></i>
+
+            <span>
+
+                <b id="commentCount">
+                    0
+                </b>
+
+                Comments
+
+            </span>
+
+        </button>
+
+
+    </div>
 
 
 
     <!-- =================================
-         DESCRIPTION
-    ================================== -->
+         MOVIE DESCRIPTION
+================================= -->
 
-    <div class="description-box">
+    <div
+        class="description-box"
+        id="descriptionBox"
+    >
 
         <p id="movieDescription">
 
@@ -396,9 +428,14 @@ function openProfile() {
 
 <!-- =====================================
      COMMENTS
+     HIDDEN BY DEFAULT
 ===================================== -->
 
-<section class="comments-section">
+<section
+    class="comments-section"
+    id="commentsSection"
+    style="display: none;"
+>
 
 
     <h2>
@@ -424,7 +461,10 @@ function openProfile() {
 
 
 
-        <button id="commentBtn">
+        <button
+            id="commentBtn"
+            type="button"
+        >
 
             <i class="fa-solid fa-paper-plane"></i>
 
@@ -562,6 +602,91 @@ function openProfile() {
 
 
 </nav>
+
+
+
+<!-- =====================================
+     COMMENTS TOGGLE
+===================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        const commentsBtn =
+            document.getElementById("commentsBtn");
+
+
+        const commentsSection =
+            document.getElementById("commentsSection");
+
+
+        if (
+            commentsBtn &&
+            commentsSection
+        ) {
+
+
+            commentsBtn.addEventListener(
+                "click",
+                function () {
+
+
+                    const isHidden =
+                        commentsSection.style.display === "none";
+
+
+                    if (isHidden) {
+
+
+                        commentsSection.style.display =
+                            "block";
+
+
+                        commentsBtn.classList.add(
+                            "active"
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                commentsSection.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "start"
+                                });
+
+                            },
+                            100
+                        );
+
+
+                    } else {
+
+
+                        commentsSection.style.display =
+                            "none";
+
+
+                        commentsBtn.classList.remove(
+                            "active"
+                        );
+
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+);
+
+</script>
 
 
 
