@@ -53,6 +53,8 @@ const te = {
     rating: "రేటింగ్",
     comments: "కామెంట్లు",
     storyline: "కథ",
+    save: "సేవ్ చేయి",
+    unsave: "తొలగించు",
 
     // Movie Request
     movieRequest: "మూవీ రిక్వెస్ట్",
