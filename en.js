@@ -53,6 +53,8 @@ const en = {
     rating: "Rating",
     comments: "Comments",
     storyline: "Storyline",
+    save: "Save",
+    unsave: "Unsave",
 
     // Movie Request
     movieRequest: "Movie Request",
