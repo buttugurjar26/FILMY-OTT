@@ -934,3 +934,10 @@
     }
 
 }
+#likeBtn.liked,
+#likeBtn.liked i,
+.liked {
+    color: #ff3b30 !important; /* Red Color */
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}
