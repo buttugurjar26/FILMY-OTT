@@ -53,6 +53,8 @@ const kn = {
     rating: "ರೇಟಿಂಗ್",
     comments: "ಕಾಮೆಂಟ್ಗಳು",
     storyline: "ಕಥೆ",
+    save: "ಉಳಿಸಿ",
+    unsave: "ತೆಗೆದುಹಾಕಿ",
 
     // Movie Request
     movieRequest: "ಮೂವಿ ವಿನಂತಿ",
