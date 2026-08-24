@@ -52,7 +52,7 @@ const en = {
     share: "Share",
     rating: "Rating",
     comments: "Comments",
-    storyline: "Storyline"
+    storyline: "Storyline",
 
     // Movie Request
     movieRequest: "Movie Request",
