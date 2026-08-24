@@ -53,6 +53,8 @@ const hi = {
     rating: "रेटिंग",
     comments: "कमेंट्स",
     storyline: "कहानी",
+    save: "सहेजें",
+    unsave: "हटाएं",
     
     // Movie Request
     movieRequest: "मूवी रिक्वेस्ट",
