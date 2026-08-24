@@ -43,6 +43,16 @@ const ml = {
     ratingCouldNotBeSaved: "റേറ്റിംഗ് സംരക്ഷിക്കാനായില്ല.",
     thanksYouRated: "നന്ദി! നിങ്ങൾ റേറ്റിംഗ് നൽകി",
     yourRating: "നിങ്ങളുടെ റേറ്റിംഗ്",
+    views: "കാഴ്ചകൾ",
+    watchTrailer: "ട്രെയിലർ കാണുക",
+    watchMovie: "സിനിമ കാണുക",
+    like: "ഇഷ്ടം",
+    addToList: "എന്റെ ലിസ്റ്റിലേക്ക് ചേർക്കുക",
+    cast: "അഭിനേതാക്കൾ",
+    share: "പങ്കുവെക്കുക",
+    rating: "റേറ്റിംഗ്",
+    comments: "അഭിപ്രായങ്ങൾ",
+    storyline: "കഥ",
 
     // Movie Request
     movieRequest: "മൂവി അഭ്യർത്ഥന",
