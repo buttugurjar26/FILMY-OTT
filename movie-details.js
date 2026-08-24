@@ -2,17 +2,40 @@ import { supabase } from "./supabase.js";
 import { applyLanguage } from "./language.js";
 
 // =========================================
-// GLOBAL VARIABLES
+// GLOBAL VARIABLES & LOGIN STATE
 // =========================================
 let allRelatedMovies = [];
 let isViewMoreExpanded = false;
 
+// Check user login session
+const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+const userId = localStorage.getItem("userId") || "guest_user";
+
+// Unique keys per logged-in user
+const getLikeKey = (id) => `filmy_ott_like_${userId}_${id}`;
+const getListKey = (id) => `filmy_ott_list_${userId}_${id}`;
+const getRatingKey = (id) => `filmy_ott_user_rating_${userId}_${id}`;
+const getProgressKey = (id) => `filmy_ott_progress_${userId}_${id}`;
+
 // =========================================
-// PROFILE
+// PROFILE & LOGIN REDIRECT
 // =========================================
 window.openProfile = function () {
-    window.location.href = "profile.html";
+    if (!isLoggedIn) {
+        window.location.href = "login.html";
+    } else {
+        window.location.href = "profile.html";
+    }
 };
+
+function checkAuth(actionName = "use this feature") {
+    if (!isLoggedIn) {
+        alert(`Please login to ${actionName}.`);
+        window.location.href = "login.html";
+        return false;
+    }
+    return true;
+}
 
 // =========================================
 // GET MOVIE ID
@@ -42,8 +65,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     setupComments();
     setupDetailsTabs();
     setupViewMoreButton();
-    applyLanguage();
-    
+
+    if (typeof applyLanguage === "function") {
+        applyLanguage();
+    }
 });
 
 // =========================================
@@ -64,52 +89,39 @@ async function loadMovie() {
             return;
         }
 
-        console.log("Movie Loaded:", movie);
-
-        // POSTER
+        // DOM Rendering
         const poster = document.getElementById("moviePoster");
-        if (poster && movie.poster_url) {
-            poster.src = movie.poster_url;
-        }
+        if (poster && movie.poster_url) poster.src = movie.poster_url;
 
-        // TITLE
         const title = document.getElementById("movieName");
         if (title) title.textContent = movie.title || "Movie Name";
 
-        // CATEGORY
         const category = document.getElementById("movieCategory");
         if (category) category.textContent = movie.category || "Category";
 
-        // YEAR
         const year = document.getElementById("movieYear");
         if (year) year.textContent = movie.movieyear || "2026";
 
-        // DURATION
         const duration = document.getElementById("movieDuration");
         if (duration) duration.textContent = movie.duration || "2h 30m";
 
-        // QUALITY
         const quality = document.getElementById("movieQuality");
         if (quality) quality.textContent = movie.quality || "HD";
 
-        // LANGUAGE
         const language = document.getElementById("movieLanguage");
         if (language) language.textContent = movie.language || "Hindi";
 
-        // RATING
         const rating = document.getElementById("movieRating");
         if (rating) {
             const movieRating = Number(movie.rating || 0);
             rating.textContent = "⭐ " + movieRating.toFixed(1);
         }
 
-        // DESCRIPTION
         const description = document.getElementById("movieDescription");
         if (description) {
             description.textContent = movie.description || "Movie description will appear here.";
         }
 
-        // COUNTS
         const likeCount = document.getElementById("likeCount");
         if (likeCount) likeCount.textContent = movie.likes || 0;
 
@@ -121,17 +133,11 @@ async function loadMovie() {
 
         window.currentMovie = movie;
 
-        // LOAD CAST
         renderCast(movie);
-
-        // LOAD RELATED MOVIES
         loadRelatedMovies(movie.category);
-
-        // LOAD USER RATING
         loadUserRating();
-
-        // UPDATE LIST BUTTON
-        updateListButton();
+        updateLikeButtonUI();
+        updateListButtonUI();
 
     } catch (error) {
         console.error("Load Movie Error:", error);
@@ -140,15 +146,16 @@ async function loadMovie() {
 }
 
 // =========================================
-// IN-PLACE TRAILER VIDEO PLAYER SWITCH (LAYOUT-SAFE)
+// TRAILER BUTTON (LOGIN CHECK & RESUME PROGRESS)
 // =========================================
 function setupTrailerButton() {
     const trailerBtn = document.getElementById("trailerBtn");
     if (!trailerBtn) return;
 
     trailerBtn.addEventListener("click", function () {
-        const movie = window.currentMovie;
+        if (!checkAuth("watch trailer")) return;
 
+        const movie = window.currentMovie;
         if (!movie || !movie.trailer_url) {
             alert("Trailer is not available.");
             return;
@@ -162,29 +169,52 @@ function setupTrailerButton() {
             videoSource.src = movie.trailer_url;
             video.load();
 
-            // Hide Poster & Display Inline Video
             poster.style.display = "none";
             video.style.display = "block";
 
-            // Smooth Scroll to Top Media Box
             const mediaBox = poster.parentElement;
             if (mediaBox) {
                 mediaBox.scrollIntoView({ behavior: "smooth", block: "start" });
             }
 
-            video.play().catch(err => console.log("Autoplay blocked or failed:", err));
+            // 🕒 1. Resume Time
+            const progressKey = getProgressKey(movieId);
+            const savedTime = parseFloat(localStorage.getItem(progressKey) || "0");
+
+            video.addEventListener("loadedmetadata", function onMetadata() {
+                if (savedTime > 0 && savedTime < video.duration - 5) {
+                    video.currentTime = savedTime;
+                }
+                video.removeEventListener("loadedmetadata", onMetadata);
+            });
+
+            // 💾 2. Save Progress Time
+            video.ontimeupdate = function () {
+                if (video.currentTime > 0) {
+                    localStorage.setItem(progressKey, video.currentTime);
+                }
+            };
+
+            // 🛑 3. Reset on Finish
+            video.onended = function () {
+                localStorage.removeItem(progressKey);
+            };
+
+            video.play().catch(err => console.log("Autoplay blocked:", err));
         }
     });
 }
 
 // =========================================
-// WATCH MOVIE
+// WATCH MOVIE BUTTON (WITH LOGIN CHECK)
 // =========================================
 function setupWatchButton() {
     const watchBtn = document.getElementById("watchBtn");
     if (!watchBtn) return;
 
     watchBtn.addEventListener("click", function () {
+        if (!checkAuth("watch this movie")) return;
+
         const movie = window.currentMovie;
         if (!movie || !movie.watch_url) {
             alert("Watch Movie link is not available.");
@@ -195,7 +225,115 @@ function setupWatchButton() {
 }
 
 // =========================================
-// INLINE CAST TOGGLE (NO POPUP)
+// LIKE BUTTON (WITH LOGIN & PERSISTENCE)
+// =========================================
+function setupLikeButton() {
+    const likeBtn = document.getElementById("likeBtn");
+    const likeCount = document.getElementById("likeCount");
+
+    if (!likeBtn) return;
+
+    likeBtn.addEventListener("click", async function () {
+        if (!checkAuth("like movies")) return;
+
+        const movie = window.currentMovie;
+        if (!movie) return;
+
+        const storageKey = getLikeKey(movieId);
+        const alreadyLiked = localStorage.getItem(storageKey) === "true";
+        let newCount = Number(movie.likes || 0);
+
+        if (alreadyLiked) {
+            newCount = Math.max(0, newCount - 1);
+            localStorage.removeItem(storageKey);
+            likeBtn.classList.remove("liked");
+        } else {
+            newCount++;
+            localStorage.setItem(storageKey, "true");
+            likeBtn.classList.add("liked");
+        }
+
+        if (likeCount) likeCount.textContent = newCount;
+        movie.likes = newCount;
+
+        await supabase.from("movies").update({ likes: newCount }).eq("id", movieId);
+    });
+}
+
+function updateLikeButtonUI() {
+    const likeBtn = document.getElementById("likeBtn");
+    if (!likeBtn || !isLoggedIn) return;
+
+    const alreadyLiked = localStorage.getItem(getLikeKey(movieId)) === "true";
+    if (alreadyLiked) {
+        likeBtn.classList.add("liked");
+    } else {
+        likeBtn.classList.remove("liked");
+    }
+}
+
+// =========================================
+// MY LIST BUTTON (WITH LOGIN & PERSISTENCE)
+// =========================================
+function setupListButton() {
+    const listBtn = document.getElementById("listBtn");
+    if (!listBtn) return;
+
+    listBtn.addEventListener("click", function () {
+        if (!checkAuth("add to your list")) return;
+
+        const storageKey = getListKey(movieId);
+        const alreadySaved = localStorage.getItem(storageKey) === "true";
+
+        if (alreadySaved) {
+            localStorage.removeItem(storageKey);
+            setListButtonState(false);
+            alert("Removed from My List");
+        } else {
+            localStorage.setItem(storageKey, "true");
+            setListButtonState(true);
+            alert("Added to My List");
+        }
+    });
+}
+
+function updateListButtonUI() {
+    if (!isLoggedIn) {
+        setListButtonState(false);
+        return;
+    }
+    const saved = localStorage.getItem(getListKey(movieId)) === "true";
+    setListButtonState(saved);
+}
+
+function setListButtonState(saved) {
+    const listBtn = document.getElementById("listBtn");
+    const icon = document.getElementById("listBtnIcon");
+    const text = document.getElementById("listBtnText");
+
+    if (!listBtn) return;
+
+    if (saved) {
+        listBtn.classList.add("saved");
+        if (icon) icon.className = "fa-solid fa-check";
+        if (text) {
+            text.setAttribute("data-lang", "removeFromMyList");
+            text.textContent = "Remove from My List";
+        }
+    } else {
+        listBtn.classList.remove("saved");
+        if (icon) icon.className = "fa-solid fa-plus";
+        if (text) {
+            text.setAttribute("data-lang", "addToList");
+            text.textContent = "Add to My List";
+        }
+    }
+
+    if (typeof applyLanguage === "function") applyLanguage();
+}
+
+// =========================================
+// INLINE CAST TOGGLE
 // =========================================
 function setupCastButton() {
     const castBtn = document.getElementById("castBtn");
@@ -205,7 +343,6 @@ function setupCastButton() {
 
     castBtn.addEventListener("click", function () {
         const isHidden = castContent.style.display === "none" || castContent.style.display === "";
-
         if (isHidden) {
             castContent.style.display = "block";
             castBtn.classList.add("active");
@@ -216,9 +353,6 @@ function setupCastButton() {
     });
 }
 
-// =========================================
-// RENDER CAST SLIDER
-// =========================================
 function renderCast(movie) {
     const castList = document.getElementById("castList");
     if (!castList) return;
@@ -226,15 +360,12 @@ function renderCast(movie) {
     let castData = movie.cast || movie.cast_members || movie.actors || null;
 
     if (typeof castData === "string") {
-        try {
-            castData = JSON.parse(castData);
-        } catch (error) {
-            castData = [];
-        }
+        try { castData = JSON.parse(castData); } catch (e) { castData = []; }
     }
 
     if (!Array.isArray(castData) || castData.length === 0) {
-        castList.innerHTML = `<p class="no-cast" style="color:#aaa;">Cast information not available.</p>`;
+        castList.innerHTML = `<p class="no-cast" style="color:#aaa;" data-lang="castNotAvailable">Cast information not available.</p>`;
+        if (typeof applyLanguage === "function") applyLanguage();
         return;
     }
 
@@ -262,20 +393,16 @@ function setupShareButton() {
         const movie = window.currentMovie;
         const title = movie?.title || "FILMY OTT Movie";
 
-        const shareData = {
-            title: title,
-            text: "Watch " + title + " on FILMY OTT",
-            url: window.location.href
-        };
-
         try {
             if (navigator.share) {
-                await navigator.share(shareData);
+                await navigator.share({
+                    title: title,
+                    text: "Watch " + title + " on FILMY OTT",
+                    url: window.location.href
+                });
             } else if (navigator.clipboard) {
                 await navigator.clipboard.writeText(window.location.href);
                 alert("Movie link copied!");
-            } else {
-                alert(window.location.href);
             }
         } catch (error) {
             console.log("Share cancelled.");
@@ -284,105 +411,18 @@ function setupShareButton() {
 }
 
 // =========================================
-// LIKE BUTTON
-// =========================================
-function setupLikeButton() {
-    const likeBtn = document.getElementById("likeBtn");
-    const likeCount = document.getElementById("likeCount");
-
-    if (!likeBtn) return;
-
-    const storageKey = "filmy_ott_like_" + movieId;
-
-    if (localStorage.getItem(storageKey) === "true") {
-        likeBtn.classList.add("liked");
-    }
-
-    likeBtn.addEventListener("click", async function () {
-        const movie = window.currentMovie;
-        if (!movie) return;
-
-        const alreadyLiked = localStorage.getItem(storageKey) === "true";
-        let newCount = Number(movie.likes || 0);
-
-        if (alreadyLiked) {
-            newCount = Math.max(0, newCount - 1);
-            localStorage.removeItem(storageKey);
-            likeBtn.classList.remove("liked");
-        } else {
-            newCount++;
-            localStorage.setItem(storageKey, "true");
-            likeBtn.classList.add("liked");
-        }
-
-        if (likeCount) likeCount.textContent = newCount;
-
-        const { error } = await supabase.from("movies").update({ likes: newCount }).eq("id", movieId);
-
-        if (!error) movie.likes = newCount;
-    });
-}
-
-// =========================================
-// MY LIST BUTTON
-// =========================================
-function setupListButton() {
-    const listBtn = document.getElementById("listBtn");
-    if (!listBtn) return;
-
-    updateListButton();
-
-    listBtn.addEventListener("click", function () {
-        const storageKey = "filmy_ott_list_" + movieId;
-        const alreadySaved = localStorage.getItem(storageKey) === "true";
-
-        if (alreadySaved) {
-            localStorage.removeItem(storageKey);
-            setListButtonState(false);
-            alert("Removed from My List");
-        } else {
-            localStorage.setItem(storageKey, "true");
-            setListButtonState(true);
-            alert("Added to My List");
-        }
-    });
-}
-
-function updateListButton() {
-    const storageKey = "filmy_ott_list_" + movieId;
-    const saved = localStorage.getItem(storageKey) === "true";
-    setListButtonState(saved);
-}
-
-function setListButtonState(saved) {
-    const listBtn = document.getElementById("listBtn");
-    const icon = document.getElementById("listBtnIcon");
-    const text = document.getElementById("listBtnText");
-
-    if (!listBtn) return;
-
-    if (saved) {
-        listBtn.classList.add("saved");
-        if (icon) icon.className = "fa-solid fa-check";
-        if (text) text.textContent = "Remove from My List";
-    } else {
-        listBtn.classList.remove("saved");
-        if (icon) icon.className = "fa-solid fa-plus";
-        if (text) text.textContent = "Add to My List";
-    }
-}
-
-// =========================================
-// RATING SYSTEM (1 USER = 1 RATE OR EDIT)
+// RATING SYSTEM (WITH LOGIN CHECK)
 // =========================================
 function setupRating() {
     const stars = document.querySelectorAll(".stars i");
     const message = document.getElementById("ratingMessage");
-    const userRatingKey = "filmy_ott_user_rating_" + movieId;
 
     stars.forEach(star => {
         star.addEventListener("click", async function () {
+            if (!checkAuth("rate movies")) return;
+
             const rate = Number(star.dataset.rate);
+            const userRatingKey = getRatingKey(movieId);
             const previousRating = localStorage.getItem(userRatingKey);
 
             stars.forEach(item => {
@@ -391,27 +431,21 @@ function setupRating() {
             });
 
             if (message) {
-                if (previousRating) {
-                    message.textContent = "Updated your rating to " + rate + " out of 5.";
-                } else {
-                    message.textContent = "You rated this movie " + rate + " out of 5.";
-                }
+                message.textContent = previousRating
+                    ? "Updated your rating to " + rate + " out of 5."
+                    : "You rated this movie " + rate + " out of 5.";
             }
 
             localStorage.setItem(userRatingKey, rate);
-
-            const { error } = await supabase.from("movies").update({ rating: rate }).eq("id", movieId);
-
-            if (!error && window.currentMovie) {
-                window.currentMovie.rating = rate;
-            }
+            await supabase.from("movies").update({ rating: rate }).eq("id", movieId);
         });
     });
 }
 
 function loadUserRating() {
-    const userRatingKey = "filmy_ott_user_rating_" + movieId;
-    const savedUserRating = localStorage.getItem(userRatingKey);
+    if (!isLoggedIn) return;
+
+    const savedUserRating = localStorage.getItem(getRatingKey(movieId));
     const movieRating = savedUserRating ? Number(savedUserRating) : Number(window.currentMovie?.rating || 0);
 
     const stars = document.querySelectorAll(".stars i");
@@ -428,7 +462,7 @@ function loadUserRating() {
 }
 
 // =========================================
-// COMMENTS SYSTEM
+// COMMENTS SYSTEM (WITH LOGIN CHECK)
 // =========================================
 function setupComments() {
     const commentBtn = document.getElementById("commentBtn");
@@ -442,13 +476,15 @@ function setupComments() {
 
     try {
         comments = JSON.parse(localStorage.getItem(storageKey) || "[]");
-    } catch (error) {
+    } catch (e) {
         comments = [];
     }
 
     renderComments();
 
     commentBtn.addEventListener("click", function () {
+        if (!checkAuth("post comments")) return;
+
         const text = input.value.trim();
         if (!text) {
             alert("Please write a comment.");
@@ -467,7 +503,8 @@ function setupComments() {
 
     function renderComments() {
         if (comments.length === 0) {
-            list.innerHTML = `<p class="no-comments">No comments yet.</p>`;
+            list.innerHTML = `<p class="no-comments" data-lang="noComments">No comments yet.</p>`;
+            if (typeof applyLanguage === "function") applyLanguage();
             updateCommentCount(0);
             return;
         }
@@ -492,7 +529,7 @@ function updateCommentCount(count) {
 }
 
 // =========================================
-// DETAILS / RATING / COMMENTS TABS
+// TABS & RELATED MOVIES
 // =========================================
 function setupDetailsTabs() {
     const detailsBtn = document.getElementById("detailsTabBtn");
@@ -520,9 +557,6 @@ function setupDetailsTabs() {
     commentsBtn.addEventListener("click", () => showTab(commentsBtn, commentsContent));
 }
 
-// =========================================
-// RELATED MOVIES (9 INITIAL + VIEW MORE)
-// =========================================
 async function loadRelatedMovies(category) {
     const container = document.getElementById("relatedMovies");
     if (!container || !category) return;
@@ -538,7 +572,6 @@ async function loadRelatedMovies(category) {
 
         allRelatedMovies = data || [];
         renderRelatedMovies();
-
     } catch (error) {
         console.error("Related Movies Error:", error);
     }
@@ -551,12 +584,12 @@ function renderRelatedMovies() {
     if (!container) return;
 
     if (allRelatedMovies.length === 0) {
-        container.innerHTML = `<p style="color:#aaa;">No related movies found.</p>`;
+        container.innerHTML = `<p style="color:#aaa;" data-lang="noRelatedMovies">No related movies found.</p>`;
         if (viewMoreContainer) viewMoreContainer.style.display = "none";
+        if (typeof applyLanguage === "function") applyLanguage();
         return;
     }
 
-    // Limit to 9 if not expanded
     const moviesToShow = isViewMoreExpanded ? allRelatedMovies : allRelatedMovies.slice(0, 9);
 
     container.innerHTML = moviesToShow.map(movie => `
@@ -567,11 +600,7 @@ function renderRelatedMovies() {
     `).join("");
 
     if (viewMoreContainer) {
-        if (allRelatedMovies.length > 9 && !isViewMoreExpanded) {
-            viewMoreContainer.style.display = "flex";
-        } else {
-            viewMoreContainer.style.display = "none";
-        }
+        viewMoreContainer.style.display = (allRelatedMovies.length > 9 && !isViewMoreExpanded) ? "flex" : "none";
     }
 }
 
@@ -585,16 +614,10 @@ function setupViewMoreButton() {
     });
 }
 
-// =========================================
-// OPEN RELATED MOVIE
-// =========================================
 window.openMovie = function (id) {
     window.location.href = "movie-details.html?id=" + encodeURIComponent(id);
 };
 
-// =========================================
-// UTILITY FUNCTIONS
-// =========================================
 function showMessage(message) {
     const title = document.getElementById("movieName");
     if (title) title.textContent = message;
