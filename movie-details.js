@@ -58,7 +58,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 2. Movie Data load karein
     await loadMovie();
 
-    // 3. Handlers setup karein
+    // 3. Views Increment (+1) & Realtime Subscribe
+    setupSupabaseViews();
+
+    // 4. Handlers setup karein
     setupTrailerButton();
     setupWatchButton();
     setupLikeButton();
@@ -127,7 +130,7 @@ async function loadMovie() {
         if (likeCount) likeCount.textContent = movie.likes || 0;
 
         const viewCount = document.getElementById("viewCount");
-        if (viewCount) viewCount.textContent = movie.views || 0;
+        if (viewCount) viewCount.textContent = (movie.views || 0).toLocaleString();
 
         renderCast(movie);
         loadRelatedMovies(movie.category);
@@ -137,6 +140,47 @@ async function loadMovie() {
 
     } catch (error) {
         console.error("Fatal Load Movie Error:", error);
+    }
+}
+
+// =========================================
+// SUPABASE VIEWS INCREMENT & REALTIME FIX
+// =========================================
+async function setupSupabaseViews() {
+    const viewCountElem = document.getElementById("viewCount");
+    if (!viewCountElem || !movieId) return;
+
+    try {
+        const queryId = !isNaN(movieId) ? Number(movieId) : movieId;
+
+        // 1. Database me Views +1 karein (RPC calling)
+        const { data: updatedViews, error } = await supabase.rpc('increment_views', { movie_id_param: String(queryId) });
+
+        if (!error && updatedViews !== null && updatedViews !== undefined) {
+            viewCountElem.textContent = Number(updatedViews).toLocaleString();
+        } else {
+            // Agar RPC SQL RPC setup na ho to direct update fallback
+            const currentViews = Number(window.currentMovie?.views || 0) + 1;
+            await supabase.from("movies").update({ views: currentViews }).eq("id", queryId);
+            viewCountElem.textContent = currentViews.toLocaleString();
+        }
+
+        // 2. Realtime Listener (Doosre users ko instant badha hua count dikhane ke liye)
+        supabase
+            .channel(`movie-views-${movieId}`)
+            .on(
+                'postgres_changes',
+                { event: 'UPDATE', schema: 'public', table: 'movies', filter: `id=eq.${queryId}` },
+                (payload) => {
+                    if (payload.new && payload.new.views !== undefined) {
+                        viewCountElem.textContent = Number(payload.new.views).toLocaleString();
+                    }
+                }
+            )
+            .subscribe();
+
+    } catch (err) {
+        console.error("Supabase Views Error:", err);
     }
 }
 
@@ -411,7 +455,9 @@ function setupRating() {
 
             if (message) message.textContent = "You rated this movie " + rate + " out of 5.";
             localStorage.setItem(userRatingKey, rate);
-            await supabase.from("movies").update({ rating: rate }).eq("id", movieId);
+            
+            const queryId = !isNaN(movieId) ? Number(movieId) : movieId;
+            await supabase.from("movies").update({ rating: rate }).eq("id", queryId);
         });
     });
 }
@@ -495,7 +541,8 @@ async function loadRelatedMovies(category) {
     if (!container || !category) return;
 
     try {
-        const { data } = await supabase.from("movies").select("id,title,poster_url").eq("category", category).neq("id", movieId);
+        const queryId = !isNaN(movieId) ? Number(movieId) : movieId;
+        const { data } = await supabase.from("movies").select("id,title,poster_url").eq("category", category).neq("id", queryId);
         allRelatedMovies = data || [];
         renderRelatedMovies();
     } catch (e) {}
