@@ -141,7 +141,7 @@ async function loadMovie() {
 }
 
 // =========================================
-// TRAILER (DYNAMIC DURATION + RESUME PLAYBACK)
+// TRAILER (DYNAMIC DURATION - MIN & SEC ONLY)
 // =========================================
 function setupTrailerButton() {
     const trailerBtn = document.getElementById("trailerBtn");
@@ -175,13 +175,18 @@ function setupTrailerButton() {
                     video.currentTime = savedTime;
                 }
 
+                // --- DURATION: ONLY MINUTES & SECONDS ---
                 const totalSeconds = Math.floor(video.duration);
-                const hours = Math.floor(totalSeconds / 3600);
-                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
 
                 const durationElem = document.getElementById("movieDuration");
                 if (durationElem) {
-                    durationElem.textContent = hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+                    if (minutes > 0) {
+                        durationElem.textContent = `${minutes}m ${seconds}s`;
+                    } else {
+                        durationElem.textContent = `${seconds}s`;
+                    }
                 }
             }, { once: true });
 
