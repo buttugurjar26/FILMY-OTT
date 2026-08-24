@@ -1,130 +1,724 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+/* =========================================
+   FILMY OTT - ADD MOVIE
+   PREMIUM CREAM + GOLD THEME
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-background:linear-gradient(
-180deg,
-#FFF4C2 0%,
-#FFD54F 45%,
-#D4AF37 100%
-);
-min-height:100vh;
-padding-bottom:90px;
-color:#3E2723;
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+    background: linear-gradient(
+        180deg,
+        #FFF4C2 0%,
+        #FFD54F 45%,
+        #D4AF37 100%
+    );
+
+    min-height: 100vh;
+
+    padding-bottom: 90px;
+
+    color: #3E2723;
 }
 
-.admin-header{
-height:70px;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:12px;
-background:rgba(255,255,255,0.35);
-backdrop-filter:blur(10px);
-border-bottom:1px solid #d4af37;
+
+/* =========================================
+   ADMIN HEADER
+========================================= */
+
+.admin-header {
+
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    background:
+        rgba(255, 255, 255, 0.35);
+
+    backdrop-filter: blur(10px);
+
+    border-bottom:
+        1px solid #d4af37;
 }
 
-.admin-header i{
-font-size:28px;
-color:#6b4300;
+
+.admin-header i {
+
+    font-size: 28px;
+
+    color: #6b4300;
 }
 
-.admin-header h2{
-color:#5b3500;
+
+.admin-header h2 {
+
+    color: #5b3500;
+
+    font-size: 22px;
+
+    font-weight: 800;
 }
 
-.add-container{
-margin:20px;
-padding:20px;
-background:rgba(255,255,255,0.5);
-border-radius:20px;
-box-shadow:0 8px 20px rgba(0,0,0,0.2);
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.add-container {
+
+    margin: 20px;
+
+    padding: 20px;
+
+    background:
+        rgba(255, 255, 255, 0.5);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(0, 0, 0, 0.2);
 }
+
+
+/* =========================================
+   INPUTS
+========================================= */
 
 input,
 textarea,
-select{
-width:100%;
-padding:14px;
-margin-bottom:15px;
-border:none;
-outline:none;
-border-radius:15px;
-background:white;
-font-size:15px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+select {
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin-bottom: 15px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 15px;
+
+    background: white;
+
+    font-size: 15px;
+
+    color: #3E2723;
+
+    box-shadow:
+        0 3px 10px
+        rgba(0, 0, 0, 0.1);
 }
 
-textarea{
-height:120px;
-resize:none;
+
+input::placeholder,
+textarea::placeholder {
+
+    color: #8d8d8d;
 }
 
-label{
-display:block;
-font-weight:bold;
-margin-bottom:8px;
-color:#5b3500;
+
+textarea {
+
+    height: 120px;
+
+    resize: none;
+
+    line-height: 1.5;
 }
 
-label small{
-display:block;
-margin-top:4px;
-font-size:13px;
-color:#7a5a00;
+
+/* =========================================
+   LABEL
+========================================= */
+
+label {
+
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+    color: #5b3500;
 }
 
-input[type="file"]{
-padding:12px;
-background:#fff;
+
+label small {
+
+    display: block;
+
+    margin-top: 4px;
+
+    font-size: 13px;
+
+    color: #7a5a00;
+
+    line-height: 1.4;
 }
 
-button{
-width:100%;
-padding:15px;
-border:none;
-border-radius:30px;
-background:#5b3500;
-color:white;
-font-size:17px;
-font-weight:bold;
-cursor:pointer;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-transition:.3s;
+
+/* =========================================
+   FILE INPUT
+========================================= */
+
+input[type="file"] {
+
+    padding: 12px;
+
+    background: #fff;
+
+    cursor: pointer;
 }
 
-button:hover{
-background:#734500;
+
+/* =========================================
+   NORMAL BUTTON
+========================================= */
+
+button {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: #5b3500;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0, 0, 0, 0.3);
+
+    transition: .3s;
 }
 
-button:disabled{
-opacity:.7;
-cursor:not-allowed;
+
+button:hover {
+
+    background: #734500;
+
 }
 
-button i{
-margin-right:8px;
+
+button:disabled {
+
+    opacity: .7;
+
+    cursor: not-allowed;
 }
 
-/* ===========================
+
+button i {
+
+    margin-right: 8px;
+}
+
+
+/* =========================================
+   CAST SECTION
+========================================= */
+
+.cast-section {
+
+    width: 100%;
+
+    margin-top: 8px;
+
+    margin-bottom: 20px;
+}
+
+
+.cast-section > label {
+
+    margin-bottom: 12px;
+
+    font-size: 16px;
+}
+
+
+/* =========================================
+   CAST CONTAINER
+========================================= */
+
+#castContainer {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+}
+
+
+/* =========================================
+   CAST BOX
+========================================= */
+
+.cast-box {
+
+    width: 100%;
+
+    padding: 15px;
+
+    background:
+        rgba(255, 255, 255, 0.75);
+
+    border:
+
+        1px solid
+        rgba(212, 175, 55, 0.65);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(0, 0, 0, 0.12);
+
+    animation:
+        castBoxIn .25s ease;
+}
+
+
+/* =========================================
+   CAST BOX HEADER
+========================================= */
+
+.cast-box-header {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+
+.cast-box-header strong {
+
+    color: #5b3500;
+
+    font-size: 16px;
+}
+
+
+/* =========================================
+   REMOVE CAST BUTTON
+========================================= */
+
+.cast-box .remove-cast-btn {
+
+    width: auto;
+
+    padding: 7px 12px;
+
+    margin: 0;
+
+    border-radius: 20px;
+
+    background: #8b2e2e;
+
+    color: #fff;
+
+    font-size: 12px;
+
+    box-shadow:
+        0 3px 8px
+        rgba(0, 0, 0, 0.18);
+}
+
+
+.cast-box .remove-cast-btn:hover {
+
+    background: #6f1f1f;
+}
+
+
+.cast-box .remove-cast-btn i {
+
+    margin-right: 4px;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   CAST NAME
+========================================= */
+
+.cast-box .cast-name {
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================
+   CAST IMAGE LABEL
+========================================= */
+
+.cast-box label {
+
+    font-size: 14px;
+
+    margin-bottom: 7px;
+}
+
+
+/* =========================================
+   CAST IMAGE INPUT
+========================================= */
+
+.cast-box .cast-image {
+
+    margin-bottom: 0;
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.45);
+}
+
+
+/* =========================================
+   ADD CAST BUTTON
+========================================= */
+
+.add-cast-btn {
+
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 5px;
+
+    background: #5b3500;
+
+    color: white;
+
+    border-radius: 30px;
+
+    font-size: 16px;
+
+    box-shadow:
+        0 5px 14px
+        rgba(91, 53, 0, 0.25);
+}
+
+
+.add-cast-btn:hover {
+
+    background: #734500;
+
+}
+
+
+/* =========================================
+   ADD MOVIE BUTTON
+========================================= */
+
+#saveMovieBtn {
+
+    margin-top: 5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6b4300,
+            #5b3500
+        );
+}
+
+
+#saveMovieBtn:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #7d5000,
+            #734500
+        );
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================
    UPLOAD STATUS
-=========================== */
+========================================= */
 
-#uploadStatus{
-margin-top:15px;
-padding:12px;
-border-radius:12px;
-text-align:center;
-font-size:15px;
-font-weight:bold;
-display:none;
-background:#FFF8DC;
-color:#5B3500;
-border:2px solid #D4AF37;
-box-shadow:0 3px 10px rgba(212,175,55,.25);
-word-break:break-word;
+#uploadStatus {
+
+    margin-top: 15px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    display: none;
+
+    background: #FFF8DC;
+
+    color: #5B3500;
+
+    border:
+        2px solid
+        #D4AF37;
+
+    box-shadow:
+        0 3px 10px
+        rgba(212, 175, 55, .25);
+
+    word-break: break-word;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   CAST ANIMATION
+========================================= */
+
+@keyframes castBoxIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-8px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .admin-header {
+
+        height: 65px;
+
+    }
+
+
+    .admin-header i {
+
+        font-size: 24px;
+
+    }
+
+
+    .admin-header h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .add-container {
+
+        margin: 15px;
+
+        padding: 17px;
+
+        border-radius: 18px;
+
+    }
+
+
+    input,
+    textarea,
+    select {
+
+        padding: 13px;
+
+        border-radius: 14px;
+
+        font-size: 14px;
+
+    }
+
+
+    textarea {
+
+        height: 115px;
+
+    }
+
+
+    label {
+
+        font-size: 15px;
+
+    }
+
+
+    label small {
+
+        font-size: 12px;
+
+    }
+
+
+    button {
+
+        padding: 14px;
+
+        font-size: 16px;
+
+    }
+
+
+    /* CAST */
+
+    .cast-box {
+
+        padding: 13px;
+
+        border-radius: 16px;
+
+    }
+
+
+    .cast-box-header strong {
+
+        font-size: 15px;
+
+    }
+
+
+    .cast-box .remove-cast-btn {
+
+        padding: 6px 10px;
+
+        font-size: 11px;
+
+    }
+
+
+    .cast-box .cast-name {
+
+        font-size: 14px;
+
+    }
+
+
+    .cast-box .cast-image {
+
+        font-size: 13px;
+
+    }
+
+
+    .add-cast-btn {
+
+        font-size: 15px;
+
+        padding: 13px;
+
+    }
+
+}
+
+
+/* =========================================
+   VERY SMALL SCREEN
+========================================= */
+
+@media (max-width: 360px) {
+
+    .add-container {
+
+        margin: 10px;
+
+        padding: 14px;
+
+    }
+
+
+    .admin-header h2 {
+
+        font-size: 18px;
+
+    }
+
+
+    .cast-box-header {
+
+        align-items: flex-start;
+
+    }
+
+
+    .cast-box-header strong {
+
+        font-size: 14px;
+
+    }
+
+
+    .cast-box .remove-cast-btn {
+
+        font-size: 10px;
+
+        padding: 6px 8px;
+
+    }
+
 }
