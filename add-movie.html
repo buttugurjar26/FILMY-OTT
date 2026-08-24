@@ -18,6 +18,7 @@ rel="stylesheet">
 
 <body>
 
+
 <header class="admin-header">
 
     <i class="fa-solid fa-film"></i>
@@ -126,30 +127,6 @@ rel="stylesheet">
 
 
     <!-- =========================
-         DOWNLOAD LINK
-    ========================== -->
-
-    <label>
-
-        Download Link
-
-        <br>
-
-        <small>
-            यह link Download button से खुलेगा
-        </small>
-
-    </label>
-
-    <input
-        type="url"
-        id="downloadMovieLink"
-        placeholder="https://..."
-        required
-    >
-
-
-    <!-- =========================
          CATEGORY
     ========================== -->
 
@@ -162,53 +139,18 @@ rel="stylesheet">
             Select Category
         </option>
 
-        <option value="Movie">
-            🎬 Movie
-        </option>
-
-        <option value="Web Series">
-            📺 Web Series
-        </option>
-
-        <option value="Action">
-            🔥 Action
-        </option>
-
-        <option value="Romantic">
-            ❤️ Romantic
-        </option>
-
-        <option value="Comedy">
-            😂 Comedy
-        </option>
-
-        <option value="Drama">
-            🎭 Drama
-        </option>
-
-        <option value="Thriller">
-            🔪 Thriller
-        </option>
-
-        <option value="Horror">
-            👻 Horror
-        </option>
-
-        <option value="Crime">
-            🚔 Crime
-        </option>
-
-        <option value="Sci-Fi">
-            🚀 Sci-Fi
-        </option>
-
-        <option value="Animation">
-            🧸 Animation
-        </option>
-
-        <option value="Documentary">
-            🎥 Documentary
-        </option>
+        <option value="Movie">🎬 Movie</option>
+        <option value="Web Series">📺 Web Series</option>
+        <option value="Action">🔥 Action</option>
+        <option value="Romantic">❤️ Romantic</option>
+        <option value="Comedy">😂 Comedy</option>
+        <option value="Drama">🎭 Drama</option>
+        <option value="Thriller">🔪 Thriller</option>
+        <option value="Horror">👻 Horror</option>
+        <option value="Crime">🚔 Crime</option>
+        <option value="Sci-Fi">🚀 Sci-Fi</option>
+        <option value="Animation">🧸 Animation</option>
+        <option value="Documentary">🎥 Documentary</option>
 
     </select>
 
@@ -228,6 +170,43 @@ rel="stylesheet">
 
 
     <!-- =========================
+         CAST
+    ========================== -->
+
+    <div class="cast-section">
+
+        <label>
+
+            Cast
+
+            <br>
+
+            <small>
+                जितने Cast चाहिए उतने Add Cast से जोड़ सकते हैं।
+            </small>
+
+        </label>
+
+
+        <div id="castContainer"></div>
+
+
+        <button
+            type="button"
+            id="addCastBtn"
+            class="add-cast-btn"
+        >
+
+            <i class="fa-solid fa-user-plus"></i>
+
+            Add Cast
+
+        </button>
+
+    </div>
+
+
+    <!-- =========================
          SAVE MOVIE
     ========================== -->
 
@@ -244,7 +223,7 @@ rel="stylesheet">
 
 
     <!-- =========================
-         UPLOAD STATUS
+         STATUS
     ========================== -->
 
     <p
