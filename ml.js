@@ -53,6 +53,8 @@ const ml = {
     rating: "റേറ്റിംഗ്",
     comments: "അഭിപ്രായങ്ങൾ",
     storyline: "കഥ",
+    save: "സേവ് ചെയ്യുക",
+    unsave: "ഒഴിവാക്കുക",
 
     // Movie Request
     movieRequest: "മൂവി അഭ്യർത്ഥന",
