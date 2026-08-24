@@ -2,658 +2,229 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details | FILMY OTT</title>
 
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Movie Details | FILMY OTT</title>
-
-<link rel="stylesheet" href="home.css">
-<link rel="stylesheet" href="movie-details.css">
-
-<link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    rel="stylesheet"
->
-
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="movie-details.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
-
 
 <body>
 
+    <!-- =====================================
+         1. FIXED HEADER
+    ===================================== -->
+    <header class="header">
+        <div class="brand">
+            <img src="logo-192.png" alt="FILMY OTT">
+            <div>
+                <h2>FILMY OTT</h2>
+                <p>Premium Entertainment</p>
+            </div>
+        </div>
 
-<!-- =====================================
-     HEADER
-===================================== -->
+        <div class="profile" onclick="openProfile()">
+            <img id="headerProfile" src="avatar-1.png" alt="Profile">
+        </div>
+    </header>
 
-<header class="header">
+    <!-- =====================================
+         FIXED TOP SECTION (POSTER/VIDEO & ACTIONS)
+    ===================================== -->
+    <div class="fixed-top-section">
+        
+        <!-- MOVIE POSTER / TRAILER VIDEO BOX -->
+        <div class="movie-media" id="movieMedia">
+            <!-- Starting Poster Image -->
+            <img id="moviePoster" src="logo-192.png" alt="Movie Poster">
+            
+            <!-- Trailer Video (Hidden initially) -->
+            <video id="trailerVideo" controls style="display: none;">
+                <source id="videoSource" src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
 
-    <div class="brand">
+        <div class="movie-details-header">
+            <!-- MOVIE NAME -->
+            <h1 id="movieName">Movie Name</h1>
 
-        <img
-            src="logo-192.png"
-            alt="FILMY OTT"
-        >
+            <!-- VIEWS -->
+            <div class="movie-views">
+                <i class="fa-solid fa-eye"></i>
+                <span id="viewCount">0</span>
+                <span>Views</span>
+            </div>
 
-        <div>
+            <!-- MOVIE INFORMATION -->
+            <div class="info">
+                <span id="movieCategory">Category</span>
+                <span id="movieYear">2026</span>
+                <span id="movieDuration">2h 30m</span>
+                <span id="movieQuality">HD</span>
+                <span id="movieLanguage">Hindi</span>
+                <span id="movieRating">⭐ 0.0</span>
+            </div>
 
-            <h2>FILMY OTT</h2>
+            <!-- WATCH BUTTONS -->
+            <div class="watch-buttons">
+                <button id="trailerBtn" class="watch-button trailer-button" type="button">
+                    <i class="fa-solid fa-film"></i>
+                    <span>Watch Trailer</span>
+                </button>
 
-            <p>Premium Entertainment</p>
+                <button id="watchBtn" class="watch-button movie-button" type="button">
+                    <i class="fa-solid fa-play"></i>
+                    <span>Watch Movie</span>
+                </button>
+            </div>
 
+            <!-- ACTION BUTTONS: MY LIST | LIKE | SHARE | CAST -->
+            <div class="action-buttons">
+                <button id="listBtn" type="button">
+                    <i id="listBtnIcon" class="fa-solid fa-plus"></i>
+                    <span id="listBtnText">Add to My List</span>
+                </button>
+
+                <button id="likeBtn" type="button">
+                    <i class="fa-solid fa-thumbs-up"></i>
+                    <span>Like</span>
+                    <small id="likeCount">0</small>
+                </button>
+
+                <button id="shareBtn" type="button">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <span>Share</span>
+                </button>
+
+                <button id="castBtn" type="button">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Cast</span>
+                </button>
+            </div>
+
+            <!-- INLINE IN-PAGE CAST SLIDER (Side Slide View) -->
+            <div id="castContent" class="inline-cast-section" style="display: none;">
+                <div id="castList" class="cast-row-slider">
+                    <!-- Cast List Horizontal Slider (JS से लोड होगी) -->
+                </div>
+            </div>
+
+            <!-- THREE FIXED TABS -->
+            <div class="content-tabs">
+                <button id="detailsTabBtn" class="content-tab active" type="button">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Movie Details</span>
+                </button>
+
+                <button id="ratingTabBtn" class="content-tab" type="button">
+                    <i class="fa-solid fa-star"></i>
+                    <span>Rating</span>
+                </button>
+
+                <button id="commentsTabBtn" class="content-tab" type="button">
+                    <i class="fa-solid fa-comment"></i>
+                    <span>Comments</span>
+                    <small id="commentCount">0</small>
+                </button>
+            </div>
         </div>
 
     </div>
 
+    <!-- =====================================
+         DYNAMIC SCROLLABLE CONTENT AREA
+    ===================================== -->
+    <main class="scrollable-content">
+        
+        <!-- TAB 1: MOVIE DETAILS -->
+        <div id="detailsContent" class="tab-content active-content">
+            <h2><i class="fa-solid fa-circle-info"></i> Movie Details</h2>
+            <p id="movieDescription">Movie description will appear here.</p>
+        </div>
 
-    <div
-        class="profile"
-        onclick="openProfile()"
-    >
+        <!-- TAB 2: RATING -->
+        <div id="ratingContent" class="tab-content" style="display: none;">
+            <h2><i class="fa-solid fa-star"></i> Public Rating</h2>
+            <div class="stars" id="starContainer">
+                <i class="fa-solid fa-star" data-rate="1"></i>
+                <i class="fa-solid fa-star" data-rate="2"></i>
+                <i class="fa-solid fa-star" data-rate="3"></i>
+                <i class="fa-solid fa-star" data-rate="4"></i>
+                <i class="fa-solid fa-star" data-rate="5"></i>
+            </div>
+            <p id="ratingMessage">Tap a star to rate this movie.</p>
+        </div>
 
-        <img
-            id="headerProfile"
-            src="avatar-1.png"
-            alt="Profile"
-        >
+        <!-- TAB 3: COMMENTS -->
+        <div id="commentsContent" class="tab-content" style="display: none;">
+            <h2><i class="fa-solid fa-comments"></i> Comments</h2>
+            
+            <div id="commentsList" class="comments-list">
+                <p class="no-comments">No comments yet.</p>
+            </div>
 
-    </div>
+            <div class="comment-form">
+                <textarea id="commentInput" rows="2" placeholder="Write a comment..."></textarea>
+                <button id="commentBtn" type="button">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Post
+                </button>
+            </div>
+        </div>
 
-</header>
+        <!-- MORE LIKE THIS (RELATED MOVIES) -->
+        <section class="related-movies">
+            <h2><i class="fa-solid fa-film"></i> More Like This</h2>
+            
+            <div class="movie-row" id="relatedMovies">
+                <!-- 9 Movies List JS से आएगी -->
+            </div>
 
+            <!-- VIEW MORE BUTTON (BOTTOM RIGHT SIDE) -->
+            <div class="view-more-container">
+                <button id="viewMoreBtn" type="button" class="view-more-btn">
+                    View More <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
 
+    </main>
 
-<!-- =====================================
-     MOVIE DETAILS
-===================================== -->
+    <!-- =====================================
+         FIXED BOTTOM NAVIGATION
+    ===================================== -->
+    <nav class="bottom-nav">
+        <a href="home.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
 
-<section class="movie-details">
-
-
-<!-- =====================================
-     TRAILER PLAYER
-===================================== -->
-
-<div class="movie-media">
-
-    <video
-        id="movieTrailer"
-        controls
-        playsinline
-        preload="metadata"
-    >
-
-        Your browser does not support video playback.
-
-    </video>
-
-</div>
-
-
-
-    <!-- =================================
-         MOVIE NAME
-    ================================== -->
-
-    <h1 id="movieName">
-        Movie Name
-    </h1>
-
-
-
-    <!-- =================================
-         VIEWS
-    ================================== -->
-
-    <div class="movie-views">
-
-        <i class="fa-solid fa-eye"></i>
-
-        <span id="viewCount">
-            0
-        </span>
-
-        <span>
-            Views
-        </span>
-
-    </div>
-
-
-
-    <!-- =================================
-         MOVIE INFORMATION
-    ================================== -->
-
-    <div class="info">
-
-        <span id="movieCategory">
-            Category
-        </span>
-
-        <span id="movieYear">
-            2026
-        </span>
-
-        <span id="movieDuration">
-            2h 30m
-        </span>
-
-        <span id="movieQuality">
-            HD
-        </span>
-
-        <span id="movieLanguage">
-            Hindi
-        </span>
-
-        <span id="movieRating">
-            ⭐ 0.0
-        </span>
-
-    </div>
-
-
-
-    <!-- =================================
-         WATCH BUTTONS
-    ================================== -->
-
-    <div class="watch-buttons">
-
-
-        <button
-            id="trailerBtn"
-            class="watch-button trailer-button"
-            type="button"
-        >
-
+        <a href="movies-list.html">
             <i class="fa-solid fa-film"></i>
-
-            <span>
-                Watch Trailer
-            </span>
-
-        </button>
-
-
-
-        <button
-            id="watchBtn"
-            class="watch-button movie-button"
-            type="button"
-        >
-
-            <i class="fa-solid fa-play"></i>
-
-            <span>
-                Watch Movie
-            </span>
-
-        </button>
-
-
-    </div>
-
-
-
-    <!-- =================================
-         ADD TO LIST | LIKE | SHARE | CAST
-    ================================== -->
-
-    <div class="action-buttons">
-
-
-        <!-- ADD TO MY LIST -->
-
-        <button
-            id="listBtn"
-            type="button"
-        >
-
-            <i
-                id="listBtnIcon"
-                class="fa-solid fa-plus"
-            ></i>
-
-            <span id="listBtnText">
-                Add to My List
-            </span>
-
-        </button>
-
-
-
-        <!-- LIKE -->
-
-        <button
-            id="likeBtn"
-            type="button"
-        >
-
-            <i class="fa-solid fa-thumbs-up"></i>
-
-            <span>
-                Like
-            </span>
-
-            <small id="likeCount">
-                0
-            </small>
-
-        </button>
-
-
-
-        <!-- SHARE -->
-
-        <button
-            id="shareBtn"
-            type="button"
-        >
-
-            <i class="fa-solid fa-share-nodes"></i>
-
-            <span>
-                Share
-            </span>
-
-        </button>
-
-
-
-        <!-- CAST -->
-
-        <button
-            id="castBtn"
-            type="button"
-        >
-
-            <i class="fa-solid fa-users"></i>
-
-            <span>
-                Cast
-            </span>
-
-        </button>
-
-
-    </div>
-
-
-
-    <!-- =================================
-         CAST CONTENT
-         HIDDEN BY DEFAULT
-    ================================== -->
-
-    <div
-        id="castContent"
-        class="tab-content"
-    >
-
-        <h2>
-
-            <i class="fa-solid fa-users"></i>
-
-            Cast
-
-        </h2>
-
-
-        <div
-            id="castList"
-            class="cast-list"
-        >
-
-            <!-- Cast JavaScript से यहाँ आएगा -->
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =================================
-         THREE TABS
-         DETAILS | RATING | COMMENTS
-    ================================== -->
-
-    <div class="content-tabs">
-
-
-        <!-- MOVIE DETAILS -->
-
-        <button
-            id="detailsTabBtn"
-            class="content-tab active"
-            type="button"
-        >
-
-            <i class="fa-solid fa-circle-info"></i>
-
-            <span>
-                Movie Details
-            </span>
-
-        </button>
-
-
-
-        <!-- RATING -->
-
-        <button
-            id="ratingTabBtn"
-            class="content-tab"
-            type="button"
-        >
-
-            <i class="fa-solid fa-star"></i>
-
-            <span>
-                Rating
-            </span>
-
-        </button>
-
-
-
-        <!-- COMMENTS -->
-
-        <button
-            id="commentsTabBtn"
-            class="content-tab"
-            type="button"
-        >
-
-            <i class="fa-solid fa-comment"></i>
-
-            <span>
-                Comments
-            </span>
-
-            <small id="commentCount">
-                0
-            </small>
-
-        </button>
-
-
-    </div>
-
-
-
-    <!-- =================================
-         MOVIE DETAILS CONTENT
-    ================================== -->
-
-    <div
-        id="detailsContent"
-        class="tab-content active-content"
-    >
-
-        <h2>
-
-            <i class="fa-solid fa-circle-info"></i>
-
-            Movie Details
-
-        </h2>
-
-
-        <p id="movieDescription">
-
-            Movie description will appear here.
-
-        </p>
-
-    </div>
-
-
-
-    <!-- =================================
-         RATING CONTENT
-    ================================== -->
-
-    <div
-        id="ratingContent"
-        class="tab-content"
-    >
-
-        <h2>
-
-            <i class="fa-solid fa-star"></i>
-
-            Public Rating
-
-        </h2>
-
-
-        <div class="stars">
-
-
-            <i
-                class="fa-solid fa-star"
-                data-rate="1"
-            ></i>
-
-
-            <i
-                class="fa-solid fa-star"
-                data-rate="2"
-            ></i>
-
-
-            <i
-                class="fa-solid fa-star"
-                data-rate="3"
-            ></i>
-
-
-            <i
-                class="fa-solid fa-star"
-                data-rate="4"
-            ></i>
-
-
-            <i
-                class="fa-solid fa-star"
-                data-rate="5"
-            ></i>
-
-
-        </div>
-
-
-        <p id="ratingMessage">
-
-            Tap a star to rate this movie.
-
-        </p>
-
-    </div>
-
-
-
-    <!-- =================================
-         COMMENTS CONTENT
-    ================================== -->
-
-    <div
-        id="commentsContent"
-        class="tab-content"
-    >
-
-        <h2>
-
-            <i class="fa-solid fa-comments"></i>
-
-            Comments
-
-        </h2>
-
-
-
-        <!-- COMMENT FORM -->
-
-        <div class="comment-form">
-
-
-            <textarea
-                id="commentInput"
-                rows="3"
-                placeholder="Write a comment..."
-            ></textarea>
-
-
-            <button
-                id="commentBtn"
-                type="button"
-            >
-
-                <i class="fa-solid fa-paper-plane"></i>
-
-                Post Comment
-
-            </button>
-
-
-        </div>
-
-
-
-        <!-- COMMENTS LIST -->
-
-        <div
-            id="commentsList"
-            class="comments-list"
-        >
-
-            <p class="no-comments">
-
-                No comments yet.
-
-            </p>
-
-        </div>
-
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =====================================
-     MORE LIKE THIS
-===================================== -->
-
-<section class="related-movies">
-
-    <h2>
-
-        <i class="fa-solid fa-film"></i>
-
-        More Like This
-
-    </h2>
-
-
-    <div
-        class="movie-row"
-        id="relatedMovies"
-    ></div>
-
-</section>
-
-
-
-<!-- =====================================
-     BOTTOM NAVIGATION
-===================================== -->
-
-<nav class="bottom-nav">
-
-
-    <a href="home.html">
-
-        <i class="fa-solid fa-house"></i>
-
-        <span>
-            Home
-        </span>
-
-    </a>
-
-
-
-    <a href="movies-list.html">
-
-        <i class="fa-solid fa-film"></i>
-
-        <span>
-            Movies
-        </span>
-
-    </a>
-
-
-
-    <a href="search.html">
-
-        <i class="fa-solid fa-magnifying-glass"></i>
-
-        <span>
-            Search
-        </span>
-
-    </a>
-
-
-
-    <a href="my-list.html">
-
-        <i class="fa-solid fa-heart"></i>
-
-        <span>
-            My List
-        </span>
-
-    </a>
-
-
-
-    <a href="settings.html">
-
-        <i class="fa-solid fa-gear"></i>
-
-        <span>
-            Settings
-        </span>
-
-    </a>
-
-
-</nav>
-
-
-
-<!-- =====================================
-     JAVASCRIPT
-===================================== -->
-
-<script
-    type="module"
-    src="movie-details.js"
-></script>
-
+            <span>Movies</span>
+        </a>
+
+        <a href="search.html">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Search</span>
+        </a>
+
+        <a href="my-list.html">
+            <i class="fa-solid fa-heart"></i>
+            <span>My List</span>
+        </a>
+
+        <a href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <!-- JAVASCRIPT -->
+    <script type="module" src="movie-details.js"></script>
 
 </body>
-
 </html>
