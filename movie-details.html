@@ -30,7 +30,7 @@
         <!-- MOVIE MEDIA (POSTER & TRAILER VIDEO) -->
         <div class="movie-media">
             <img id="moviePoster" src="logo-192.png" alt="Movie Poster">
-            <video id="trailerVideo" controls playsinline>
+            <video id="trailerVideo" controls playsinline style="display: none;">
                 <source id="videoSource" src="" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -73,9 +73,10 @@
                 <small data-lang="like">Like</small>
             </button>
 
+            <!-- MY LIST BUTTON (UPDATED FOR SAVE / UNSAVE WITH DATA-LANG) -->
             <button id="listBtn">
                 <i id="listBtnIcon" class="fa-solid fa-plus"></i>
-                <small id="listBtnText" data-lang="addToList">Add to My List</small>
+                <small id="listBtnText" data-lang="save">Save</small>
             </button>
 
             <button id="castBtn">
@@ -90,7 +91,7 @@
         </div>
 
         <!-- INLINE CAST CONTAINER -->
-        <div id="castContent" class="cast-content">
+        <div id="castContent" class="cast-content" style="display: none;">
             <div id="castList" class="cast-list">
                 <!-- Dynamic Cast Cards will be loaded here -->
             </div>
@@ -125,7 +126,7 @@
         </div>
 
         <!-- TAB CONTENT: RATING -->
-        <div id="ratingContent" class="tab-content">
+        <div id="ratingContent" class="tab-content" style="display: none;">
             <h2>
                 <i class="fa-solid fa-star"></i>
                 <span data-lang="rateMovie">Rate This Movie</span>
@@ -141,7 +142,7 @@
         </div>
 
         <!-- TAB CONTENT: COMMENTS -->
-        <div id="commentsContent" class="tab-content">
+        <div id="commentsContent" class="tab-content" style="display: none;">
             <h2>
                 <i class="fa-solid fa-comments"></i>
                 <span data-lang="userComments">User Comments</span>
