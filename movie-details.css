@@ -50,13 +50,9 @@
 
 .movie-details h1 {
     margin: 18px 0 5px;
-
     color: #5b3500;
-
     text-align: center;
-
     font-size: 28px;
-
     font-weight: 800;
 }
 
@@ -67,24 +63,17 @@
 
 .movie-views {
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     gap: 5px;
-
     margin-bottom: 15px;
-
     color: #795548;
-
     font-size: 13px;
-
     font-weight: 700;
 }
 
 .movie-views i {
     color: #d4af37;
-
     font-size: 14px;
 }
 
@@ -95,29 +84,19 @@
 
 .info {
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     flex-wrap: wrap;
-
     gap: 7px;
-
     margin-bottom: 18px;
 }
 
 .info span {
     padding: 7px 11px;
-
     background: #d4af37;
-
     color: #fff;
-
     border-radius: 9px;
-
     font-size: 12px;
-
     font-weight: 700;
 }
 
@@ -128,47 +107,29 @@
 
 .watch-buttons {
     display: grid;
-
     grid-template-columns: repeat(2, 1fr);
-
     gap: 8px;
-
     margin-bottom: 12px;
 }
 
-
 .watch-button {
     width: 100%;
-
     min-height: 52px;
-
     border: none;
-
     border-radius: 28px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 8px;
-
     font-size: 15px;
-
     font-weight: 800;
-
     cursor: pointer;
-
     transition: .25s ease;
 }
 
-
 /* TRAILER */
-
 .trailer-button {
     background: #5b3500;
-
     color: #fff;
 }
 
@@ -176,22 +137,11 @@
     background: #3d2400;
 }
 
-
 /* WATCH MOVIE */
-
 .movie-button {
-    background:
-        linear-gradient(
-            135deg,
-            #f5d76e,
-            #d4af37
-        );
-
+    background: linear-gradient(135deg, #f5d76e, #d4af37);
     color: #fff;
-
-    box-shadow:
-        0 5px 15px
-        rgba(212, 175, 55, .25);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, .25);
 }
 
 .movie-button:hover {
@@ -205,75 +155,59 @@
 
 .action-buttons {
     width: 100%;
-
     display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
+    grid-template-columns: repeat(4, 1fr);
     gap: 4px;
-
     margin: 8px 0 18px;
 }
 
-
 .action-buttons button {
     width: 100%;
-
     height: 70px;
-
     border: none;
-
     border-radius: 12px;
-
     background: transparent;
-
     color: #5b3500;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 4px;
-
     font-size: 12px;
-
     font-weight: 700;
-
     cursor: pointer;
-
     transition: .25s ease;
+    white-space: nowrap;
 }
-
 
 .action-buttons button i {
     font-size: 23px;
-
     color: #5b3500;
+    transition: all 0.2s ease;
 }
-
 
 .action-buttons button small {
     font-size: 9px;
-
     margin: 0;
 }
-
 
 .action-buttons button:hover,
 .action-buttons button.active {
     background: rgba(212, 175, 55, .12);
 }
 
-
+/* LIKE BUTTON ACTIVE STATE (RED) */
+#likeBtn.liked,
 #likeBtn.liked i {
-    color: #d4af37;
-
+    color: #ff3b30 !important;
     transform: scale(1.08);
+}
+
+/* SAVE / MY LIST BUTTON ACTIVE STATE (GREEN) */
+#listBtn.saved,
+#listBtn.saved i,
+#listBtn.saved small {
+    color: #4cd964 !important;
 }
 
 
@@ -339,81 +273,48 @@
 
 .content-tabs {
     width: 100%;
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 4px;
-
     margin: 8px 0 15px;
-
     padding: 4px;
-
     background: rgba(212, 175, 55, .08);
-
     border-radius: 14px;
-
     box-sizing: border-box;
 }
 
-
 .content-tab {
     position: relative;
-
     min-height: 58px;
-
     border: none;
-
     border-radius: 10px;
-
     background: transparent;
-
     color: #5b3500;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 4px;
-
     font-size: 10px;
-
     font-weight: 800;
-
     cursor: pointer;
 }
-
 
 .content-tab i {
     font-size: 20px;
 }
 
-
 .content-tab small {
     position: absolute;
-
     top: 3px;
-
     right: 8px;
-
     font-size: 8px;
-
     font-weight: 800;
 }
 
-
 .content-tab.active {
     background: #fff;
-
-    box-shadow:
-        0 3px 10px rgba(0, 0, 0, .10);
-
+    box-shadow: 0 3px 10px rgba(0, 0, 0, .10);
     color: #d4af37;
 }
 
@@ -424,52 +325,34 @@
 
 .tab-content {
     display: none;
-
     padding: 18px;
-
     background: #FFFDF8;
-
     border-radius: 18px;
-
-    box-shadow:
-        0 5px 15px rgba(0, 0, 0, .10);
-
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .10);
     margin-bottom: 18px;
 }
-
 
 .tab-content.active-content {
     display: block;
 }
 
-
 .tab-content h2 {
     margin: 0 0 15px;
-
     color: #5b3500;
-
     font-size: 20px;
 }
 
-
 .tab-content h2 i {
     color: #d4af37;
-
     margin-right: 5px;
 }
 
-
 /* DESCRIPTION */
-
 #movieDescription {
     margin: 0;
-
     color: #5D4037;
-
     font-size: 15px;
-
     line-height: 1.7;
-
     text-align: justify;
 }
 
@@ -480,40 +363,27 @@
 
 .stars {
     display: flex;
-
     justify-content: center;
-
     gap: 12px;
-
     margin: 10px 0 15px;
 }
 
-
 .stars i {
     color: #ccc;
-
     font-size: 30px;
-
     cursor: pointer;
-
     transition: .2s;
 }
 
-
 .stars i.active {
     color: #d4af37;
-
     transform: scale(1.12);
 }
 
-
 #ratingMessage {
     margin: 0;
-
     text-align: center;
-
     color: #5b3500;
-
     font-size: 13px;
 }
 
@@ -524,127 +394,81 @@
 
 .comment-form {
     display: flex;
-
     flex-direction: column;
-
     gap: 10px;
 }
 
-
 #commentInput {
     width: 100%;
-
     box-sizing: border-box;
-
     padding: 13px;
-
     border: 1px solid #d4af37;
-
     border-radius: 12px;
-
     background: #fff;
-
     color: #5b3500;
-
     font-family: inherit;
-
     outline: none;
-
     resize: vertical;
 }
 
-
 #commentInput:focus {
     border-color: #b8860b;
-
-    box-shadow:
-        0 0 0 2px
-        rgba(212, 175, 55, .15);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, .15);
 }
-
 
 #commentBtn {
     width: 100%;
-
     padding: 12px;
-
     border: none;
-
     border-radius: 25px;
-
     background: #d4af37;
-
     color: #fff;
-
     font-size: 14px;
-
     font-weight: 700;
-
     cursor: pointer;
 }
-
 
 #commentBtn:hover {
     background: #b8860b;
 }
 
-
 .comments-list {
     margin-top: 18px;
 }
 
-
 .comment-card {
     padding: 13px;
-
     margin-bottom: 10px;
-
     background: #fff;
-
     border-left: 3px solid #d4af37;
-
     border-radius: 10px;
-
-    box-shadow:
-        0 3px 8px rgba(0, 0, 0, .08);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .08);
 }
-
 
 .comment-header {
     display: flex;
-
     justify-content: space-between;
-
     gap: 10px;
-
     margin-bottom: 7px;
 }
-
 
 .comment-header strong {
     color: #5b3500;
 }
 
-
 .comment-header small {
     color: #8d6e63;
 }
 
-
 .comment-card p {
     margin: 0;
-
     color: #5D4037;
-
     font-size: 14px;
-
     line-height: 1.5;
 }
 
-
 .no-comments {
     text-align: center;
-
     color: #8d6e63;
 }
 
@@ -657,79 +481,50 @@
     padding: 20px;
 }
 
-
 .related-movies h2 {
     color: #5b3500;
-
     font-size: 22px;
-
     margin-bottom: 15px;
 }
-
 
 .related-movies h2 i {
     color: #d4af37;
 }
 
-
 .related-movies .movie-row {
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
 }
 
-
 .related-movies .movie-card {
     width: 100%;
-
     background: #fff;
-
     border-radius: 15px;
-
     overflow: hidden;
-
     cursor: pointer;
-
-    box-shadow:
-        0 5px 15px rgba(0, 0, 0, .15);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .15);
 }
-
 
 .related-movies .movie-card img {
     width: 100%;
-
     height: 170px;
-
     object-fit: cover;
-
     display: block;
 }
 
-
 .related-movies .movie-card h3 {
     margin: 0;
-
     padding: 8px 5px;
-
     color: #5b3500;
-
     text-align: center;
-
     font-size: 14px;
-
     white-space: nowrap;
-
     overflow: hidden;
-
     text-overflow: ellipsis;
 }
 
-
 /* VIEW MORE BUTTON CONTAINER */
-
 .view-more-container {
     display: none;
     justify-content: flex-end;
@@ -755,7 +550,7 @@
 
 
 /* =========================================
-   MOBILE
+   MOBILE RESPONSIVE
 ========================================= */
 
 @media (max-width: 480px) {
@@ -764,120 +559,86 @@
         padding: 15px;
     }
 
-
     .movie-media {
         border-radius: 17px;
         max-height: 230px;
     }
 
-
     .movie-details h1 {
         font-size: 23px;
     }
-
 
     .movie-views {
         font-size: 12px;
     }
 
-
     .info {
         gap: 5px;
     }
 
-
     .info span {
         padding: 6px 9px;
-
         font-size: 11px;
     }
 
-
-    /* WATCH */
-
     .watch-button {
         min-height: 50px;
-
         font-size: 13px;
     }
-
-
-    /* FOUR ACTION */
 
     .action-buttons {
         gap: 2px;
     }
 
-
     .action-buttons button {
         height: 65px;
-
         font-size: 10px;
     }
-
 
     .action-buttons button i {
         font-size: 21px;
     }
 
-
     .action-buttons button small {
         font-size: 8px;
     }
-
-
-    /* THREE TABS */
 
     .content-tabs {
         gap: 2px;
     }
 
-
     .content-tab {
         min-height: 56px;
-
         font-size: 9px;
     }
-
 
     .content-tab i {
         font-size: 18px;
     }
 
-
     .content-tab small {
         right: 5px;
     }
-
-
-    /* CONTENT */
 
     .tab-content {
         padding: 16px;
     }
 
-
     .tab-content h2 {
         font-size: 18px;
     }
-
 
     #movieDescription {
         font-size: 14px;
     }
 
-
-    /* RELATED */
-
     .related-movies {
         padding: 15px;
     }
 
-
     .related-movies .movie-row {
         gap: 10px;
     }
-
 
     .related-movies .movie-card img {
         height: 160px;
@@ -887,7 +648,7 @@
 
 
 /* =========================================
-   VERY SMALL
+   VERY SMALL MOBILE
 ========================================= */
 
 @media (max-width: 360px) {
@@ -896,56 +657,33 @@
         font-size: 21px;
     }
 
-
     .info span {
         font-size: 10px;
-
         padding: 5px 7px;
     }
-
 
     .watch-button {
         font-size: 12px;
     }
 
-
     .action-buttons button {
         font-size: 9px;
     }
-
 
     .action-buttons button i {
         font-size: 19px;
     }
 
-
     .content-tab {
         font-size: 8px;
     }
-
 
     .content-tab i {
         font-size: 17px;
     }
 
-
     .related-movies .movie-card img {
         height: 145px;
     }
 
-}
-#likeBtn.liked,
-#likeBtn.liked i,
-.liked {
-    color: #ff3b30 !important; /* Red Color */
-    transform: scale(1.1);
-    transition: all 0.2s ease;
-}
-
-#listBtn.saved {
-    color: #4cd964 !important; /* Green color for Saved state */
-}
-
-#listBtn.saved i {
-    color: #4cd964 !important;
 }
