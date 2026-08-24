@@ -43,6 +43,16 @@ const en = {
     ratingCouldNotBeSaved: "Rating could not be saved.",
     thanksYouRated: "Thanks! You rated",
     yourRating: "Your Rating",
+    views: "Views",
+    watchTrailer: "Watch Trailer",
+    watchMovie: "Watch Movie",
+    like: "Like",
+    addToList: "Add to My List",
+    cast: "Cast",
+    share: "Share",
+    rating: "Rating",
+    comments: "Comments",
+    storyline: "Storyline"
 
     // Movie Request
     movieRequest: "Movie Request",
