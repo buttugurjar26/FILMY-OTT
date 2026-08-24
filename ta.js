@@ -43,6 +43,16 @@ const ta = {
     ratingCouldNotBeSaved: "மதிப்பீட்டை சேமிக்க முடியவில்லை.",
     thanksYouRated: "நன்றி! நீங்கள் மதிப்பிட்டீர்கள்",
     yourRating: "உங்கள் மதிப்பீடு",
+    views: "பார்வைகள்",
+    watchTrailer: "டிரெய்லர் பார்க்க",
+    watchMovie: "படம் பார்க்க",
+    like: "விருப்பம்",
+    addToList: "என் பட்டியலில் சேர்க்க",
+    cast: "நடித்தவர்கள்",
+    share: "பகிர்க",
+    rating: "மதிப்பீடு",
+    comments: "கருத்துகள்",
+    storyline: "கதை",
 
     // Movie Request
     movieRequest: "திரைப்பட கோரிக்கை",
