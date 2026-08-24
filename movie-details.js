@@ -113,24 +113,6 @@ async function loadMovie() {
         );
 
 
-// =================================
-// TRAILER VIDEO
-// =================================
-
-const trailer =
-    document.getElementById(
-        "movieTrailer"
-    );
-
-if (trailer && movie.trailer_url) {
-
-    trailer.src =
-        movie.trailer_url;
-
-    trailer.load();
-
-}
-
         // =================================
         // TITLE
         // =================================
