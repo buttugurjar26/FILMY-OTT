@@ -150,7 +150,7 @@
 
 
 /* =========================================
-   FOUR ACTION BUTTONS (UPDATED: 35px ICON & 20px TEXT)
+   FOUR ACTION BUTTONS (INLINE COUNT & TEXT)
 ========================================= */
 
 .action-buttons {
@@ -163,7 +163,7 @@
 
 .action-buttons button {
     width: 100%;
-    height: 90px; /* बड़े टेक्स्ट और आइकन के लिए हाइट बढ़ाई */
+    height: 90px;
     border: none;
     border-radius: 12px;
     background: transparent;
@@ -173,24 +173,32 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    font-size: 20px;
-    font-weight: 700;
     cursor: pointer;
     transition: .25s ease;
     white-space: nowrap;
 }
 
+/* Icons Size */
 .action-buttons button i {
-    font-size: 35px !important; /* Icon 35px किया */
+    font-size: 35px !important;
     color: #5b3500;
     transition: all 0.2s ease;
 }
 
+/* Count aur Text ko ek hi line me lane ke liye */
+.action-buttons .btn-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
 .action-buttons button small,
 .action-buttons button span {
-    font-size: 20px !important; /* Text 20px किया */
+    font-size: 20px !important;
     font-weight: 800 !important;
     margin: 0;
+    display: inline-block;
 }
 
 .action-buttons button:hover,
