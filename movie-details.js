@@ -113,26 +113,23 @@ async function loadMovie() {
         );
 
 
-        // =================================
-        // POSTER
-        // =================================
+// =================================
+// TRAILER VIDEO
+// =================================
 
-        const poster =
-            document.getElementById(
-                "moviePoster"
-            );
+const trailer =
+    document.getElementById(
+        "movieTrailer"
+    );
 
+if (trailer && movie.trailer_url) {
 
-        if (
-            poster &&
-            movie.poster_url
-        ) {
+    trailer.src =
+        movie.trailer_url;
 
-            poster.src =
-                movie.poster_url;
+    trailer.load();
 
-        }
-
+}
 
         // =================================
         // TITLE
