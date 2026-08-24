@@ -171,12 +171,10 @@ function setupTrailerButton() {
             const savedTime = parseFloat(localStorage.getItem(progressKey) || "0");
 
             video.addEventListener("loadedmetadata", function () {
-                // 1. Resume Video from saved time
                 if (savedTime > 0 && savedTime < video.duration - 5) {
                     video.currentTime = savedTime;
                 }
 
-                // 2. Dynamic Duration Calculation (HTML #movieDuration Update)
                 const totalSeconds = Math.floor(video.duration);
                 const hours = Math.floor(totalSeconds / 3600);
                 const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -222,7 +220,7 @@ function setupWatchButton() {
 }
 
 // =========================================
-// LIKE BUTTON (FIXED & SUPABASE ERROR HANDLED)
+// LIKE BUTTON (FIXED & SUPABASE UPDATE)
 // =========================================
 function setupLikeButton() {
     const likeBtn = document.getElementById("likeBtn");
@@ -240,7 +238,6 @@ function setupLikeButton() {
         const alreadyLiked = localStorage.getItem(storageKey) === "true";
         let newCount = Number(movie.likes || 0);
 
-        // UI instantly Update (Speed optimization)
         if (alreadyLiked) {
             newCount = Math.max(0, newCount - 1);
             localStorage.removeItem(storageKey);
@@ -254,28 +251,56 @@ function setupLikeButton() {
         if (likeCount) likeCount.textContent = newCount;
         movie.likes = newCount;
 
-        // Supabase Query with exact Type casting
         try {
             const queryId = !isNaN(movieId) ? Number(movieId) : movieId;
-            const { error } = await supabase
+            await supabase
                 .from("movies")
                 .update({ likes: newCount })
                 .eq("id", queryId);
-
-            if (error) {
-                console.error("Supabase Like Update Error:", error.message);
-                alert("Database update failed: " + error.message);
-            }
         } catch (err) {
             console.error("Like Exception:", err);
         }
     });
 }
 
+function updateLikeButtonUI() {
+    const likeBtn = document.getElementById("likeBtn");
+    if (!likeBtn) return;
+    const isLiked = localStorage.getItem(getLikeKey(movieId)) === "true";
+    likeBtn.classList.toggle("liked", isLiked);
+}
+
 // =========================================
-// MY LIST BUTTON (SAVING FULL DATA FOR MY-LIST PAGE)
+// MY LIST BUTTON (SAVE / UNSAVE LOGIC)
 // =========================================
 function setupListButton() {
+    const listBtn = document.getElementById("listBtn");
+    if (!listBtn) return;
+
+    listBtn.addEventListener("click", function () {
+        if (!checkAuth("save movies to your list")) return;
+
+        const movie = window.currentMovie;
+        if (!movie) return;
+
+        const storageKey = getListKey(movieId);
+        const alreadySaved = localStorage.getItem(storageKey) !== null;
+
+        if (alreadySaved) {
+            localStorage.removeItem(storageKey);
+            setListButtonState(false);
+        } else {
+            localStorage.setItem(storageKey, JSON.stringify(movie));
+            setListButtonState(true);
+        }
+    });
+}
+
+function updateListButtonUI() {
+    const alreadySaved = localStorage.getItem(getListKey(movieId)) !== null;
+    setListButtonState(alreadySaved);
+}
+
 function setListButtonState(saved) {
     const listBtn = document.getElementById("listBtn");
     const icon = document.getElementById("listBtnIcon");
@@ -287,19 +312,22 @@ function setListButtonState(saved) {
         listBtn.classList.add("saved");
         if (icon) icon.className = "fa-solid fa-check";
         if (text) {
-            text.removeAttribute("data-lang"); // Translation override rokne ke liye
+            text.setAttribute("data-lang", "unsave");
             text.textContent = "Unsave";
         }
     } else {
         listBtn.classList.remove("saved");
         if (icon) icon.className = "fa-solid fa-plus";
         if (text) {
-            text.removeAttribute("data-lang");
+            text.setAttribute("data-lang", "save");
             text.textContent = "Save";
         }
     }
-}
 
+    if (typeof applyLanguage === "function") {
+        applyLanguage();
+    }
+}
 
 // =========================================
 // CAST, SHARE, RATING & OTHER UTILITIES
