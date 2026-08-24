@@ -53,6 +53,8 @@ const ta = {
     rating: "மதிப்பீடு",
     comments: "கருத்துகள்",
     storyline: "கதை",
+    save: "சேமி",
+    unsave: "அகற்று",
 
     // Movie Request
     movieRequest: "திரைப்பட கோரிக்கை",
