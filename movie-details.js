@@ -262,9 +262,15 @@ function setupLikeButton() {
 
 function updateLikeButtonUI() {
     const likeBtn = document.getElementById("likeBtn");
-    if (!likeBtn || !isLoggedIn) return;
+    if (!likeBtn) return;
 
-    const alreadyLiked = localStorage.getItem(getLikeKey(movieId)) === "true";
+    // isLoggedIn चेक करें
+    const loggedInState = localStorage.getItem("isLoggedIn") === "true";
+    if (!loggedInState) return;
+
+    const storageKey = getLikeKey(movieId);
+    const alreadyLiked = localStorage.getItem(storageKey) === "true";
+
     if (alreadyLiked) {
         likeBtn.classList.add("liked");
     } else {
@@ -282,15 +288,27 @@ function setupListButton() {
     listBtn.addEventListener("click", function () {
         if (!checkAuth("add to your list")) return;
 
+        const movie = window.currentMovie;
+        if (!movie) return;
+
         const storageKey = getListKey(movieId);
-        const alreadySaved = localStorage.getItem(storageKey) === "true";
+        const alreadySaved = localStorage.getItem(storageKey) !== null;
 
         if (alreadySaved) {
+            // लिस्ट से हटाएं
             localStorage.removeItem(storageKey);
             setListButtonState(false);
             alert("Removed from My List");
         } else {
-            localStorage.setItem(storageKey, "true");
+            // पूरा मूवी ऑब्जेक्ट सेव करें ताकि My List पेज पर शो हो सके
+            const movieToSave = {
+                id: movie.id,
+                title: movie.title,
+                poster_url: movie.poster_url,
+                category: movie.category,
+                rating: movie.rating
+            };
+            localStorage.setItem(storageKey, JSON.stringify(movieToSave));
             setListButtonState(true);
             alert("Added to My List");
         }
@@ -298,38 +316,14 @@ function setupListButton() {
 }
 
 function updateListButtonUI() {
-    if (!isLoggedIn) {
+    const loggedInState = localStorage.getItem("isLoggedIn") === "true";
+    if (!loggedInState) {
         setListButtonState(false);
         return;
     }
-    const saved = localStorage.getItem(getListKey(movieId)) === "true";
-    setListButtonState(saved);
-}
-
-function setListButtonState(saved) {
-    const listBtn = document.getElementById("listBtn");
-    const icon = document.getElementById("listBtnIcon");
-    const text = document.getElementById("listBtnText");
-
-    if (!listBtn) return;
-
-    if (saved) {
-        listBtn.classList.add("saved");
-        if (icon) icon.className = "fa-solid fa-check";
-        if (text) {
-            text.setAttribute("data-lang", "removeFromMyList");
-            text.textContent = "Remove from My List";
-        }
-    } else {
-        listBtn.classList.remove("saved");
-        if (icon) icon.className = "fa-solid fa-plus";
-        if (text) {
-            text.setAttribute("data-lang", "addToList");
-            text.textContent = "Add to My List";
-        }
-    }
-
-    if (typeof applyLanguage === "function") applyLanguage();
+    const storageKey = getListKey(movieId);
+    const isSaved = localStorage.getItem(storageKey) !== null;
+    setListButtonState(isSaved);
 }
 
 // =========================================
