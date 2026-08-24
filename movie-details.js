@@ -1,4 +1,5 @@
 import { supabase } from "./supabase.js";
+import { applyLanguage } from "./language.js";
 
 // =========================================
 // GLOBAL VARIABLES
@@ -41,6 +42,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     setupComments();
     setupDetailsTabs();
     setupViewMoreButton();
+    applyLanguage();
+    
 });
 
 // =========================================
