@@ -276,46 +276,6 @@ function setupLikeButton() {
 // MY LIST BUTTON (SAVING FULL DATA FOR MY-LIST PAGE)
 // =========================================
 function setupListButton() {
-    const listBtn = document.getElementById("listBtn");
-    if (!listBtn) return;
-
-    listBtn.addEventListener("click", function () {
-        if (!checkAuth("add to your list")) return;
-
-        const movie = window.currentMovie;
-        if (!movie) return;
-
-        const storageKey = getListKey(movieId);
-        const alreadySaved = localStorage.getItem(storageKey) !== null;
-
-        if (alreadySaved) {
-            localStorage.removeItem(storageKey);
-            setListButtonState(false);
-            alert("Removed from My List");
-        } else {
-            const movieToSave = {
-                id: movie.id,
-                title: movie.title,
-                poster_url: movie.poster_url,
-                category: movie.category,
-                rating: movie.rating
-            };
-            localStorage.setItem(storageKey, JSON.stringify(movieToSave));
-            setListButtonState(true);
-            alert("Added to My List");
-        }
-    });
-}
-
-function updateListButtonUI() {
-    if (!isLoggedIn) {
-        setListButtonState(false);
-        return;
-    }
-    const isSaved = localStorage.getItem(getListKey(movieId)) !== null;
-    setListButtonState(isSaved);
-}
-
 function setListButtonState(saved) {
     const listBtn = document.getElementById("listBtn");
     const icon = document.getElementById("listBtnIcon");
@@ -327,18 +287,19 @@ function setListButtonState(saved) {
         listBtn.classList.add("saved");
         if (icon) icon.className = "fa-solid fa-check";
         if (text) {
-            text.setAttribute("data-lang", "removeFromMyList");
-            text.textContent = "Remove from My List";
+            text.removeAttribute("data-lang"); // Translation override rokne ke liye
+            text.textContent = "Unsave";
         }
     } else {
         listBtn.classList.remove("saved");
         if (icon) icon.className = "fa-solid fa-plus";
         if (text) {
-            text.setAttribute("data-lang", "addToList");
-            text.textContent = "Add to My List";
+            text.removeAttribute("data-lang");
+            text.textContent = "Save";
         }
     }
 }
+
 
 // =========================================
 // CAST, SHARE, RATING & OTHER UTILITIES
