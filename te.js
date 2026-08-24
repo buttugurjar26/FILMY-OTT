@@ -43,6 +43,16 @@ const te = {
     ratingCouldNotBeSaved: "రేటింగ్ సేవ్ చేయలేకపోయాము.",
     thanksYouRated: "ధన్యవాదాలు! మీరు రేట్ చేశారు",
     yourRating: "మీ రేటింగ్",
+    views: "వీక్షణలు",
+    watchTrailer: "ట్రైలర్ చూడండి",
+    watchMovie: "సినిమా చూడండి",
+    like: "ఇష్టం",
+    addToList: "నా జాబితాలో చేర్చండి",
+    cast: "నటీనటులు",
+    share: "షేర్ చేయండి",
+    rating: "రేటింగ్",
+    comments: "కామెంట్లు",
+    storyline: "కథ",
 
     // Movie Request
     movieRequest: "మూవీ రిక్వెస్ట్",
