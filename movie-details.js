@@ -58,12 +58,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 2. Movie Data load karein
     await loadMovie();
 
-    // 3. Views Increment (+1) & Realtime Subscribe
-    setupSupabaseViews();
-
-    // 4. Handlers setup karein
+    // 3. Handlers setup karein
     setupTrailerButton();
-    setupWatchButton();
     setupLikeButton();
     setupListButton();
     setupCastButton();
@@ -72,6 +68,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     setupComments();
     setupDetailsTabs();
     setupViewMoreButton();
+
+    // 4. Realtime Listener (Page load par count nahi badhega)
+    listenToRealtimeViews();
 });
 
 // =========================================
@@ -144,48 +143,55 @@ async function loadMovie() {
 }
 
 // =========================================
-// SUPABASE VIEWS INCREMENT & REALTIME FIX
+// INCREMENT VIEW ONLY WHEN TRAILER PLAYS
 // =========================================
-async function setupSupabaseViews() {
+async function triggerViewCount() {
     const viewCountElem = document.getElementById("viewCount");
-    if (!viewCountElem || !movieId) return;
+    if (!movieId) return;
 
     try {
         const queryId = !isNaN(movieId) ? Number(movieId) : movieId;
 
-        // 1. Database me Views +1 karein (RPC calling)
+        // 1. Supabase RPC Call (+1)
         const { data: updatedViews, error } = await supabase.rpc('increment_views', { movie_id_param: String(queryId) });
 
         if (!error && updatedViews !== null && updatedViews !== undefined) {
-            viewCountElem.textContent = Number(updatedViews).toLocaleString();
+            if (viewCountElem) viewCountElem.textContent = Number(updatedViews).toLocaleString();
         } else {
-            // Agar RPC SQL RPC setup na ho to direct update fallback
+            // Fallback direct update
             const currentViews = Number(window.currentMovie?.views || 0) + 1;
+            window.currentMovie.views = currentViews;
             await supabase.from("movies").update({ views: currentViews }).eq("id", queryId);
-            viewCountElem.textContent = currentViews.toLocaleString();
+            if (viewCountElem) viewCountElem.textContent = currentViews.toLocaleString();
         }
-
-        // 2. Realtime Listener (Doosre users ko instant badha hua count dikhane ke liye)
-        supabase
-            .channel(`movie-views-${movieId}`)
-            .on(
-                'postgres_changes',
-                { event: 'UPDATE', schema: 'public', table: 'movies', filter: `id=eq.${queryId}` },
-                (payload) => {
-                    if (payload.new && payload.new.views !== undefined) {
-                        viewCountElem.textContent = Number(payload.new.views).toLocaleString();
-                    }
-                }
-            )
-            .subscribe();
-
     } catch (err) {
-        console.error("Supabase Views Error:", err);
+        console.error("View count increment error:", err);
     }
 }
 
+// Realtime Listener
+function listenToRealtimeViews() {
+    const viewCountElem = document.getElementById("viewCount");
+    if (!viewCountElem || !movieId) return;
+
+    const queryId = !isNaN(movieId) ? Number(movieId) : movieId;
+
+    supabase
+        .channel(`movie-views-${movieId}`)
+        .on(
+            'postgres_changes',
+            { event: 'UPDATE', schema: 'public', table: 'movies', filter: `id=eq.${queryId}` },
+            (payload) => {
+                if (payload.new && payload.new.views !== undefined) {
+                    viewCountElem.textContent = Number(payload.new.views).toLocaleString();
+                }
+            }
+        )
+        .subscribe();
+}
+
 // =========================================
-// TRAILER (DYNAMIC DURATION - MIN & SEC ONLY)
+// TRAILER (INCREASE VIEW ONLY ON PLAY)
 // =========================================
 function setupTrailerButton() {
     const trailerBtn = document.getElementById("trailerBtn");
@@ -219,7 +225,6 @@ function setupTrailerButton() {
                     video.currentTime = savedTime;
                 }
 
-                // --- DURATION: ONLY MINUTES & SECONDS ---
                 const totalSeconds = Math.floor(video.duration);
                 const minutes = Math.floor(totalSeconds / 60);
                 const seconds = totalSeconds % 60;
@@ -244,32 +249,18 @@ function setupTrailerButton() {
                 localStorage.removeItem(progressKey);
             };
 
-            video.play().catch(err => console.log("Autoplay Error:", err));
+            // 🔥 SIRF TRAILER VIDEO PLAY HONE PER +1 VIEWS HOGA
+            video.play()
+                .then(() => {
+                    triggerViewCount();
+                })
+                .catch(err => console.log("Autoplay Error:", err));
         }
     });
 }
 
 // =========================================
-// WATCH MOVIE
-// =========================================
-function setupWatchButton() {
-    const watchBtn = document.getElementById("watchBtn");
-    if (!watchBtn) return;
-
-    watchBtn.addEventListener("click", function () {
-        if (!checkAuth("watch this movie")) return;
-
-        const movie = window.currentMovie;
-        if (!movie || !movie.watch_url) {
-            alert("Watch Movie link is not available.");
-            return;
-        }
-        window.location.href = movie.watch_url;
-    });
-}
-
-// =========================================
-// LIKE BUTTON (FIXED & SUPABASE UPDATE)
+// LIKE BUTTON
 // =========================================
 function setupLikeButton() {
     const likeBtn = document.getElementById("likeBtn");
@@ -320,7 +311,7 @@ function updateLikeButtonUI() {
 }
 
 // =========================================
-// MY LIST BUTTON (SAVE / UNSAVE LOGIC)
+// MY LIST BUTTON
 // =========================================
 function setupListButton() {
     const listBtn = document.getElementById("listBtn");
