@@ -941,3 +941,11 @@
     transform: scale(1.1);
     transition: all 0.2s ease;
 }
+
+#listBtn.saved {
+    color: #4cd964 !important; /* Green color for Saved state */
+}
+
+#listBtn.saved i {
+    color: #4cd964 !important;
+}
