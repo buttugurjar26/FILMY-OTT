@@ -74,7 +74,9 @@
 <section class="movie-details">
 
 
-    <!-- MOVIE POSTER / TRAILER -->
+    <!-- =================================
+         MOVIE POSTER / TRAILER
+    ================================== -->
 
     <div class="movie-media">
 
@@ -88,7 +90,9 @@
 
 
 
-    <!-- MOVIE NAME -->
+    <!-- =================================
+         MOVIE NAME
+    ================================== -->
 
     <h1 id="movieName">
         Movie Name
@@ -96,7 +100,9 @@
 
 
 
-    <!-- VIEWS -->
+    <!-- =================================
+         VIEWS
+    ================================== -->
 
     <div class="movie-views">
 
@@ -114,7 +120,9 @@
 
 
 
-    <!-- MOVIE INFORMATION -->
+    <!-- =================================
+         MOVIE INFORMATION
+    ================================== -->
 
     <div class="info">
 
@@ -148,7 +156,7 @@
 
     <!-- =================================
          WATCH BUTTONS
-    ================================= -->
+    ================================== -->
 
     <div class="watch-buttons">
 
@@ -189,26 +197,33 @@
 
 
     <!-- =================================
-         LIST | LIKE | SHARE | DOWNLOAD
-    ================================= -->
+         ADD TO LIST | LIKE | SHARE | CAST
+    ================================== -->
 
     <div class="action-buttons">
 
+
+        <!-- ADD TO MY LIST -->
 
         <button
             id="listBtn"
             type="button"
         >
 
-            <i class="fa-solid fa-bookmark"></i>
+            <i
+                id="listBtnIcon"
+                class="fa-solid fa-plus"
+            ></i>
 
-            <span>
-                List
+            <span id="listBtnText">
+                Add to My List
             </span>
 
         </button>
 
 
+
+        <!-- LIKE -->
 
         <button
             id="likeBtn"
@@ -229,6 +244,8 @@
 
 
 
+        <!-- SHARE -->
+
         <button
             id="shareBtn"
             type="button"
@@ -244,15 +261,17 @@
 
 
 
+        <!-- CAST -->
+
         <button
-            id="downloadBtn"
+            id="castBtn"
             type="button"
         >
 
-            <i class="fa-solid fa-download"></i>
+            <i class="fa-solid fa-users"></i>
 
             <span>
-                Download
+                Cast
             </span>
 
         </button>
@@ -263,12 +282,47 @@
 
 
     <!-- =================================
+         CAST CONTENT
+         HIDDEN BY DEFAULT
+    ================================== -->
+
+    <div
+        id="castContent"
+        class="tab-content"
+    >
+
+        <h2>
+
+            <i class="fa-solid fa-users"></i>
+
+            Cast
+
+        </h2>
+
+
+        <div
+            id="castList"
+            class="cast-list"
+        >
+
+            <!-- Cast JavaScript से यहाँ आएगा -->
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================
          THREE TABS
          DETAILS | RATING | COMMENTS
-    ================================= -->
+    ================================== -->
 
     <div class="content-tabs">
 
+
+        <!-- MOVIE DETAILS -->
 
         <button
             id="detailsTabBtn"
@@ -286,6 +340,8 @@
 
 
 
+        <!-- RATING -->
+
         <button
             id="ratingTabBtn"
             class="content-tab"
@@ -301,6 +357,8 @@
         </button>
 
 
+
+        <!-- COMMENTS -->
 
         <button
             id="commentsTabBtn"
@@ -327,7 +385,7 @@
 
     <!-- =================================
          MOVIE DETAILS CONTENT
-    ================================= -->
+    ================================== -->
 
     <div
         id="detailsContent"
@@ -335,9 +393,13 @@
     >
 
         <h2>
+
             <i class="fa-solid fa-circle-info"></i>
+
             Movie Details
+
         </h2>
+
 
         <p id="movieDescription">
 
@@ -351,7 +413,7 @@
 
     <!-- =================================
          RATING CONTENT
-    ================================= -->
+    ================================== -->
 
     <div
         id="ratingContent"
@@ -359,45 +421,54 @@
     >
 
         <h2>
+
             <i class="fa-solid fa-star"></i>
+
             Public Rating
+
         </h2>
 
 
         <div class="stars">
+
 
             <i
                 class="fa-solid fa-star"
                 data-rate="1"
             ></i>
 
+
             <i
                 class="fa-solid fa-star"
                 data-rate="2"
             ></i>
+
 
             <i
                 class="fa-solid fa-star"
                 data-rate="3"
             ></i>
 
+
             <i
                 class="fa-solid fa-star"
                 data-rate="4"
             ></i>
+
 
             <i
                 class="fa-solid fa-star"
                 data-rate="5"
             ></i>
 
+
         </div>
 
 
-        <p
-            id="ratingMessage"
-        >
+        <p id="ratingMessage">
+
             Tap a star to rate this movie.
+
         </p>
 
     </div>
@@ -406,8 +477,7 @@
 
     <!-- =================================
          COMMENTS CONTENT
-         HIDDEN BY DEFAULT
-    ================================= -->
+    ================================== -->
 
     <div
         id="commentsContent"
@@ -415,14 +485,19 @@
     >
 
         <h2>
+
             <i class="fa-solid fa-comments"></i>
+
             Comments
+
         </h2>
+
 
 
         <!-- COMMENT FORM -->
 
         <div class="comment-form">
+
 
             <textarea
                 id="commentInput"
@@ -442,7 +517,9 @@
 
             </button>
 
+
         </div>
+
 
 
         <!-- COMMENTS LIST -->
@@ -453,10 +530,13 @@
         >
 
             <p class="no-comments">
+
                 No comments yet.
+
             </p>
 
         </div>
+
 
     </div>
 
@@ -554,9 +634,14 @@
 
     </a>
 
+
 </nav>
 
 
+
+<!-- =====================================
+     JAVASCRIPT
+===================================== -->
 
 <script
     type="module"
