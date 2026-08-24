@@ -137,7 +137,7 @@ async function loadMovie() {
 }
 
 // =========================================
-// IN-PLACE TRAILER VIDEO PLAYER SWITCH
+// IN-PLACE TRAILER VIDEO PLAYER SWITCH (LAYOUT-SAFE)
 // =========================================
 function setupTrailerButton() {
     const trailerBtn = document.getElementById("trailerBtn");
@@ -158,9 +158,18 @@ function setupTrailerButton() {
         if (video && videoSource && poster) {
             videoSource.src = movie.trailer_url;
             video.load();
+
+            // Hide Poster & Display Inline Video
             poster.style.display = "none";
             video.style.display = "block";
-            video.play();
+
+            // Smooth Scroll to Top Media Box
+            const mediaBox = poster.parentElement;
+            if (mediaBox) {
+                mediaBox.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+
+            video.play().catch(err => console.log("Autoplay blocked or failed:", err));
         }
     });
 }
