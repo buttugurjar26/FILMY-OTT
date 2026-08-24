@@ -282,54 +282,60 @@
 
 
 /* =========================================
-   DETAILS | RATING | COMMENTS
+/* =========================================
+   DETAILS | RATING | COMMENTS (UPDATED SIZE)
 ========================================= */
 
 .content-tabs {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-    margin: 8px 0 15px;
-    padding: 4px;
-    background: rgba(212, 175, 55, .08);
-    border-radius: 14px;
+    gap: 8px; /* बटन्स के बीच गैप बढ़ाया */
+    margin: 12px 0 18px;
+    padding: 6px;
+    background: rgba(212, 175, 55, .12);
+    border-radius: 16px;
     box-sizing: border-box;
 }
 
 .content-tab {
     position: relative;
-    min-height: 58px;
+    min-height: 70px; /* बटन की Height 58px से बढ़ाकर 70px की गई */
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     background: transparent;
     color: #5b3500;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    font-size: 10px;
-    font-weight: 800;
+    gap: 6px;
+    font-size: 14px !important; /* Text का साइज़ 10px से 14px किया */
+    font-weight: 800 !important;
     cursor: pointer;
+    transition: all 0.25s ease;
 }
 
+/* Tab Icon Size */
 .content-tab i {
-    font-size: 20px;
+    font-size: 24px !important; /* Icon का साइज़ 20px से 24px किया */
 }
 
+/* Tab Badge/Small Text */
 .content-tab small {
     position: absolute;
-    top: 3px;
+    top: 4px;
     right: 8px;
-    font-size: 8px;
+    font-size: 10px !important;
     font-weight: 800;
 }
 
+/* Active State Effect */
 .content-tab.active {
     background: #fff;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, .10);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
     color: #d4af37;
+    transform: translateY(-2px);
 }
 
 
@@ -693,12 +699,18 @@
         font-size: 12px !important;
     }
 
+        .content-tabs {
+        gap: 5px;
+        padding: 5px;
+    }
+
     .content-tab {
-        font-size: 8px;
+        min-height: 65px; /* Mobile me height */
+        font-size: 12px !important; /* Mobile me Text Size */
     }
 
     .content-tab i {
-        font-size: 17px;
+        font-size: 21px !important; /* Mobile me Icon Size */
     }
 
     .related-movies .movie-card img {
