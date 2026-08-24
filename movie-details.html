@@ -1,230 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Details | FILMY OTT</title>
-
+    <title>Movie Details - FILMY OTT</title>
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="movie-details.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-
 <body>
 
-    <!-- =====================================
-         1. FIXED HEADER
-    ===================================== -->
+    <!-- HEADER -->
     <header class="header">
         <div class="brand">
-            <img src="logo-192.png" alt="FILMY OTT">
+            <img src="logo-192.png" alt="FILMY OTT Logo">
             <div>
                 <h2>FILMY OTT</h2>
                 <p>Premium Entertainment</p>
             </div>
         </div>
-
         <div class="profile" onclick="openProfile()">
-            <img id="headerProfile" src="avatar-1.png" alt="Profile">
+            <img id="headerProfile" src="default-profile.png" alt="Profile">
         </div>
     </header>
 
-    <!-- =====================================
-         FIXED TOP SECTION (POSTER/VIDEO & ACTIONS)
-    ===================================== -->
-    <div class="fixed-top-section">
-        
-        <!-- MOVIE POSTER / TRAILER VIDEO BOX -->
-        <div class="movie-media" id="movieMedia">
-            <!-- Starting Poster Image -->
+    <!-- MOVIE DETAILS CONTAINER -->
+    <div class="movie-details">
+
+        <!-- MOVIE MEDIA (POSTER & TRAILER VIDEO) -->
+        <div class="movie-media">
             <img id="moviePoster" src="logo-192.png" alt="Movie Poster">
-            
-            <!-- Trailer Video (Hidden initially) -->
-            <video id="trailerVideo" controls style="display: none;">
+            <video id="trailerVideo" controls playsinline>
                 <source id="videoSource" src="" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
 
-        <div class="movie-details-header">
-            <!-- MOVIE NAME -->
-            <h1 id="movieName">Movie Name</h1>
+        <!-- MOVIE TITLE & VIEWS -->
+        <h1 id="movieName">Loading...</h1>
+        <div class="movie-views">
+            <i class="fa-solid fa-eye"></i>
+            <span id="viewCount">0</span> <span data-lang="views">Views</span>
+        </div>
 
-            <!-- VIEWS -->
-            <div class="movie-views">
-                <i class="fa-solid fa-eye"></i>
-                <span id="viewCount">0</span>
-                <span>Views</span>
-            </div>
+        <!-- MOVIE INFO TAGS -->
+        <div class="info">
+            <span id="movieCategory">Category</span>
+            <span id="movieYear">2026</span>
+            <span id="movieDuration">0h 0m</span>
+            <span id="movieQuality">HD</span>
+            <span id="movieLanguage">Hindi</span>
+            <span id="movieRating">⭐ 0.0</span>
+        </div>
 
-            <!-- MOVIE INFORMATION -->
-            <div class="info">
-                <span id="movieCategory">Category</span>
-                <span id="movieYear">2026</span>
-                <span id="movieDuration">2h 30m</span>
-                <span id="movieQuality">HD</span>
-                <span id="movieLanguage">Hindi</span>
-                <span id="movieRating">⭐ 0.0</span>
-            </div>
+        <!-- WATCH BUTTONS -->
+        <div class="watch-buttons">
+            <button id="trailerBtn" class="watch-button trailer-button">
+                <i class="fa-solid fa-film"></i>
+                <span data-lang="watchTrailer">Watch Trailer</span>
+            </button>
+            <button id="watchBtn" class="watch-button movie-button">
+                <i class="fa-solid fa-play"></i>
+                <span data-lang="watchMovie">Watch Movie</span>
+            </button>
+        </div>
 
-            <!-- WATCH BUTTONS -->
-            <div class="watch-buttons">
-                <button id="trailerBtn" class="watch-button trailer-button" type="button">
-                    <i class="fa-solid fa-film"></i>
-                    <span>Watch Trailer</span>
-                </button>
+        <!-- FOUR ACTION BUTTONS -->
+        <div class="action-buttons">
+            <button id="likeBtn">
+                <i class="fa-solid fa-heart"></i>
+                <small id="likeCount">0</small>
+                <small data-lang="like">Like</small>
+            </button>
 
-                <button id="watchBtn" class="watch-button movie-button" type="button">
-                    <i class="fa-solid fa-play"></i>
-                    <span>Watch Movie</span>
-                </button>
-            </div>
+            <button id="listBtn">
+                <i id="listBtnIcon" class="fa-solid fa-plus"></i>
+                <small id="listBtnText" data-lang="addToList">Add to My List</small>
+            </button>
 
-            <!-- ACTION BUTTONS: MY LIST | LIKE | SHARE | CAST -->
-            <div class="action-buttons">
-                <button id="listBtn" type="button">
-                    <i id="listBtnIcon" class="fa-solid fa-plus"></i>
-                    <span id="listBtnText">Add to My List</span>
-                </button>
+            <button id="castBtn">
+                <i class="fa-solid fa-users"></i>
+                <small data-lang="cast">Cast</small>
+            </button>
 
-                <button id="likeBtn" type="button">
-                    <i class="fa-solid fa-thumbs-up"></i>
-                    <span>Like</span>
-                    <small id="likeCount">0</small>
-                </button>
+            <button id="shareBtn">
+                <i class="fa-solid fa-share-nodes"></i>
+                <small data-lang="share">Share</small>
+            </button>
+        </div>
 
-                <button id="shareBtn" type="button">
-                    <i class="fa-solid fa-share-nodes"></i>
-                    <span>Share</span>
-                </button>
-
-                <button id="castBtn" type="button">
-                    <i class="fa-solid fa-users"></i>
-                    <span>Cast</span>
-                </button>
-            </div>
-
-            <!-- INLINE IN-PAGE CAST SLIDER (Side Slide View) -->
-            <div id="castContent" class="inline-cast-section" style="display: none;">
-                <div id="castList" class="cast-row-slider">
-                    <!-- Cast List Horizontal Slider (JS से लोड होगी) -->
-                </div>
-            </div>
-
-            <!-- THREE FIXED TABS -->
-            <div class="content-tabs">
-                <button id="detailsTabBtn" class="content-tab active" type="button">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <span>Movie Details</span>
-                </button>
-
-                <button id="ratingTabBtn" class="content-tab" type="button">
-                    <i class="fa-solid fa-star"></i>
-                    <span>Rating</span>
-                </button>
-
-                <button id="commentsTabBtn" class="content-tab" type="button">
-                    <i class="fa-solid fa-comment"></i>
-                    <span>Comments</span>
-                    <small id="commentCount">0</small>
-                </button>
+        <!-- INLINE CAST CONTAINER -->
+        <div id="castContent" class="cast-content">
+            <div id="castList" class="cast-list">
+                <!-- Dynamic Cast Cards will be loaded here -->
             </div>
         </div>
 
-    </div>
+        <!-- CONTENT TABS -->
+        <div class="content-tabs">
+            <button id="detailsTabBtn" class="content-tab active">
+                <i class="fa-solid fa-circle-info"></i>
+                <span data-lang="movieDetails">Movie Details</span>
+            </button>
 
-    <!-- =====================================
-         DYNAMIC SCROLLABLE CONTENT AREA
-    ===================================== -->
-    <main class="scrollable-content">
-        
-        <!-- TAB 1: MOVIE DETAILS -->
+            <button id="ratingTabBtn" class="content-tab">
+                <i class="fa-solid fa-star"></i>
+                <span data-lang="rating">Rating</span>
+            </button>
+
+            <button id="commentsTabBtn" class="content-tab">
+                <i class="fa-solid fa-comments"></i>
+                <span data-lang="comments">Comments</span>
+                <small id="commentCount">0</small>
+            </button>
+        </div>
+
+        <!-- TAB CONTENT: DETAILS -->
         <div id="detailsContent" class="tab-content active-content">
-            <h2><i class="fa-solid fa-circle-info"></i> Movie Details</h2>
-            <p id="movieDescription">Movie description will appear here.</p>
+            <h2>
+                <i class="fa-solid fa-circle-info"></i>
+                <span data-lang="storyline">Storyline</span>
+            </h2>
+            <p id="movieDescription">Loading description...</p>
         </div>
 
-        <!-- TAB 2: RATING -->
-        <div id="ratingContent" class="tab-content" style="display: none;">
-            <h2><i class="fa-solid fa-star"></i> Public Rating</h2>
-            <div class="stars" id="starContainer">
+        <!-- TAB CONTENT: RATING -->
+        <div id="ratingContent" class="tab-content">
+            <h2>
+                <i class="fa-solid fa-star"></i>
+                <span data-lang="rateMovie">Rate This Movie</span>
+            </h2>
+            <div class="stars">
                 <i class="fa-solid fa-star" data-rate="1"></i>
                 <i class="fa-solid fa-star" data-rate="2"></i>
                 <i class="fa-solid fa-star" data-rate="3"></i>
                 <i class="fa-solid fa-star" data-rate="4"></i>
                 <i class="fa-solid fa-star" data-rate="5"></i>
             </div>
-            <p id="ratingMessage">Tap a star to rate this movie.</p>
+            <p id="ratingMessage" data-lang="tapToRate">Tap a star to give rating</p>
         </div>
 
-        <!-- TAB 3: COMMENTS -->
-        <div id="commentsContent" class="tab-content" style="display: none;">
-            <h2><i class="fa-solid fa-comments"></i> Comments</h2>
-            
-            <div id="commentsList" class="comments-list">
-                <p class="no-comments">No comments yet.</p>
-            </div>
-
+        <!-- TAB CONTENT: COMMENTS -->
+        <div id="commentsContent" class="tab-content">
+            <h2>
+                <i class="fa-solid fa-comments"></i>
+                <span data-lang="userComments">User Comments</span>
+            </h2>
             <div class="comment-form">
-                <textarea id="commentInput" rows="2" placeholder="Write a comment..."></textarea>
-                <button id="commentBtn" type="button">
-                    <i class="fa-solid fa-paper-plane"></i>
-                    Post
-                </button>
+                <textarea id="commentInput" placeholder="Write a comment..." data-lang-placeholder="commentPlaceholder"></textarea>
+                <button id="commentBtn" data-lang="postComment">Post Comment</button>
             </div>
+            <div id="commentsList" class="comments-list"></div>
         </div>
 
-        <!-- MORE LIKE THIS (RELATED MOVIES) -->
-        <section class="related-movies">
-            <h2><i class="fa-solid fa-film"></i> More Like This</h2>
-            
-            <div class="movie-row" id="relatedMovies">
-                <!-- 9 Movies List JS से आएगी -->
-            </div>
+    </div>
 
-            <!-- VIEW MORE BUTTON (BOTTOM RIGHT SIDE) -->
-            <div class="view-more-container">
-                <button id="viewMoreBtn" type="button" class="view-more-btn">
-                    View More <i class="fa-solid fa-chevron-right"></i>
-                </button>
-            </div>
-        </section>
+    <!-- RELATED MOVIES SECTION -->
+    <section class="related-movies">
+        <h2>
+            <i class="fa-solid fa-film"></i>
+            <span data-lang="moreLikeThis">More Like This</span>
+        </h2>
+        
+        <div id="relatedMovies" class="movie-row"></div>
 
-    </main>
+        <div class="view-more-container">
+            <button id="viewMoreBtn" data-lang="viewMore">View More →</button>
+        </div>
+    </section>
 
-    <!-- =====================================
-         FIXED BOTTOM NAVIGATION
-    ===================================== -->
+    <!-- BOTTOM NAVIGATION -->
     <nav class="bottom-nav">
         <a href="home.html">
             <i class="fa-solid fa-house"></i>
-            <span>Home</span>
+            <span data-lang="home">Home</span>
         </a>
 
-        <a href="movies-list.html">
+        <a href="movies-list.html" class="active">
             <i class="fa-solid fa-film"></i>
-            <span>Movies</span>
+            <span data-lang="movies">Movies</span>
         </a>
 
         <a href="search.html">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <span>Search</span>
+            <span data-lang="search">Search</span>
         </a>
 
         <a href="my-list.html">
             <i class="fa-solid fa-heart"></i>
-            <span>My List</span>
+            <span data-lang="myList">My List</span>
         </a>
 
         <a href="settings.html">
             <i class="fa-solid fa-gear"></i>
-            <span>Settings</span>
+            <span data-lang="settings">Settings</span>
         </a>
     </nav>
 
-    <!-- JAVASCRIPT -->
+    <!-- SCRIPT -->
     <script type="module" src="movie-details.js"></script>
-
 </body>
 </html>
