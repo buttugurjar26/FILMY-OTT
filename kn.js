@@ -43,6 +43,16 @@ const kn = {
     ratingCouldNotBeSaved: "ರೇಟಿಂಗ್ ಉಳಿಸಲಾಗಲಿಲ್ಲ.",
     thanksYouRated: "ಧನ್ಯವಾದಗಳು! ನೀವು ರೇಟಿಂಗ್ ನೀಡಿದ್ದೀರಿ",
     yourRating: "ನಿಮ್ಮ ರೇಟಿಂಗ್",
+    views: "ವೀಕ್ಷಣೆಗಳು",
+    watchTrailer: "ಟ್ರೇಲರ್ ವೀಕ್ಷಿಸಿ",
+    watchMovie: "ಸಿನಿಮಾ ವೀಕ್ಷಿಸಿ",
+    like: "ಇಷ್ಟ",
+    addToList: "ನನ್ನ ಪಟ್ಟಿಗೆ ಸೇರಿಸಿ",
+    cast: "ಕಲಾವಿದರು",
+    share: "ಹಂಚಿಕೊಳ್ಳಿ",
+    rating: "ರೇಟಿಂಗ್",
+    comments: "ಕಾಮೆಂಟ್ಗಳು",
+    storyline: "ಕಥೆ",
 
     // Movie Request
     movieRequest: "ಮೂವಿ ವಿನಂತಿ",
