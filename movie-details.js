@@ -222,7 +222,7 @@ function setupWatchButton() {
 }
 
 // =========================================
-// LIKE BUTTON (WITH REFRESH PERSISTENCE)
+// LIKE BUTTON (FIXED & SUPABASE ERROR HANDLED)
 // =========================================
 function setupLikeButton() {
     const likeBtn = document.getElementById("likeBtn");
@@ -240,6 +240,7 @@ function setupLikeButton() {
         const alreadyLiked = localStorage.getItem(storageKey) === "true";
         let newCount = Number(movie.likes || 0);
 
+        // UI instantly Update (Speed optimization)
         if (alreadyLiked) {
             newCount = Math.max(0, newCount - 1);
             localStorage.removeItem(storageKey);
@@ -253,20 +254,22 @@ function setupLikeButton() {
         if (likeCount) likeCount.textContent = newCount;
         movie.likes = newCount;
 
-        await supabase.from("movies").update({ likes: newCount }).eq("id", movieId);
+        // Supabase Query with exact Type casting
+        try {
+            const queryId = !isNaN(movieId) ? Number(movieId) : movieId;
+            const { error } = await supabase
+                .from("movies")
+                .update({ likes: newCount })
+                .eq("id", queryId);
+
+            if (error) {
+                console.error("Supabase Like Update Error:", error.message);
+                alert("Database update failed: " + error.message);
+            }
+        } catch (err) {
+            console.error("Like Exception:", err);
+        }
     });
-}
-
-function updateLikeButtonUI() {
-    const likeBtn = document.getElementById("likeBtn");
-    if (!likeBtn || !isLoggedIn) return;
-
-    const alreadyLiked = localStorage.getItem(getLikeKey(movieId)) === "true";
-    if (alreadyLiked) {
-        likeBtn.classList.add("liked");
-    } else {
-        likeBtn.classList.remove("liked");
-    }
 }
 
 // =========================================
