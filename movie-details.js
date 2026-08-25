@@ -11,9 +11,13 @@ const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 const userId = localStorage.getItem("userId") || "guest_user";
 
 const getLikeKey = (id) => `filmy_ott_like_${userId}_${id}`;
-const getListKey = (id) => `filmy_ott_list_${userId}_${id}`;
 const getRatingKey = (id) => `filmy_ott_user_rating_${userId}_${id}`;
 const getProgressKey = (id) => `filmy_ott_progress_${userId}_${id}`;
+
+// Helper to get My List array from LocalStorage
+function getMyListArray() {
+    return JSON.parse(localStorage.getItem("myList")) || [];
+}
 
 // =========================================
 // GET MOVIE ID FROM URL
@@ -50,15 +54,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
 
-    // 1. Static UI elements translate karein
     if (typeof applyLanguage === "function") {
         applyLanguage();
     }
 
-    // 2. Movie Data load karein
     await loadMovie();
 
-    // 3. Handlers setup karein
     setupTrailerButton();
     setupLikeButton();
     setupListButton();
@@ -69,7 +70,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     setupDetailsTabs();
     setupViewMoreButton();
 
-    // 4. Realtime Listener (Page load par count nahi badhega)
     listenToRealtimeViews();
 });
 
@@ -97,7 +97,6 @@ async function loadMovie() {
 
         window.currentMovie = movie;
 
-        // Populate HTML Elements
         const poster = document.getElementById("moviePoster");
         if (poster && movie.poster_url) poster.src = movie.poster_url;
 
@@ -152,13 +151,11 @@ async function triggerViewCount() {
     try {
         const queryId = !isNaN(movieId) ? Number(movieId) : movieId;
 
-        // 1. Supabase RPC Call (+1)
         const { data: updatedViews, error } = await supabase.rpc('increment_views', { movie_id_param: String(queryId) });
 
         if (!error && updatedViews !== null && updatedViews !== undefined) {
             if (viewCountElem) viewCountElem.textContent = Number(updatedViews).toLocaleString();
         } else {
-            // Fallback direct update
             const currentViews = Number(window.currentMovie?.views || 0) + 1;
             window.currentMovie.views = currentViews;
             await supabase.from("movies").update({ views: currentViews }).eq("id", queryId);
@@ -169,7 +166,6 @@ async function triggerViewCount() {
     }
 }
 
-// Realtime Listener
 function listenToRealtimeViews() {
     const viewCountElem = document.getElementById("viewCount");
     if (!viewCountElem || !movieId) return;
@@ -191,7 +187,7 @@ function listenToRealtimeViews() {
 }
 
 // =========================================
-// TRAILER (INCREASE VIEW ONLY ON PLAY)
+// TRAILER
 // =========================================
 function setupTrailerButton() {
     const trailerBtn = document.getElementById("trailerBtn");
@@ -249,7 +245,6 @@ function setupTrailerButton() {
                 localStorage.removeItem(progressKey);
             };
 
-            // 🔥 SIRF TRAILER VIDEO PLAY HONE PER +1 VIEWS HOGA
             video.play()
                 .then(() => {
                     triggerViewCount();
@@ -311,7 +306,7 @@ function updateLikeButtonUI() {
 }
 
 // =========================================
-// MY LIST BUTTON
+// MY LIST BUTTON (FIXED FOR LIST INTEGRATION)
 // =========================================
 function setupListButton() {
     const listBtn = document.getElementById("listBtn");
@@ -320,25 +315,30 @@ function setupListButton() {
     listBtn.addEventListener("click", function () {
         if (!checkAuth("save movies to your list")) return;
 
-        const movie = window.currentMovie;
-        if (!movie) return;
+        let myList = getMyListArray();
+        const strMovieId = String(movieId);
+        const index = myList.findIndex(id => String(id) === strMovieId);
 
-        const storageKey = getListKey(movieId);
-        const alreadySaved = localStorage.getItem(storageKey) !== null;
-
-        if (alreadySaved) {
-            localStorage.removeItem(storageKey);
+        if (index !== -1) {
+            // Unsave
+            myList.splice(index, 1);
+            localStorage.setItem("myList", JSON.stringify(myList));
             setListButtonState(false);
         } else {
-            localStorage.setItem(storageKey, JSON.stringify(movie));
+            // Save
+            myList.push(movieId);
+            // Duplicate remove karein
+            myList = [...new Set(myList)];
+            localStorage.setItem("myList", JSON.stringify(myList));
             setListButtonState(true);
         }
     });
 }
 
 function updateListButtonUI() {
-    const alreadySaved = localStorage.getItem(getListKey(movieId)) !== null;
-    setListButtonState(alreadySaved);
+    const myList = getMyListArray();
+    const isSaved = myList.some(id => String(id) === String(movieId));
+    setListButtonState(isSaved);
 }
 
 function setListButtonState(saved) {
@@ -370,7 +370,7 @@ function setListButtonState(saved) {
 }
 
 // =========================================
-// CAST, SHARE, RATING & OTHER UTILITIES
+// CAST, SHARE, RATING & UTILITIES
 // =========================================
 function setupCastButton() {
     const castBtn = document.getElementById("castBtn");
