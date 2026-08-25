@@ -1,349 +1,191 @@
 <!DOCTYPE html>
-
 <html lang="en" id="htmlLang">
 
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Settings | FILMY OTT</title>
-
-<link rel="stylesheet" href="home.css">
-<link rel="stylesheet" href="settings.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | FILMY OTT</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="settings.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- HEADER -->
-
-<header class="header">
-
-<div class="brand">
-
-<img src="logo-192.png" alt="FILMY OTT Logo">
-
-<div>
-
-<h2>FILMY OTT</h2>
-
-<p>Premium Entertainment</p>
-
-</div>
-
-</div>
-
-</header>
-
-<!-- SETTINGS -->
-
-<section class="settings">
-
-<h2>⚙️ <span data-lang="settings">Settings</span></h2>
-
-<!-- My Profile -->
-
-<div class="item" onclick="window.location.href='profile.html'">
-
-<div class="setting-left">
-
-<span>👤</span>
-
-<span data-lang="profile">My Profile</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<!-- ADMIN -->
-
-<div class="item" onclick="window.location.href='admin-login.html'">
-
-<div class="setting-left">
-
-<span>👑</span>
-
-<span data-lang="admin">Admin</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<!-- Notifications -->
-
-<div class="item" onclick="window.location.href='notifications.html'">
-
-<div class="setting-left">
-
-<span>🔔</span>
-
-<span data-lang="notifications">Notifications</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-
-<!-- Movie Request -->
-
-<div class="item"
-onclick="window.location.href='movie-request.html'">
-
-<div class="setting-left">
-
-<span>🎬</span>
-
-<span data-lang="movieRequest">Movie Request</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-  
-
-  <!-- News & Updates -->
-
-<div class="item"
-onclick="window.location.href='news.html'">
-
-<div class="setting-left">
-
-<span>📰</span>
-
-<span data-lang="newsUpdates">News & Updates</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<!-- Language -->
-
-<div class="item language-item">
-
-<div class="setting-left">
-
-<span>🌐</span>
-
-<span data-lang="language">Language</span>
-
-</div>
-
-<select id="languageSelect">
-
-
-🇬🇧 <option value="en" data-lang="langEnglish">English</option>
-
-🇮🇳 <option value="hi" data-lang="langHindi">Hindi</option>
-
-🇮🇳 <option value="ta" data-lang="langTamil">Tamil</option>
-
-🇮🇳 <option value="te" data-lang="langTelugu">Telugu</option>
-
-🇮🇳 <option value="kn" data-lang="langKannada">Kannada</option>
-
-🇮🇳 <option value="ml" data-lang="langMalayalam">Malayalam</option>
-
-</select>
-
-</div>
-
-  <!-- Playback -->
-
-<div class="item playback-item">
-
-<div class="setting-left">
-
-<span>▶️</span>
-
-<span data-lang="playbackSettings">Playback Settings</span>
-
-</div>
-
-<select id="playbackQuality">
-
-<option value="auto" data-lang="auto">Auto</option>
-
-<option value="480p">480p</option>
-
-<option value="720p">720p HD</option>
-
-<option value="1080p">1080p Full HD</option>
-
-</select>
-
-</div>
-
-<!-- Version -->
-
-<div class="item version-item"
-onclick="window.location.href='version.html'">
-
-<div class="setting-left">
-
-<span>📱</span>
-
-<span data-lang="version">Version</span>
-
-</div>
-
-<span class="setting-value">
-
-v1.0.0
-
-</span>
-
-</div>
-
-<!-- Privacy Policy -->
-
-<div class="item privacy-item" onclick="window.location.href='privacy.html'">
-
-<div class="setting-left">
-
-<span>📄</span>
-
-<span data-lang="privacyPolicy">Privacy Policy</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<!-- Contact Us -->
-
-<div class="item contact-item"
-onclick="window.location.href='contact.html'">
-
-<div class="setting-left">
-
-<span>📧</span>
-
-<span data-lang="contactUs">Contact Us</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<!-- Rate App -->
-
-<div class="item rate-item"
-onclick="window.location.href='rate-app.html'">
-
-<div class="setting-left">
-
-<span>⭐</span>
-
-<span data-lang="rateApp">Rate App</span>
-
-</div>
-
-<i class="fa-solid fa-chevron-right"></i>
-
-</div>
-
-<!-- ABOUT FILMY OTT -->
-
-<div class="about-box">
-
-<img src="logo-192.png" class="about-logo" alt="FILMY OTT Logo">
-
-<h3>FILMY OTT</h3>
-
-<p data-lang="aboutDescription">
-FILMY OTT is a premium entertainment platform designed to provide a smooth and enjoyable movie and web series streaming experience. Our goal is to deliver high-quality entertainment with a clean, fast and user-friendly interface.
-</p>
-
-<p><strong>Version:</strong> 1.0.0</p>
-
-<p>
-
-<strong data-lang="developer">Developer:</strong>
-
-Lekharaj Gurjar
-
-</p>
-
-<p>
-
-<strong data-lang="poweredBy">Powered By:</strong>
-
-LRGujjar26
-
-</p>
-
-<p style="margin-top:10px;">
-
-© 2026 FILMY OTT. All Rights Reserved.
-
-</p>
-
-</div>
-
-</section>
-
-<!-- BOTTOM NAVIGATION -->
-
-<nav class="bottom-nav">
-
-<a href="home.html">
-
-<i class="fa-solid fa-house"></i>
-
-<span data-lang="home">Home</span>
-
-</a>
-
-<a href="movies-list.html">
-
-<i class="fa-solid fa-film"></i>
-
-<span data-lang="movies">Movies</span>
-
-</a>
-
-<a href="search.html">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<span data-lang="search">Search</span>
-
-</a>
-
-<a href="my-list.html">
-
-<i class="fa-solid fa-heart"></i>
-
-<span data-lang="myList">My List</span>
-
-</a>
-
-<a class="active" href="settings.html">
-
-<i class="fa-solid fa-gear"></i>
-
-<span data-lang="settings">Settings</span>
-
-</a>
-
-</nav>
-
-<script type="module" src="settings.js"></script>
-
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand">
+            <img src="logo-192.png" alt="FILMY OTT Logo">
+            <div>
+                <h2>FILMY OTT</h2>
+                <p>Premium Entertainment</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- SETTINGS -->
+    <section class="settings">
+        <h2>⚙️ <span data-lang="settings">Settings</span></h2>
+
+        <!-- My Profile -->
+        <div class="item" onclick="window.location.href='profile.html'">
+            <div class="setting-left">
+                <span class="icon">👤</span>
+                <span data-lang="profile">My Profile</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- ADMIN -->
+        <div class="item" onclick="window.location.href='admin-login.html'">
+            <div class="setting-left">
+                <span class="icon">👑</span>
+                <span data-lang="admin">Admin</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- Notifications -->
+        <div class="item" onclick="window.location.href='notifications.html'">
+            <div class="setting-left">
+                <span class="icon">🔔</span>
+                <span data-lang="notifications">Notifications</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- Movie Request -->
+        <div class="item" onclick="window.location.href='movie-request.html'">
+            <div class="setting-left">
+                <span class="icon">🎬</span>
+                <span data-lang="movieRequest">Movie Request</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- News & Updates -->
+        <div class="item" onclick="window.location.href='news.html'">
+            <div class="setting-left">
+                <span class="icon">📰</span>
+                <span data-lang="newsUpdates">News & Updates</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- Language (CUSTOM POPUP TRIGGER) -->
+        <div class="item language-item" id="languageBtn">
+            <div class="setting-left">
+                <span class="icon">🌐</span>
+                <span data-lang="language">Language</span>
+            </div>
+            <div class="custom-select-btn">
+                <span id="selectedLanguageText">🇮🇳 Hindi</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- Playback (CUSTOM POPUP TRIGGER) -->
+        <div class="item playback-item" id="playbackBtn">
+            <div class="setting-left">
+                <span class="icon">▶️</span>
+                <span data-lang="playbackSettings">Playback Settings</span>
+            </div>
+            <div class="custom-select-btn">
+                <span id="selectedPlaybackText">Auto</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- Version -->
+        <div class="item version-item" onclick="window.location.href='version.html'">
+            <div class="setting-left">
+                <span class="icon">📱</span>
+                <span data-lang="version">Version</span>
+            </div>
+            <span class="setting-value">v1.0.0</span>
+        </div>
+
+        <!-- Privacy Policy -->
+        <div class="item privacy-item" onclick="window.location.href='privacy.html'">
+            <div class="setting-left">
+                <span class="icon">📄</span>
+                <span data-lang="privacyPolicy">Privacy Policy</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- Contact Us -->
+        <div class="item contact-item" onclick="window.location.href='contact.html'">
+            <div class="setting-left">
+                <span class="icon">📧</span>
+                <span data-lang="contactUs">Contact Us</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- Rate App -->
+        <div class="item rate-item" onclick="window.location.href='rate-app.html'">
+            <div class="setting-left">
+                <span class="icon">⭐</span>
+                <span data-lang="rateApp">Rate App</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <!-- ABOUT FILMY OTT -->
+        <div class="about-box">
+            <img src="logo-192.png" class="about-logo" alt="FILMY OTT Logo">
+            <h3>FILMY OTT</h3>
+            <p data-lang="aboutDescription">
+                FILMY OTT is a premium entertainment platform designed to provide a smooth and enjoyable movie and web series streaming experience. Our goal is to deliver high-quality entertainment with a clean, fast and user-friendly interface.
+            </p>
+            <p><strong>Version:</strong> 1.0.0</p>
+            <p>
+                <strong data-lang="developer">Developer:</strong> Lekharaj Gurjar
+            </p>
+            <p>
+                <strong data-lang="poweredBy">Powered By:</strong> LRGujjar26
+            </p>
+            <p style="margin-top:10px;">
+                © 2026 FILMY OTT. All Rights Reserved.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- CUSTOM GOLD POPUP MODAL -->
+    <div id="customModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modalTitle">Select</h3>
+            <div id="modalOptionsList" class="modal-options-list"></div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <a href="home.html">
+            <i class="fa-solid fa-house"></i>
+            <span data-lang="home">Home</span>
+        </a>
+        <a href="movies-list.html">
+            <i class="fa-solid fa-film"></i>
+            <span data-lang="movies">Movies</span>
+        </a>
+        <a href="search.html">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span data-lang="search">Search</span>
+        </a>
+        <a href="my-list.html">
+            <i class="fa-solid fa-heart"></i>
+            <span data-lang="myList">My List</span>
+        </a>
+        <a class="active" href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            <span data-lang="settings">Settings</span>
+        </a>
+    </nav>
+
+    <script type="module" src="settings.js"></script>
 </body>
 
 </html>
