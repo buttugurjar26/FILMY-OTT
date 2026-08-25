@@ -16,9 +16,11 @@ async function loadMyList() {
 
     if (myList.length === 0) {
         container.innerHTML = `
-            <h2 style="text-align:center;color:#5b3500;width:100%;">
-                ❤️ Your My List is Empty
-            </h2>
+            <div class="empty-list" style="grid-column: 1 / -1; width: 100%;">
+                <h2 style="text-align:center; color:#5b3500; font-size:16px;">
+                    ❤️ Your My List is Empty
+                </h2>
+            </div>
         `;
         return;
     }
@@ -46,7 +48,7 @@ async function loadMyList() {
                             ▶ Watch Now
                         </button>
                         <button class="removeBtn" data-lang="remove" onclick="event.stopPropagation(); removeMovie('${movie.id}')">
-                            🗑 Remove
+                            Remove
                         </button>
                     </div>
                 `;
@@ -55,9 +57,11 @@ async function loadMyList() {
 
         if (moviesHTML === "") {
             container.innerHTML = `
-                <h2 style="text-align:center;color:#5b3500;width:100%;">
-                    ❤️ Your My List is Empty
-                </h2>
+                <div class="empty-list" style="grid-column: 1 / -1; width: 100%;">
+                    <h2 style="text-align:center; color:#5b3500; font-size:16px;">
+                        ❤️ Your My List is Empty
+                    </h2>
+                </div>
             `;
         } else {
             container.innerHTML = moviesHTML;
