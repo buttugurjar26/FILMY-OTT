@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FILMY OTT - Movies</title>
 
-    <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" href="movies-list.css?v=2.1">
+    <!-- home.css हटा दिया गया है ताकि स्टाइल ओवरराइड न हो -->
+    <link rel="stylesheet" href="movies-list.css?v=4.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -42,10 +42,6 @@
                 <span data-lang="all">All</span>
             </button>
 
-            <button onclick="filterMovies('Mythological')">
-                🚩 <span data-lang="mythological">Mythological</span>
-            </button>
-
             <button onclick="filterMovies('Movie')">
                 🎬 <span data-lang="movie">Movie</span>
             </button>
@@ -62,6 +58,10 @@
                 ❤️ <span data-lang="romantic">Romantic</span>
             </button>
 
+            <button onclick="filterMovies('Mythological')">
+                🚩 <span data-lang="mythological">Mythological</span>
+            </button>
+            
             <button onclick="filterMovies('Comedy')">
                 😂 <span data-lang="comedy">Comedy</span>
             </button>
