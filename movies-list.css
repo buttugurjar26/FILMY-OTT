@@ -1,5 +1,51 @@
 /* ===========================
-   MOVIE GRID
+   CATEGORIES SECTION FIX
+=========================== */
+
+/* All Categories Dropdown Button */
+.categories .all-category-btn,
+.categories .category-title button {
+    background: linear-gradient(180deg, #F2C300, #C99700) !important;
+    border: 1.5px solid #5B3500 !important;
+    color: #5B3500 !important;
+}
+
+.categories .all-category-btn *,
+.categories .all-category-btn span,
+.categories .all-category-btn i {
+    color: #5B3500 !important;
+    font-weight: bold !important;
+}
+
+/* Category Option Buttons */
+.category-scroll button {
+    background: linear-gradient(180deg, #FFFDF8 0%, #FFF4C2 100%) !important;
+    border: 1.5px solid #5B3500 !important;
+    color: #5B3500 !important;
+    font-weight: bold !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.category-scroll button span,
+.category-scroll button * {
+    color: #5B3500 !important;
+    font-weight: bold !important;
+}
+
+/* Selected Active Category */
+.category-scroll button.active {
+    background: #5B3500 !important;
+    color: #FFFDF8 !important;
+    border-color: #3E2723 !important;
+}
+
+.category-scroll button.active span,
+.category-scroll button.active * {
+    color: #FFFDF8 !important;
+}
+
+/* ===========================
+   MOVIE GRID FIX
 =========================== */
 
 .movies .movies-grid {
@@ -8,75 +54,6 @@
     gap: 10px !important;
     padding: 10px 0 20px !important;
 }
-
-/* ===========================
-   CATEGORIES STYLING (GOLD THEME FIX)
-=========================== */
-
-.categories {
-    padding: 15px;
-}
-
-.all-category-btn {
-    width: 100%;
-    padding: 14px;
-    border: 1.5px solid #5B3500;
-    border-radius: 25px;
-    background: linear-gradient(180deg, #F2C300, #C99700);
-    color: #5B3500;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-}
-
-.category-scroll {
-    display: none;
-    margin-top: 12px;
-    gap: 10px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-bottom: 5px;
-}
-
-.category-scroll::-webkit-scrollbar {
-    display: none;
-}
-
-.category-scroll.show {
-    display: flex;
-}
-
-/* Category Buttons (Clean & Readable) */
-.category-scroll button {
-    padding: 8px 18px;
-    border: 1.5px solid #5B3500;
-    border-radius: 20px;
-    background: linear-gradient(180deg, #FFFDF8 0%, #FFF4C2 100%);
-    color: #5B3500;
-    font-size: 13px;
-    font-weight: bold;
-    white-space: nowrap;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-}
-
-/* Active Category Button */
-.category-scroll button.active {
-    background: #5B3500 !important;
-    color: #FFFDF8 !important;
-    border-color: #3E2723 !important;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-}
-
-/* ===========================
-   MOVIE CARD (GOLD & CREAM THEME)
-=========================== */
 
 .movies-grid .movie-card {
     width: 100% !important;
@@ -124,10 +101,6 @@
     text-overflow: ellipsis !important;
 }
 
-/* ===========================
-   WATCH BUTTON (GOLD GRADIENT)
-=========================== */
-
 .movies-grid .movie-card button {
     display: block !important;
     width: 88% !important;
@@ -148,10 +121,6 @@
     background: linear-gradient(180deg, #FFE066, #D4AF37) !important;
 }
 
-/* ===========================
-   NO RESULT
-=========================== */
-
 #noResult {
     display: none;
     text-align: center;
@@ -160,10 +129,6 @@
     color: #5B3500;
     margin-top: 20px;
 }
-
-/* ===========================
-   MOBILE RESPONSIVE
-=========================== */
 
 @media(max-width: 480px) {
     .movies .movies-grid {
