@@ -1,248 +1,144 @@
 /* ===========================
-   MY LIST PAGE
+   MY LIST PAGE & SECTION
 =========================== */
 
-
-/* MY LIST SECTION */
-
-.movies{
-
-    padding:20px;
-
+.movies {
+    padding: 15px;
 }
 
+.movies h2 {
+    font-size: 18px !important;
+    color: #5B3500 !important;
+    margin-bottom: 12px;
+}
 
 /* ===========================
    MOVIE GRID
 =========================== */
 
-
-#myListMovies{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:12px;
-
+#myListMovies {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
 }
-
 
 /* ===========================
-   MOVIE CARD
+   MOVIE CARD (GOLD & CREAM)
 =========================== */
 
-
-#myListMovies .movie-card{
-
-    width:100%;
-
-    background:#FFFDF8;
-
-    border-radius:15px;
-
-    overflow:hidden;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.18);
-
-    cursor:pointer;
-
-    transition:.3s;
-
+#myListMovies .movie-card {
+    width: 100% !important;
+    background: linear-gradient(180deg, #FFFDF8 0%, #FFF4C2 100%) !important;
+    border: 1.5px solid #5B3500 !important;
+    border-radius: 15px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18) !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease !important;
 }
 
-
-#myListMovies .movie-card:hover{
-
-    transform:translateY(-5px);
-
+#myListMovies .movie-card:hover {
+    transform: translateY(-4px) !important;
 }
-
 
 /* POSTER */
-
-#myListMovies .movie-card img{
-
-    width:100%;
-
-    height:170px;
-
-    object-fit:cover;
-
-    display:block;
-
+#myListMovies .movie-card img {
+    width: 100% !important;
+    height: 145px !important;
+    object-fit: cover !important;
+    display: block !important;
 }
-
 
 /* TITLE */
-
-#myListMovies .movie-card h3{
-
-    padding:8px 5px;
-
-    margin:0;
-
-    text-align:center;
-
-    color:#5B3500;
-
-    font-size:14px;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
+#myListMovies .movie-card h3 {
+    font-size: 12px !important;
+    margin: 8px 4px 8px !important;
+    padding: 0 !important;
+    text-align: center !important;
+    color: #5B3500 !important;
+    font-weight: bold !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
-
-
-/* CATEGORY / INFO */
-
-#myListMovies .movie-card p{
-
-    text-align:center;
-
-    color:#777;
-
-    font-size:12px;
-
-    margin:0 5px 8px;
-
-}
-
 
 /* ===========================
-   BUTTONS
+   BUTTONS STYLING (GOLD THEME)
 =========================== */
 
-
-.watchBtn{
-
-    width:85%;
-
-    height:32px;
-
-    margin:0 auto 10px;
-
-    display:block;
-
-    border:none;
-
-    border-radius:20px;
-
-    background:#D4AF37;
-
-    color:white;
-
-    font-size:12px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
+/* WATCH BUTTON */
+.watchBtn {
+    display: block !important;
+    width: 88% !important;
+    height: 28px !important;
+    margin: 0 auto 6px !important;
+    border: 1px solid #5B3500 !important;
+    border-radius: 15px !important;
+    background: linear-gradient(180deg, #F2C300, #C99700) !important;
+    color: #5B3500 !important;
+    font-size: 10px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
+    transition: 0.2s !important;
 }
 
-
-.watchBtn:hover{
-
-    background:#B8860B;
-
+.watchBtn:hover {
+    background: linear-gradient(180deg, #FFE066, #D4AF37) !important;
 }
 
-
-
-.removeBtn{
-
-    width:85%;
-
-    height:32px;
-
-    margin:0 auto 12px;
-
-    display:block;
-
-    border:none;
-
-    border-radius:20px;
-
-    background:#C62828;
-
-    color:white;
-
-    font-size:12px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
+/* REMOVE BUTTON (GOLDEN & BROWN TEXT) */
+.removeBtn {
+    display: block !important;
+    width: 88% !important;
+    height: 28px !important;
+    margin: 0 auto 10px !important;
+    border: 1px solid #5B3500 !important;
+    border-radius: 15px !important;
+    background: linear-gradient(180deg, #F2C300, #C99700) !important;
+    color: #5B3500 !important;
+    font-size: 10px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
+    transition: 0.2s !important;
 }
 
+.removeBtn:hover {
+    background: linear-gradient(180deg, #FFE066, #D4AF37) !important;
+}
 
 /* ===========================
    EMPTY LIST
 =========================== */
 
-
-.empty-list{
-
-    text-align:center;
-
-    margin-top:30px;
-
-    color:#5B3500;
-
-    font-size:18px;
-
+.empty-list {
+    text-align: center;
+    margin-top: 30px;
+    color: #5B3500;
 }
-
 
 /* ===========================
-   MOBILE
+   MOBILE RESPONSIVE
 =========================== */
 
+@media(max-width: 480px) {
+    #myListMovies {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px !important;
+    }
 
-@media(max-width:480px){
+    #myListMovies .movie-card img {
+        height: 130px !important;
+    }
 
+    #myListMovies .movie-card h3 {
+        font-size: 11px !important;
+    }
 
-#myListMovies{
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:10px;
-
-}
-
-
-#myListMovies .movie-card img{
-
-    height:150px;
-
-}
-
-
-#myListMovies .movie-card h3{
-
-    font-size:13px;
-
-}
-
-
-#myListMovies .movie-card p{
-
-    font-size:11px;
-
-}
-
-
-.watchBtn,
-.removeBtn{
-
-    height:28px;
-
-    font-size:11px;
-
-}
-
-
+    .watchBtn,
+    .removeBtn {
+        height: 25px !important;
+        font-size: 9px !important;
+    }
 }
