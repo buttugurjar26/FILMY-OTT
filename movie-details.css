@@ -140,7 +140,7 @@
 /* WATCH MOVIE */
 .movie-button {
     background: linear-gradient(135deg, #f5d76e, #d4af37);
-    color: #fff;
+    color: #5b3500;
     box-shadow: 0 5px 15px rgba(212, 175, 55, .25);
 }
 
@@ -181,7 +181,7 @@
 /* Icons Size */
 .action-buttons button i {
     font-size: 35px !important;
-    color: #5b3500;
+    color: #5b3500 !important;
     transition: all 0.2s ease;
 }
 
@@ -197,6 +197,7 @@
 .action-buttons button span {
     font-size: 20px !important;
     font-weight: 800 !important;
+    color: #5b3500 !important;
     margin: 0;
     display: inline-block;
 }
@@ -206,21 +207,21 @@
     background: rgba(212, 175, 55, .12);
 }
 
-/* LIKE BUTTON ACTIVE STATE (RED) */
+/* LIKE BUTTON ACTIVE STATE (SAME THEME COLOR - NO RED) */
 #likeBtn.liked,
 #likeBtn.liked i,
 #likeBtn.liked small,
 #likeBtn.liked span {
-    color: #ff3b30 !important;
+    color: #5b3500 !important;
     transform: scale(1.08);
 }
 
-/* SAVE / UNSAVE BUTTON ACTIVE STATE (RED COLOR FIX) */
+/* SAVE / UNSAVE BUTTON ACTIVE STATE (SAME THEME COLOR - NO RED) */
 #listBtn.saved,
 #listBtn.saved i,
 #listBtn.saved small,
 #listBtn.saved span {
-    color: #ff3b30 !important;
+    color: #5b3500 !important;
     transform: scale(1.08);
 }
 
@@ -233,9 +234,10 @@
     display: none;
     margin-bottom: 18px;
     padding: 15px;
-    background: #FFFDF8;
+    background: rgba(255, 248, 220, 0.65) !important;
+    border: 1px solid #D4AF37;
     border-radius: 18px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .10);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
 }
 
 .cast-list {
@@ -282,25 +284,24 @@
 
 
 /* =========================================
-/* =========================================
-   DETAILS | RATING | COMMENTS (UPDATED SIZE)
+   DETAILS | RATING | COMMENTS (UPDATED TAB BOX)
 ========================================= */
 
 .content-tabs {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px; /* बटन्स के बीच गैप बढ़ाया */
+    gap: 8px;
     margin: 12px 0 18px;
     padding: 6px;
-    background: rgba(212, 175, 55, .12);
+    background: rgba(212, 175, 55, .18);
     border-radius: 16px;
     box-sizing: border-box;
 }
 
 .content-tab {
     position: relative;
-    min-height: 70px; /* बटन की Height 58px से बढ़ाकर 70px की गई */
+    min-height: 70px;
     border: none;
     border-radius: 12px;
     background: transparent;
@@ -310,7 +311,7 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    font-size: 14px !important; /* Text का साइज़ 10px से 14px किया */
+    font-size: 14px !important;
     font-weight: 800 !important;
     cursor: pointer;
     transition: all 0.25s ease;
@@ -318,7 +319,8 @@
 
 /* Tab Icon Size */
 .content-tab i {
-    font-size: 24px !important; /* Icon का साइज़ 20px से 24px किया */
+    font-size: 24px !important;
+    color: #5b3500;
 }
 
 /* Tab Badge/Small Text */
@@ -328,27 +330,34 @@
     right: 8px;
     font-size: 10px !important;
     font-weight: 800;
+    color: #5b3500;
 }
 
-/* Active State Effect */
+/* Active Tab Box Fix (No White) */
 .content-tab.active {
-    background: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
-    color: #d4af37;
+    background: rgba(255, 248, 220, 0.9) !important;
+    border: 1.5px solid #D4AF37;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .10);
+    color: #5b3500 !important;
     transform: translateY(-2px);
+}
+
+.content-tab.active i {
+    color: #5b3500 !important;
 }
 
 
 /* =========================================
-   TAB CONTENT
+   TAB CONTENT (NO WHITE BOX)
 ========================================= */
 
 .tab-content {
     display: none;
     padding: 18px;
-    background: #FFFDF8;
+    background: rgba(255, 248, 220, 0.65) !important;
+    border: 1.5px solid #D4AF37;
     border-radius: 18px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .10);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
     margin-bottom: 18px;
 }
 
@@ -363,15 +372,16 @@
 }
 
 .tab-content h2 i {
-    color: #d4af37;
+    color: #5b3500;
     margin-right: 5px;
 }
 
-/* DESCRIPTION */
+/* DESCRIPTION TEXT FIX */
 #movieDescription {
     margin: 0;
-    color: #5D4037;
+    color: #5b3500 !important;
     font-size: 15px;
+    font-weight: 600;
     line-height: 1.7;
     text-align: justify;
 }
@@ -389,14 +399,14 @@
 }
 
 .stars i {
-    color: #ccc;
+    color: #b8860b;
     font-size: 30px;
     cursor: pointer;
     transition: .2s;
 }
 
 .stars i.active {
-    color: #d4af37;
+    color: #5b3500;
     transform: scale(1.12);
 }
 
@@ -405,11 +415,12 @@
     text-align: center;
     color: #5b3500;
     font-size: 13px;
+    font-weight: bold;
 }
 
 
 /* =========================================
-   COMMENTS
+   COMMENTS (NO WHITE FIX)
 ========================================= */
 
 .comment-form {
@@ -422,18 +433,23 @@
     width: 100%;
     box-sizing: border-box;
     padding: 13px;
-    border: 1px solid #d4af37;
+    border: 1.5px solid #C99700 !important;
     border-radius: 12px;
-    background: #fff;
-    color: #5b3500;
+    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
+    color: #5b3500 !important;
+    font-weight: bold;
     font-family: inherit;
     outline: none;
     resize: vertical;
 }
 
+#commentInput::placeholder {
+    color: #8C6B2D;
+}
+
 #commentInput:focus {
-    border-color: #b8860b;
-    box-shadow: 0 0 0 2px rgba(212, 175, 55, .15);
+    border-color: #5b3500 !important;
+    box-shadow: 0 0 0 2px rgba(91, 53, 0, .15);
 }
 
 #commentBtn {
@@ -441,8 +457,8 @@
     padding: 12px;
     border: none;
     border-radius: 25px;
-    background: #d4af37;
-    color: #fff;
+    background: linear-gradient(180deg, #F2C300, #C99700);
+    color: #5b3500;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
@@ -459,10 +475,10 @@
 .comment-card {
     padding: 13px;
     margin-bottom: 10px;
-    background: #fff;
-    border-left: 3px solid #d4af37;
+    background: rgba(255, 232, 156, 0.5) !important;
+    border-left: 3px solid #D4AF37;
     border-radius: 10px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, .08);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .05);
 }
 
 .comment-header {
@@ -477,19 +493,19 @@
 }
 
 .comment-header small {
-    color: #8d6e63;
+    color: #6B4A00;
 }
 
 .comment-card p {
     margin: 0;
-    color: #5D4037;
+    color: #5b3500;
     font-size: 14px;
     line-height: 1.5;
 }
 
 .no-comments {
     text-align: center;
-    color: #8d6e63;
+    color: #6B4A00;
 }
 
 
@@ -519,11 +535,12 @@
 
 .related-movies .movie-card {
     width: 100%;
-    background: #fff;
+    background: rgba(255, 248, 220, 0.65);
+    border: 1px solid #D4AF37;
     border-radius: 15px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .15);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .10);
 }
 
 .related-movies .movie-card img {
@@ -553,7 +570,7 @@
 
 #viewMoreBtn {
     background: #d4af37;
-    color: #fff;
+    color: #5b3500;
     border: none;
     padding: 8px 18px;
     border-radius: 20px;
@@ -699,18 +716,18 @@
         font-size: 12px !important;
     }
 
-        .content-tabs {
+    .content-tabs {
         gap: 5px;
         padding: 5px;
     }
 
     .content-tab {
-        min-height: 65px; /* Mobile me height */
-        font-size: 12px !important; /* Mobile me Text Size */
+        min-height: 65px;
+        font-size: 12px !important;
     }
 
     .content-tab i {
-        font-size: 21px !important; /* Mobile me Icon Size */
+        font-size: 21px !important;
     }
 
     .related-movies .movie-card img {
