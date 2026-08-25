@@ -92,12 +92,20 @@ height:58px;
 border:none;
 border-radius:18px;
 background:linear-gradient(180deg,#F2C300,#C99700);
-color:#FFFFFF;
+color:#5B3500;
 font-size:17px;
 font-weight:bold;
 cursor:pointer;
 transition:.3s;
 box-shadow:0 8px 20px rgba(0,0,0,.20);
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+}
+
+.profile-btn i{
+color:#5B3500;
 }
 
 .profile-btn:hover{
@@ -139,29 +147,31 @@ transform:translateY(-2px);
 background:#FFF9E5;
 }
 
+/* Menu icons - matched to name color */
 .profile-menu button i:first-child{
 font-size:20px;
 width:28px;
-color:#C99700;
+color:#5B3500;
 }
 
 .profile-menu button i:last-child{
-color:#8A5A00;
+color:#5B3500;
 }
 
 /* ===========================
-LOGOUT
+LOGOUT (MATCHED TO PROFILE EDIT BTN)
 =========================== */
 
 .logout-btn{
 margin-top:8px;
-background:linear-gradient(180deg,#E53935,#C62828)!important;
+background:linear-gradient(180deg,#F2C300,#C99700)!important;
 border:none!important;
-color:#FFFFFF!important;
+color:#5B3500!important;
+box-shadow:0 8px 20px rgba(0,0,0,.20)!important;
 }
 
 .logout-btn i{
-color:#FFFFFF!important;
+color:#5B3500!important;
 }
 
 /* ===========================
