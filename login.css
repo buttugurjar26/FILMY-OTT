@@ -38,30 +38,11 @@ align-items:center;
 }
 
 /* ===========================
-   LOGIN TITLE
+   LOGIN TITLE (HIDDEN AS REQUESTED)
 =========================== */
 
 .login-heading{
-width:100%;
-max-width:96%;
-height:65px;
-display:flex;
-justify-content:center;
-align-items:center;
-margin-bottom:18px;
-background:rgba(255,248,220,.45);
-backdrop-filter:blur(18px);
--webkit-backdrop-filter:blur(18px);
-border:2px solid #D4AF37;
-border-radius:22px;
-box-shadow:
-0 10px 25px rgba(0,0,0,.20),
-0 0 15px rgba(212,175,55,.25);
-font-size:26px;
-font-weight:bold;
-letter-spacing:1px;
-text-transform:uppercase;
-color:#5B3500;
+display: none !important;
 }
 
 /* ===========================
@@ -71,8 +52,8 @@ color:#5B3500;
 .login-card{
 width:100%;
 max-width:96%;
-min-height:760px;
-background:rgba(255,248,220,.45);
+min-height:auto;
+background:rgba(255,248,220,.65) !important;
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px);
 border:2px solid #D4AF37;
@@ -106,7 +87,7 @@ margin-bottom:30px;
 }
 
 /* ===========================
-   INPUT BOX
+   INPUT BOX (EDIT PROFILE THEME)
 =========================== */
 
 .input-box{
@@ -127,19 +108,25 @@ margin-bottom:10px;
 width:100%;
 height:60px;
 padding:0 18px;
-background:#FFFFFF;
-border:2px solid #D4AF37;
+background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
+border:1.5px solid #C99700 !important;
 border-radius:18px;
 outline:none;
 font-size:16px;
-color:#3E2723;
+font-weight:bold;
+color:#5B3500 !important;
 transition:.3s;
-box-shadow:0 4px 10px rgba(0,0,0,.08);
+box-shadow: inset 0 2px 4px rgba(0,0,0,.08) !important;
+}
+
+.input-box input::placeholder{
+color: #8C6B2D !important;
+opacity: 0.8;
 }
 
 .input-box input:focus{
-border-color:#B8860B;
-box-shadow:0 0 10px rgba(212,175,55,.35);
+border-color:#5B3500 !important;
+box-shadow:0 0 10px rgba(212,175,55,.35) !important;
 }
 
 /* ===========================
@@ -151,38 +138,45 @@ width:100%;
 height:60px;
 display:flex;
 align-items:center;
-background:#FFFFFF;
-border:2px solid #D4AF37;
+background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
+border:1.5px solid #C99700 !important;
 border-radius:18px;
 overflow:hidden;
-box-shadow:0 4px 10px rgba(0,0,0,.08);
+box-shadow: inset 0 2px 4px rgba(0,0,0,.08) !important;
 transition:.3s;
 }
 
 .password-box:focus-within{
-border-color:#B8860B;
-box-shadow:0 0 10px rgba(212,175,55,.35);
+border-color:#5B3500 !important;
+box-shadow:0 0 10px rgba(212,175,55,.35) !important;
 }
 
 .password-box input{
 flex:1;
 height:100%;
 padding:0 18px;
-border:none;
+border:none !important;
 outline:none;
-background:transparent;
+background:transparent !important;
 font-size:16px;
-color:#3E2723;
+font-weight:bold;
+color:#5B3500 !important;
+box-shadow:none !important;
+}
+
+.password-box input::placeholder{
+color: #8C6B2D !important;
+opacity: 0.8;
 }
 
 .eye-btn{
 width:60px;
 height:60px;
 border:none;
-background:none;
+background:transparent !important;
 cursor:pointer;
 font-size:20px;
-color:#8A5A00;
+color:#5B3500 !important;
 }
 
 /* ===========================
@@ -236,7 +230,7 @@ height:60px;
 border:none;
 border-radius:18px;
 background:linear-gradient(180deg,#F2C300,#C99700);
-color:#FFFFFF;
+color:#5B3500;
 font-size:18px;
 font-weight:bold;
 cursor:pointer;
@@ -277,14 +271,14 @@ text-decoration:underline;
 }
 
 /* ===========================
-   AUTOFILL FIX
+   AUTOFILL FIX (NO WHITE)
 =========================== */
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus{
--webkit-box-shadow:0 0 0 1000px #FFFFFF inset !important;
--webkit-text-fill-color:#3E2723 !important;
+-webkit-box-shadow:0 0 0 1000px #FFE89C inset !important;
+-webkit-text-fill-color:#5B3500 !important;
 transition:background-color 9999s ease-in-out 0s;
 }
 
@@ -309,13 +303,6 @@ border-radius:10px;
 
 body{
 padding:10px;
-}
-
-.login-heading{
-max-width:100%;
-height:60px;
-font-size:22px;
-margin-bottom:15px;
 }
 
 .login-card{
