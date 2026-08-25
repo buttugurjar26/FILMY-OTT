@@ -16,14 +16,16 @@
 
 
 /* ===========================
-   MOVIE CARD
+   MOVIE CARD (GOLD THEME UPDATED)
 =========================== */
 
 .movie-card{
 
     width:100%;
 
-    background:#fff;
+    background: linear-gradient(180deg, #FFFDF8 0%, #FFF4C2 100%);
+
+    border: 1.5px solid #5B3500;
 
     border-radius:15px;
 
@@ -60,13 +62,15 @@
 
 .movie-card h3{
 
-    font-size:14px;
+    font-size:13px;
 
-    margin:8px 5px 4px;
+    margin:8px 5px 2px;
 
     text-align:center;
 
     color:#5B3500;
+
+    font-weight:bold;
 
     white-space:nowrap;
 
@@ -79,51 +83,65 @@
 
 .movie-card p{
 
-    font-size:12px;
+    font-size:11px;
 
     margin:0 5px 8px;
 
     text-align:center;
 
-    color:#777;
+    color:#8A5A00;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
 
 }
 
 
 /* ===========================
-   WATCH BUTTON
+   WATCH BUTTON (GOLD GRADIENT)
 =========================== */
 
 .movie-card button{
 
-    width:85%;
+    width:88%;
 
-    height:32px;
+    height:30px;
 
     margin:0 auto 10px;
 
     display:block;
 
-    border:none;
+    border:1px solid #5B3500;
 
     border-radius:20px;
 
-    background:#D4AF37;
+    background: linear-gradient(180deg, #F2C300, #C99700);
 
-    color:#fff;
+    color:#5B3500;
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:bold;
 
     cursor:pointer;
+
+    box-shadow:0 3px 8px rgba(0,0,0,.15);
+
+    transition:0.2s;
 
 }
 
 
 .movie-card button:hover{
 
-    background:#B8860B;
+    background: linear-gradient(180deg, #FFE066, #D4AF37);
+
+    transform:scale(1.02);
 
 }
 
@@ -150,7 +168,7 @@
 
 
 /* ===========================
-   MOBILE
+   MOBILE RESPONSIVE
 =========================== */
 
 @media(max-width:486px){
@@ -175,23 +193,27 @@
 
 .movie-card h3{
 
-    font-size:13px;
+    font-size:12px;
 
 }
 
 
 .movie-card p{
 
-    font-size:11px;
+    font-size:10px;
+
+    margin-bottom:6px;
 
 }
 
 
 .movie-card button{
 
-    height:28px;
+    height:26px;
 
-    font-size:11px;
+    font-size:10px;
+
+    margin-bottom:8px;
 
 }
 
