@@ -21,7 +21,7 @@ async function loadMovies(){
 
         allMovies = data || [];
         
-console.log("HOME MOVIES:", allMovies);
+        console.log("HOME MOVIES:", allMovies);
 
         // ===============================
         // COMING SOON
@@ -416,7 +416,7 @@ document.addEventListener(
 
 
 // ===============================
-// HEADER PROFILE
+// HEADER PROFILE AVATAR & CLICK FIX
 // ===============================
 
 const headerProfile =
@@ -450,3 +450,19 @@ if(headerProfile){
         "avatar-1.png";
 
 }
+
+// Global scope me function attach kiya hai taki html me onclick="openProfile()" chal sake
+window.openProfile = function() {
+    window.location.href = "profile.html";
+};
+
+// Backup Event Listener (Direct DOM attach)
+document.addEventListener("DOMContentLoaded", () => {
+    const profileBtn = document.querySelector(".profile") || document.getElementById("headerProfile");
+    if (profileBtn) {
+        profileBtn.style.cursor = "pointer";
+        profileBtn.onclick = function() {
+            window.location.href = "profile.html";
+        };
+    }
+});
