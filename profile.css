@@ -113,7 +113,7 @@ transform:translateY(-2px);
 }
 
 /* ===========================
-PROFILE MENU
+PROFILE MENU (MATCHED TO PROFILE EDIT BTN COLOUR)
 =========================== */
 
 .profile-menu{
@@ -125,10 +125,8 @@ gap:15px;
 .profile-menu button{
 width:100%;
 height:60px;
-background:rgba(255,248,220,.45);
-backdrop-filter:blur(18px);
--webkit-backdrop-filter:blur(18px);
-border:2px solid #D4AF37;
+background:linear-gradient(180deg,#F2C300,#C99700);
+border:none;
 border-radius:18px;
 display:flex;
 align-items:center;
@@ -139,12 +137,11 @@ font-weight:bold;
 color:#5B3500;
 cursor:pointer;
 transition:.3s;
-box-shadow:0 6px 18px rgba(0,0,0,.15);
+box-shadow:0 8px 20px rgba(0,0,0,.20);
 }
 
 .profile-menu button:hover{
 transform:translateY(-2px);
-background:#FFF9E5;
 }
 
 /* Menu icons - matched to name color */
