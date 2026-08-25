@@ -2,404 +2,160 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search | FILMY OTT</title>
 
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Search | FILMY OTT</title>
-
-
-<link rel="stylesheet" href="home.css">
-
-<link rel="stylesheet" href="search.css">
-
-
-<link 
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-rel="stylesheet">
-
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="search.css?v=2.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
-
 
 <body>
 
-
-<!-- HEADER -->
-
-<header class="header">
-
-
-<div class="brand">
-
-
-<img src="logo-192.png" alt="FILMY OTT Logo">
-
-
-<div>
-
-<h2>FILMY OTT</h2>
-
-<p>Premium Entertainment</p>
-
-</div>
-
-
-</div>
-
-
-
-<div class="profile" onclick="openProfile()">
-
-<img id="headerProfile" src="default-profile.png" alt="Profile">
-
-</div>
-
-
-</header>
-
-
-
-
-
-<!-- SEARCH BOX -->
-
-
-<section class="search-section">
-
-
-<div class="search-box">
-
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-
-
-<input
-
-type="text"
-
-id="searchInput"
-
-placeholder="Search Movies, Web Series..."
-data-lang-placeholder="searchPlaceholder"
-
->
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-<!-- CATEGORY -->
-
-
-<section class="categories">
-
-
-<div class="category-title" onclick="toggleCategory()">
-
-
-
-<button class="all-category-btn">
-
-
-<span data-lang="allCategories">
-All Categories
-</span>
-
-
-<i class="fa-solid fa-chevron-down"></i>
-
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-<div class="category-scroll" id="categoryMenu">
-
-
-
-<button class="active" data-category="All">
-
-<span data-lang="all">All</span>
-
-</button>
-
-
-
-<button data-category="Movie">
-
-🎬 <span data-lang="movie">Movie</span>
-
-</button>
-
-
-
-<button data-category="Web Series">
-
-📺 <span data-lang="webSeries">Web Series</span>
-
-</button>
-
-
-
-<button data-category="Action">
-
-💥 <span data-lang="action">Action</span>
-
-</button>
-
-
-
-<button data-category="Romantic">
-
-❤️ <span data-lang="romantic">Romantic</span>
-
-</button>
-
-
-
-<button data-category="Comedy">
-
-😂 <span data-lang="comedy">Comedy</span>
-
-</button>
-
-
-
-<button data-category="Drama">
-
-🎭 <span data-lang="drama">Drama</span>
-
-</button>
-
-
-
-<button data-category="Thriller">
-
-🔪 <span data-lang="thriller">Thriller</span>
-
-</button>
-
-
-
-<button data-category="Horror">
-
-👻 <span data-lang="horror">Horror</span>
-
-</button>
-
-
-
-<button data-category="Crime">
-
-🚔 <span data-lang="crime">Crime</span>
-
-</button>
-
-
-
-<button data-category="Sci-Fi">
-
-🚀 <span data-lang="sciFi">Sci-Fi</span>
-
-</button>
-
-
-
-<button data-category="Animation">
-
-🧸 <span data-lang="animation">Animation</span>
-
-</button>
-
-
-
-<button data-category="Documentary">
-
-🎥 <span data-lang="documentary">Documentary</span>
-
-</button>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- SEARCH RESULT -->
-
-
-<section class="movies">
-
-
-<h2>
-🔍 <span data-lang="searchResults">
-Search Results
-</span>
-</h2>
-
-
-
-<div id="searchResults" class="movie-row">
-
-
-</div>
-
-
-
-<p id="noResult">
-
-<p id="noResult" data-lang="noMovies">
-No Movies Found
-</p>
-
-</p>
-
-
-
-</section>
-
-
-
-
-
-
-
-<!-- BOTTOM NAVIGATION -->
-
-
-<nav class="bottom-nav">
-
-
-
-<a href="home.html">
-
-
-<i class="fa-solid fa-house"></i>
-
-<span data-lang="home">Home</span>
-
-
-</a>
-
-
-
-
-
-<a href="movies-list.html">
-
-
-<i class="fa-solid fa-film"></i>
-
-<span data-lang="movies">Movies</span>
-
-
-</a>
-
-
-
-
-
-<a class="active" href="search.html">
-
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<span data-lang="search">Search</span>
-
-
-</a>
-
-
-
-
-
-<a href="my-list.html">
-
-
-<i class="fa-solid fa-heart"></i>
-
-<span data-lang="myList">My List</span>
-
-
-</a>
-
-
-
-
-
-<a href="settings.html">
-
-
-<i class="fa-solid fa-gear"></i>
-
-<span data-lang="settings">Settings</span>
-
-
-</a>
-
-
-
-</nav>
-
-
-
-
-
-
-
-<script>
-
-
-function openProfile(){
-
-    window.location.href = "profile.html";
-
-}
-
-
-
-function toggleCategory(){
-
-
-let menu = document.getElementById("categoryMenu");
-
-
-menu.classList.toggle("show");
-
-
-}
-
-
-</script>
-
-
-
-
-<script type="module" src="search.js"></script>
-
-
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand">
+            <img src="logo-192.png" alt="FILMY OTT Logo">
+            <div>
+                <h2>FILMY OTT</h2>
+                <p>Premium Entertainment</p>
+            </div>
+        </div>
+
+        <div class="profile" onclick="openProfile()">
+            <img id="headerProfile" src="avatar-1.png" alt="Profile">
+        </div>
+    </header>
+
+    <!-- SEARCH BOX -->
+    <section class="search-section">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search Movies, Web Series..." data-lang-placeholder="searchPlaceholder">
+        </div>
+    </section>
+
+    <!-- CATEGORY -->
+    <section class="categories">
+        <div class="category-title" onclick="toggleCategory()">
+            <button class="all-category-btn">
+                <span data-lang="allCategories">All Categories</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+        </div>
+
+        <div class="category-scroll" id="categoryMenu">
+            <button class="active" data-category="All">
+                <span data-lang="all">All</span>
+            </button>
+
+            <button data-category="Movie">
+                🎬 <span data-lang="movie">Movie</span>
+            </button>
+
+            <button data-category="Web Series">
+                📺 <span data-lang="webSeries">Web Series</span>
+            </button>
+
+            <button data-category="Action">
+                💥 <span data-lang="action">Action</span>
+            </button>
+
+            <button data-category="Romantic">
+                ❤️ <span data-lang="romantic">Romantic</span>
+            </button>
+
+            <!-- MYTHOLOGICAL CATEGORY ADDED -->
+            <button data-category="Mythological">
+                🚩 <span data-lang="mythological">Mythological</span>
+            </button>
+
+            <button data-category="Comedy">
+                😂 <span data-lang="comedy">Comedy</span>
+            </button>
+
+            <button data-category="Drama">
+                🎭 <span data-lang="drama">Drama</span>
+            </button>
+
+            <button data-category="Thriller">
+                🔪 <span data-lang="thriller">Thriller</span>
+            </button>
+
+            <button data-category="Horror">
+                👻 <span data-lang="horror">Horror</span>
+            </button>
+
+            <button data-category="Crime">
+                🚔 <span data-lang="crime">Crime</span>
+            </button>
+
+            <button data-category="Sci-Fi">
+                🚀 <span data-lang="sciFi">Sci-Fi</span>
+            </button>
+
+            <button data-category="Animation">
+                🧸 <span data-lang="animation">Animation</span>
+            </button>
+
+            <button data-category="Documentary">
+                🎥 <span data-lang="documentary">Documentary</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- SEARCH RESULT -->
+    <section class="movies">
+        <h2>
+            🔍 <span data-lang="searchResults">Search Results</span>
+        </h2>
+
+        <div id="searchResults" class="movie-row"></div>
+
+        <p id="noResult" data-lang="noMovies">No Movies Found</p>
+    </section>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <a href="home.html">
+            <i class="fa-solid fa-house"></i>
+            <span data-lang="home">Home</span>
+        </a>
+
+        <a href="movies-list.html">
+            <i class="fa-solid fa-film"></i>
+            <span data-lang="movies">Movies</span>
+        </a>
+
+        <a class="active" href="search.html">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span data-lang="search">Search</span>
+        </a>
+
+        <a href="my-list.html">
+            <i class="fa-solid fa-heart"></i>
+            <span data-lang="myList">My List</span>
+        </a>
+
+        <a href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            <span data-lang="settings">Settings</span>
+        </a>
+    </nav>
+
+    <script>
+        function openProfile() {
+            window.location.href = "profile.html";
+        }
+
+        function toggleCategory() {
+            let menu = document.getElementById("categoryMenu");
+            menu.classList.toggle("show");
+        }
+    </script>
+
+    <script type="module" src="search.js"></script>
 
 </body>
 
