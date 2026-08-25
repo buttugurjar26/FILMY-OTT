@@ -2,144 +2,71 @@
 <html lang="en">
 
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Login | FILMY OTT</title>
-
-<link rel="stylesheet" href="login.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | FILMY OTT</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- LOGIN SECTION -->
+    <!-- LOGIN SECTION -->
+    <section class="login">
 
-<section class="login">
+        <div class="login-card">
 
-<div class="login-heading" data-lang="newLogin">
-NEW LOGIN
-</div>
+            <img src="logo-192.png" class="login-logo" alt="FILMY OTT Logo">
 
-<div class="login-card">
+            <h2 data-lang="welcomeBack">
+                Welcome Back
+            </h2>
 
-<img src="logo-192.png"
-class="login-logo"
-alt="FILMY OTT Logo">
+            <p data-lang="loginDescription">
+                Login to continue watching your favourite Movies & Web Series.
+            </p>
 
-<h2 data-lang="welcomeBack">
-Welcome Back
-</h2>
+            <form id="loginForm">
 
-<p data-lang="loginDescription">
-Login to continue watching your favourite Movies & Web Series.
-</p>
+                <div class="input-box">
+                    <label data-lang="emailAddress">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" data-lang-placeholder="enterEmail" autocomplete="email" spellcheck="false" required>
+                </div>
 
-<form id="loginForm">
+                <div class="input-box">
+                    <label data-lang="password">Password</label>
+                    <div class="password-box">
+                        <input type="password" id="password" placeholder="Enter your password" data-lang-placeholder="enterPassword" autocomplete="current-password" required>
+                        <button type="button" id="togglePassword" class="eye-btn">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
 
-<div class="input-box">
+                <div class="remember-row">
+                    <label>
+                        <input type="checkbox" id="rememberMe">
+                        <span data-lang="keepSignedIn">Keep me signed in</span>
+                    </label>
+                    <a href="forgot-password.html" data-lang="forgotPassword">Forgot Password?</a>
+                </div>
 
-<label data-lang="emailAddress">
-Email Address
-</label>
+                <button type="submit" class="login-btn" data-lang="login">
+                    Login
+                </button>
 
-<input
-type="email"
-id="email"
-placeholder="Enter your email"
-data-lang-placeholder="enterEmail"
-autocomplete="email"
-spellcheck="false"
-required>
+                <p class="signup-text">
+                    <span data-lang="dontHaveAccount">Don't have an account?</span>
+                    <a href="signup.html" data-lang="createAccount">Create Account</a>
+                </p>
 
-</div>
+            </form>
 
-<div class="input-box">
+        </div>
 
-<label data-lang="password">
-Password
-</label>
+    </section>
 
-<div class="password-box">
-
-<input
-type="password"
-id="password"
-placeholder="Enter your password"
-data-lang-placeholder="enterPassword"
-autocomplete="current-password"
-required>
-
-<button
-type="button"
-id="togglePassword"
-class="eye-btn">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-</div>
-
-</div>
-
-<div class="remember-row">
-
-<label>
-
-<input
-type="checkbox"
-id="rememberMe">
-
-<span data-lang="keepSignedIn">
-Keep me signed in
-</span>
-
-</label>
-
-<a href="forgot-password.html"
-data-lang="forgotPassword">
-
-Forgot Password?
-
-</a>
-
-</div>
-
-<button
-type="submit"
-class="login-btn"
-data-lang="login">
-
-Login
-
-</button>
-
-<p class="signup-text">
-
-<span data-lang="dontHaveAccount">
-Don't have an account?
-</span>
-
-<a href="signup.html"
-data-lang="createAccount">
-
-Create Account
-
-</a>
-
-</p>
-
-</form>
-
-</div>
-
-</section>
-
-<script type="module" src="login.js"></script>
+    <script type="module" src="login.js"></script>
 
 </body>
 
