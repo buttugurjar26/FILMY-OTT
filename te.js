@@ -55,6 +55,9 @@ const te = {
     storyline: "కథ",
     save: "సేవ్ చేయి",
     unsave: "తొలగించు",
+    relatedMovies: "ఇలాంటి మరిన్ని సినిమాలు",
+    mythological: "పౌరాణిక సినిమాలు",
+    noMovies: "ఎలాంటి సినిమాలు దొరకలేదు.",
 
     // Movie Request
     movieRequest: "మూవీ రిక్వెస్ట్",
