@@ -2,107 +2,102 @@
    NOTIFICATIONS
 =========================== */
 
-.notifications{
-
-    padding:20px;
-
+.notifications {
+    padding: 20px;
 }
 
-.notifications h2{
-
-    color:#5B3500;
-    font-size:24px;
-    margin-bottom:20px;
-
+.notifications h2 {
+    color: #5B3500;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 /* ===========================
-   NOTIFICATION CARD
+   NOTIFICATION CARD (GOLDEN-CREAM FIX)
 =========================== */
 
-.notification-card{
+.notification-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 
-    display:flex;
-    align-items:center;
-    gap:12px;
+    /* वाइट बॉक्स को हटाकर गोल्डन-क्रीम थीम बैकग्राउंड */
+    background: rgba(255, 248, 220, 0.75) !important;
+    border: 1.5px solid #D4AF37 !important;
+    border-radius: 16px;
 
-    background:#ffffff;
-    border-radius:12px;
+    padding: 12px;
+    margin-bottom: 12px;
 
-    padding:10px;
-    margin-bottom:12px;
+    box-shadow: 0 4px 12px rgba(0,0,0, .08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 
-    box-shadow:0 4px 12px rgba(0,0,0,.12);
-
-    cursor:pointer;
-
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.notification-card.unseen{
-
-    border-left:5px solid #2ECC71;
-
+.notification-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 248, 220, 0.9) !important;
 }
 
-.notification-card img{
-
-    width:80px;
-    height:80px;
-
-    border-radius:8px;
-    object-fit:cover;
-
+.notification-card.unseen {
+    border-left: 5px solid #00C853 !important;
 }
 
-.notification-info{
+.notification-card img {
+    width: 80px;
+    height: 80px;
 
-    flex:1;
-
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid #D4AF37;
 }
 
-.notification-title{
-
-    font-size:18px;
-    font-weight:bold;
-    color:#5B3500;
-
-    margin-bottom:6px;
-
+.notification-info {
+    flex: 1;
 }
 
-.notification-message{
+.notification-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #5B3500 !important;
 
-    font-size:14px;
-    color:#666;
-
+    margin-bottom: 4px;
 }
 
-.notification-date{
-
-    font-size:12px;
-    color:#999;
-
-    margin-top:6px;
-
+/* मैसेज टेक्स्ट का रंग गहरा और साफ़ किया गया */
+.notification-message {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #6B4A00 !important;
+    line-height: 1.4;
 }
 
-.notification-status{
+/* तारीख का रंग थीम के अनुसार बदला गया */
+.notification-date {
+    font-size: 12px;
+    font-weight: 700;
+    color: #8C6B2D !important;
 
-    font-size:12px;
-    font-weight:bold;
-
-    color:#2ECC71;
-
+    margin-top: 6px;
 }
 
-#noNotification{
+.notification-status {
+    font-size: 12px;
+    font-weight: 800;
 
-    display:none;
+    color: #00C853 !important;
+}
 
-    text-align:center;
-    color:#5B3500;
+#noNotification {
+    display: none;
 
-    font-size:18px;
-    margin-top:40px;
+    text-align: center;
+    color: #5B3500;
+    font-weight: bold;
 
+    font-size: 18px;
+    margin-top: 40px;
 }
