@@ -55,6 +55,9 @@ const ml = {
     storyline: "കഥ",
     save: "സേവ് ചെയ്യുക",
     unsave: "ഒഴിവാക്കുക",
+    relatedMovies: "ഇതുപോലെയുള്ള കൂടുതൽ സിനിമകൾ",
+    mythological: "പൗരാണിക സിനിമകൾ",
+    noMovies: "സിനിമകളൊന്നും കണ്ടെത്തിയില്ല.",
 
     // Movie Request
     movieRequest: "മൂവി അഭ്യർത്ഥന",
