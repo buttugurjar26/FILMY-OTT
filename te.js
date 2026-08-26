@@ -58,6 +58,11 @@ const te = {
     relatedMovies: "ఇలాంటి మరిన్ని సినిమాలు",
     mythological: "పౌరాణిక సినిమాలు",
     noMovies: "ఎలాంటి సినిమాలు దొరకలేదు.",
+    castNotAvailable: "నటీనటుల వివరాలు అందుబాటులో లేవు",
+    userComments: "వినియోగదారు కామెంట్లు",
+    postComment: "కామెంట్ పోస్ట్ చేయండి",
+    noCommentsYet: "ఇంకా కామెంట్లు లేవు.",
+    rateMovie: "సినిమాకు రేటింగ్ ఇవ్వండి",
 
     // Movie Request
     movieRequest: "మూవీ రిక్వెస్ట్",
