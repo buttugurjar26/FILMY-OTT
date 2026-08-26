@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     await loadMovie();
 
     setupTrailerButton();
-    setupWatchButton(); // 👈 Watch Button Initialized
+    setupWatchButton();
     setupLikeButton();
     setupListButton();
     setupCastButton();
@@ -199,7 +199,7 @@ async function fetchAndRenderCast(movie) {
 }
 
 // =========================================
-// WATCH MOVIE BUTTON (NEWLY ADDED)
+// WATCH MOVIE BUTTON (FIXED)
 // =========================================
 function setupWatchButton() {
     const watchBtn = document.getElementById("watchBtn");
@@ -208,11 +208,16 @@ function setupWatchButton() {
     watchBtn.addEventListener("click", function () {
         if (!checkAuth("watch full movie")) return;
 
-        const movie = window.currentMovie;
-        const videoUrl = movie?.video_url || movie?.movie_url || movie?.full_movie_url;
+        const movie = window.currentMovie || {};
+        const videoUrl = movie.watch_url || 
+                         movie.movie_url || 
+                         movie.video_url || 
+                         movie.full_movie_url || 
+                         movie.stream_url || 
+                         movie.link || 
+                         movie.trailer_url;
 
         if (videoUrl) {
-            // Player page par redirect karein
             window.location.href = `player.html?id=${encodeURIComponent(movieId)}`;
         } else {
             alert("Full movie is not available yet.");
@@ -221,7 +226,7 @@ function setupWatchButton() {
 }
 
 // =========================================
-// INCREMENT VIEW ONLY WHEN TRAILER PLAYS
+// VIEWS & TRAILER
 // =========================================
 async function triggerViewCount() {
     const viewCountElem = document.getElementById("viewCount");
@@ -265,9 +270,6 @@ function listenToRealtimeViews() {
         .subscribe();
 }
 
-// =========================================
-// TRAILER
-// =========================================
 function setupTrailerButton() {
     const trailerBtn = document.getElementById("trailerBtn");
     if (!trailerBtn) return;
@@ -334,7 +336,7 @@ function setupTrailerButton() {
 }
 
 // =========================================
-// LIKE BUTTON
+// LIKE & LIST BUTTONS
 // =========================================
 function setupLikeButton() {
     const likeBtn = document.getElementById("likeBtn");
@@ -384,9 +386,6 @@ function updateLikeButtonUI() {
     likeBtn.classList.toggle("liked", isLiked);
 }
 
-// =========================================
-// MY LIST BUTTON
-// =========================================
 function setupListButton() {
     const listBtn = document.getElementById("listBtn");
     if (!listBtn) return;
@@ -446,7 +445,7 @@ function setListButtonState(saved) {
 }
 
 // =========================================
-// CAST, SHARE, RATING & UTILITIES
+// CAST, SHARE, RATING, COMMENTS & TABS
 // =========================================
 function setupCastButton() {
     const castBtn = document.getElementById("castBtn");
