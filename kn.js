@@ -55,6 +55,9 @@ const kn = {
     storyline: "ಕಥೆ",
     save: "ಉಳಿಸಿ",
     unsave: "ತೆಗೆದುಹಾಕಿ",
+    relatedMovies: "ಇದೇ ರೀತಿಯ ಇನ್ನಷ್ಟು ಚಲನಚಿತ್ರಗಳು",
+    mythological: "ಪೌರಾಣಿಕ ಚಲನಚಿತ್ರಗಳು",
+    noMovies: "ಯಾವುದೇ ಚಲನಚಿತ್ರಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
 
     // Movie Request
     movieRequest: "ಮೂವಿ ವಿನಂತಿ",
