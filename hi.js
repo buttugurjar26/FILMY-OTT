@@ -58,6 +58,7 @@ const hi = {
     relatedMovies: "इसके जैसी अन्य फिल्में",
     mythological: "पौराणिक फिल्में",
     noMovies: "कोई फिल्म नहीं मिली।",
+    castNotAvailable: "कास्ट की जानकारी उपलब्ध नहीं है",
     
     // Movie Request
     movieRequest: "मूवी रिक्वेस्ट",
