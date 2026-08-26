@@ -58,6 +58,11 @@ const ta = {
     relatedMovies: "இது போன்ற மேலும் திரைப்படங்கள்",
     mythological: "புராண திரைப்படங்கள்",
     noMovies: "திரைப்படங்கள் எதுவும் கிடைக்கவில்லை.",
+    castNotAvailable: "நடிகர்கள் விவரம் கிடைக்கவில்லை",
+    userComments: "பயனர் கருத்துகள்",
+    postComment: "கருத்தைப் பதிவுசெய்",
+    noCommentsYet: "இதுவரை கருத்துகள் எதுவும் இல்லை.",
+    rateMovie: "திரைப்படத்தை மதிப்பிடுக",
 
     // Movie Request
     movieRequest: "திரைப்பட கோரிக்கை",
