@@ -58,6 +58,11 @@ const kn = {
     relatedMovies: "ಇದೇ ರೀತಿಯ ಇನ್ನಷ್ಟು ಚಲನಚಿತ್ರಗಳು",
     mythological: "ಪೌರಾಣಿಕ ಚಲನಚಿತ್ರಗಳು",
     noMovies: "ಯಾವುದೇ ಚಲನಚಿತ್ರಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
+    castNotAvailable: "ಪಾತ್ರವರ್ಗದ ವಿವರಗಳು ಲಭ್ಯವಿಲ್ಲ",
+    userComments: "ಬಳಕೆದಾರರ ಕಾಮೆಂಟ್‌ಗಳು",
+    postComment: "ಕಾಮೆಂಟ್ ಪೋಸ್ಟ್ ಮಾಡಿ",
+    noCommentsYet: "ಇನ್ನೂ ಯಾವುದೇ ಕಾಮೆಂಟ್‌ಗಳಿಲ್ಲ.",
+    rateMovie: "ಚಲನಚಿತ್ರವನ್ನು ರೇಟ್ ಮಾಡಿ",
 
     // Movie Request
     movieRequest: "ಮೂವಿ ವಿನಂತಿ",
