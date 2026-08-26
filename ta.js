@@ -55,6 +55,9 @@ const ta = {
     storyline: "கதை",
     save: "சேமி",
     unsave: "அகற்று",
+    relatedMovies: "இது போன்ற மேலும் திரைப்படங்கள்",
+    mythological: "புராண திரைப்படங்கள்",
+    noMovies: "திரைப்படங்கள் எதுவும் கிடைக்கவில்லை.",
 
     // Movie Request
     movieRequest: "திரைப்பட கோரிக்கை",
