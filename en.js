@@ -58,7 +58,7 @@ const en = {
     relatedMovies: "More Like This",
     mythological: "Mythological Movies",
     noMovies: "No movies found.",
-   castNotAvailable: "Cast details not available",
+    castNotAvailable: "Cast details not available",
     userComments: "User Comments",
     postComment: "Post Comment",
     noCommentsYet: "No comments yet.",
