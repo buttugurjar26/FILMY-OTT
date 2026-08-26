@@ -59,10 +59,10 @@ const ml = {
     mythological: "പൗരാണിക സിനിമകൾ",
     noMovies: "സിനിമകളൊന്നും കണ്ടെത്തിയില്ല.",
     castNotAvailable: "അഭിനേതാക്കളുടെ വിവരങ്ങൾ ലഭ്യമല്ല",
-    userComments: "उपयोगकर्ता की टिप्पणियाँ",
-     postComment: "टिप्पणी पोस्ट करें",
-     noCommentsYet: "अभी तक कोई टिप्पणी नहीं है।",
-     rateMovie: "फिल्म को रेटिंग दें",
+    userComments: "ഉപയോക്തൃ അഭിപ്രായങ്ങൾ",
+    postComment: "അഭിപ്രായം പോസ്റ്റ് ചെയ്യുക",
+    noCommentsYet: "ഇതുവരെ അഭിപ്രായങ്ങളൊന്നുമില്ല.",
+    rateMovie: "സിനിമ റേറ്റുചെയ്യുക",
 
     // Movie Request
     movieRequest: "മൂവി അഭ്യർത്ഥന",
