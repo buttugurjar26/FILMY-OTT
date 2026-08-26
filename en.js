@@ -59,6 +59,10 @@ const en = {
     mythological: "Mythological Movies",
     noMovies: "No movies found.",
    castNotAvailable: "Cast details not available",
+    userComments: "User Comments",
+    postComment: "Post Comment",
+    noCommentsYet: "No comments yet.",
+    rateMovie: "Rate Movie",
     
     // Movie Request
     movieRequest: "Movie Request",
