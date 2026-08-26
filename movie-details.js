@@ -131,7 +131,7 @@ async function loadMovie() {
         const viewCount = document.getElementById("viewCount");
         if (viewCount) viewCount.textContent = (movie.views || 0).toLocaleString();
 
-        // 1. Load Cast from movie_cast Table & JSON Fallback
+        // 1. Fetch & Render Cast
         await fetchAndRenderCast(movie);
 
         // 2. Load Related Movies
@@ -199,7 +199,7 @@ async function fetchAndRenderCast(movie) {
 }
 
 // =========================================
-// WATCH MOVIE BUTTON (FIXED)
+// WATCH MOVIE BUTTON (DISKWALA DIRECT LINK FIX)
 // =========================================
 function setupWatchButton() {
     const watchBtn = document.getElementById("watchBtn");
@@ -209,18 +209,23 @@ function setupWatchButton() {
         if (!checkAuth("watch full movie")) return;
 
         const movie = window.currentMovie || {};
+
+        // Checking all possible Supabase DB column names for Diskwala URL
         const videoUrl = movie.watch_url || 
                          movie.movie_url || 
                          movie.video_url || 
                          movie.full_movie_url || 
                          movie.stream_url || 
-                         movie.link || 
-                         movie.trailer_url;
+                         movie.link;
 
         if (videoUrl) {
-            window.location.href = `player.html?id=${encodeURIComponent(movieId)}`;
+            // Diskwala link directly opens in a new tab:
+            window.open(videoUrl, "_blank");
+            
+            // Agar aap naye tab ki jagah ISI tab me kholna chahe toh neeche wali line uncomment kar de:
+            // window.location.href = videoUrl;
         } else {
-            alert("Full movie is not available yet.");
+            alert("Diskwala movie link is not available in database.");
         }
     });
 }
