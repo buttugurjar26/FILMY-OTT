@@ -55,6 +55,9 @@ const en = {
     storyline: "Storyline",
     save: "Save",
     unsave: "Unsave",
+    relatedMovies: "More Like This",
+        mythological: "Mythological Movies & Series",
+        noMovies: "No movies found.",
 
     // Movie Request
     movieRequest: "Movie Request",
