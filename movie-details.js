@@ -54,10 +54,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
 
-    if (typeof applyLanguage === "function") {
-        applyLanguage();
-    }
-
     await loadMovie();
 
     setupTrailerButton();
@@ -71,6 +67,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     setupViewMoreButton();
 
     listenToRealtimeViews();
+
+    if (typeof applyLanguage === "function") {
+        applyLanguage();
+    }
 });
 
 // =========================================
@@ -130,7 +130,10 @@ async function loadMovie() {
         const viewCount = document.getElementById("viewCount");
         if (viewCount) viewCount.textContent = (movie.views || 0).toLocaleString();
 
-        renderCast(movie);
+        // 1. Load Cast from movie_cast Table & JSON Fallback
+        await fetchAndRenderCast(movie);
+
+        // 2. Load Related Movies
         loadRelatedMovies(movie.category);
         updateLikeButtonUI();
         updateListButtonUI();
@@ -138,6 +141,61 @@ async function loadMovie() {
 
     } catch (error) {
         console.error("Fatal Load Movie Error:", error);
+    }
+}
+
+// =========================================
+// FETCH AND RENDER CAST (FROM SUPABASE & MOVIE JSON)
+// =========================================
+async function fetchAndRenderCast(movie) {
+    const castList = document.getElementById("castList");
+    if (!castList) return;
+
+    try {
+        const queryId = String(movieId);
+        
+        // Supabase `movie_cast` table se fetch karein
+        const { data: castFromDb, error } = await supabase
+            .from("movie_cast")
+            .select("*")
+            .eq("movie_id", queryId);
+
+        let finalCastList = [];
+
+        if (!error && castFromDb && castFromDb.length > 0) {
+            finalCastList = castFromDb;
+        } else {
+            // Fallback: Check if JSON array exists in `movies` table
+            let castData = movie.cast || movie.cast_members || movie.actors || null;
+            if (typeof castData === "string") {
+                try { castData = JSON.parse(castData); } catch (e) { castData = []; }
+            }
+            if (Array.isArray(castData)) {
+                finalCastList = castData;
+            }
+        }
+
+        if (!finalCastList || finalCastList.length === 0) {
+            castList.innerHTML = `<p class="cast-empty-text" data-lang="castNotAvailable">Cast information not available.</p>`;
+            if (typeof applyLanguage === "function") applyLanguage();
+            return;
+        }
+
+        castList.innerHTML = finalCastList.map((person, index) => {
+            const name = person?.name || person?.actor_name || person?.cast_name || ("Cast " + (index + 1));
+            const image = person?.image_url || person?.image || person?.poster_url || "logo-192.png";
+            return `
+                <div class="cast-card">
+                    <img src="${image}" alt="${name}" onerror="this.src='logo-192.png'">
+                    <h3>${name}</h3>
+                </div>
+            `;
+        }).join("");
+
+    } catch (err) {
+        console.error("Cast Render Exception:", err);
+        castList.innerHTML = `<p class="cast-empty-text" data-lang="castNotAvailable">Cast information not available.</p>`;
+        if (typeof applyLanguage === "function") applyLanguage();
     }
 }
 
@@ -306,7 +364,7 @@ function updateLikeButtonUI() {
 }
 
 // =========================================
-// MY LIST BUTTON (FIXED FOR LIST INTEGRATION)
+// MY LIST BUTTON
 // =========================================
 function setupListButton() {
     const listBtn = document.getElementById("listBtn");
@@ -320,14 +378,11 @@ function setupListButton() {
         const index = myList.findIndex(id => String(id) === strMovieId);
 
         if (index !== -1) {
-            // Unsave
             myList.splice(index, 1);
             localStorage.setItem("myList", JSON.stringify(myList));
             setListButtonState(false);
         } else {
-            // Save
             myList.push(movieId);
-            // Duplicate remove karein
             myList = [...new Set(myList)];
             localStorage.setItem("myList", JSON.stringify(myList));
             setListButtonState(true);
@@ -382,32 +437,6 @@ function setupCastButton() {
         castContent.style.display = isHidden ? "block" : "none";
         castBtn.classList.toggle("active", isHidden);
     });
-}
-
-function renderCast(movie) {
-    const castList = document.getElementById("castList");
-    if (!castList) return;
-
-    let castData = movie.cast || movie.cast_members || movie.actors || null;
-    if (typeof castData === "string") {
-        try { castData = JSON.parse(castData); } catch (e) { castData = []; }
-    }
-
-    if (!Array.isArray(castData) || castData.length === 0) {
-        castList.innerHTML = `<p style="color:#aaa;" data-lang="castNotAvailable">Cast information not available.</p>`;
-        return;
-    }
-
-    castList.innerHTML = castData.map((person, index) => {
-        const name = person?.name || person?.cast_name || "Cast " + (index + 1);
-        const image = person?.image || person?.poster_url || "logo-192.png";
-        return `
-            <div class="cast-card">
-                <img src="${image}" alt="${name}" onerror="this.src='logo-192.png'">
-                <h3>${name}</h3>
-            </div>
-        `;
-    }).join("");
 }
 
 function setupShareButton() {
@@ -491,15 +520,19 @@ function setupComments() {
 
     function renderComments() {
         if (comments.length === 0) {
-            list.innerHTML = `<p class="no-comments">No comments yet.</p>`;
-            return;
+            list.innerHTML = `<p class="no-comments" data-lang="noCommentsYet">No comments yet.</p>`;
+        } else {
+            list.innerHTML = comments.map(c => `
+                <div class="comment-card">
+                    <strong>User</strong> <small>${c.time}</small>
+                    <p>${c.text}</p>
+                </div>
+            `).join("");
         }
-        list.innerHTML = comments.map(c => `
-            <div class="comment-card">
-                <strong>User</strong> <small>${c.time}</small>
-                <p>${c.text}</p>
-            </div>
-        `).join("");
+
+        if (typeof applyLanguage === "function") {
+            applyLanguage();
+        }
     }
 }
 
