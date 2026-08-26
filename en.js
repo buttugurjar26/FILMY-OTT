@@ -58,7 +58,8 @@ const en = {
     relatedMovies: "More Like This",
     mythological: "Mythological Movies",
     noMovies: "No movies found.",
-
+   castNotAvailable: "Cast details not available",
+    
     // Movie Request
     movieRequest: "Movie Request",
     movieRequestDescription: "Tell us which movie or web series you want to watch.",
