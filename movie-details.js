@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     await loadMovie();
 
     setupTrailerButton();
+    setupWatchButton(); // 👈 Watch Button Initialized
     setupLikeButton();
     setupListButton();
     setupCastButton();
@@ -145,7 +146,7 @@ async function loadMovie() {
 }
 
 // =========================================
-// FETCH AND RENDER CAST (FROM SUPABASE & MOVIE JSON)
+// FETCH AND RENDER CAST
 // =========================================
 async function fetchAndRenderCast(movie) {
     const castList = document.getElementById("castList");
@@ -154,7 +155,6 @@ async function fetchAndRenderCast(movie) {
     try {
         const queryId = String(movieId);
         
-        // Supabase `movie_cast` table se fetch karein
         const { data: castFromDb, error } = await supabase
             .from("movie_cast")
             .select("*")
@@ -165,7 +165,6 @@ async function fetchAndRenderCast(movie) {
         if (!error && castFromDb && castFromDb.length > 0) {
             finalCastList = castFromDb;
         } else {
-            // Fallback: Check if JSON array exists in `movies` table
             let castData = movie.cast || movie.cast_members || movie.actors || null;
             if (typeof castData === "string") {
                 try { castData = JSON.parse(castData); } catch (e) { castData = []; }
@@ -197,6 +196,28 @@ async function fetchAndRenderCast(movie) {
         castList.innerHTML = `<p class="cast-empty-text" data-lang="castNotAvailable">Cast information not available.</p>`;
         if (typeof applyLanguage === "function") applyLanguage();
     }
+}
+
+// =========================================
+// WATCH MOVIE BUTTON (NEWLY ADDED)
+// =========================================
+function setupWatchButton() {
+    const watchBtn = document.getElementById("watchBtn");
+    if (!watchBtn) return;
+
+    watchBtn.addEventListener("click", function () {
+        if (!checkAuth("watch full movie")) return;
+
+        const movie = window.currentMovie;
+        const videoUrl = movie?.video_url || movie?.movie_url || movie?.full_movie_url;
+
+        if (videoUrl) {
+            // Player page par redirect karein
+            window.location.href = `player.html?id=${encodeURIComponent(movieId)}`;
+        } else {
+            alert("Full movie is not available yet.");
+        }
+    });
 }
 
 // =========================================
