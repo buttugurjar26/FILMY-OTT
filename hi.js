@@ -59,6 +59,10 @@ const hi = {
     mythological: "पौराणिक फिल्में",
     noMovies: "कोई फिल्म नहीं मिली।",
     castNotAvailable: "कास्ट की जानकारी उपलब्ध नहीं है",
+    userComments: "उपयोगकर्ता की टिप्पणियाँ",
+    postComment: "टिप्पणी पोस्ट करें",
+    noCommentsYet: "अभी तक कोई टिप्पणी नहीं है।",
+    rateMovie: "फिल्म को रेटिंग दें",
     
     // Movie Request
     movieRequest: "मूवी रिक्वेस्ट",
