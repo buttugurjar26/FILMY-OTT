@@ -1,12 +1,12 @@
 /* =========================================================
-   FILMY OTT - MOVIE REQUEST (FORCE OVERRIDE SETTINGS.CSS)
+   FILMY OTT - MOVIE REQUEST (PREMIUM CREAM + GOLD OVERRIDE)
    ========================================================= */
 
 /* Main Container Fix */
 .request-page {
     width: 100% !important;
     max-width: 480px !important;
-    margin: 20px auto !important;
+    margin: 20px auto 100px auto !important;
     padding: 0 15px !important;
     box-sizing: border-box !important;
     float: none !important;
@@ -16,8 +16,9 @@
 /* Header Text Card */
 .request-header {
     background: #ffffff !important;
-    padding: 20px !important;
-    border-radius: 16px 16px 0 0 !important;
+    padding: 22px 20px !important;
+    border-radius: 18px 18px 0 0 !important;
+    border: 1.5px solid rgba(212, 175, 55, 0.4) !important;
     border-bottom: 2px solid rgba(212, 175, 55, 0.2) !important;
     box-shadow: 0 4px 12px rgba(91, 53, 0, 0.05) !important;
     text-align: left !important;
@@ -37,6 +38,7 @@
     margin: 0 !important;
     color: #795548 !important;
     font-size: 14px !important;
+    font-weight: 600 !important;
     line-height: 1.5 !important;
 }
 
@@ -44,7 +46,9 @@
 .request-form {
     background: #ffffff !important;
     padding: 22px 20px 25px 20px !important;
-    border-radius: 0 0 16px 16px !important;
+    border-radius: 0 0 18px 18px !important;
+    border: 1.5px solid rgba(212, 175, 55, 0.4) !important;
+    border-top: none !important;
     box-shadow: 0 8px 20px rgba(91, 53, 0, 0.1) !important;
     display: flex !important;
     flex-direction: column !important;
@@ -61,8 +65,8 @@
     margin-top: 16px !important;
     margin-bottom: 6px !important;
     color: #5b3500 !important;
-    font-size: 14px !important;
-    font-weight: 700 !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
     text-align: left !important;
     float: none !important;
     clear: both !important;
@@ -73,24 +77,25 @@
 }
 
 .request-form .optional-text {
-    color: #8d6e63 !important;
-    font-size: 12px !important;
-    font-weight: normal !important;
+    color: #8C6B2D !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
     margin-left: 4px !important;
     display: inline !important;
 }
 
-/* Input Fields & Textarea Breakout Fix */
+/* Input Fields & Textarea (Exact Screen Match) */
 .request-form input[type="text"],
 .request-form textarea {
     display: block !important;
     width: 100% !important;
-    padding: 12px 14px !important;
+    padding: 13px 15px !important;
     border: 1.5px solid #d4af37 !important;
-    border-radius: 12px !important;
-    background-color: #fffdf8 !important;
-    color: #333333 !important;
+    border-radius: 14px !important;
+    background: rgba(255, 248, 220, 0.55) !important;
+    color: #5b3500 !important;
     font-size: 14px !important;
+    font-weight: 700 !important;
     font-family: inherit !important;
     box-sizing: border-box !important;
     outline: none !important;
@@ -100,26 +105,36 @@
     transition: all 0.25s ease !important;
 }
 
+/* Placeholders (Golden Brown Tone) */
+.request-form input::placeholder,
+.request-form textarea::placeholder {
+    color: #8C6B2D !important;
+    font-weight: 600 !important;
+    opacity: 0.85 !important;
+}
+
+/* Focus States */
 .request-form input[type="text"]:focus,
 .request-form textarea:focus {
     border-color: #5b3500 !important;
-    background-color: #ffffff !important;
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.35) !important;
+    background: rgba(255, 248, 220, 0.95) !important;
+    box-shadow: 0 0 0 3px rgba(91, 53, 0, 0.12) !important;
 }
 
 .request-form textarea {
     resize: vertical !important;
-    min-height: 90px !important;
+    min-height: 100px !important;
 }
 
-/* Button Layout Fix */
+/* Button Layout Fix (Matching Rounded Gold Button) */
 .request-button {
     width: 100% !important;
-    margin-top: 24px !important;
-    padding: 14px !important;
+    min-height: 52px !important;
+    margin-top: 22px !important;
+    padding: 12px 14px !important;
     border: none !important;
     border-radius: 28px !important;
-    background: linear-gradient(135deg, #f5d76e, #d4af37) !important;
+    background: linear-gradient(135deg, #e5b300, #d4af37) !important;
     color: #5b3500 !important;
     font-size: 16px !important;
     font-weight: 800 !important;
@@ -131,9 +146,46 @@
     gap: 8px !important;
     float: none !important;
     clear: both !important;
+    transition: all 0.25s ease !important;
 }
 
 .request-button:hover {
     background: #b8860b !important;
-    color: #ffffff !important;
+    color: #5b3500 !important;
+    transform: translateY(-1px) !important;
+}
+
+.request-button:active {
+    transform: translateY(1px) !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .request-page {
+        margin: 15px auto 90px auto !important;
+        padding: 0 12px !important;
+    }
+
+    .request-header {
+        padding: 18px 16px !important;
+    }
+
+    .request-header h2 {
+        font-size: 20px !important;
+    }
+
+    .request-form {
+        padding: 18px 16px !important;
+    }
+
+    .request-form input[type="text"],
+    .request-form textarea {
+        padding: 12px 14px !important;
+        font-size: 13.5px !important;
+    }
+
+    .request-button {
+        min-height: 48px !important;
+        font-size: 15px !important;
+    }
 }
