@@ -1,128 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlLang">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version | FILMY OTT</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Watch History | FILMY OTT</title>
-
-<link rel="stylesheet" href="home.css">
-<link rel="stylesheet" href="watch-history.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="version.css?v=11">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
 <!-- HEADER -->
-
 <header class="header">
+    <div class="brand">
+        <img src="logo-192.png" alt="FILMY OTT Logo">
+        <div>
+            <h2>FILMY OTT</h2>
+            <p>Premium Entertainment</p>
+        </div>
+    </div>
 
-<div class="brand">
-
-<img src="logo-192.png" alt="FILMY OTT">
-
-<div>
-
-<h2>FILMY OTT</h2>
-
-<p>Premium Entertainment</p>
-
-</div>
-
-</div>
-
-<div class="profile" onclick="history.back()">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</div>
-
+    <a href="settings.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span data-lang="back">Back</span>
+    </a>
 </header>
 
-<!-- WATCH HISTORY -->
+<!-- VERSION SECTION -->
+<main class="version-page">
+    <section class="version-section">
 
-<section class="movies">
+        <div class="version-header">
+            <h2>🚀 FILMY OTT v1.0.0</h2>
+            <p class="release-date" data-lang="firstStable">First Stable Release</p>
+        </div>
 
-<h2>
+        <!-- WHAT'S NEW CARD -->
+        <div class="version-card">
+            <h3 class="card-title">✨ <span data-lang="whatsNew">What's New</span></h3>
+            <ul class="feature-list">
+                <li><span class="emoji">🎬</span> <span data-lang="homePremium">Home Page with Premium UI</span></li>
+                <li><span class="emoji">📂</span> <span data-lang="categories">Categories</span></li>
+                <li><span class="emoji">🔥</span> <span data-lang="trending">Trending Movies</span></li>
+                <li><span class="emoji">⭐</span> <span data-lang="topRated">Top Rated Movies</span></li>
+                <li><span class="emoji">👀</span> <span data-lang="mostWatched">Most Watched</span></li>
+                <li><span class="emoji">🆕</span> <span data-lang="latestMovies">Latest Movies</span></li>
+                <li><span class="emoji">🎞️</span> <span data-lang="comingSoon">Coming Soon</span></li>
+                <li><span class="emoji">🎥</span> <span data-lang="movieDetails">Movie Details</span></li>
+                <li><span class="emoji">▶️</span> <span data-lang="videoPlayer">Video Player</span></li>
+                <li><span class="emoji">🔍</span> <span data-lang="searchMovies">Search Movies</span></li>
+                <li><span class="emoji">❤️</span> <span data-lang="myList">My List</span></li>
+                <li><span class="emoji">🌐</span> <span data-lang="multiLanguage">Multi Language Support</span></li>
+                <li><span class="emoji">⚙️</span> <span data-lang="playbackSettings">Playback Settings</span></li>
+                <li><span class="emoji">📩</span> <span data-lang="contactUs">Contact Us</span></li>
+                <li><span class="emoji">⭐</span> <span data-lang="rateApp">Rate App</span></li>
+                <li><span class="emoji">👑</span> <span data-lang="adminPanel">Admin Panel</span></li>
+                <li><span class="emoji">📢</span> <span data-lang="notifications">Notifications</span></li>
+                <li><span class="emoji">☁️</span> <span data-lang="supabase">Supabase Database</span></li>
+                <li><span class="emoji">☁️</span> <span data-lang="cloudinary">Cloudinary Upload</span></li>
+            </ul>
+        </div>
 
-🕒 <span data-lang="watchHistory">Watch History</span>
+        <!-- DEVELOPER CARD -->
+        <div class="version-card text-center">
+            <h3 class="card-title text-center">🛠️ <span data-lang="developer">Developer</span></h3>
+            <p class="dev-name"><strong>Lekharaj Gurjar</strong></p>
+            <p class="dev-subtitle">Powered By LRGujjar26</p>
+        </div>
 
-</h2>
+        <!-- CURRENT VERSION CARD -->
+        <div class="version-card text-center">
+            <h3 class="card-title text-center">📌 <span data-lang="currentVersion">Current Version</span></h3>
+            <h1 class="version-number">v1.0.0</h1>
+        </div>
 
-<div id="historyMovies" class="movie-row">
+    </section>
+</main>
 
-<p data-lang="loading">
-
-Loading...
-
-</p>
-
-</div>
-
-</section>
-
-<!-- BOTTOM NAVIGATION -->
-
-<nav class="bottom-nav">
-
-<a href="home.html">
-
-<i class="fa-solid fa-house"></i>
-
-<span data-lang="home">Home</span>
-
-</a>
-
-<a href="movies-list.html">
-
-<i class="fa-solid fa-film"></i>
-
-<span data-lang="movies">Movies</span>
-
-</a>
-
-<a href="search.html">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<span data-lang="search">Search</span>
-
-</a>
-
-<a href="my-list.html">
-
-<i class="fa-solid fa-heart"></i>
-
-<span data-lang="myList">My List</span>
-
-</a>
-
-<a href="settings.html">
-
-<i class="fa-solid fa-gear"></i>
-
-<span data-lang="settings">Settings</span>
-
-</a>
-
-</nav>
-
-<script>
-
-function openProfile(){
-
-window.location.href="profile.html";
-
-}
-
-</script>
-
-<script type="module" src="watch-history.js"></script>
+<script type="module" src="language.js"></script>
+<script type="module" src="version.js"></script>
 
 </body>
-
 </html>
