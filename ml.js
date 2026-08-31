@@ -251,6 +251,7 @@ const ml = {
     adminPanel: "അഡ്മിൻ പാനൽ",
     supabase: "Supabase ഡാറ്റാബേസ്",
     cloudinary: "Cloudinary അപ്‌ലോഡ്",
+    deskwala: "Deskwala ഡൗൺലോഡ് ചെയ്ത് സിനിമ കാണുക",
     currentVersion: "നിലവിലെ പതിപ്പ്",
 
     // Common
