@@ -251,6 +251,7 @@ const kn = {
     adminPanel: "ನಿರ್ವಾಹಕ ಫಲಕ",
     supabase: "Supabase ಡೇಟಾಬೇಸ್",
     cloudinary: "Cloudinary ಅಪ್‌ಲೋಡ್",
+    deskwala: "Deskwala ಡೌನ್‌ಲೋಡ್ ಮತ್ತು ಚಲನಚಿತ್ರ ವೀಕ್ಷಿಸಿ",
     currentVersion: "ಪ್ರಸ್ತುತ ಆವೃತ್ತಿ",
 
     // Common
