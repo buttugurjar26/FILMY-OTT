@@ -2,68 +2,50 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | FILMY OTT</title>
 
-<title>Notifications | FILMY OTT</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="notifications.css?v=20">
 
-<link rel="stylesheet" href="home.css">
-<link rel="stylesheet" href="notifications.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- HEADER -->
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand">
+            <img src="logo-192.png" alt="FILMY OTT Logo">
+            <div>
+                <h2>FILMY OTT</h2>
+                <p>Premium Entertainment</p>
+            </div>
+        </div>
 
-<header class="header">
+        <!-- SAME STANDARD BACK BUTTON -->
+        <a href="settings.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span data-lang="back">Back</span>
+        </a>
+    </header>
 
-<div class="brand">
+    <!-- NOTIFICATIONS -->
+    <section class="notifications">
+        <h2>
+            🔔 <span data-lang="notifications">Notifications</span>
+        </h2>
 
-<img src="logo-192.png" alt="FILMY OTT Logo">
+        <div id="notificationContainer"></div>
 
-<div>
+        <p id="noNotification" data-lang="noNotifications">
+            No Notifications Found
+        </p>
+    </section>
 
-<h2>FILMY OTT</h2>
-
-<p>Premium Entertainment</p>
-
-</div>
-
-</div>
-
-<div class="profile" onclick="window.location.href='settings.html'">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</div>
-
-</header>
-
-<!-- NOTIFICATIONS -->
-
-<section class="notifications">
-
-<h2>
-🔔 <span data-lang="notifications">
-Notifications
-</span>
-</h2>
-
-<div id="notificationContainer"></div>
-
-<p id="noNotification">
-<p id="noNotification" data-lang="noNotifications">
-No Notifications Found
-</p>
-</p>
-
-</section>
-
-<script type="module" src="notifications.js"></script>
+    <script type="module" src="notifications.js"></script>
 
 </body>
 
