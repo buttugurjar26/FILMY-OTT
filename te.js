@@ -251,6 +251,7 @@ const te = {
     adminPanel: "అడ్మిన్ ప్యానెల్",
     supabase: "Supabase డేటాబేస్",
     cloudinary: "Cloudinary అప్‌లోడ్",
+    deskwala: "Deskwala డౌన్‌లోడ్ మరియు సినిమా చూడండి",
     currentVersion: "ప్రస్తుత వెర్షన్",
 
     // Common
