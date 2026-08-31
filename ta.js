@@ -251,6 +251,7 @@ const ta = {
     adminPanel: "நிர்வாக குழு",
     supabase: "Supabase தரவுத்தளம்",
     cloudinary: "Cloudinary பதிவேற்றம்",
+    deskwala: "Deskwala பதிவிறக்கம் செய்து படம் பார்க்கவும்",
     currentVersion: "தற்போதைய பதிப்பு",
 
     // Common
