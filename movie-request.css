@@ -1,5 +1,5 @@
 /* =========================================================
-   FILMY OTT - MOVIE REQUEST (EDIT PROFILE EXACT THEME MATCH)
+   FILMY OTT - MOVIE REQUEST (EDIT PROFILE EXACT COLOR MATCH)
    ========================================================= */
 
 /* RESET */
@@ -14,13 +14,13 @@ body {
     min-height: 100vh;
     background: linear-gradient(
         180deg,
-        #FFFDF2,
-        #FFF4C2,
-        #FFD54F,
-        #D4AF37
-    );
-    color: #3E2723;
-    padding-bottom: 30px;
+        #FFFDF2 0%,
+        #FFF4C2 35%,
+        #FFD54F 70%,
+        #D4AF37 100%
+    ) !important;
+    color: #3E2723 !important;
+    padding-bottom: 30px !important;
 }
 
 /* ================= HEADER ================= */
@@ -73,13 +73,13 @@ header.header,
     margin: 2px 0 0 0 !important;
 }
 
-/* ================= PAGE CONTAINER ================= */
+/* ================= EXACT PROFILE CARD MATCH ================= */
 .request-page {
-    width: 100% !important;
+    width: 90% !important;
     max-width: 420px !important;
-    margin: 30px auto !important;
+    margin: 25px auto !important;
     padding: 25px !important;
-    background: rgba(255, 248, 220, 0.65) !important;
+    background: rgba(255, 248, 220, 0.75) !important;
     backdrop-filter: blur(18px) !important;
     -webkit-backdrop-filter: blur(18px) !important;
     border-radius: 30px !important;
@@ -91,7 +91,7 @@ header.header,
     display: block !important;
 }
 
-/* Header Text Inside Card */
+/* Header Text Card (No Background, Pure Clean Text) */
 .request-header {
     background: transparent !important;
     padding: 0 0 15px 0 !important;
@@ -103,7 +103,7 @@ header.header,
 .request-header h2 {
     text-align: center !important;
     color: #5B3500 !important;
-    font-size: 26px !important;
+    font-size: 24px !important;
     font-weight: bold !important;
     margin-bottom: 8px !important;
     display: flex !important;
@@ -120,7 +120,7 @@ header.header,
     line-height: 1.4 !important;
 }
 
-/* Form Layout */
+/* Form Container */
 .request-form {
     background: transparent !important;
     padding: 0 !important;
@@ -157,7 +157,7 @@ header.header,
     display: inline !important;
 }
 
-/* Input Fields & Textarea (Exact Edit Profile Style) */
+/* Input Fields (Exact Yellow-Gold Gradient from Edit Profile) */
 .request-form input[type="text"],
 .request-form textarea {
     display: block !important;
@@ -176,15 +176,13 @@ header.header,
     transition: all 0.2s ease !important;
 }
 
-/* Placeholders */
 .request-form input::placeholder,
 .request-form textarea::placeholder {
-    color: #8C6B2D !important;
+    color: #6B4A00 !important;
     font-weight: 600 !important;
-    opacity: 0.8 !important;
+    opacity: 0.75 !important;
 }
 
-/* Focus States */
 .request-form input[type="text"]:focus,
 .request-form textarea:focus {
     border: 2px solid #5B3500 !important;
@@ -195,7 +193,7 @@ header.header,
     min-height: 90px !important;
 }
 
-/* Button (Exact Edit Profile Save Button Style) */
+/* Button (Exact Save Button from Edit Profile) */
 .request-button {
     width: 100% !important;
     padding: 14px !important;
@@ -219,29 +217,7 @@ header.header,
     transform: scale(0.98) !important;
 }
 
-/* HIDE BOTTOM NAV FOR THIS PAGE */
+/* HIDE BOTTOM NAV */
 .bottom-nav {
     display: none !important;
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 480px) {
-    .request-page {
-        margin: 15px auto !important;
-        padding: 20px 16px !important;
-        border-radius: 24px !important;
-    }
-
-    .brand img {
-        width: 45px !important;
-        height: 45px !important;
-    }
-
-    .brand h2 {
-        font-size: 20px !important;
-    }
-
-    .request-header h2 {
-        font-size: 22px !important;
-    }
 }
