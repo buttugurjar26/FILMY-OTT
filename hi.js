@@ -251,6 +251,7 @@ const hi = {
     adminPanel: "एडमिन पैनल",
     supabase: "Supabase डेटाबेस",
     cloudinary: "Cloudinary अपलोड",
+    deskwala: "Deskwala डाउनलोड और फिल्म देखें",
     currentVersion: "वर्तमान संस्करण",
 
     // Common
