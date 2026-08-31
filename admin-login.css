@@ -1,171 +1,196 @@
-/* ===========================
-   FILMY OTT ADMIN LOGIN
-=========================== */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-background:linear-gradient(
-180deg,
-#FFF4C2 0%,
-#FFD54F 45%,
-#D4AF37 100%
-);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:18px;
-color:#3E2723;
-overflow-x:hidden;
+body {
+    min-height: 100vh;
+    background: linear-gradient(
+        180deg,
+        #FFFDF2 0%,
+        #FFF4C2 35%,
+        #FFD54F 70%,
+        #D4AF37 100%
+    ) !important;
+    color: #3E2723 !important;
+    padding-bottom: 30px !important;
 }
 
-/* ===========================
-   ADMIN LOGIN CARD
-=========================== */
-
-.admin-login-card{
-width:100%;
-max-width:96%;
-background:rgba(255,248,220,.45);
-backdrop-filter:blur(18px);
--webkit-backdrop-filter:blur(18px);
-border:2px solid #D4AF37;
-border-radius:30px;
-padding:40px 30px;
-text-align:center;
-box-shadow:
-0 12px 35px rgba(0,0,0,.25),
-0 0 20px rgba(212,175,55,.25);
+/* HEADER */
+.header {
+    width: 100% !important;
+    padding: 15px 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-bottom: 1px solid #D4AF37 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
 }
 
-/* ===========================
-   LOGO
-=========================== */
-
-.admin-login-card img{
-width:100px;
-height:100px;
-border-radius:22px;
-margin-bottom:20px;
+.brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
 }
 
-/* ===========================
-   TITLE
-=========================== */
-
-.admin-login-card h2{
-font-size:34px;
-font-weight:700;
-color:#5B3500;
-margin-bottom:10px;
+.brand img {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
 }
 
-.admin-login-card p{
-font-size:16px;
-line-height:1.6;
-color:#6B4A00;
-margin-bottom:28px;
+.brand h2 {
+    font-size: 22px !important;
+    color: #5B3500 !important;
+    font-weight: bold !important;
+    margin: 0 !important;
 }
 
-/* ===========================
-   INPUT
-=========================== */
-
-.admin-login-card input{
-width:100%;
-height:58px;
-padding:0 18px;
-margin:12px 0;
-background:#FFFFFF;
-border:2px solid #D4AF37;
-border-radius:18px;
-outline:none;
-font-size:16px;
-color:#3E2723;
-transition:.3s;
-box-shadow:0 4px 10px rgba(0,0,0,.08);
+.brand p {
+    font-size: 12px !important;
+    color: #3E2723 !important;
 }
 
-.admin-login-card input:focus{
-border-color:#B8860B;
-box-shadow:0 0 10px rgba(212,175,55,.35);
+.back-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    text-decoration: none !important;
+    color: #5B3500 !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    padding: 8px 14px !important;
+    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
+    border: 1.5px solid #C99700 !important;
+    border-radius: 12px !important;
 }
 
-/* ===========================
-   BUTTON
-=========================== */
-
-.admin-login-card button{
-width:100%;
-height:58px;
-margin-top:20px;
-border:none;
-border-radius:18px;
-background:linear-gradient(180deg,#F2C300,#C99700);
-color:#FFFFFF;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-transition:.3s;
-box-shadow:0 8px 20px rgba(0,0,0,.25);
+/* CONTAINER */
+.admin-login-section {
+    width: 92% !important;
+    max-width: 450px !important;
+    margin: 30px auto !important;
 }
 
-.admin-login-card button:hover{
-transform:translateY(-2px);
-box-shadow:0 12px 25px rgba(0,0,0,.30);
+/* ADMIN LOGIN CARD */
+.admin-login-card {
+    width: 100% !important;
+    background: rgba(255, 248, 220, 0.75) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border-radius: 25px !important;
+    border: 2px solid #D4AF37 !important;
+    padding: 30px 22px !important;
+    text-align: center !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
 }
 
-/* ===========================
-   ERROR
-=========================== */
-
-#error{
-margin-top:18px;
-font-size:15px;
-font-weight:bold;
-color:#D32F2F;
+/* LOGO INSIDE CARD */
+.admin-login-card img {
+    width: 90px !important;
+    height: 90px !important;
+    border-radius: 20px !important;
+    margin-bottom: 15px !important;
 }
 
-/* ===========================
-   MOBILE
-=========================== */
-
-@media(max-width:480px){
-
-body{
-padding:10px;
+/* TITLE & SUBTITLE */
+.admin-login-card h2 {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: #5B3500 !important;
+    margin-bottom: 6px !important;
 }
 
-.admin-login-card{
-width:100%;
-max-width:100%;
-padding:30px 20px;
-border-radius:25px;
+.admin-login-card p {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    color: #6B4A00 !important;
+    font-weight: bold !important;
+    margin-bottom: 22px !important;
 }
 
-.admin-login-card img{
-width:90px;
-height:90px;
+/* INPUT FIELDS */
+.admin-login-card input {
+    width: 100% !important;
+    height: 52px !important;
+    padding: 0 16px !important;
+    margin: 8px 0 !important;
+    background: #FFFFFF !important;
+    border: 1.5px solid #D4AF37 !important;
+    border-radius: 16px !important;
+    outline: none !important;
+    font-size: 15px !important;
+    color: #3E2723 !important;
+    transition: .3s !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,.05) !important;
 }
 
-.admin-login-card h2{
-font-size:28px;
+.admin-login-card input:focus {
+    border-color: #B8860B !important;
+    box-shadow: 0 0 10px rgba(212,175,55,.35) !important;
 }
 
-.admin-login-card p{
-font-size:14px;
+/* LOGIN BUTTON */
+.admin-login-card button {
+    width: 100% !important;
+    height: 52px !important;
+    margin-top: 18px !important;
+    border: 1.5px solid #C99700 !important;
+    border-radius: 16px !important;
+    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
+    color: #5B3500 !important;
+    font-size: 17px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: .3s !important;
+    box-shadow: 0 6px 15px rgba(0,0,0,.1) !important;
 }
 
-.admin-login-card input,
-.admin-login-card button{
-height:54px;
-font-size:15px;
+.admin-login-card button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15) !important;
 }
 
+/* ERROR TEXT */
+#error {
+    margin-top: 15px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #D32F2F !important;
+}
+
+/* MOBILE RESPONSIVE */
+@media(max-width: 480px) {
+    .admin-login-card {
+        padding: 25px 18px !important;
+        border-radius: 20px !important;
+    }
+
+    .admin-login-card img {
+        width: 80px !important;
+        height: 80px !important;
+    }
+
+    .admin-login-card h2 {
+        font-size: 24px !important;
+    }
+
+    .admin-login-card p {
+        font-size: 14px !important;
+    }
+
+    .admin-login-card input,
+    .admin-login-card button {
+        height: 48px !important;
+        font-size: 14px !important;
+    }
 }
