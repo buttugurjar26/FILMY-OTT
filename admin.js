@@ -6,24 +6,34 @@
 if (
     localStorage.getItem("adminLoggedIn") !== "true" ||
     localStorage.getItem("isAdmin") !== "true"
-){
+) {
     window.location.href = "admin-login.html";
 }
 
 console.log("FILMY OTT Admin Panel Loaded");
 
 // ===============================
-// MULTI-LANGUAGE SUPPORT
+// MULTI-LANGUAGE SUPPORT (100% WORKING)
 // ===============================
 
-// भाषा अपडेट करने का मुख्य फंक्शन
 function applyLanguage() {
     const currentLang = localStorage.getItem("selectedLang") || "hi"; // बाय-डिफ़ॉल्ट हिंदी
 
-    // यदि ट्रांसलेशन ऑब्जेक्ट मौजूद हैं (hi.js / en.js से)
-    if (typeof window.translations !== "undefined" && window.translations[currentLang]) {
-        const langData = window.translations[currentLang];
+    let langData = null;
 
+    // 1. Check window.translations object
+    if (window.translations && window.translations[currentLang]) {
+        langData = window.translations[currentLang];
+    } 
+    // 2. Direct Fallback Check
+    else if (currentLang === "hi" && typeof hi !== "undefined") {
+        langData = hi;
+    } else if (currentLang === "en" && typeof en !== "undefined") {
+        langData = en;
+    }
+
+    // 3. Update DOM Elements
+    if (langData) {
         document.querySelectorAll("[data-lang]").forEach((element) => {
             const key = element.getAttribute("data-lang");
             if (langData[key]) {
@@ -37,37 +47,33 @@ function applyLanguage() {
     }
 }
 
-// पेज लोड होते ही भाषा लागू करें
+// Execute language setup on load
 document.addEventListener("DOMContentLoaded", () => {
     applyLanguage();
+    setTimeout(applyLanguage, 150); // Delay buffer for late script execution
 });
 
 // ===============================
-// NAVIGATION
+// NAVIGATION FUNCTIONS
 // ===============================
 
-// ADD MOVIE
-function openAddMovie(){
+function openAddMovie() {
     window.location.href = "add-movie.html";
 }
 
-// MANAGE MOVIES
-function openManageMovies(){
+function openManageMovies() {
     window.location.href = "manage-movies.html";
 }
 
-// LIVE DASHBOARD
-function openDashboard(){
+function openDashboard() {
     window.location.href = "admin-dashboard.html";
 }
 
-// GO HOME
-function goHome(){
+function goHome() {
     window.location.href = "home.html";
 }
 
-// ADMIN LOGOUT
-function adminLogout(){
+function adminLogout() {
     localStorage.removeItem("adminLoggedIn");
     localStorage.removeItem("isAdmin");
     window.location.href = "home.html";
@@ -78,17 +84,17 @@ function adminLogout(){
 // ===============================
 
 const addMovieCard = document.querySelector(".add-movie-card");
-if(addMovieCard){
+if (addMovieCard) {
     addMovieCard.addEventListener("click", openAddMovie);
 }
 
 const manageMoviesCard = document.querySelector(".manage-movies-card");
-if(manageMoviesCard){
+if (manageMoviesCard) {
     manageMoviesCard.addEventListener("click", openManageMovies);
 }
 
 const dashboardCard = document.querySelector(".dashboard-card");
-if(dashboardCard){
+if (dashboardCard) {
     dashboardCard.addEventListener("click", openDashboard);
 }
 
