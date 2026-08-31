@@ -1,5 +1,5 @@
 /* =========================================================
-   FILMY OTT - MOVIE REQUEST (COMPLETE COMBINED FIX)
+   FILMY OTT - MOVIE REQUEST (EDIT PROFILE EXACT THEME MATCH)
    ========================================================= */
 
 /* RESET */
@@ -11,18 +11,20 @@
 }
 
 body {
+    min-height: 100vh;
     background: linear-gradient(
         180deg,
-        #FFF4C2 0%,
-        #FFD54F 45%,
-        #D4AF37 100%
+        #FFFDF2,
+        #FFF4C2,
+        #FFD54F,
+        #D4AF37
     );
-    min-height: 100vh;
-    padding-bottom: 30px; /* Bottom Nav हटने के बाद नीचे की स्पेसिंग सही की गई */
-    color: #4a2800;
+    color: #3E2723;
+    padding-bottom: 30px;
 }
 
-/* ================= HEADER FIX (FROM HOME.CSS) ================= */
+/* ================= HEADER ================= */
+header.header, 
 .header {
     width: 100% !important;
     padding: 15px !important;
@@ -32,7 +34,7 @@ body {
     background: rgba(255, 255, 255, 0.35) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
-    border-bottom: 1px solid #d4af37 !important;
+    border-bottom: 1px solid #D4AF37 !important;
     position: sticky !important;
     top: 0 !important;
     z-index: 100 !important;
@@ -59,7 +61,7 @@ body {
 
 .brand h2 {
     font-size: 22px !important;
-    color: #4a2800 !important;
+    color: #5B3500 !important;
     font-weight: bold !important;
     margin: 0 !important;
     line-height: 1.1 !important;
@@ -67,171 +69,157 @@ body {
 
 .brand p {
     font-size: 12px !important;
-    color: #5c3400 !important;
+    color: #3E2723 !important;
     margin: 2px 0 0 0 !important;
-    font-weight: 600 !important;
 }
 
-/* ================= FORM CONTAINER ================= */
+/* ================= PAGE CONTAINER ================= */
 .request-page {
     width: 100% !important;
-    max-width: 480px !important;
-    margin: 20px auto !important;
-    padding: 0 15px !important;
+    max-width: 420px !important;
+    margin: 30px auto !important;
+    padding: 25px !important;
+    background: rgba(255, 248, 220, 0.65) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    border-radius: 30px !important;
+    border: 2px solid #D4AF37 !important;
+    box-shadow: 
+        0 12px 35px rgba(0, 0, 0, 0.18),
+        0 0 20px rgba(212, 175, 55, 0.2) !important;
     box-sizing: border-box !important;
-    float: none !important;
     display: block !important;
 }
 
-/* Header Text Card (Exact Settings Golden Gradient) */
+/* Header Text Inside Card */
 .request-header {
-    background: linear-gradient(180deg, #e6a100 0%, #cca000 100%) !important;
-    padding: 22px 20px !important;
-    border-radius: 18px 18px 0 0 !important;
-    border: 1px solid #b38600 !important;
-    border-bottom: 1px solid rgba(74, 40, 0, 0.15) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-    text-align: left !important;
+    background: transparent !important;
+    padding: 0 0 15px 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-align: center !important;
 }
 
 .request-header h2 {
-    margin: 0 0 8px 0 !important;
-    color: #3b1e00 !important;
-    font-size: 22px !important;
-    font-weight: 900 !important;
+    text-align: center !important;
+    color: #5B3500 !important;
+    font-size: 26px !important;
+    font-weight: bold !important;
+    margin-bottom: 8px !important;
     display: flex !important;
     align-items: center !important;
+    justify-content: center !important;
     gap: 8px !important;
 }
 
 .request-header p {
     margin: 0 !important;
-    color: #4a2800 !important;
+    color: #6B4A00 !important;
     font-size: 14px !important;
-    font-weight: 700 !important;
-    line-height: 1.5 !important;
+    font-weight: bold !important;
+    line-height: 1.4 !important;
 }
 
-/* Form Layout Fix (Exact Settings Box Style) */
+/* Form Layout */
 .request-form {
-    background: linear-gradient(180deg, #cca000 0%, #b88600 100%) !important;
-    padding: 22px 20px 25px 20px !important;
-    border-radius: 0 0 18px 18px !important;
-    border: 1px solid #b38600 !important;
-    border-top: none !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
-    justify-content: flex-start !important;
     width: 100% !important;
     box-sizing: border-box !important;
 }
 
-/* Labels Display Fix */
+/* Labels */
 .request-form label {
     display: block !important;
     width: 100% !important;
-    margin-top: 16px !important;
-    margin-bottom: 6px !important;
-    color: #3b1e00 !important;
+    margin-top: 15px !important;
+    margin-bottom: 7px !important;
+    color: #5B3500 !important;
     font-size: 15px !important;
-    font-weight: 900 !important;
+    font-weight: bold !important;
     text-align: left !important;
-    float: none !important;
-    clear: both !important;
 }
 
 .request-form label:first-of-type {
-    margin-top: 0 !important;
+    margin-top: 5px !important;
 }
 
 .request-form .optional-text {
-    color: #5c3400 !important;
+    color: #6B4A00 !important;
     font-size: 13px !important;
-    font-weight: 700 !important;
+    font-weight: normal !important;
     margin-left: 4px !important;
     display: inline !important;
 }
 
-/* Golden Light Input Fields & Textarea */
+/* Input Fields & Textarea (Exact Edit Profile Style) */
 .request-form input[type="text"],
 .request-form textarea {
     display: block !important;
     width: 100% !important;
-    padding: 13px 15px !important;
-    border: 1.5px solid #8c6400 !important;
-    border-radius: 14px !important;
-    background: #e6b400 !important;
-    color: #3b1e00 !important;
-    font-size: 14px !important;
-    font-weight: 800 !important;
-    font-family: inherit !important;
-    box-sizing: border-box !important;
+    padding: 13px !important;
+    border-radius: 15px !important;
+    border: 1.5px solid #C99700 !important;
+    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
     outline: none !important;
-    float: none !important;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    color: #5B3500 !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+    box-sizing: border-box !important;
     margin: 0 !important;
-    clear: both !important;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-    transition: all 0.25s ease !important;
+    transition: all 0.2s ease !important;
 }
 
 /* Placeholders */
 .request-form input::placeholder,
 .request-form textarea::placeholder {
-    color: #5c3400 !important;
-    font-weight: 700 !important;
+    color: #8C6B2D !important;
+    font-weight: 600 !important;
     opacity: 0.8 !important;
 }
 
 /* Focus States */
 .request-form input[type="text"]:focus,
 .request-form textarea:focus {
-    border-color: #3b1e00 !important;
-    background: #f0c000 !important;
-    box-shadow: 0 0 8px rgba(59, 30, 0, 0.3) !important;
+    border: 2px solid #5B3500 !important;
 }
 
 .request-form textarea {
     resize: vertical !important;
-    min-height: 100px !important;
+    min-height: 90px !important;
 }
 
-/* Request Button */
+/* Button (Exact Edit Profile Save Button Style) */
 .request-button {
     width: 100% !important;
-    min-height: 52px !important;
+    padding: 14px !important;
     margin-top: 22px !important;
-    padding: 12px 14px !important;
-    border: 1px solid #7a5400 !important;
-    border-radius: 28px !important;
-    background: linear-gradient(180deg, #d49b00 0%, #a87900 100%) !important;
-    color: #3b1e00 !important;
+    border: none !important;
+    border-radius: 20px !important;
+    background: linear-gradient(180deg, #F2C300, #C99700) !important;
+    color: #5B3500 !important;
     font-size: 16px !important;
-    font-weight: 900 !important;
+    font-weight: bold !important;
     cursor: pointer !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 8px !important;
-    float: none !important;
-    clear: both !important;
-    transition: all 0.25s ease !important;
-}
-
-.request-button:hover {
-    background: linear-gradient(180deg, #c48f00 0%, #996e00 100%) !important;
-    color: #3b1e00 !important;
-    transform: translateY(-1px) !important;
+    transition: transform 0.2s ease !important;
 }
 
 .request-button:active {
-    transform: translateY(1px) !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+    transform: scale(0.98) !important;
 }
 
-/* ================= BOTTOM NAV REMOVED FOR THIS PAGE ================= */
+/* HIDE BOTTOM NAV FOR THIS PAGE */
 .bottom-nav {
     display: none !important;
 }
@@ -240,30 +228,8 @@ body {
 @media (max-width: 480px) {
     .request-page {
         margin: 15px auto !important;
-        padding: 0 12px !important;
-    }
-
-    .request-header {
-        padding: 18px 16px !important;
-    }
-
-    .request-header h2 {
-        font-size: 20px !important;
-    }
-
-    .request-form {
-        padding: 18px 16px !important;
-    }
-
-    .request-form input[type="text"],
-    .request-form textarea {
-        padding: 12px 14px !important;
-        font-size: 13.5px !important;
-    }
-
-    .request-button {
-        min-height: 48px !important;
-        font-size: 15px !important;
+        padding: 20px 16px !important;
+        border-radius: 24px !important;
     }
 
     .brand img {
@@ -273,5 +239,9 @@ body {
 
     .brand h2 {
         font-size: 20px !important;
+    }
+
+    .request-header h2 {
+        font-size: 22px !important;
     }
 }
