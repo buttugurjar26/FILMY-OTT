@@ -1,67 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlLang">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Updates | FILMY OTT</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>News & Updates | FILMY OTT</title>
-
-<link rel="stylesheet" href="home.css">
-<link rel="stylesheet" href="news.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+    <!-- Standalone CSS File with Cache Versioning -->
+    <link rel="stylesheet" href="news.css?v=10">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="header">
+    <div class="brand">
+        <img src="logo-192.png" alt="FILMY OTT Logo">
+        <div>
+            <h2>FILMY OTT</h2>
+            <p>Premium Entertainment</p>
+        </div>
+    </div>
 
-<div class="brand">
-
-<img src="logo-192.png" alt="FILMY OTT Logo">
-
-<div>
-
-<h2>FILMY OTT</h2>
-
-<p>Premium Entertainment</p>
-
-</div>
-
-</div>
-
-<a href="settings.html" class="back-btn">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-<span data-lang="back">Back</span>
-
-</a>
-
+    <a href="settings.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span data-lang="back">Back</span>
+    </a>
 </header>
 
+<!-- NEWS & UPDATES SECTION -->
+<main class="news-page">
+    <section class="news-section">
+        <div class="news-header">
+            <h2 data-lang="newsUpdates">News & Updates</h2>
+            <p data-lang="newsDescription">
+                Stay updated with the latest announcements and app updates.
+            </p>
+        </div>
 
-<section class="news-section">
-  
-<h2 data-lang="newsUpdates">News & Updates</h2>
+        <!-- Dynamic News List -->
+        <div id="newsList" class="news-list">
+            <!-- News Cards Will Be Generated Here Via JavaScript -->
+        </div>
+    </section>
+</main>
 
-<p data-lang="newsDescription">
-Stay updated with the latest announcements and app updates.
-</p>
-
-<div id="newsList">
-
-<!-- News Cards -->
-
-</div>
-
-</section>
-
+<script type="module" src="language.js"></script>
 <script type="module" src="news.js"></script>
 
 </body>
-
 </html>
