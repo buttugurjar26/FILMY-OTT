@@ -251,6 +251,7 @@ const en = {
     adminPanel: "Admin Panel",
     supabase: "Supabase Database",
     cloudinary: "Cloudinary Upload",
+    deskwala: "Deskwala Download & Watch Movie",
     currentVersion: "Current Version",
 
     // Common
