@@ -2,224 +2,89 @@
 <html lang="en" id="htmlLang">
 
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Movie Request | FILMY OTT</title>
-
-<!-- Standalone CSS File (No Home.css or Settings.css required) -->
-<link rel="stylesheet" href="movie-request.css?v=4">
-
-<link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    rel="stylesheet"
->
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Request | FILMY OTT</title>
+    
+    <!-- Standalone CSS File -->
+    <link rel="stylesheet" href="movie-request.css?v=5">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
 <!-- HEADER -->
-
 <header class="header">
-
     <div class="brand">
-
         <img src="logo-192.png" alt="FILMY OTT Logo">
-
         <div>
-
             <h2>FILMY OTT</h2>
-
             <p>Premium Entertainment</p>
-
         </div>
-
     </div>
-
 </header>
 
-
 <!-- MOVIE REQUEST -->
-
 <section class="request-page">
-
     <div class="request-header">
-
         <h2>
             🎬
-            <span data-lang="movieRequest">
-                Movie Request
-            </span>
+            <span data-lang="movieRequest">Movie Request</span>
         </h2>
-
         <p data-lang="movieRequestDescription">
             Tell us which movie or web series you want to watch.
         </p>
-
     </div>
 
-
     <!-- REQUEST FORM -->
-
     <form class="request-form" id="movieRequestForm" onsubmit="return false;">
-
         <!-- Movie Name -->
-
-        <label
-            for="movieName"
-            data-lang="movieWebSeriesName"
-        >
+        <label for="movieName" data-lang="movieWebSeriesName">
             Movie / Web Series Name
         </label>
-
-        <input
-            type="text"
-            id="movieName"
-            name="movieName"
-            data-lang-placeholder="movieNamePlaceholder"
-            placeholder="Enter movie or web series name"
+        <input 
+            type="text" 
+            id="movieName" 
+            name="movieName" 
+            data-lang-placeholder="movieNamePlaceholder" 
+            placeholder="Enter movie or web series name" 
             required
         >
 
-
         <!-- Actor / Actress -->
-
         <label for="castName">
-
-            <span data-lang="actorActress">
-                Actor / Actress
-            </span>
-
-            <span
-                class="optional-text"
-                data-lang="optional"
-            >
-                (Optional)
-            </span>
-
+            <span data-lang="actorActress">Actor / Actress</span>
+            <span class="optional-text" data-lang="optional">(Optional)</span>
         </label>
-
-        <input
-            type="text"
-            id="castName"
-            name="castName"
-            data-lang-placeholder="castNamePlaceholder"
+        <input 
+            type="text" 
+            id="castName" 
+            name="castName" 
+            data-lang-placeholder="castNamePlaceholder" 
             placeholder="Enter actor or actress name"
         >
 
-
         <!-- Message -->
-
         <label for="requestMessage">
-
-            <span data-lang="message">
-                Message
-            </span>
-
-            <span
-                class="optional-text"
-                data-lang="optional"
-            >
-                (Optional)
-            </span>
-
+            <span data-lang="message">Message</span>
+            <span class="optional-text" data-lang="optional">(Optional)</span>
         </label>
-
-        <textarea
-            id="requestMessage"
-            name="requestMessage"
-            data-lang-placeholder="messagePlaceholder"
+        <textarea 
+            id="requestMessage" 
+            name="requestMessage" 
+            data-lang-placeholder="messagePlaceholder" 
             placeholder="Any additional information..."
         ></textarea>
 
-
         <!-- Submit -->
-
-        <button
-            type="submit"
-            class="request-button"
-            id="requestButton"
-        >
-
-            🎬
-
-            <span data-lang="sendRequest">
-                Send Request
-            </span>
-
+        <button type="submit" class="request-button" id="requestButton">
+            🎬 <span data-lang="sendRequest">Send Request</span>
         </button>
-
     </form>
-
 </section>
-
-
-<!-- BOTTOM NAVIGATION -->
-
-<nav class="bottom-nav">
-
-    <a href="home.html">
-
-        <i class="fa-solid fa-house"></i>
-
-        <span data-lang="home">
-            Home
-        </span>
-
-    </a>
-
-
-    <a href="movies-list.html">
-
-        <i class="fa-solid fa-film"></i>
-
-        <span data-lang="movies">
-            Movies
-        </span>
-
-    </a>
-
-
-    <a href="search.html">
-
-        <i class="fa-solid fa-magnifying-glass"></i>
-
-        <span data-lang="search">
-            Search
-        </span>
-
-    </a>
-
-
-    <a href="my-list.html">
-
-        <i class="fa-solid fa-heart"></i>
-
-        <span data-lang="myList">
-            My List
-        </span>
-
-    </a>
-
-
-    <a href="settings.html">
-
-        <i class="fa-solid fa-gear"></i>
-
-        <span data-lang="settings">
-            Settings
-        </span>
-
-    </a>
-
-</nav>
-
 
 <script type="module" src="language.js"></script>
 <script type="module" src="movie-request.js"></script>
 
 </body>
-
 </html>
