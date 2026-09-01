@@ -515,110 +515,102 @@ function loadUserRating() {
 }
 
 // =========================================
-// SUPABASE REALTIME & LIVE COMMENTS (ROBUST FIX)
+// SUPABASE REALTIME & LIVE COMMENTS (SUPER DEBUG & DIRECT FIX)
 // =========================================
 function setupComments() {
     const commentBtn = document.getElementById("commentBtn");
     const input = document.getElementById("commentInput");
     const list = document.getElementById("commentsList");
 
-    if (!commentBtn || !input || !list) return;
+    if (!commentBtn || !input || !list) {
+        console.error("Comment elements not found on DOM!");
+        return;
+    }
 
+    // Load Existing Comments On Init
     fetchAndRenderComments();
 
     commentBtn.addEventListener("click", async function () {
         if (!checkAuth("post comments")) return;
 
         const text = input.value.trim();
-        if (!text) return;
+        if (!text) {
+            alert("Please enter a comment!");
+            return;
+        }
 
         try {
-            const { data: { user } } = await supabase.auth.getUser();
-            
-            // Validate UUID string format for user_id
-            let currentUserId = user?.id || localStorage.getItem("userId");
-            const isValidUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(currentUserId);
+            commentBtn.disabled = true;
 
+            // Direct Insert Payload
             const insertPayload = {
                 movie_id: String(movieId),
                 text: text
             };
 
-            if (isValidUUID) {
-                insertPayload.user_id = currentUserId;
-            }
+            console.log("Attempting to insert comment:", insertPayload);
 
-            const { error } = await supabase
+            const { data, error } = await supabase
                 .from("comments")
-                .insert([insertPayload]);
+                .insert([insertPayload])
+                .select();
 
             if (error) {
-                console.error("Supabase Comment Insert Error:", error);
-                alert("Failed to post comment: " + error.message);
+                console.error("Supabase Comment Insert Error Details:", error);
+                alert("Database Error: " + (error.message || JSON.stringify(error)));
+                commentBtn.disabled = false;
                 return;
             }
 
+            console.log("Comment inserted successfully:", data);
             input.value = "";
+            commentBtn.disabled = false;
+            
+            // Re-fetch comments
             await fetchAndRenderComments();
         } catch (err) {
             console.error("Comment Post Exception:", err);
+            alert("Unexpected error: " + err.message);
+            commentBtn.disabled = false;
         }
     });
 
     async function fetchAndRenderComments() {
         try {
-            // Step 1: Fetch Comments
             const { data: comments, error } = await supabase
                 .from("comments")
-                .select("id, text, created_at, user_id")
+                .select("*")
                 .eq("movie_id", String(movieId))
                 .order("created_at", { ascending: false });
 
-            if (error || !comments || comments.length === 0) {
+            if (error) {
+                console.error("Fetch Comments Error:", error);
+                list.innerHTML = `<p class="no-comments">Error loading comments: ${error.message}</p>`;
+                return;
+            }
+
+            if (!comments || comments.length === 0) {
                 list.innerHTML = `<p class="no-comments" data-lang="noCommentsYet">No comments yet.</p>`;
                 if (typeof applyLanguage === "function") applyLanguage();
                 return;
             }
 
-            // Step 2: Fetch Profiles for associated user_ids
-            const userIds = [...new Set(comments.map(c => c.user_id).filter(Boolean))];
-            let profilesMap = {};
-
-            if (userIds.length > 0) {
-                const { data: profiles } = await supabase
-                    .from("profiles")
-                    .select("id, name, avatar_url, username")
-                    .in("id", userIds);
-
-                if (profiles) {
-                    profiles.forEach(p => {
-                        profilesMap[p.id] = p;
-                    });
-                }
-            }
-
-            // Step 3: Render Comments
+            // Render comments simply and clearly
             list.innerHTML = comments.map(c => {
-                const profile = profilesMap[c.user_id] || {};
-                const userName = profile.name || profile.username || "User";
-                const avatarUrl = profile.avatar_url || "logo-192.png";
-                const formattedTime = new Date(c.created_at).toLocaleString();
-
+                const formattedTime = c.created_at ? new Date(c.created_at).toLocaleString() : "";
                 return `
-                    <div class="comment-card" style="display:flex; gap:12px; align-items:flex-start; margin-bottom:12px;">
-                        <img src="${avatarUrl}" alt="${userName}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" onerror="this.src='logo-192.png'">
+                    <div class="comment-card" style="display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; background: rgba(255,255,255,0.05); padding:10px; border-radius:8px;">
+                        <img src="logo-192.png" alt="User" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
                         <div>
-                            <strong style="display:inline-block; margin-right:8px;">${userName}</strong> 
-                            <small style="opacity:0.7;">${formattedTime}</small>
-                            <p style="margin-top:4px;">${c.text}</p>
+                            <strong style="display:inline-block; margin-right:8px; color: #fff;">User</strong> 
+                            <small style="opacity:0.7; color: #ccc;">${formattedTime}</small>
+                            <p style="margin-top:4px; color: #eee;">${c.text}</p>
                         </div>
                     </div>
                 `;
             }).join("");
 
-            if (typeof applyLanguage === "function") {
-                applyLanguage();
-            }
+            if (typeof applyLanguage === "function") applyLanguage();
         } catch (err) {
             console.error("Comments Render Error:", err);
         }
