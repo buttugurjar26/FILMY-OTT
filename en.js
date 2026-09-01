@@ -176,6 +176,9 @@ const en = {
     aboutDescription: "FILMY OTT is a premium entertainment platform designed to provide a smooth and enjoyable movie and web series streaming experience. Our goal is to deliver high-quality entertainment with a clean, fast and user-friendly interface.",
     newsUpdates: "News & Updates",
     newsDescription: "Stay updated with the latest announcements and app updates.",
+    back: "Back",
+    adminLogin: "Admin Login",
+    login: "Login",
 
     // Login
     newLogin: "NEW LOGIN",
