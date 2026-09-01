@@ -2,8 +2,42 @@
 // FILMY OTT ADMIN LOGIN
 // ===============================
 
-function adminLogin() {
+// MULTI-LANGUAGE SUPPORT
+function applyLanguage() {
+    const currentLang = localStorage.getItem("selectedLang") || "hi";
 
+    let langData = null;
+
+    if (window.translations && window.translations[currentLang]) {
+        langData = window.translations[currentLang];
+    } else if (currentLang === "hi" && typeof hi !== "undefined") {
+        langData = hi;
+    } else if (currentLang === "en" && typeof en !== "undefined") {
+        langData = en;
+    }
+
+    if (langData) {
+        document.querySelectorAll("[data-lang]").forEach((element) => {
+            const key = element.getAttribute("data-lang");
+            if (langData[key]) {
+                if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+                    element.placeholder = langData[key];
+                } else {
+                    element.innerText = langData[key];
+                }
+            }
+        });
+    }
+}
+
+// DOM Load पर भाषा लागू करें
+document.addEventListener("DOMContentLoaded", () => {
+    applyLanguage();
+    setTimeout(applyLanguage, 150);
+});
+
+// ADMIN LOGIN FUNCTION
+function adminLogin() {
     const email = document.getElementById("adminEmail").value.trim();
     const password = document.getElementById("adminPassword").value.trim();
     const error = document.getElementById("error");
@@ -31,5 +65,8 @@ function adminLogin() {
         error.style.color = "red";
 
     }
-
 }
+
+// MAKE FUNCTIONS GLOBAL
+window.applyLanguage = applyLanguage;
+window.adminLogin = adminLogin;
