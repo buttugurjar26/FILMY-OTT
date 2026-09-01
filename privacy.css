@@ -52,8 +52,9 @@ header.header,
     margin: 2px 0 0 0 !important;
 }
 
-/* STANDARD YELLOW CAPSULE BACK BUTTON */
-.back-btn,
+/* HIGH-SPECIFICITY YELLOW CAPSULE BACK BUTTON FIX */
+header.header a.custom-back-btn,
+header.header .back-btn,
 .custom-back-btn {
     display: inline-flex !important;
     align-items: center !important;
@@ -71,7 +72,12 @@ header.header,
     transition: transform 0.2s ease !important;
 }
 
-.back-btn:active,
+header.header a.custom-back-btn span,
+header.header a.custom-back-btn i {
+    color: #5B3500 !important;
+}
+
+header.header a.custom-back-btn:active,
 .custom-back-btn:active {
     transform: scale(0.96) !important;
 }
@@ -91,10 +97,10 @@ header.header,
 }
 
 .privacy-card {
-    background: rgba(255, 252, 240, 0.85); /* Smooth light glass background */
+    background: rgba(255, 252, 240, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1.5px solid #E6C265; /* Smooth golden border matching original UI */
+    border: 1.5px solid #E6C265;
     border-radius: 20px;
     padding: 18px;
     margin-bottom: 15px;
