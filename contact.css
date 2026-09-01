@@ -77,15 +77,51 @@ body{
 
 }
 
+
+/* CAPSULE BACK BUTTON */
+
 .back-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
 
     text-decoration:none;
 
-    color:#6D4C41;
+    color:#5B3500;
 
-    font-size:18px;
+    font-size:14px;
 
     font-weight:bold;
+
+    padding:8px 16px;
+
+    background:linear-gradient(180deg, #FFE89C, #F7D046);
+
+    border:1.5px solid #C99700;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 6px rgba(0, 0, 0, 0.1);
+
+    cursor:pointer;
+
+    transition:transform 0.2s ease;
+
+}
+
+.back-btn i, 
+.back-btn span {
+    
+    color:#5B3500;
+
+}
+
+.back-btn:active{
+
+    transform:scale(0.96);
 
 }
 
