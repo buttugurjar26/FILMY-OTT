@@ -1,3 +1,5 @@
+import { applyLanguage } from "./language.js";
+
 // ===============================
 // FILMY OTT ADMIN LOGIN
 // ===============================
