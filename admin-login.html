@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login | FILMY OTT</title>
-    <link rel="stylesheet" href="admin-login.css?v=90">
+    <link rel="stylesheet" href="admin-login.css?v=10">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <a href="settings.html" class="back-btn">
+        <a href="settings.html" class="custom-back-btn">
             <i class="fa-solid fa-arrow-left"></i>
             <span data-lang="back">Back</span>
         </a>
@@ -32,17 +32,26 @@
         <div class="admin-login-card">
             <img src="logo-192.png" alt="FILMY OTT">
             <h2>FILMY OTT</h2>
-            <p>Admin Login</p>
+            <p data-lang="adminLogin">Admin Login</p>
 
-            <input type="email" id="adminEmail" placeholder="Enter Email">
-            <input type="password" id="adminPassword" placeholder="Enter Password">
+            <input type="email" id="adminEmail" placeholder="Enter Email" data-lang="enterEmail">
+            <input type="password" id="adminPassword" placeholder="Enter Password" data-lang="enterPassword">
 
-            <button type="button" onclick="adminLogin()">Login</button>
+            <button type="button" id="loginBtn" data-lang="login">Login</button>
             <p id="error"></p>
         </div>
     </section>
 
-    <script src="admin-login.js"></script>
+    <!-- ALL 6 LANGUAGE FILES (MUST LOAD BEFORE JS) -->
+    <script src="en.js"></script>
+    <script src="hi.js"></script>
+    <script src="kn.js"></script>
+    <script src="ml.js"></script>
+    <script src="ta.js"></script>
+    <script src="te.js"></script>
+
+    <!-- MAIN ADMIN LOGIN SCRIPT -->
+    <script src="admin-login.js?v=10"></script>
 
 </body>
 </html>
