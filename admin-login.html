@@ -2,57 +2,55 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | FILMY OTT</title>
-    <link rel="stylesheet" href="admin-login.css?v=10">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Login | FILMY OTT</title>
+
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="admin-login.css?v=10">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="brand">
-            <img src="logo-192.png" alt="FILMY OTT Logo">
-            <div>
-                <h2>FILMY OTT</h2>
-                <p>Premium Entertainment</p>
-            </div>
-        </div>
-
-        <a href="settings.html" class="custom-back-btn">
-            <i class="fa-solid fa-arrow-left"></i>
-            <span data-lang="back">Back</span>
-        </a>
-    </header>
-
-    <!-- ADMIN LOGIN CONTAINER -->
-    <section class="admin-login-section">
-        <div class="admin-login-card">
-            <img src="logo-192.png" alt="FILMY OTT">
+<header class="header">
+    <div class="brand">
+        <img src="logo-192.png" alt="FILMY OTT Logo">
+        <div>
             <h2>FILMY OTT</h2>
-            <p data-lang="adminLogin">Admin Login</p>
-
-            <!-- SIMPLE INPUT FIELDS (NO LANGUAGE CHANGE) -->
-            <input type="email" id="adminEmail" placeholder="Enter Email">
-            <input type="password" id="adminPassword" placeholder="Enter Password">
-
-            <button type="button" id="loginBtn" data-lang="login">Login</button>
-            <p id="error"></p>
+            <p>Premium Entertainment</p>
         </div>
-    </section>
+    </div>
 
-    <!-- ALL 6 LANGUAGE FILES -->
-    <script src="en.js"></script>
-    <script src="hi.js"></script>
-    <script src="kn.js"></script>
-    <script src="ml.js"></script>
-    <script src="ta.js"></script>
-    <script src="te.js"></script>
+    <a href="settings.html" class="custom-back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span data-lang="back">Back</span>
+    </a>
+</header>
 
-    <!-- MAIN ADMIN LOGIN SCRIPT -->
-    <script src="admin-login.js?v=10"></script>
+<section class="admin-login-section">
+    <div class="admin-login-card">
+        <img src="logo-192.png" alt="FILMY OTT">
+        <h2>FILMY OTT</h2>
+        <p data-lang="adminLogin">Admin Login</p>
+
+        <input type="email" id="adminEmail" placeholder="Enter Email">
+        <input type="password" id="adminPassword" placeholder="Enter Password">
+
+        <button type="button" id="loginBtn" onclick="adminLogin()">
+            <span data-lang="login">Login</span>
+        </button>
+        <p id="error"></p>
+    </div>
+</section>
+
+<!-- SCRIPT EXACTLY LIKE PROFILE HTML -->
+<script type="module" src="admin-login.js?v=10"></script>
 
 </body>
+
 </html>
