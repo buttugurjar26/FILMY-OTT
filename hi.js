@@ -176,6 +176,9 @@ const hi = {
     aboutDescription: "FILMY OTT एक प्रीमियम मनोरंजन प्लेटफ़ॉर्म है, जिसे फिल्मों और वेब सीरीज़ का सहज, तेज़ और उच्च गुणवत्ता वाला अनुभव देने के लिए डिज़ाइन किया गया है।",
     newsUpdates: "समाचार और अपडेट",
     newsDescription: "नवीनतम घोषणाओं और ऐप अपडेट के साथ हमेशा अपडेट रहें।",
+    back: "वापस",
+    adminLogin: "एडमिन लॉगिन",
+    login: "लॉगिन",
 
     // Login
     newLogin: "नया लॉगिन",
@@ -206,6 +209,7 @@ const hi = {
     passwordsDoNotMatch: "पासवर्ड मेल नहीं खाते।",
     passwordMinLength: "पासवर्ड कम से कम 8 अक्षरों का होना चाहिए।",
     accountCreated: "खाता सफलतापूर्वक बना लिया गया।",
+
 
     // Forgot Password
     forgotPassword: "पासवर्ड भूल गए?",
