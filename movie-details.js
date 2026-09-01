@@ -515,19 +515,15 @@ function loadUserRating() {
 }
 
 // =========================================
-// SUPABASE REALTIME & LIVE COMMENTS (SUPER DEBUG & DIRECT FIX)
+// SUPABASE REALTIME & LIVE COMMENTS (COUNT & USERNAME FIX)
 // =========================================
 function setupComments() {
     const commentBtn = document.getElementById("commentBtn");
     const input = document.getElementById("commentInput");
     const list = document.getElementById("commentsList");
 
-    if (!commentBtn || !input || !list) {
-        console.error("Comment elements not found on DOM!");
-        return;
-    }
+    if (!commentBtn || !input || !list) return;
 
-    // Load Existing Comments On Init
     fetchAndRenderComments();
 
     commentBtn.addEventListener("click", async function () {
@@ -542,80 +538,121 @@ function setupComments() {
         try {
             commentBtn.disabled = true;
 
-            // Direct Insert Payload
+            // 1. Get Logged in User ID (Supabase Auth or LocalStorage)
+            const { data: { user } } = await supabase.auth.getUser();
+            let currentUserId = user?.id || localStorage.getItem("userId") || null;
+
+            // Validate UUID Format for Supabase Foreign Key
+            const isValidUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(currentUserId);
+
             const insertPayload = {
                 movie_id: String(movieId),
                 text: text
             };
 
-            console.log("Attempting to insert comment:", insertPayload);
+            if (isValidUUID) {
+                insertPayload.user_id = currentUserId;
+            }
 
-            const { data, error } = await supabase
+            const { error } = await supabase
                 .from("comments")
-                .insert([insertPayload])
-                .select();
+                .insert([insertPayload]);
 
             if (error) {
-                console.error("Supabase Comment Insert Error Details:", error);
-                alert("Database Error: " + (error.message || JSON.stringify(error)));
+                console.error("Supabase Comment Insert Error:", error);
+                alert("Failed to post comment: " + error.message);
                 commentBtn.disabled = false;
                 return;
             }
 
-            console.log("Comment inserted successfully:", data);
             input.value = "";
             commentBtn.disabled = false;
             
-            // Re-fetch comments
+            // Re-fetch comments & update count badge
             await fetchAndRenderComments();
         } catch (err) {
             console.error("Comment Post Exception:", err);
-            alert("Unexpected error: " + err.message);
             commentBtn.disabled = false;
         }
     });
 
     async function fetchAndRenderComments() {
         try {
+            // Step 1: Fetch Comments
             const { data: comments, error } = await supabase
                 .from("comments")
-                .select("*")
+                .select("id, text, created_at, user_id")
                 .eq("movie_id", String(movieId))
                 .order("created_at", { ascending: false });
 
-            if (error) {
-                console.error("Fetch Comments Error:", error);
-                list.innerHTML = `<p class="no-comments">Error loading comments: ${error.message}</p>`;
-                return;
+            // Step 2: Update Comments Count Badge on Tab Header
+            const commentsTabBtn = document.getElementById("commentsTabBtn");
+            const totalComments = (comments && !error) ? comments.length : 0;
+            
+            if (commentsTabBtn) {
+                const badge = commentsTabBtn.querySelector("sup") || commentsTabBtn.querySelector(".badge");
+                if (badge) {
+                    badge.textContent = totalComments;
+                }
             }
 
-            if (!comments || comments.length === 0) {
+            if (error || !comments || comments.length === 0) {
                 list.innerHTML = `<p class="no-comments" data-lang="noCommentsYet">No comments yet.</p>`;
                 if (typeof applyLanguage === "function") applyLanguage();
                 return;
             }
 
-            // Render comments simply and clearly
+            // Step 3: Fetch Profiles for linked user_ids
+            const userIds = [...new Set(comments.map(c => c.user_id).filter(Boolean))];
+            let profilesMap = {};
+
+            if (userIds.length > 0) {
+                const { data: profiles } = await supabase
+                    .from("profiles")
+                    .select("id, name, avatar_url, username")
+                    .in("id", userIds);
+
+                if (profiles) {
+                    profiles.forEach(p => {
+                        profilesMap[p.id] = p;
+                    });
+                }
+            }
+
+            // Step 4: Fallback Local Data (Logged in User Details)
+            const localUserName = localStorage.getItem("userName") || localStorage.getItem("user_name") || "User";
+            const localAvatar = localStorage.getItem("userAvatar") || localStorage.getItem("avatar_url") || "logo-192.png";
+
+            // Step 5: Render Comments List
             list.innerHTML = comments.map(c => {
+                const profile = profilesMap[c.user_id] || {};
+                const userName = profile.name || profile.username || localUserName;
+                const avatarUrl = profile.avatar_url || localAvatar;
                 const formattedTime = c.created_at ? new Date(c.created_at).toLocaleString() : "";
+
                 return `
-                    <div class="comment-card" style="display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; background: rgba(255,255,255,0.05); padding:10px; border-radius:8px;">
-                        <img src="logo-192.png" alt="User" style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
-                        <div>
-                            <strong style="display:inline-block; margin-right:8px; color: #fff;">User</strong> 
-                            <small style="opacity:0.7; color: #ccc;">${formattedTime}</small>
-                            <p style="margin-top:4px; color: #eee;">${c.text}</p>
+                    <div class="comment-card" style="display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; padding:12px; border-radius:12px; background: rgba(0,0,0,0.15);">
+                        <img src="${avatarUrl}" alt="${userName}" style="width:42px; height:42px; border-radius:50%; object-fit:cover;" onerror="this.src='logo-192.png'">
+                        <div style="flex:1;">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <strong style="color: #fff; font-size: 14px;">${userName}</strong> 
+                                <small style="opacity:0.6; color: #fff; font-size: 11px;">${formattedTime}</small>
+                            </div>
+                            <p style="margin-top:6px; color: #fff; font-size: 13px; line-height: 1.4;">${c.text}</p>
                         </div>
                     </div>
                 `;
             }).join("");
 
-            if (typeof applyLanguage === "function") applyLanguage();
+            if (typeof applyLanguage === "function") {
+                applyLanguage();
+            }
         } catch (err) {
             console.error("Comments Render Error:", err);
         }
     }
 }
+
 
 // =========================================
 // DETAILS TABS & RELATED MOVIES
