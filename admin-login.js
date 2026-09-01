@@ -1,41 +1,16 @@
+import { applyLanguage } from "./language.js";
+
 // ===============================
-// FILMY OTT ADMIN LOGIN JS
+// FILMY OTT ADMIN LOGIN
 // ===============================
 
-// MULTI-LANGUAGE SUPPORT (FOR BACK, ADMIN LOGIN & LOGIN BUTTON ONLY)
-function applyLanguage() {
-    const currentLang = localStorage.getItem("selectedLang") || "en";
-    let langData = null;
-
-    // 1. Direct variable access (en, hi, kn, ml, ta, te)
-    else if (currentLang === "en" && typeof en !== "undefined") langData = en;
-    else if (currentLang === "hi" && typeof hi !== "undefined") langData = hi;
-    else if (currentLang === "kn" && typeof kn !== "undefined") langData = kn;
-    else if (currentLang === "ml" && typeof ml !== "undefined") langData = ml;
-    else if (currentLang === "ta" && typeof ta !== "undefined") langData = ta;
-    else if (currentLang === "te" && typeof te !== "undefined") langData = te;
-    
-    // 2. Fallbacks
-    else if (window.translations && window.translations[currentLang]) {
-        langData = window.translations[currentLang];
-    } else if (window[currentLang]) {
-        langData = window[currentLang];
-    }
-
-    if (!langData) return;
-
-    // 3. Apply text translations only to elements with data-lang attribute
-    document.querySelectorAll("[data-lang]").forEach((element) => {
-        const key = element.getAttribute("data-lang");
-        
-        if (langData[key]) {
-            element.innerText = langData[key];
-        }
-    });
-}
+// DOM Load होते ही भाषा लागू करें
+document.addEventListener("DOMContentLoaded", () => {
+    applyLanguage();
+});
 
 // ADMIN LOGIN FUNCTION
-function adminLogin() {
+window.adminLogin = function () {
     const emailInput = document.getElementById("adminEmail");
     const passwordInput = document.getElementById("adminPassword");
     const error = document.getElementById("error");
@@ -59,7 +34,6 @@ function adminLogin() {
         localStorage.setItem("adminLoggedIn", "true");
         localStorage.setItem("isAdmin", "true");
 
-        // Redirect to Admin Panel
         window.location.href = "admin.html";
     } else {
         if (error) {
@@ -67,19 +41,12 @@ function adminLogin() {
             error.style.color = "red";
         }
     }
-}
+};
 
-// DOM LOAD EVENT
+// Event listener for login button click
 document.addEventListener("DOMContentLoaded", () => {
-    applyLanguage();
-    setTimeout(applyLanguage, 100);
-
     const loginBtn = document.getElementById("loginBtn");
     if (loginBtn) {
-        loginBtn.addEventListener("click", adminLogin);
+        loginBtn.addEventListener("click", window.adminLogin);
     }
 });
-
-// MAKE FUNCTIONS GLOBAL
-window.applyLanguage = applyLanguage;
-window.adminLogin = adminLogin;
