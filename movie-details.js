@@ -10,7 +10,7 @@ let isViewMoreExpanded = false;
 const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 const userId = localStorage.getItem("userId") || "guest_user";
 
-const getLikeKey = (id) => `filmy_ott_like_${userId}_${id}`;
+const getLikeKey = (id) => `filmy_ott_like_${userId}__${id}`;
 const getRatingKey = (id) => `filmy_ott_user_rating_${userId}_${id}`;
 const getProgressKey = (id) => `filmy_ott_progress_${userId}_${id}`;
 
@@ -199,7 +199,7 @@ async function fetchAndRenderCast(movie) {
 }
 
 // =========================================
-// WATCH MOVIE BUTTON (DISKWALA DIRECT LINK FIX)
+// WATCH MOVIE BUTTON
 // =========================================
 function setupWatchButton() {
     const watchBtn = document.getElementById("watchBtn");
@@ -220,7 +220,7 @@ function setupWatchButton() {
         if (videoUrl) {
             window.open(videoUrl, "_blank");
         } else {
-            alert("Diskwala movie link is not available in database.");
+            alert("Movie link is not available in database.");
         }
     });
 }
@@ -515,7 +515,7 @@ function loadUserRating() {
 }
 
 // =========================================
-// SUPABASE REALTIME & LIVE COMMENTS SETUP
+// SUPABASE REALTIME & LIVE COMMENTS (ROBUST FIX)
 // =========================================
 function setupComments() {
     const commentBtn = document.getElementById("commentBtn");
@@ -524,10 +524,8 @@ function setupComments() {
 
     if (!commentBtn || !input || !list) return;
 
-    // First load existing comments from Supabase
     fetchAndRenderComments();
 
-    // Event listener for posting comments
     commentBtn.addEventListener("click", async function () {
         if (!checkAuth("post comments")) return;
 
@@ -535,24 +533,28 @@ function setupComments() {
         if (!text) return;
 
         try {
-            // Get Current Supabase User
             const { data: { user } } = await supabase.auth.getUser();
-            const currentUserId = user ? user.id : userId;
+            
+            // Validate UUID string format for user_id
+            let currentUserId = user?.id || localStorage.getItem("userId");
+            const isValidUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(currentUserId);
 
-            // Insert comment referencing profile via user_id
+            const insertPayload = {
+                movie_id: String(movieId),
+                text: text
+            };
+
+            if (isValidUUID) {
+                insertPayload.user_id = currentUserId;
+            }
+
             const { error } = await supabase
                 .from("comments")
-                .insert([
-                    {
-                        movie_id: String(movieId),
-                        user_id: currentUserId,
-                        text: text
-                    }
-                ]);
+                .insert([insertPayload]);
 
             if (error) {
                 console.error("Supabase Comment Insert Error:", error);
-                alert("Failed to post comment. Make sure comments table exists.");
+                alert("Failed to post comment: " + error.message);
                 return;
             }
 
@@ -565,49 +567,54 @@ function setupComments() {
 
     async function fetchAndRenderComments() {
         try {
-            // Join query: Fetch comments with linked profiles info (Live Name & Avatar)
+            // Step 1: Fetch Comments
             const { data: comments, error } = await supabase
                 .from("comments")
-                .select(`
-                    id,
-                    text,
-                    created_at,
-                    profiles (
-                        name,
-                        avatar_url,
-                        username
-                    )
-                `)
+                .select("id, text, created_at, user_id")
                 .eq("movie_id", String(movieId))
                 .order("created_at", { ascending: false });
 
-            if (error) {
-                console.error("Supabase Comments Fetch Error:", error);
+            if (error || !comments || comments.length === 0) {
                 list.innerHTML = `<p class="no-comments" data-lang="noCommentsYet">No comments yet.</p>`;
+                if (typeof applyLanguage === "function") applyLanguage();
                 return;
             }
 
-            if (!comments || comments.length === 0) {
-                list.innerHTML = `<p class="no-comments" data-lang="noCommentsYet">No comments yet.</p>`;
-            } else {
-                list.innerHTML = comments.map(c => {
-                    const profile = c.profiles || {};
-                    const userName = profile.name || profile.username || "User";
-                    const avatarUrl = profile.avatar_url || "logo-192.png";
-                    const formattedTime = new Date(c.created_at).toLocaleString();
+            // Step 2: Fetch Profiles for associated user_ids
+            const userIds = [...new Set(comments.map(c => c.user_id).filter(Boolean))];
+            let profilesMap = {};
 
-                    return `
-                        <div class="comment-card" style="display:flex; gap:12px; align-items:flex-start; margin-bottom:12px;">
-                            <img src="${avatarUrl}" alt="${userName}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" onerror="this.src='logo-192.png'">
-                            <div>
-                                <strong style="display:inline-block; margin-right:8px;">${userName}</strong> 
-                                <small style="opacity:0.7;">${formattedTime}</small>
-                                <p style="margin-top:4px;">${c.text}</p>
-                            </div>
-                        </div>
-                    `;
-                }).join("");
+            if (userIds.length > 0) {
+                const { data: profiles } = await supabase
+                    .from("profiles")
+                    .select("id, name, avatar_url, username")
+                    .in("id", userIds);
+
+                if (profiles) {
+                    profiles.forEach(p => {
+                        profilesMap[p.id] = p;
+                    });
+                }
             }
+
+            // Step 3: Render Comments
+            list.innerHTML = comments.map(c => {
+                const profile = profilesMap[c.user_id] || {};
+                const userName = profile.name || profile.username || "User";
+                const avatarUrl = profile.avatar_url || "logo-192.png";
+                const formattedTime = new Date(c.created_at).toLocaleString();
+
+                return `
+                    <div class="comment-card" style="display:flex; gap:12px; align-items:flex-start; margin-bottom:12px;">
+                        <img src="${avatarUrl}" alt="${userName}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" onerror="this.src='logo-192.png'">
+                        <div>
+                            <strong style="display:inline-block; margin-right:8px;">${userName}</strong> 
+                            <small style="opacity:0.7;">${formattedTime}</small>
+                            <p style="margin-top:4px;">${c.text}</p>
+                        </div>
+                    </div>
+                `;
+            }).join("");
 
             if (typeof applyLanguage === "function") {
                 applyLanguage();
