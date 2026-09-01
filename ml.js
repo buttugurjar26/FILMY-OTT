@@ -179,6 +179,9 @@ const ml = {
     back: "തിരികെ",
     adminLogin: "അഡ്മിൻ ലോഗിൻ",
     login: "ലോഗിൻ",
+    back: "ಹಿಂತಿರುಗಿ",
+    adminLogin: "ಅಡ್ಮಿನ್ ಲಾಗಿನ್",
+    login: "ಲಾಗಿನ್",
 
     // Login
     newLogin: "പുതിയ ലോഗിൻ",
