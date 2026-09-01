@@ -628,7 +628,7 @@ function setupComments() {
                                 localStorage.getItem("profile_pic") || 
                                 "logo-192.png";
 
-            // 5. Render Comments to HTML
+                        // 5. Render Comments UI (GOLDEN CARD & CHOCOLATE GRAY TEXT)
             list.innerHTML = comments.map(c => {
                 const profile = profilesMap[c.user_id] || {};
                 const userName = profile.name || profile.full_name || profile.username || localUserName;
@@ -636,18 +636,19 @@ function setupComments() {
                 const formattedTime = c.created_at ? new Date(c.created_at).toLocaleString() : "";
 
                 return `
-                    <div class="comment-card" style="display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; padding:12px; border-radius:12px; background: rgba(0,0,0,0.15);">
-                        <img src="${avatarUrl}" alt="${userName}" style="width:42px; height:42px; border-radius:50%; object-fit:cover;" onerror="this.src='logo-192.png'">
+                    <div class="comment-card" style="display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; padding:12px; border-radius:12px; background: linear-gradient(135deg, #ffd700, #d4af37); box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                        <img src="${avatarUrl}" alt="${userName}" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:2px solid #3d2b1f;" onerror="this.src='logo-192.png'">
                         <div style="flex:1;">
                             <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <strong style="color: #fff; font-size: 14px;">${userName}</strong> 
-                                <small style="opacity:0.6; color: #fff; font-size: 11px;">${formattedTime}</small>
+                                <strong style="color: #3d2b1f; font-size: 15px; font-weight: 800;">${userName}</strong> 
+                                <small style="color: #5c4033; font-size: 11px; font-weight: 600;">${formattedTime}</small>
                             </div>
-                            <p style="margin-top:6px; color: #fff; font-size: 13px; line-height: 1.4;">${c.text}</p>
+                            <p style="margin-top:6px; color: #4a3525; font-size: 14px; font-weight: 600; line-height: 1.4; word-break: break-word;">${c.text}</p>
                         </div>
                     </div>
                 `;
             }).join("");
+
 
             if (typeof applyLanguage === "function") {
                 applyLanguage();
