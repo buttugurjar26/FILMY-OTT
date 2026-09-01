@@ -1,23 +1,22 @@
-import { applyLanguage } from "./language.js";
-
 // ===============================
-// FILMY OTT ADMIN LOGIN
+// FILMY OTT ADMIN LOGIN JS
 // ===============================
 
-// MULTI-LANGUAGE SUPPORT
+// MULTI-LANGUAGE SUPPORT (ALL 6 LANGUAGES)
 function applyLanguage() {
     const currentLang = localStorage.getItem("selectedLang") || "hi";
-
     let langData = null;
 
+    // 1. Check window.translations object
     if (window.translations && window.translations[currentLang]) {
         langData = window.translations[currentLang];
-    } else if (currentLang === "hi" && typeof hi !== "undefined") {
-        langData = hi;
-    } else if (currentLang === "en" && typeof en !== "undefined") {
-        langData = en;
+    } 
+    // 2. Direct Fallback Check for all 6 languages (en, hi, kn, ml, ta, te)
+    else if (window[currentLang] && typeof window[currentLang] === "object") {
+        langData = window[currentLang];
     }
 
+    // 3. Apply translations to DOM elements
     if (langData) {
         document.querySelectorAll("[data-lang]").forEach((element) => {
             const key = element.getAttribute("data-lang");
@@ -32,23 +31,21 @@ function applyLanguage() {
     }
 }
 
-// DOM Load पर भाषा लागू करें
-document.addEventListener("DOMContentLoaded", () => {
-    applyLanguage();
-    setTimeout(applyLanguage, 150);
-});
-
 // ADMIN LOGIN FUNCTION
 function adminLogin() {
-    const email = document.getElementById("adminEmail").value.trim();
-    const password = document.getElementById("adminPassword").value.trim();
+    const emailInput = document.getElementById("adminEmail");
+    const passwordInput = document.getElementById("adminPassword");
     const error = document.getElementById("error");
+
+    if (!emailInput || !passwordInput) return;
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
 
     const adminEmail = "lrgujjars26@gmail.com";
     const adminPassword = "lekhi0007";
 
     if (email === adminEmail && password === adminPassword) {
-
         // Remove User Session
         localStorage.removeItem("userId");
         localStorage.removeItem("userName");
@@ -60,14 +57,26 @@ function adminLogin() {
         localStorage.setItem("isAdmin", "true");
 
         window.location.href = "admin.html";
-
     } else {
-
-        error.innerText = "Invalid Email or Password";
-        error.style.color = "red";
-
+        if (error) {
+            error.innerText = "Invalid Email or Password";
+            error.style.color = "red";
+        }
     }
 }
+
+// DOM LOAD EVENT (HANDLES LANGUAGE & CLICK BINDING)
+document.addEventListener("DOMContentLoaded", () => {
+    // Apply Language immediately & with a slight buffer for late resources
+    applyLanguage();
+    setTimeout(applyLanguage, 150);
+
+    // Direct Event Listener Attachment (Guarantees Button Click Working)
+    const loginBtn = document.getElementById("loginBtn");
+    if (loginBtn) {
+        loginBtn.addEventListener("click", adminLogin);
+    }
+});
 
 // MAKE FUNCTIONS GLOBAL
 window.applyLanguage = applyLanguage;
