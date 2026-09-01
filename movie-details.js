@@ -210,7 +210,6 @@ function setupWatchButton() {
 
         const movie = window.currentMovie || {};
 
-        // Checking all possible Supabase DB column names for Diskwala URL
         const videoUrl = movie.watch_url || 
                          movie.movie_url || 
                          movie.video_url || 
@@ -219,11 +218,7 @@ function setupWatchButton() {
                          movie.link;
 
         if (videoUrl) {
-            // Diskwala link directly opens in a new tab:
             window.open(videoUrl, "_blank");
-            
-            // Agar aap naye tab ki jagah ISI tab me kholna chahe toh neeche wali line uncomment kar de:
-            // window.location.href = videoUrl;
         } else {
             alert("Diskwala movie link is not available in database.");
         }
@@ -450,7 +445,7 @@ function setListButtonState(saved) {
 }
 
 // =========================================
-// CAST, SHARE, RATING, COMMENTS & TABS
+// CAST, SHARE & RATING
 // =========================================
 function setupCastButton() {
     const castBtn = document.getElementById("castBtn");
@@ -519,6 +514,9 @@ function loadUserRating() {
     });
 }
 
+// =========================================
+// SUPABASE REALTIME & LIVE COMMENTS SETUP
+// =========================================
 function setupComments() {
     const commentBtn = document.getElementById("commentBtn");
     const input = document.getElementById("commentInput");
@@ -526,41 +524,103 @@ function setupComments() {
 
     if (!commentBtn || !input || !list) return;
 
-    const storageKey = "filmy_ott_comments_" + movieId;
-    let comments = JSON.parse(localStorage.getItem(storageKey) || "[]");
+    // First load existing comments from Supabase
+    fetchAndRenderComments();
 
-    renderComments();
-
-    commentBtn.addEventListener("click", function () {
+    // Event listener for posting comments
+    commentBtn.addEventListener("click", async function () {
         if (!checkAuth("post comments")) return;
 
         const text = input.value.trim();
         if (!text) return;
 
-        comments.push({ text: text, time: new Date().toLocaleString() });
-        localStorage.setItem(storageKey, JSON.stringify(comments));
-        input.value = "";
-        renderComments();
+        try {
+            // Get Current Supabase User
+            const { data: { user } } = await supabase.auth.getUser();
+            const currentUserId = user ? user.id : userId;
+
+            // Insert comment referencing profile via user_id
+            const { error } = await supabase
+                .from("comments")
+                .insert([
+                    {
+                        movie_id: String(movieId),
+                        user_id: currentUserId,
+                        text: text
+                    }
+                ]);
+
+            if (error) {
+                console.error("Supabase Comment Insert Error:", error);
+                alert("Failed to post comment. Make sure comments table exists.");
+                return;
+            }
+
+            input.value = "";
+            await fetchAndRenderComments();
+        } catch (err) {
+            console.error("Comment Post Exception:", err);
+        }
     });
 
-    function renderComments() {
-        if (comments.length === 0) {
-            list.innerHTML = `<p class="no-comments" data-lang="noCommentsYet">No comments yet.</p>`;
-        } else {
-            list.innerHTML = comments.map(c => `
-                <div class="comment-card">
-                    <strong>User</strong> <small>${c.time}</small>
-                    <p>${c.text}</p>
-                </div>
-            `).join("");
-        }
+    async function fetchAndRenderComments() {
+        try {
+            // Join query: Fetch comments with linked profiles info (Live Name & Avatar)
+            const { data: comments, error } = await supabase
+                .from("comments")
+                .select(`
+                    id,
+                    text,
+                    created_at,
+                    profiles (
+                        name,
+                        avatar_url,
+                        username
+                    )
+                `)
+                .eq("movie_id", String(movieId))
+                .order("created_at", { ascending: false });
 
-        if (typeof applyLanguage === "function") {
-            applyLanguage();
+            if (error) {
+                console.error("Supabase Comments Fetch Error:", error);
+                list.innerHTML = `<p class="no-comments" data-lang="noCommentsYet">No comments yet.</p>`;
+                return;
+            }
+
+            if (!comments || comments.length === 0) {
+                list.innerHTML = `<p class="no-comments" data-lang="noCommentsYet">No comments yet.</p>`;
+            } else {
+                list.innerHTML = comments.map(c => {
+                    const profile = c.profiles || {};
+                    const userName = profile.name || profile.username || "User";
+                    const avatarUrl = profile.avatar_url || "logo-192.png";
+                    const formattedTime = new Date(c.created_at).toLocaleString();
+
+                    return `
+                        <div class="comment-card" style="display:flex; gap:12px; align-items:flex-start; margin-bottom:12px;">
+                            <img src="${avatarUrl}" alt="${userName}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" onerror="this.src='logo-192.png'">
+                            <div>
+                                <strong style="display:inline-block; margin-right:8px;">${userName}</strong> 
+                                <small style="opacity:0.7;">${formattedTime}</small>
+                                <p style="margin-top:4px;">${c.text}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join("");
+            }
+
+            if (typeof applyLanguage === "function") {
+                applyLanguage();
+            }
+        } catch (err) {
+            console.error("Comments Render Error:", err);
         }
     }
 }
 
+// =========================================
+// DETAILS TABS & RELATED MOVIES
+// =========================================
 function setupDetailsTabs() {
     const detailsBtn = document.getElementById("detailsTabBtn");
     const ratingBtn = document.getElementById("ratingTabBtn");
