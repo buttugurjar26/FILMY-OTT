@@ -515,7 +515,7 @@ function loadUserRating() {
 }
 
 // =========================================
-// SUPABASE REALTIME & LIVE COMMENTS (COUNT & USERNAME FIX)
+// SUPABASE REALTIME & LIVE COMMENTS (FINAL FIX FOR HTML MATCHING)
 // =========================================
 function setupComments() {
     const commentBtn = document.getElementById("commentBtn");
@@ -538,11 +538,11 @@ function setupComments() {
         try {
             commentBtn.disabled = true;
 
-            // 1. Get Logged in User ID (Supabase Auth or LocalStorage)
+            // Get Current Logged In User
             const { data: { user } } = await supabase.auth.getUser();
-            let currentUserId = user?.id || localStorage.getItem("userId") || null;
+            let currentUserId = user?.id || localStorage.getItem("userId") || localStorage.getItem("user_id") || null;
 
-            // Validate UUID Format for Supabase Foreign Key
+            // Validate UUID String Format
             const isValidUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(currentUserId);
 
             const insertPayload = {
@@ -578,22 +578,19 @@ function setupComments() {
 
     async function fetchAndRenderComments() {
         try {
-            // Step 1: Fetch Comments
+            // 1. Fetch Comments from Supabase
             const { data: comments, error } = await supabase
                 .from("comments")
                 .select("id, text, created_at, user_id")
                 .eq("movie_id", String(movieId))
                 .order("created_at", { ascending: false });
 
-            // Step 2: Update Comments Count Badge on Tab Header
-            const commentsTabBtn = document.getElementById("commentsTabBtn");
             const totalComments = (comments && !error) ? comments.length : 0;
-            
-            if (commentsTabBtn) {
-                const badge = commentsTabBtn.querySelector("sup") || commentsTabBtn.querySelector(".badge");
-                if (badge) {
-                    badge.textContent = totalComments;
-                }
+
+            // 2. Update Count on <small id="commentCount"> Directly
+            const countElem = document.getElementById("commentCount");
+            if (countElem) {
+                countElem.textContent = totalComments;
             }
 
             if (error || !comments || comments.length === 0) {
@@ -602,14 +599,14 @@ function setupComments() {
                 return;
             }
 
-            // Step 3: Fetch Profiles for linked user_ids
+            // 3. Fetch Profiles Data from Supabase
             const userIds = [...new Set(comments.map(c => c.user_id).filter(Boolean))];
             let profilesMap = {};
 
             if (userIds.length > 0) {
                 const { data: profiles } = await supabase
                     .from("profiles")
-                    .select("id, name, avatar_url, username")
+                    .select("id, name, avatar_url, username, full_name")
                     .in("id", userIds);
 
                 if (profiles) {
@@ -619,14 +616,22 @@ function setupComments() {
                 }
             }
 
-            // Step 4: Fallback Local Data (Logged in User Details)
-            const localUserName = localStorage.getItem("userName") || localStorage.getItem("user_name") || "User";
-            const localAvatar = localStorage.getItem("userAvatar") || localStorage.getItem("avatar_url") || "logo-192.png";
+            // 4. Get Fallback Local Storage Data
+            const localUserName = localStorage.getItem("userName") || 
+                                  localStorage.getItem("name") || 
+                                  localStorage.getItem("user_name") || 
+                                  localStorage.getItem("full_name") || 
+                                  "Guest User";
 
-            // Step 5: Render Comments List
+            const localAvatar = localStorage.getItem("userAvatar") || 
+                                localStorage.getItem("avatar_url") || 
+                                localStorage.getItem("profile_pic") || 
+                                "logo-192.png";
+
+            // 5. Render Comments to HTML
             list.innerHTML = comments.map(c => {
                 const profile = profilesMap[c.user_id] || {};
-                const userName = profile.name || profile.username || localUserName;
+                const userName = profile.name || profile.full_name || profile.username || localUserName;
                 const avatarUrl = profile.avatar_url || localAvatar;
                 const formattedTime = c.created_at ? new Date(c.created_at).toLocaleString() : "";
 
@@ -652,7 +657,6 @@ function setupComments() {
         }
     }
 }
-
 
 // =========================================
 // DETAILS TABS & RELATED MOVIES
