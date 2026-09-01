@@ -2,32 +2,34 @@
 // FILMY OTT ADMIN LOGIN JS
 // ===============================
 
-// MULTI-LANGUAGE SUPPORT
+// MULTI-LANGUAGE SUPPORT (FOR BACK, ADMIN LOGIN & LOGIN BUTTON ONLY)
 function applyLanguage() {
-    const currentLang = localStorage.getItem("selectedLang") || "hi";
+    const currentLang = localStorage.getItem("selectedLang") || "en";
     let langData = null;
 
-    // 1. Global translations object check
-    if (window.translations && window.translations[currentLang]) {
+    // 1. Direct variable access (en, hi, kn, ml, ta, te)
+    else if (currentLang === "en" && typeof en !== "undefined") langData = en;
+    else if (currentLang === "hi" && typeof hi !== "undefined") langData = hi;
+    else if (currentLang === "kn" && typeof kn !== "undefined") langData = kn;
+    else if (currentLang === "ml" && typeof ml !== "undefined") langData = ml;
+    else if (currentLang === "ta" && typeof ta !== "undefined") langData = ta;
+    else if (currentLang === "te" && typeof te !== "undefined") langData = te;
+    
+    // 2. Fallbacks
+    else if (window.translations && window.translations[currentLang]) {
         langData = window.translations[currentLang];
-    } 
-    // 2. Direct Window Language object fallback (en, hi, kn, ml, ta, te)
-    else if (window[currentLang] && typeof window[currentLang] === "object") {
+    } else if (window[currentLang]) {
         langData = window[currentLang];
     }
 
     if (!langData) return;
 
-    // 3. Direct Key Mapping
+    // 3. Apply text translations only to elements with data-lang attribute
     document.querySelectorAll("[data-lang]").forEach((element) => {
         const key = element.getAttribute("data-lang");
         
         if (langData[key]) {
-            if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
-                element.placeholder = langData[key];
-            } else {
-                element.innerText = langData[key];
-            }
+            element.innerText = langData[key];
         }
     });
 }
@@ -47,14 +49,17 @@ function adminLogin() {
     const adminPassword = "lekhi0007";
 
     if (email === adminEmail && password === adminPassword) {
+        // Remove User Session
         localStorage.removeItem("userId");
         localStorage.removeItem("userName");
         localStorage.removeItem("userEmail");
         localStorage.removeItem("isLoggedIn");
 
+        // Create Admin Session
         localStorage.setItem("adminLoggedIn", "true");
         localStorage.setItem("isAdmin", "true");
 
+        // Redirect to Admin Panel
         window.location.href = "admin.html";
     } else {
         if (error) {
@@ -67,7 +72,7 @@ function adminLogin() {
 // DOM LOAD EVENT
 document.addEventListener("DOMContentLoaded", () => {
     applyLanguage();
-    setTimeout(applyLanguage, 150);
+    setTimeout(applyLanguage, 100);
 
     const loginBtn = document.getElementById("loginBtn");
     if (loginBtn) {
