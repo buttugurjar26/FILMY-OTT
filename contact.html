@@ -1,100 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | FILMY OTT</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Contact Us | FILMY OTT</title>
-
-<link rel="stylesheet" href="home.css">
-<link rel="stylesheet" href="contact.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+    <!-- Global CSS First, Specific CSS Second to Override -->
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="contact.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- HEADER -->
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand">
+            <img src="logo-192.png" alt="FILMY OTT Logo">
+            <div class="brand-text">
+                <h2>FILMY OTT</h2>
+                <p>Premium Entertainment</p>
+            </div>
+        </div>
+        <a href="settings.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span data-lang="back">Back</span>
+        </a>
+    </header>
 
-<header class="header">
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <h2>
+            <span class="emoji-icon">📩</span>
+            <span data-lang="contactUsTitle">Contact Us</span>
+        </h2>
 
-<div class="brand">
+        <p data-lang="contactUsDesc">
+            Need help, have a question, or want to share feedback? You can contact us anytime using the email address or Instagram profile below. We will do our best to respond as soon as possible.
+        </p>
 
-<img src="logo-192.png" alt="FILMY OTT Logo">
+        <div class="contact-card">
+            <div class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <div>
+                    <h3 data-lang="email">Email</h3>
+                    <a href="mailto:lkdanger907@gmail.com">lkdanger907@gmail.com</a>
+                </div>
+            </div>
 
-<div>
+            <div class="contact-item">
+                <i class="fa-brands fa-instagram"></i>
+                <div>
+                    <h3 data-lang="instagram">Instagram</h3>
+                    <a href="https://www.instagram.com/lrgujjar26/" target="_blank">@lrgujjar26</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<h2>FILMY OTT</h2>
-
-<p>Premium Entertainment</p>
-
-</div>
-
-</div>
-
-<a href="settings.html" class="back-btn">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-<span data-lang="back">Back</span>
-
-</a>
-
-</header>
-
-
-<!-- CONTACT SECTION -->
-
-<section class="contact-section">
-
-<h2 data-lang="contactUsTitle">📩 Contact Us</h2>
-  
-<p data-lang="contactUsDesc">Need help, have a question, or want to share feedback? You can contact us anytime using the email address or Instagram profile below. We will do our best to respond as soon as possible.
-</p>
-
-<div class="contact-card">
-
-<div class="contact-item">
-
-<i class="fa-solid fa-envelope"></i>
-
-<div>
-
-<h3 data-lang="email">Email</h3>
-
-<a href="mailto:lkdanger907@gmail.com">
-lkdanger907@gmail.com
-</a>
-
-</div>
-
-</div>
-
-<div class="contact-item">
-
-<i class="fa-brands fa-instagram"></i>
-
-<div>
-
-<h3 data-lang="instagram">Instagram</h3>
-
-<a href="https://www.instagram.com/lrgujjar26/" target="_blank">
-@lrgujjar26
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-  
-  <script type="module" src="contact.js"></script>
-
+    <script type="module" src="contact.js"></script>
 </body>
-
 </html>
