@@ -8,114 +8,78 @@
 body {
     background: linear-gradient(180deg, #FFF4C2, #FFD54F, #D4AF37);
     min-height: 100vh;
-    color: #3E2723;
+    color: #5b3500;
 }
 
-/* HEADER CONTAINER */
+/* HEADER (EXACTLY FROM RATE APP) */
 .header {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    padding: 12px 15px !important;
-    background: rgba(255, 255, 255, 0.35) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border-bottom: 1px solid #D4AF37 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #D4AF37;
 }
 
-/* BRAND LOGO & CONTAINER */
-.header .brand {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
+/* BRAND STYLING */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-/* LOGO CURVED CORNERS FIX (MATCHING RATE PAGE) */
-.header .brand img,
 .brand img {
-    width: 48px !important;
-    height: 48px !important;
-    border-radius: 14px !important;
-    object-fit: cover !important;
-    display: block !important;
-    padding: 3px !important;
-    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
-    border: 1.5px solid #C99700 !important;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.5) !important;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
 }
-/* BRAND TEXT (FORCE COLUMN LAYOUT: FILMY OTT ABOVE PREMIUM ENTERTAINMENT) */
-header.header .brand .brand-text,
-.header .brand div.brand-text,
+
 .brand div {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: flex-start !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
 }
 
-.brand-text h2,
 .brand h2 {
-    display: block !important;
-    font-size: 20px !important;
-    color: #6D4C41 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: 1.1 !important;
-    font-weight: bold !important;
-    background: transparent !important;
-    border: none !important;
+    font-size: 20px;
+    color: #6D4C41;
+    margin: 0;
+    line-height: 1.2;
 }
 
-.brand-text p,
 .brand p {
-    display: block !important;
-    font-size: 12px !important;
-    color: #5D4037 !important;
-    margin: 2px 0 0 0 !important;
-    padding: 0 !important;
-    line-height: 1.1 !important;
-    white-space: nowrap !important;
-    background: transparent !important;
-    border: none !important;
+    font-size: 12px;
+    color: #5D4037;
+    margin: 0;
+    line-height: 1.2;
 }
 
-/* CAPSULE BACK BUTTON STYLING */
-header.header a.back-btn,
-.header .back-btn,
+/* CAPSULE BACK BUTTON */
 .back-btn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 6px !important;
-    text-decoration: none !important;
-    color: #5B3500 !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-    padding: 8px 16px !important;
-    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
-    border: 1.5px solid #C99700 !important;
-    border-radius: 12px !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-    cursor: pointer !important;
-    transition: transform 0.2s ease !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #5B3500;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    background: linear-gradient(180deg, #FFE89C, #F7D046);
+    border: 1.5px solid #C99700;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
 .back-btn i,
 .back-btn span {
-    color: #5B3500 !important;
+    color: #5B3500;
 }
 
 .back-btn:active {
-    transform: scale(0.96) !important;
+    transform: scale(0.96);
 }
 
 /* CONTACT SECTION */
@@ -133,6 +97,7 @@ header.header a.back-btn,
     margin-bottom: 15px;
     color: #5D4037;
     font-size: 24px;
+    font-weight: 800;
 }
 
 .contact-section .emoji-icon {
@@ -145,6 +110,8 @@ header.header a.back-btn,
     line-height: 1.6;
     margin-bottom: 25px;
     font-size: 14px;
+    color: #5D4037;
+    font-weight: 600;
 }
 
 /* CONTACT CARD */
@@ -182,6 +149,7 @@ header.header a.back-btn,
     margin-bottom: 4px;
     color: #5D4037;
     font-size: 16px;
+    font-weight: 800;
 }
 
 .contact-item a {
