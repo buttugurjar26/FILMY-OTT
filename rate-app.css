@@ -1,247 +1,184 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-body{
-
-    background:linear-gradient(
-    180deg,
-    #FFF4C2,
-    #FFD54F,
-    #D4AF37
+body {
+    background: linear-gradient(
+        180deg,
+        #FFF4C2,
+        #FFD54F,
+        #D4AF37
     );
-
-    min-height:100vh;
-
-    color:#3E2723;
-
+    min-height: 100vh;
+    color: #3E2723;
 }
 
 
 /* HEADER */
-
-.header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:15px;
-
-    background:rgba(255,255,255,0.35);
-
-    backdrop-filter:blur(10px);
-
-    border-bottom:1px solid #D4AF37;
-
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #D4AF37;
 }
 
 
 /* CAPSULE BACK BUTTON */
-
-.back-btn{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:6px;
-
-    text-decoration:none;
-
-    color:#5B3500;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-    padding:8px 16px;
-
-    background:linear-gradient(180deg, #FFE89C, #F7D046);
-
-    border:1.5px solid #C99700;
-
-    border-radius:12px;
-
-    box-shadow:0 2px 6px rgba(0, 0, 0, 0.1);
-
-    cursor:pointer;
-
-    transition:transform 0.2s ease;
-
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #5B3500;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    background: linear-gradient(180deg, #FFE89C, #F7D046);
+    border: 1.5px solid #C99700;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
 .back-btn i,
 .back-btn span {
-
-    color:#5B3500;
-
+    color: #5B3500;
 }
 
-.back-btn:active{
-
-    transform:scale(0.96);
-
+.back-btn:active {
+    transform: scale(0.96);
 }
 
 
 /* RATE SECTION */
-
-.rate-section{
-
-    width:95%;
-
-    max-width:500px;
-
-    margin:30px auto;
-
-    padding:25px;
-
-    background:rgba(255,255,255,.35);
-
-    backdrop-filter:blur(10px);
-
-    border:1px solid #D4AF37;
-
-    border-radius:20px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.15);
-
+.rate-section {
+    width: 95%;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    background: rgba(255, 255, 255, .35);
+    backdrop-filter: blur(10px);
+    border: 1px solid #D4AF37;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
 }
 
-.rate-section h2{
-
-    text-align:center;
-
-    margin-bottom:15px;
-
+.rate-section h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #5B3500;
+    font-weight: 800;
 }
 
-.rate-section p{
-
-    text-align:center;
-
-    margin-bottom:20px;
-
+.rate-section p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #5B3500;
+    font-weight: 600;
 }
 
 
-/* STARS */
-
-.stars{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:12px;
-
-    margin:25px 0;
-
+/* STARS (MATCHED WITH THEME) */
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 25px 0;
 }
 
-.star{
-
-    font-size:38px;
-
-    color:#999;
-
-    cursor:pointer;
-
-    transition:.3s;
-
+.star,
+.stars i {
+    font-size: 38px;
+    color: #8C6B2D; /* Unselected Star Color */
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.star.active{
-
-    color:#FFD700;
-
-    transform:scale(1.15);
-
+.star.active,
+.stars i.active,
+.stars i.fa-solid {
+    color: #5B3500 !important; /* Selected Active Star Color */
+    transform: scale(1.15);
 }
 
 
-/* INPUT */
-
-.input-group{
-
-    margin-top:18px;
-
+/* INPUT & TEXTAREA (GOLDEN GRADIENT BOXES) */
+.input-group {
+    margin-top: 18px;
 }
 
-.input-group label{
-
-    display:block;
-
-    font-weight:bold;
-
-    margin-bottom:8px;
-
+.input-group label {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: #5B3500;
 }
 
 .input-group input,
-.input-group textarea{
+.input-group textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border-radius: 14px;
+    border: 1.5px solid #C99700;
+    background: linear-gradient(180deg, #FFE89C, #F7D046);
+    color: #5B3500;
+    font-size: 15px;
+    font-weight: 800;
+    outline: none;
+    resize: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
 
-    width:100%;
+/* PLACEHOLDER TEXT COLOR */
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #8C6B2D;
+    font-weight: 700;
+    opacity: 0.9;
+}
 
-    padding:12px;
-
-    border-radius:12px;
-
-    border:1px solid #D4AF37;
-
-    outline:none;
-
-    font-size:15px;
-
-    resize:none;
-
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: #5B3500;
+    box-shadow: 0 0 0 2px rgba(91, 53, 0, 0.15);
 }
 
 
-/* BUTTON */
-
-.submit-btn{
-
-    width:100%;
-
-    margin-top:25px;
-
-    padding:14px;
-
-    border:none;
-
-    border-radius:14px;
-
-    background:#B8860B;
-
-    color:#fff;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
+/* SUBMIT BUTTON (MATCHED WITH MOVIE REQUEST BUTTON) */
+.submit-btn {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    border: none;
+    border-radius: 28px;
+    background: linear-gradient(180deg, #F2C300, #C99700);
+    color: #5B3500;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(91, 53, 0, 0.2);
+    transition: all 0.25s ease;
 }
 
-.submit-btn:hover{
-
-    background:#8B6508;
-
+.submit-btn:hover {
+    background: linear-gradient(180deg, #e5b700, #b8860b);
+    transform: translateY(-1px);
 }
 
-#reviewStatus{
+.submit-btn:active {
+    transform: scale(0.98);
+}
 
-    margin-top:15px;
-
-    text-align:center;
-
-    font-weight:bold;
-
+#reviewStatus {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #5B3500;
 }
