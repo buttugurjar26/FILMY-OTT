@@ -1,122 +1,70 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Rate App | FILMY OTT</title>
-
-<link rel="stylesheet" href="home.css">
-<link rel="stylesheet" href="rate-app.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate App | FILMY OTT</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="rate-app.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- HEADER -->
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand">
+            <img src="logo-192.png" alt="FILMY OTT Logo">
+            <div>
+                <h2>FILMY OTT</h2>
+                <p>Premium Entertainment</p>
+            </div>
+        </div>
+        <a href="settings.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span data-lang="back">Back</span>
+        </a>
+    </header>
 
-<header class="header">
+    <!-- RATE APP -->
+    <section class="rate-section">
+        <h2><i class="fa-solid fa-star" style="color: #5b3500;"></i> <span data-lang="rateFilmy">Rate FILMY OTT</span></h2>
 
-<div class="brand">
+        <p data-lang="rateDescription">
+            We value your feedback. Please rate the app and share your experience.
+        </p>
 
-<img src="logo-192.png" alt="FILMY OTT Logo">
+        <!-- STARS -->
+        <div class="stars">
+            <i class="fa-solid fa-star star" data-rating="1"></i>
+            <i class="fa-solid fa-star star" data-rating="2"></i>
+            <i class="fa-solid fa-star star" data-rating="3"></i>
+            <i class="fa-solid fa-star star" data-rating="4"></i>
+            <i class="fa-solid fa-star star" data-rating="5"></i>
+        </div>
 
-<div>
+        <p id="ratingText" data-lang="tapStar">Tap a star to rate.</p>
 
-<h2>FILMY OTT</h2>
+        <!-- INPUT TITLE -->
+        <div class="input-group">
+            <label data-lang="reviewTitle">Review Title</label>
+            <input type="text" id="reviewTitle" placeholder="Enter review title">
+        </div>
 
-<p>Premium Entertainment</p>
+        <!-- INPUT MESSAGE -->
+        <div class="input-group">
+            <label data-lang="yourReview">Your Review</label>
+            <textarea id="reviewMessage" rows="5" placeholder="Write your review here..."></textarea>
+        </div>
 
-</div>
+        <!-- SUBMIT BUTTON -->
+        <button id="submitReview" class="submit-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span data-lang="submitReview">Submit Review</span>
+        </button>
 
-</div>
+        <p id="reviewStatus"></p>
+    </section>
 
-<a href="settings.html" class="back-btn">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-<span data-lang="back">Back</span>
-
-</a>
-
-</header>
-
-<!-- RATE APP -->
-
-<section class="rate-section">
-
-⭐ <h2 data-lang="rateFilmy">Rate FILMY OTT</h2>
-
-<p data-lang="rateDescription">
-We value your feedback. Please rate the app and share your experience.
-</p>
-
-<div class="stars">
-
-<i class="fa-regular fa-star star" data-rating="1"></i>
-
-<i class="fa-regular fa-star star" data-rating="2"></i>
-
-<i class="fa-regular fa-star star" data-rating="3"></i>
-
-<i class="fa-regular fa-star star" data-rating="4"></i>
-
-<i class="fa-regular fa-star star" data-rating="5"></i>
-
-</div>
-
-<p id="ratingText">
-
-<p id="ratingText" data-lang="tapStar">
-Tap a star to rate.
-</p>
-
-</p>
-
-<div class="input-group">
-
-<label data-lang="reviewTitle">Review Title</label>
-
-<input
-type="text"
-id="reviewTitle"
-placeholder="Enter review title">
-
-</div>
-
-<div class="input-group">
-
-<label data-lang="yourReview">Your Review</label>
-
-<textarea
-id="reviewMessage"
-rows="5"
-placeholder="Write your review here..."></textarea>
-
-</div>
-
-<button
-id="submitReview"
-class="submit-btn">
-
-<i class="fa-solid fa-paper-plane"></i>
-
-<span data-lang="submitReview">Submit Review</span>
-</button>
-
-</button>
-
-<p id="reviewStatus"></p>
-
-</section>
-
-<script type="module" src="rate-app.js"></script>
-
+    <script type="module" src="rate-app.js"></script>
 </body>
-
 </html>
