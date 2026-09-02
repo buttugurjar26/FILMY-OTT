@@ -29,31 +29,43 @@ body{
 }
 
 .brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
+    display:flex !important;
+    align-items:center !important;
+    gap:12px !important;
 }
 
 .brand img{
-    width:50px;
-    height:50px;
-    border-radius:12px;
+    width:50px !important;
+    height:50px !important;
+    border-radius:12px !important;
+}
+
+/* BRAND TEXT CONTAINER (FORCE COLUMN DIRECTION) */
+.brand div {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
 }
 
 .brand h2{
-    font-size:22px;
-    color:#6D4C41;
+    font-size:22px !important;
+    color:#6D4C41 !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
 }
 
 .brand p{
-    font-size:13px;
-    color:#5D4037;
+    font-size:13px !important;
+    color:#5D4037 !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
 }
 
 /* CAPSULE BACK BUTTON FIX (FORCE CONTAINER & STYLING) */
 header.header a,
 header.header div.profile,
-header.header div,
+header.header div.back-btn,
 .header .profile,
 .header .back-btn,
 .back-btn {
@@ -77,7 +89,7 @@ header.header div,
 /* OVERRIDE INNER TEXT/ICON COLOR */
 header.header a *,
 header.header div.profile *,
-header.header div *,
+header.header div.back-btn *,
 .header .profile *,
 .header .back-btn *,
 .back-btn * {
