@@ -11,75 +11,105 @@ body {
     color: #5b3500;
 }
 
-/* HEADER (EXACTLY FROM RATE APP) */
+/* HEADER BASE */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid #D4AF37;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 15px !important;
+    background: rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-bottom: 1px solid #D4AF37 !important;
 }
 
-/* BRAND STYLING */
+/* BRAND CONTAINER */
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
 }
 
+/* LOGO ROUNDED FIX (PRIVACY CSS METHOD) */
+.header .brand img,
+div.brand img,
 .brand img {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    object-fit: cover;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 12px !important;
+    -webkit-border-radius: 12px !important;
+    -moz-border-radius: 12px !important;
+    clip-path: inset(0 round 12px) !important;
+    -webkit-clip-path: inset(0 round 12px) !important;
+    overflow: hidden !important;
+    object-fit: cover !important;
+    display: block !important;
 }
 
-.brand div {
-    display: flex;
-    flex-direction: column;
+/* JS-PROOF TEXT STACKING */
+.brand .brand-text-wrapper,
+.brand-text-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
-.brand h2 {
-    font-size: 20px;
-    color: #6D4C41;
-    margin: 0;
-    line-height: 1.2;
+.brand-title {
+    display: block !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    color: #6D4C41 !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
 }
 
-.brand p {
-    font-size: 12px;
-    color: #5D4037;
-    margin: 0;
-    line-height: 1.2;
+.brand-sub {
+    display: block !important;
+    font-size: 12px !important;
+    color: #5D4037 !important;
+    line-height: 1.2 !important;
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+    background: transparent !important;
 }
 
 /* CAPSULE BACK BUTTON */
 .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-    color: #5B3500;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 8px 16px;
-    background: linear-gradient(180deg, #FFE89C, #F7D046);
-    border: 1.5px solid #C99700;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.2s ease;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    text-decoration: none !important;
+    color: #5B3500 !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    padding: 8px 16px !important;
+    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
+    border: 1.5px solid #C99700 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease !important;
 }
 
 .back-btn i,
 .back-btn span {
-    color: #5B3500;
+    color: #5B3500 !important;
 }
 
 .back-btn:active {
-    transform: scale(0.96);
+    transform: scale(0.96) !important;
 }
 
 /* CONTACT SECTION */
@@ -162,15 +192,4 @@ body {
 
 .contact-item a:hover {
     color: #B8860B;
-}
-
-/* FORCE ROUNDED CORNERS ON CONTACT LOGO */
-html body header.header div.brand img,
-html body .header .brand img,
-.brand img {
-    border-radius: 12px !important;
-    -webkit-border-radius: 12px !important;
-    -moz-border-radius: 12px !important;
-    overflow: hidden !important;
-    object-fit: cover !important;
 }
