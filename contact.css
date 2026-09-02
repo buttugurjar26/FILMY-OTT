@@ -35,16 +35,18 @@ body {
 }
 
 /* LOGO CURVED CORNERS FIX (MATCHING RATE PAGE) */
-.header .brand img {
+.header .brand img,
+.brand img {
     width: 48px !important;
     height: 48px !important;
-    border-radius: 12px !important;
+    border-radius: 14px !important;
     object-fit: cover !important;
     display: block !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
-    border: none !important;
+    padding: 3px !important;
+    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
+    border: 1.5px solid #C99700 !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.5) !important;
 }
-
 /* BRAND TEXT (FORCE COLUMN LAYOUT: FILMY OTT ABOVE PREMIUM ENTERTAINMENT) */
 header.header .brand .brand-text,
 .header .brand div.brand-text,
