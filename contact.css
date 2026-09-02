@@ -6,12 +6,7 @@
 }
 
 body {
-    background: linear-gradient(
-        180deg,
-        #FFF4C2,
-        #FFD54F,
-        #D4AF37
-    );
+    background: linear-gradient(180deg, #FFF4C2, #FFD54F, #D4AF37);
     min-height: 100vh;
     color: #3E2723;
 }
@@ -28,7 +23,7 @@ body {
     border-bottom: 1px solid #D4AF37 !important;
 }
 
-/* BRAND WRAPPER */
+/* BRAND LOGO & CONTAINER */
 .header .brand {
     display: flex !important;
     align-items: center !important;
@@ -39,7 +34,7 @@ body {
     padding: 0 !important;
 }
 
-/* FIX 1: LOGO SHAPE & CURVED CORNERS (ROUNDED) */
+/* LOGO CURVED CORNERS FIX (MATCHING RATE PAGE) */
 .header .brand img {
     width: 48px !important;
     height: 48px !important;
@@ -50,8 +45,10 @@ body {
     border: none !important;
 }
 
-/* FIX 2: TEXT ALIGNMENT (FILMY OTT ABOVE PREMIUM ENTERTAINMENT) */
-.header .brand div {
+/* BRAND TEXT (FORCE COLUMN LAYOUT: FILMY OTT ABOVE PREMIUM ENTERTAINMENT) */
+header.header .brand .brand-text,
+.header .brand div.brand-text,
+.brand div {
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
@@ -63,28 +60,33 @@ body {
     margin: 0 !important;
 }
 
-.header .brand h2 {
+.brand-text h2,
+.brand h2 {
+    display: block !important;
     font-size: 20px !important;
     color: #6D4C41 !important;
     margin: 0 !important;
     padding: 0 !important;
-    line-height: 1.2 !important;
+    line-height: 1.1 !important;
     font-weight: bold !important;
     background: transparent !important;
     border: none !important;
 }
 
-.header .brand p {
+.brand-text p,
+.brand p {
+    display: block !important;
     font-size: 12px !important;
     color: #5D4037 !important;
     margin: 2px 0 0 0 !important;
     padding: 0 !important;
-    line-height: 1.2 !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
     background: transparent !important;
     border: none !important;
 }
 
-/* FIX 3: CAPSULE BACK BUTTON STYLING */
+/* CAPSULE BACK BUTTON STYLING */
 header.header a.back-btn,
 .header .back-btn,
 .back-btn {
@@ -122,10 +124,18 @@ header.header a.back-btn,
 }
 
 .contact-section h2 {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     margin-bottom: 15px;
     color: #5D4037;
     font-size: 24px;
+}
+
+.contact-section .emoji-icon {
+    font-size: 24px;
+    display: inline-block;
 }
 
 .contact-section p {
