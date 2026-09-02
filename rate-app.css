@@ -6,16 +6,10 @@
 }
 
 body {
-    background: linear-gradient(
-        180deg,
-        #FFF4C2,
-        #FFD54F,
-        #D4AF37
-    );
+    background: linear-gradient(180deg, #FFF4C2, #FFD54F, #D4AF37);
     min-height: 100vh;
-    color: #3E2723;
+    color: #5b3500;
 }
-
 
 /* HEADER */
 .header {
@@ -27,7 +21,6 @@ body {
     backdrop-filter: blur(10px);
     border-bottom: 1px solid #D4AF37;
 }
-
 
 /* CAPSULE BACK BUTTON */
 .back-btn {
@@ -56,119 +49,133 @@ body {
     transform: scale(0.96);
 }
 
-
-/* RATE SECTION */
+/* RATE SECTION (MAIN CARD) */
 .rate-section {
     width: 95%;
     max-width: 500px;
     margin: 30px auto;
     padding: 25px;
-    background: rgba(255, 255, 255, .35);
+    background: rgba(255, 248, 220, 0.65) !important;
     backdrop-filter: blur(10px);
-    border: 1px solid #D4AF37;
+    border: 1.5px solid #D4AF37;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+    box-shadow: 0 10px 25px rgba(91, 53, 0, 0.12);
 }
 
 .rate-section h2 {
     text-align: center;
     margin-bottom: 15px;
-    color: #5B3500;
+    color: #5b3500 !important;
+    font-size: 24px;
     font-weight: 800;
 }
 
 .rate-section p {
     text-align: center;
-    margin-bottom: 20px;
-    color: #5B3500;
-    font-weight: 600;
+    margin-bottom: 15px;
+    color: #5b3500 !important;
+    font-size: 14px;
+    font-weight: 700;
 }
 
+#ratingText {
+    margin: -10px 0 15px 0;
+    font-weight: 800 !important;
+}
 
 /* STARS (MATCHED WITH THEME) */
 .stars {
     display: flex;
     justify-content: center;
     gap: 12px;
-    margin: 25px 0;
+    margin: 20px 0 15px;
 }
 
-.star,
-.stars i {
-    font-size: 38px;
-    color: #8C6B2D; /* Unselected Star Color */
+.stars i.star {
+    font-size: 38px !important;
+    color: #c49a37 !important; /* Default Empty Star Color */
     cursor: pointer;
     transition: transform 0.2s ease, color 0.2s ease;
+    opacity: 0.6;
 }
 
-.star.active,
-.stars i.active,
-.stars i.fa-solid {
-    color: #5B3500 !important; /* Selected Active Star Color */
-    transform: scale(1.15);
+.stars i.star.active {
+    color: #5b3500 !important; /* Selected Active Star Color */
+    opacity: 1;
+    transform: scale(1.18);
 }
 
-
-/* INPUT & TEXTAREA (GOLDEN GRADIENT BOXES) */
+/* INPUT GROUPS */
 .input-group {
     margin-top: 18px;
 }
 
 .input-group label {
     display: block;
-    font-weight: 800;
+    font-weight: 800 !important;
     margin-bottom: 8px;
-    color: #5B3500;
-}
-
-.input-group input,
-.input-group textarea {
-    width: 100%;
-    padding: 13px 15px;
-    border-radius: 14px;
-    border: 1.5px solid #C99700;
-    background: linear-gradient(180deg, #FFE89C, #F7D046);
-    color: #5B3500;
+    color: #5b3500 !important;
     font-size: 15px;
-    font-weight: 800;
-    outline: none;
-    resize: none;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* PLACEHOLDER TEXT COLOR */
-.input-group input::placeholder,
-.input-group textarea::placeholder {
-    color: #8C6B2D;
-    font-weight: 700;
-    opacity: 0.9;
+/* INPUT & TEXTAREA (MATCHED EXACTLY WITH MOVIE REQUEST) */
+#reviewTitle,
+#reviewMessage {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 13px 15px !important;
+    border-radius: 14px !important;
+    border: 1.5px solid #C99700 !important;
+    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
+    color: #5b3500 !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    outline: none !important;
+    resize: none !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05) !important;
 }
 
-.input-group input:focus,
-.input-group textarea:focus {
-    border-color: #5B3500;
-    box-shadow: 0 0 0 2px rgba(91, 53, 0, 0.15);
+/* PLACEHOLDER COLORS */
+#reviewTitle::placeholder,
+#reviewMessage::placeholder {
+    color: #8C6B2D !important;
+    font-weight: 700 !important;
+    opacity: 0.9 !important;
 }
 
+#reviewTitle:focus,
+#reviewMessage:focus {
+    border-color: #5b3500 !important;
+    box-shadow: 0 0 0 2px rgba(91, 53, 0, 0.15) !important;
+}
 
 /* SUBMIT BUTTON (MATCHED WITH MOVIE REQUEST BUTTON) */
 .submit-btn {
-    width: 100%;
-    margin-top: 25px;
-    padding: 14px;
-    border: none;
-    border-radius: 28px;
-    background: linear-gradient(180deg, #F2C300, #C99700);
-    color: #5B3500;
-    font-size: 16px;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(91, 53, 0, 0.2);
-    transition: all 0.25s ease;
+    width: 100% !important;
+    margin-top: 25px !important;
+    padding: 14px !important;
+    border: none !important;
+    border-radius: 28px !important;
+    background: linear-gradient(180deg, #F2C300, #C99700) !important;
+    color: #5b3500 !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 12px rgba(91, 53, 0, 0.2) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: all 0.25s ease !important;
+}
+
+.submit-btn i {
+    color: #5b3500 !important;
+    font-size: 16px !important;
 }
 
 .submit-btn:hover {
-    background: linear-gradient(180deg, #e5b700, #b8860b);
+    background: linear-gradient(180deg, #e5b700, #b8860b) !important;
     transform: translateY(-1px);
 }
 
@@ -179,6 +186,6 @@ body {
 #reviewStatus {
     margin-top: 15px;
     text-align: center;
-    font-weight: bold;
-    color: #5B3500;
+    font-weight: 800;
+    color: #5b3500;
 }
