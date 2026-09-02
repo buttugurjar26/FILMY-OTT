@@ -163,3 +163,14 @@ body {
 .contact-item a:hover {
     color: #B8860B;
 }
+
+/* FORCE ROUNDED CORNERS ON CONTACT LOGO */
+html body header.header div.brand img,
+html body .header .brand img,
+.brand img {
+    border-radius: 12px !important;
+    -webkit-border-radius: 12px !important;
+    -moz-border-radius: 12px !important;
+    overflow: hidden !important;
+    object-fit: cover !important;
+}
