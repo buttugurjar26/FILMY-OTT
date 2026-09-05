@@ -8,33 +8,26 @@
 body {
     background: linear-gradient(180deg, #FFF4C2 0%, #FFD54F 45%, #D4AF37 100%);
     min-height: 100vh;
-    padding-bottom: 70px; /* Space for Bottom Nav */
+    padding-bottom: 75px;
     color: #3E2723;
 }
 
 /* ==========================================
-   1. HERO BANNER SLIDER (16:9 ASPECT RATIO)
+   1. HERO BANNER SLIDER (PERFECT 16:9 FIX)
    ========================================== */
-.hero-slider-wrapper {
+.hero-container, #heroSlider, .hero-slider {
     position: relative;
-    width: 100%;
+    width: 94%;
+    margin: 10px auto 15px auto;
     aspect-ratio: 16 / 9; /* Standard 1280x720 Ratio */
-    max-height: 250px;
-    margin-bottom: 15px;
-    border-radius: 16px;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-#heroSlider {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.5s ease-in-out;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    background: #000;
 }
 
 .hero-slide {
-    min-width: 100%;
+    width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center;
@@ -47,7 +40,7 @@ body {
 
 .hero-overlay {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
     display: flex;
     justify-content: center;
@@ -57,168 +50,116 @@ body {
 .hero-play-btn {
     background: #FFD54F;
     color: #3E2723;
-    padding: 8px 24px;
+    padding: 6px 20px;
     border-radius: 20px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease;
-}
-
-.hero-play-btn:active {
-    transform: scale(0.95);
-}
-
-/* HERO INDICATOR DOTS */
-#heroDots {
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
     gap: 6px;
-    z-index: 5;
-}
-
-.hero-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    transition: all 0.3s ease;
-}
-
-.hero-dot.active {
-    width: 20px;
-    border-radius: 10px;
-    background: #FFD54F;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
 }
 
 /* ==========================================
-   2. MOVIE CARDS & GRID LAYOUT
+   2. MOVIE GRID LAYOUT (3-COLUMN EXACT MATCH)
    ========================================== */
 .section-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
     color: #5B3500;
-    margin: 15px 12px 10px 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    margin: 15px 10px 8px 10px;
 }
 
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding: 0 10px;
-    margin-bottom: 20px;
+/* Force 3 Columns */
+.movies-grid, .movie-grid, #upcomingMovies, #specialMovies, #trendingMovies {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+    padding: 0 10px !important;
+    margin-bottom: 15px;
 }
 
+/* CARD CONTAINER */
 .movie-card {
-    background: linear-gradient(180deg, #FFFDF8 0%, #FFF4C2 100%);
-    border: 1.5px solid #5B3500;
-    border-radius: 14px;
+    background: #FFFDF8;
+    border: 1.5px solid #D4AF37;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
 }
 
+/* PORTRAIT POSTER IMAGE */
 .movie-card img {
     width: 100%;
-    height: 135px;
+    height: 130px;
     object-fit: cover;
-    border-bottom: 1px solid #D4AF37;
+    display: block;
 }
 
-/* CARD DETAILS CONTAINER */
-.movie-card-info {
-    padding: 6px;
+/* ==========================================
+   3. TEXT OVERFLOW & "अभी देखें" FIX
+   ========================================== */
+.movie-card-content, .card-details, .movie-info {
+    padding: 5px;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
     text-align: center;
+    background: #FFFDF8;
 }
 
-/* TITLE NO-OVERFLOW FIX */
-.movie-card h3, .movie-title {
-    font-size: 11px;
+/* Title Single Line Cutoff */
+.movie-card h3, .movie-card h4, .movie-title {
+    font-size: 10.5px;
     font-weight: bold;
     color: #5B3500;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Long titles cut off with ... */
+    text-overflow: ellipsis;
     margin: 0;
 }
 
-/* CATEGORY / GENRE LABEL FIX */
-.movie-category {
-    font-size: 10px;
+/* Category Label */
+.movie-card p, .movie-category {
+    font-size: 9.5px;
     color: #6D4C41;
-    font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 4px;
+    margin: 0;
 }
 
-/* WATCH NOW / "अभी देखें" BUTTON FIX */
-.watch-btn, .movie-card a.button, .movie-card button {
+/* "अभी देखें" Watch Button Fix */
+.watch-btn, .movie-card button, .movie-card a {
     display: block;
     width: 100%;
-    padding: 5px 0;
+    padding: 4px 0;
     background: #FFD54F;
     color: #3E2723;
     font-size: 10px;
     font-weight: bold;
     border: 1px solid #D4AF37;
-    border-radius: 8px;
+    border-radius: 6px;
     text-align: center;
     text-decoration: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 2px;
-}
-
-.watch-btn:active {
-    background: #D4AF37;
-    color: #FFF;
+    margin-top: 3px;
 }
 
 /* ==========================================
-   3. MOBILE RESPONSIVENESS
+   4. MOBILE RESPONSIVE
    ========================================== */
 @media (max-width: 480px) {
-    .hero-slider-wrapper {
+    .hero-container, #heroSlider, .hero-slider {
+        width: 95%;
         aspect-ratio: 16 / 9;
-        max-height: 210px;
-    }
-
-    .movie-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-        padding: 0 8px;
     }
 
     .movie-card img {
-        height: 125px;
-    }
-
-    .movie-card h3 {
-        font-size: 10.5px;
-    }
-
-    .movie-category {
-        font-size: 9.5px;
-    }
-
-    .watch-btn {
-        font-size: 9.5px;
-        padding: 4px 0;
+        height: 120px;
     }
 }
