@@ -2,467 +2,224 @@ import { supabase } from "./supabase.js";
 import { applyLanguage } from "./language.js";
 
 let allMovies = [];
-
+let bannerIndex = 0;
+let bannerTimer = null;
 
 // ===============================
 // LOAD MOVIES
 // ===============================
-
-async function loadMovies(){
-
-    try{
-
+async function loadMovies() {
+    try {
         const { data, error } = await supabase
             .from("movies")
             .select("*")
-            .order("created_at", { ascending:false });
+            .order("created_at", { ascending: false });
 
-        if(error) throw error;
+        if (error) throw error;
 
         allMovies = data || [];
-        
         console.log("HOME MOVIES:", allMovies);
 
-        // ===============================
         // COMING SOON
-        // ===============================
-
         displayMovies(
             "comingSoonMovies",
-            allMovies
-                .filter(movie => movie.coming_soon === true)
-                .slice(0,9),
+            allMovies.filter(movie => movie.coming_soon === true).slice(0, 9),
             "scroll"
         );
 
-
-        // ===============================
         // FEATURED
-        // ===============================
-
         displayMovies(
             "featuredMovies",
-            allMovies
-                .filter(movie => movie.featured === true)
-                .slice(0,9),
+            allMovies.filter(movie => movie.featured === true).slice(0, 9),
             "scroll"
         );
 
-
-        // ===============================
         // TRENDING
-        // ===============================
-
         displayMovies(
             "trendingMovies",
-            allMovies
-                .filter(movie => movie.trending === true)
-                .slice(0,9),
+            allMovies.filter(movie => movie.trending === true).slice(0, 9),
             "scroll"
         );
 
-
-        // ===============================
         // MOST WATCHED
-        // ===============================
+        const mostWatched = [...allMovies].sort((a, b) => (b.views || 0) - (a.views || 0));
+        displayMovies("mostWatchedMovies", mostWatched.slice(0, 9), "scroll");
 
-        const mostWatched =
-            [...allMovies]
-            .sort((a,b) =>
-                (b.views || 0) - (a.views || 0)
-            );
-
-
-        displayMovies(
-            "mostWatchedMovies",
-            mostWatched.slice(0,9),
-            "scroll"
-        );
-
-
-        // ===============================
         // TOP RATED
-        // ===============================
+        const topRated = allMovies
+            .filter(movie => movie.rating && Number(movie.rating) > 0)
+            .sort((a, b) => Number(b.rating) - Number(a.rating));
+        displayMovies("topRatedMovies", topRated.slice(0, 9), "scroll");
 
-        const topRated =
-            allMovies
-            .filter(movie =>
-                movie.rating &&
-                Number(movie.rating) > 0
-            )
-            .sort((a,b) =>
-                Number(b.rating) - Number(a.rating)
-            );
-
-
-        displayMovies(
-            "topRatedMovies",
-            topRated.slice(0,9),
-            "scroll"
-        );
-
-
-        // ===============================
         // LATEST MOVIES
-        // ===============================
+        const latestMovies = [...allMovies].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        displayMovies("latestMovies", latestMovies.slice(0, 9), "scroll");
 
-        const latestMovies =
-            [...allMovies]
-            .sort((a,b) =>
-                new Date(b.created_at) -
-                new Date(a.created_at)
-            );
-
-
-        displayMovies(
-            "latestMovies",
-            latestMovies.slice(0,9),
-            "scroll"
-        );
-
+    } catch (error) {
+        console.error("Movie Load Error:", error);
     }
-
-    catch(error){
-
-        console.error(
-            "Movie Load Error:",
-            error
-        );
-
-    }
-
 }
 
-
-
 // ===============================
-// LOAD HOME BANNERS
+// LOAD HERO DYNAMIC MOVIE BANNERS
 // ===============================
+async function loadBanners() {
+    const heroSlider = document.getElementById("heroSlider");
+    const dotsContainer = document.getElementById("heroDots");
 
-async function loadBanners(){
+    if (!heroSlider) return;
 
-    const bannerSlider =
-        document.getElementById("bannerSlider");
+    try {
+        const { data: banners, error } = await supabase
+            .from("banners")
+            .select("*")
+            .eq("is_active", true)
+            .order("created_at", { ascending: false });
 
-    if(!bannerSlider) return;
+        if (error) throw error;
 
+        heroSlider.innerHTML = "";
+        if (dotsContainer) dotsContainer.innerHTML = "";
 
-    try{
-
-        const { data: banners, error } =
-            await supabase
-                .from("banners")
-                .select("*")
-                .eq("is_active", true)
-                .order("created_at", {
-                    ascending:false
-                });
-
-
-        if(error) throw error;
-
-
-        bannerSlider.innerHTML = "";
-
-
-        // ===============================
-        // NO BANNER
-        // ===============================
-
-        if(!banners || banners.length === 0){
-
-            bannerSlider.innerHTML = `
-
-                <img
-                    src="banner1.jpg"
-                    alt="FILMY OTT Banner">
-
+        // NO BANNER FALLBACK
+        if (!banners || banners.length === 0) {
+            heroSlider.innerHTML = `
+                <div class="hero-slide" style="background-image: url('banner1.jpg');">
+                    <div class="hero-overlay">
+                        <a href="movies-list.html" class="hero-play-btn">
+                            <i class="fa-solid fa-play"></i> PLAY
+                        </a>
+                    </div>
+                </div>
             `;
-
             return;
-
         }
 
+        // RENDER BANNERS WITH PLAY BUTTON LINKED TO MOVIE
+        heroSlider.innerHTML = banners.map(banner => {
+            const targetLink = banner.movie_id 
+                ? `movie-details.html?id=${banner.movie_id}` 
+                : (banner.link || "movies-list.html");
 
-        // ===============================
-        // DISPLAY BANNERS
-        // ===============================
-
-        banners.forEach(banner => {
-
-            bannerSlider.innerHTML += `
-
-                <img
-                    src="${banner.image_url}"
-                    alt="${banner.title || "FILMY OTT Banner"}">
-
+            return `
+                <div class="hero-slide" style="background-image: url('${banner.image_url || 'banner1.jpg'}');">
+                    <div class="hero-overlay">
+                        <a href="${targetLink}" class="hero-play-btn">
+                            <i class="fa-solid fa-play"></i> PLAY
+                        </a>
+                    </div>
+                </div>
             `;
+        }).join("");
 
-        });
+        // RENDER DOTS
+        if (dotsContainer && banners.length > 1) {
+            dotsContainer.innerHTML = banners.map((_, idx) => `
+                <span class="hero-dot ${idx === 0 ? 'active' : ''}"></span>
+            `).join("");
+        }
 
-
-        // Reset slider position
         bannerIndex = 0;
+        heroSlider.style.transform = `translateX(0%)`;
 
-        bannerSlider.scrollTo({
-            left: 0,
-            behavior: "auto"
-        });
-
+    } catch (error) {
+        console.error("Banner Load Error:", error);
     }
-
-    catch(error){
-
-        console.error(
-            "Banner Load Error:",
-            error
-        );
-
-    }
-
 }
 
-
-
 // ===============================
-// DISPLAY MOVIES
+// DISPLAY MOVIES GRID/SCROLL
 // ===============================
-
-function displayMovies(
-    section,
-    movies,
-    layout="scroll"
-){
-
-    const container =
-        document.getElementById(section);
-
-
-    if(!container) return;
-
+function displayMovies(section, movies, layout = "scroll") {
+    const container = document.getElementById(section);
+    if (!container) return;
 
     container.innerHTML = "";
+    container.className = layout === "scroll" ? "home-scroll" : "movie-grid";
 
-
-    if(layout === "scroll"){
-
-        container.className =
-            "home-scroll";
-
-    }
-
-    else{
-
-        container.className =
-            "movie-grid";
-
-    }
-
-
-    if(!movies || movies.length === 0){
-
-        container.innerHTML =
-            `<p class="empty-text">
-                No Movies Found
-            </p>`;
-
+    if (!movies || movies.length === 0) {
+        container.innerHTML = `<p class="empty-text">No Movies Found</p>`;
         return;
-
     }
-
 
     movies.forEach(movie => {
-
-        const card =
-            document.createElement("div");
-
-
-        card.className =
-            "movie-card";
-
+        const card = document.createElement("div");
+        card.className = "movie-card";
 
         card.onclick = () => {
-
-            window.location.href =
-                "movie-details.html?id=" +
-                movie.id;
-
+            window.location.href = "movie-details.html?id=" + movie.id;
         };
 
-
         card.innerHTML = `
-
-            <img
-                src="${movie.poster_url || "logo-192.png"}"
-                alt="${movie.title || "Movie"}">
-
-            <h3>
-                ${movie.title || "Movie"}
-            </h3>
-
-            <p>
-                ${movie.category || "Movie"}
-            </p>
-
-            <button data-lang="watchNow">
-                ▶ Watch Now
-            </button>
-
+            <img src="${movie.poster_url || "logo-192.png"}" alt="${movie.title || "Movie"}">
+            <h3>${movie.title || "Movie"}</h3>
+            <p>${movie.category || "Movie"}</p>
+            <button data-lang="watchNow">▶ Watch Now</button>
         `;
 
-
         container.appendChild(card);
-
     });
-
 }
 
-
-
 // ===============================
-// AUTO BANNER
+// AUTO HERO SLIDER
 // ===============================
+function autoSlider() {
+    const heroSlider = document.getElementById("heroSlider");
+    if (!heroSlider) return;
 
-let bannerIndex = 0;
+    if (bannerTimer) clearInterval(bannerTimer);
 
-let bannerTimer = null;
+    bannerTimer = setInterval(() => {
+        const slides = heroSlider.querySelectorAll(".hero-slide");
+        if (slides.length <= 1) return;
 
+        bannerIndex = (bannerIndex + 1) % slides.length;
+        heroSlider.style.transform = `translateX(-${bannerIndex * 100}%)`;
 
-function autoSlider(){
+        const dots = document.querySelectorAll(".hero-dot");
+        dots.forEach((dot, idx) => {
+            dot.classList.toggle("active", idx === bannerIndex);
+        });
 
-    const slider =
-        document.getElementById("bannerSlider");
-
-
-    if(!slider) return;
-
-
-    // Clear previous timer
-    if(bannerTimer){
-
-        clearInterval(bannerTimer);
-
-    }
-
-
-    bannerTimer =
-        setInterval(() => {
-
-            const banners =
-                slider.querySelectorAll("img");
-
-
-            if(banners.length <= 1){
-
-                return;
-
-            }
-
-
-            bannerIndex++;
-
-
-            if(
-                bannerIndex >=
-                banners.length
-            ){
-
-                bannerIndex = 0;
-
-            }
-
-
-            slider.scrollTo({
-
-                left:
-                    slider.clientWidth *
-                    bannerIndex,
-
-                behavior:
-                    "smooth"
-
-            });
-
-
-        }, 4000);
-
+    }, 4000);
 }
 
-
-
 // ===============================
-// START APP
+// GLOBAL PROFILE CLICK HANDLER
 // ===============================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async () => {
-
-        // Load movies
-        await loadMovies();
-
-        // Load Admin Banner Manager banners
-        await loadBanners();
-
-        // Start auto slider
-        autoSlider();
-
-        // Apply language
-        applyLanguage();
-
-    }
-);
-
-
-
-// ===============================
-// HEADER PROFILE AVATAR & CLICK FIX
-// ===============================
-
-const headerProfile =
-    document.getElementById(
-        "headerProfile"
-    );
-
-
-if(headerProfile){
-
-    const isLoggedIn =
-        localStorage.getItem(
-            "isLoggedIn"
-        );
-
-
-    const userAvatar =
-        localStorage.getItem(
-            "userAvatar"
-        );
-
-
-    headerProfile.src =
-        (
-            isLoggedIn === "true" &&
-            userAvatar
-        )
-        ?
-        userAvatar
-        :
-        "avatar-1.png";
-
-}
-
-// Global scope me function attach kiya hai taki html me onclick="openProfile()" chal sake
 window.openProfile = function() {
     window.location.href = "profile.html";
 };
 
-// Backup Event Listener (Direct DOM attach)
-document.addEventListener("DOMContentLoaded", () => {
-    const profileBtn = document.querySelector(".profile") || document.getElementById("headerProfile");
-    if (profileBtn) {
-        profileBtn.style.cursor = "pointer";
-        profileBtn.onclick = function() {
-            window.location.href = "profile.html";
-        };
-    }
+// ===============================
+// START APP
+// ===============================
+document.addEventListener("DOMContentLoaded", async () => {
+    requestAnimationFrame(async () => {
+        // 1. Profile Avatar Check
+        const headerProfile = document.getElementById("headerProfile");
+        if (headerProfile) {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+            const userAvatar = localStorage.getItem("userAvatar");
+            headerProfile.src = (isLoggedIn === "true" && userAvatar) ? userAvatar : "default-profile.png";
+        }
+
+        const profileBtn = document.querySelector(".profile");
+        if (profileBtn) {
+            profileBtn.onclick = window.openProfile;
+        }
+
+        // 2. Fetch Data from Supabase
+        await loadMovies();
+        await loadBanners();
+
+        // 3. Initialize Auto Slider & Languages
+        autoSlider();
+        try {
+            applyLanguage();
+        } catch (e) {
+            console.error("Language translation error:", e);
+        }
+    });
 });
