@@ -1,6 +1,3 @@
-/* ===========================
-   RESET
-=========================== */
 * {
     margin: 0;
     padding: 0;
@@ -8,179 +5,81 @@
     font-family: Arial, sans-serif;
 }
 
-/* ===========================
-   BODY
-=========================== */
 body {
     background: linear-gradient(180deg, #FFF4C2 0%, #FFD54F 45%, #D4AF37 100%);
     min-height: 100vh;
-    padding-bottom: 90px;
+    padding-bottom: 70px; /* Space for Bottom Nav */
     color: #3E2723;
 }
 
-/* ===========================
-   HEADER BASE
-=========================== */
-.header {
-    width: 100%;
-    padding: 15px !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    background: rgba(255, 255, 255, 0.35) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border-bottom: 1px solid #d4af37 !important;
-}
-
-.brand {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-    background: transparent !important;
-}
-
-/* LOGO ROUNDED FIX (PRIVACY & CONTACT CSS METHOD) */
-.header .brand img,
-div.brand img,
-.brand img {
-    width: 48px !important;
-    height: 48px !important;
-    border-radius: 12px !important;
-    -webkit-border-radius: 12px !important;
-    -moz-border-radius: 12px !important;
-    clip-path: inset(0 round 12px) !important;
-    -webkit-clip-path: inset(0 round 12px) !important;
-    overflow: hidden !important;
-    object-fit: cover !important;
-    display: block !important;
-}
-
-.brand .brand-text-wrapper,
-.brand-text-wrapper {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: flex-start !important;
-}
-
-.brand-title {
-    display: block !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    color: #6D4C41 !important;
-    line-height: 1.2 !important;
-}
-
-.brand-sub {
-    display: block !important;
-    font-size: 12px !important;
-    color: #5D4037 !important;
-    line-height: 1.2 !important;
-    margin-top: 2px !important;
-    white-space: nowrap !important;
-}
-
-.profile {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #5b3500;
-    cursor: pointer;
-}
-
-.profile img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-/* ===========================
-   HERO MOVIE SLIDER & PLAY BUTTON
-=========================== */
-.banner {
-    padding: 10px;
-}
-
+/* ==========================================
+   1. HERO BANNER SLIDER (16:9 ASPECT RATIO)
+   ========================================== */
 .hero-slider-wrapper {
     position: relative;
     width: 100%;
-    height: 420px;
+    aspect-ratio: 16 / 9; /* Standard 1280x720 Ratio */
+    max-height: 250px;
+    margin-bottom: 15px;
+    border-radius: 16px;
     overflow: hidden;
-    border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
-    border: 1.5px solid #D4AF37;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.hero-slider {
+#heroSlider {
     display: flex;
     width: 100%;
     height: 100%;
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 0.5s ease-in-out;
 }
 
 .hero-slide {
     min-width: 100%;
     height: 100%;
-    position: relative;
     background-size: cover;
-    background-position: center top;
+    background-position: center;
     background-repeat: no-repeat;
+    position: relative;
     display: flex;
     align-items: flex-end;
     justify-content: center;
 }
 
 .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.65) 70%, rgba(0,0,0,0.92) 100%);
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    padding-bottom: 25px;
 }
 
 .hero-play-btn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    padding: 11px 42px !important;
-    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
-    border: 2px solid #C99700 !important;
-    border-radius: 30px !important;
-    color: #5B3500 !important;
-    font-size: 16px !important;
-    font-weight: 800 !important;
-    text-decoration: none !important;
-    letter-spacing: 1px !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
-    cursor: pointer !important;
-    transition: transform 0.2s ease !important;
+    background: #FFD54F;
+    color: #3E2723;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
 }
 
 .hero-play-btn:active {
-    transform: scale(0.94) !important;
+    transform: scale(0.95);
 }
 
-.hero-play-btn i {
-    font-size: 14px !important;
-    color: #5B3500 !important;
-}
-
-.hero-dots {
+/* HERO INDICATOR DOTS */
+#heroDots {
     position: absolute;
     bottom: 8px;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    justify-content: center;
     gap: 6px;
     z-index: 5;
 }
@@ -188,133 +87,138 @@ div.brand img,
 .hero-dot {
     width: 8px;
     height: 8px;
-    background: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
     transition: all 0.3s ease;
 }
 
 .hero-dot.active {
-    background: #FFD54F;
     width: 20px;
     border-radius: 10px;
+    background: #FFD54F;
 }
 
-/* ===========================
-   MOVIE SECTIONS & CARDS
-=========================== */
-.movies {
-    padding: 15px;
-}
-
-.movies h2 {
-    margin-bottom: 12px;
-    color: #5b3500;
-    font-size: 20px;
-}
-
-.home-scroll {
+/* ==========================================
+   2. MOVIE CARDS & GRID LAYOUT
+   ========================================== */
+.section-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #5B3500;
+    margin: 15px 12px 10px 12px;
     display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
+    align-items: center;
+    gap: 6px;
 }
 
-.home-scroll::-webkit-scrollbar {
-    display: none;
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 0 10px;
+    margin-bottom: 20px;
 }
 
 .movie-card {
-    flex: 0 0 calc(33.33% - 8px);
     background: linear-gradient(180deg, #FFFDF8 0%, #FFF4C2 100%);
     border: 1.5px solid #5B3500;
-    border-radius: 15px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, .18);
-    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .movie-card img {
     width: 100%;
-    height: 170px;
+    height: 135px;
     object-fit: cover;
+    border-bottom: 1px solid #D4AF37;
 }
 
-.movie-card h3 {
-    font-size: 13px;
-    padding: 8px;
-    color: #5B3500;
-    font-weight: bold;
+/* CARD DETAILS CONTAINER */
+.movie-card-info {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
     text-align: center;
+}
+
+/* TITLE NO-OVERFLOW FIX */
+.movie-card h3, .movie-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #5B3500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Long titles cut off with ... */
+    margin: 0;
+}
+
+/* CATEGORY / GENRE LABEL FIX */
+.movie-category {
+    font-size: 10px;
+    color: #6D4C41;
+    font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 4px;
 }
 
-.view-more-right {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-}
-
-.view-more-right span {
-    color: #5B3500;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* ===========================
-   BOTTOM NAV
-=========================== */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
+/* WATCH NOW / "अभी देखें" BUTTON FIX */
+.watch-btn, .movie-card a.button, .movie-card button {
+    display: block;
     width: 100%;
-    height: 70px;
-    background: #d4af37;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -5px 20px rgba(0, 0, 0, .25);
-    z-index: 100;
-}
-
-.bottom-nav a {
+    padding: 5px 0;
+    background: #FFD54F;
+    color: #3E2723;
+    font-size: 10px;
+    font-weight: bold;
+    border: 1px solid #D4AF37;
+    border-radius: 8px;
+    text-align: center;
     text-decoration: none;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 2px;
 }
 
-.bottom-nav i {
-    font-size: 22px;
-    margin-bottom: 5px;
+.watch-btn:active {
+    background: #D4AF37;
+    color: #FFF;
 }
 
-.bottom-nav .active {
-    color: #5b3500;
-    transform: translateY(-5px);
-}
+/* ==========================================
+   3. MOBILE RESPONSIVENESS
+   ========================================== */
+@media (max-width: 480px) {
+    .hero-slider-wrapper {
+        aspect-ratio: 16 / 9;
+        max-height: 210px;
+    }
 
-@media(max-width:420px) {
-    .movie-card {
-        flex: 0 0 calc(33.33% - 8px);
+    .movie-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 0 8px;
     }
 
     .movie-card img {
-        height: 150px;
+        height: 125px;
     }
 
     .movie-card h3 {
-        font-size: 12px;
+        font-size: 10.5px;
     }
 
-    .hero-slider-wrapper {
-        height: 380px;
+    .movie-category {
+        font-size: 9.5px;
+    }
+
+    .watch-btn {
+        font-size: 9.5px;
+        padding: 4px 0;
     }
 }
