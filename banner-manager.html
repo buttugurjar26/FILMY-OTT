@@ -2,79 +2,47 @@
 <html lang="en">
 
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Banner Manager | FILMY OTT</title>
-
-<link rel="stylesheet" href="banner-manager.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner Manager | FILMY OTT</title>
+    <link rel="stylesheet" href="banner-manager.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<header class="header">
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand">
+            <img src="logo-192.png" alt="FILMY OTT">
+            <div>
+                <h2>FILMY OTT</h2>
+                <p>Banner Manager</p>
+            </div>
+        </div>
 
-<div class="brand">
+        <button class="logout-btn" onclick="history.back()">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back
+        </button>
+    </header>
 
-<img src="logo-192.png" alt="FILMY OTT">
+    <!-- BANNER MANAGER SECTION -->
+    <section class="banner-manager">
 
-<div>
+        <h2 class="section-title">
+            🖼️ Select Banner Movies
+        </h2>
 
-<h2>FILMY OTT</h2>
+        <!-- MOVIES GRID FOR BANNER SELECTION -->
+        <div id="bannerMoviesGrid" class="movie-grid">
+            <p class="loading-text">Loading Movies...</p>
+        </div>
 
-<p>Banner Manager</p>
+    </section>
 
-</div>
-
-</div>
-
-<button class="logout-btn" onclick="history.back()">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-Back
-
-</button>
-
-</header>
-
-
-
-<section class="banner-manager">
-
-
-<div class="upload-box">
-
-<h2>Upload Banner</h2>
-
-<input type="file" id="bannerFile" accept="image/*">
-
-<button id="uploadBanner">
-
-Upload Banner
-
-</button>
-
-</div>
-
-
-
-<div id="bannerList">
-
-Loading Banners...
-
-</div>
-
-
-</section>
-
-
-<script type="module" src="banner-manager.js"></script>
+    <!-- BANNER MANAGER JS -->
+    <script type="module" src="banner-manager.js"></script>
 
 </body>
 
