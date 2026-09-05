@@ -1,300 +1,320 @@
 /* ===========================
    RESET
 =========================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
-
 
 /* ===========================
    BODY
 =========================== */
-
-body{
-    background:linear-gradient(
-    180deg,
-    #FFF4C2 0%,
-    #FFD54F 45%,
-    #D4AF37 100%
-    );
-    min-height:100vh;
-    padding-bottom:90px;
-    color:#3E2723;
+body {
+    background: linear-gradient(180deg, #FFF4C2 0%, #FFD54F 45%, #D4AF37 100%);
+    min-height: 100vh;
+    padding-bottom: 90px;
+    color: #3E2723;
 }
-
 
 /* ===========================
-   HEADER
+   HEADER BASE
 =========================== */
-
-.header{
-    width:100%;
-    padding:15px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:rgba(255,255,255,0.35);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid #d4af37;
+.header {
+    width: 100%;
+    padding: 15px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: rgba(255, 255, 255, 0.35) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-bottom: 1px solid #d4af37 !important;
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
+.brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: transparent !important;
 }
 
-.brand img{
-    width:50px;
-    height:50px;
-    border-radius:50%;
+/* LOGO ROUNDED FIX (PRIVACY & CONTACT CSS METHOD) */
+.header .brand img,
+div.brand img,
+.brand img {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 12px !important;
+    -webkit-border-radius: 12px !important;
+    -moz-border-radius: 12px !important;
+    clip-path: inset(0 round 12px) !important;
+    -webkit-clip-path: inset(0 round 12px) !important;
+    overflow: hidden !important;
+    object-fit: cover !important;
+    display: block !important;
 }
 
-.brand h2{
-    font-size:22px;
-    color:#5b3500;
+.brand .brand-text-wrapper,
+.brand-text-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
 }
 
-.brand p{
-    font-size:12px;
+.brand-title {
+    display: block !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    color: #6D4C41 !important;
+    line-height: 1.2 !important;
 }
 
+.brand-sub {
+    display: block !important;
+    font-size: 12px !important;
+    color: #5D4037 !important;
+    line-height: 1.2 !important;
+    margin-top: 2px !important;
+    white-space: nowrap !important;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5b3500;
+    cursor: pointer;
+}
+
+.profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
 
 /* ===========================
-   PROFILE
+   HERO MOVIE SLIDER & PLAY BUTTON
 =========================== */
-
-.profile{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#5b3500;
+.banner {
+    padding: 10px;
 }
 
-.profile img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:50%;
+.hero-slider-wrapper {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    border: 1.5px solid #D4AF37;
 }
 
+.hero-slider {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hero-slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.65) 70%, rgba(0,0,0,0.92) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 25px;
+}
+
+.hero-play-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    padding: 11px 42px !important;
+    background: linear-gradient(180deg, #FFE89C, #F7D046) !important;
+    border: 2px solid #C99700 !important;
+    border-radius: 30px !important;
+    color: #5B3500 !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+    letter-spacing: 1px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease !important;
+}
+
+.hero-play-btn:active {
+    transform: scale(0.94) !important;
+}
+
+.hero-play-btn i {
+    font-size: 14px !important;
+    color: #5B3500 !important;
+}
+
+.hero-dots {
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    z-index: 5;
+}
+
+.hero-dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.hero-dot.active {
+    background: #FFD54F;
+    width: 20px;
+    border-radius: 10px;
+}
 
 /* ===========================
-   CATEGORY
+   MOVIE SECTIONS & CARDS
 =========================== */
-
-.categories{
-    padding:15px;
+.movies {
+    padding: 15px;
 }
 
-.all-category-btn{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:25px;
-    background:#d4af37;
-    color:#fff;
-    font-size:16px;
-    font-weight:bold;
+.movies h2 {
+    margin-bottom: 12px;
+    color: #5b3500;
+    font-size: 20px;
 }
 
-.category-scroll{
-    display:none;
-    margin-top:12px;
-    gap:10px;
-    overflow-x:auto;
+.home-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 }
 
-.category-scroll.show{
-    display:flex;
+.home-scroll::-webkit-scrollbar {
+    display: none;
 }
 
-.category-scroll button{
-    padding:8px 18px;
-    border:none;
-    border-radius:20px;
-    background:#fff;
-    color:#8a5a00;
-    white-space:nowrap;
-}
-
-.category-scroll .active{
-    background:#5b3500;
-    color:#fff;
-}
-
-
-/* ===========================
-   BANNER
-=========================== */
-
-.banner{
-    padding:10px;
-}
-
-.banner-slider{
-    width:100%;
-    aspect-ratio:16 / 9;
-    display:flex;
-    overflow:hidden;
-    border-radius:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.3);
-    scroll-behavior:smooth;
-}
-
-.banner-slider img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    flex:0 0 100%;
-}
-
-
-/* ===========================
-   MOVIE SECTIONS
-=========================== */
-
-.movies{
-    padding:15px;
-}
-
-.movies h2{
-    margin-bottom:12px;
-    color:#5b3500;
-    font-size:20px;
-}
-
-/* 3 CARD HORIZONTAL FLOW */
-.home-scroll{
-    display:flex;
-    gap:12px;
-    overflow-x:auto;
-    scroll-behavior:smooth;
-    scrollbar-width:none;
-}
-
-.home-scroll::-webkit-scrollbar{
-    display:none;
-}
-
-
-/* ===========================
-   MOVIE CARD (GOLD THEME UPDATED)
-=========================== */
-
-.movie-card{
-    flex:0 0 calc(33.33% - 8px);
+.movie-card {
+    flex: 0 0 calc(33.33% - 8px);
     background: linear-gradient(180deg, #FFFDF8 0%, #FFF4C2 100%);
     border: 1.5px solid #5B3500;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,.18);
-    cursor:pointer;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .18);
+    cursor: pointer;
 }
 
-.movie-card img{
-    width:100%;
-    height:170px;
-    object-fit:cover;
+.movie-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
 }
 
-.movie-card h3{
-    font-size:13px;
-    padding:8px;
-    color:#5B3500;
+.movie-card h3 {
+    font-size: 13px;
+    padding: 8px;
+    color: #5B3500;
     font-weight: bold;
     text-align: center;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* HOME SIMPLE CARD */
-.home-scroll .movie-card p,
-.home-scroll .movie-card button{
-    display:none;
+.view-more-right {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
 }
 
-
-/* ===========================
-   VIEW MORE
-=========================== */
-
-.view-more-right,
-.view-more-row{
-    display:flex;
-    justify-content:flex-end;
-    margin-top:10px;
+.view-more-right span {
+    color: #5B3500;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
 }
-
-.view-more-right span,
-.view-more-row span{
-    color:#5B3500;
-    font-size:13px;
-    font-weight:bold;
-}
-
 
 /* ===========================
    BOTTOM NAV
 =========================== */
-
-.bottom-nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    height:70px;
-    background:#d4af37;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    border-radius:20px 20px 0 0;
-    box-shadow:0 -5px 20px rgba(0,0,0,.25);
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: #d4af37;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, .25);
+    z-index: 100;
 }
 
-.bottom-nav a{
-    text-decoration:none;
-    color:white;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    font-size:12px;
+.bottom-nav a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
 }
 
-.bottom-nav i{
-    font-size:22px;
-    margin-bottom:5px;
+.bottom-nav i {
+    font-size: 22px;
+    margin-bottom: 5px;
 }
 
-.bottom-nav .active{
-    color:#5b3500;
-    transform:translateY(-5px);
+.bottom-nav .active {
+    color: #5b3500;
+    transform: translateY(-5px);
 }
 
-
-/* ===========================
-   MOBILE RESPONSIVE
-=========================== */
-
-@media(max-width:420px){
-    .movie-card{
-        flex:0 0 calc(33.33% - 8px);
+@media(max-width:420px) {
+    .movie-card {
+        flex: 0 0 calc(33.33% - 8px);
     }
 
-    .movie-card img{
-        height:150px;
+    .movie-card img {
+        height: 150px;
     }
 
-    .movie-card h3{
-        font-size:12px;
+    .movie-card h3 {
+        font-size: 12px;
+    }
+
+    .hero-slider-wrapper {
+        height: 380px;
     }
 }
