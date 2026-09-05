@@ -61,11 +61,13 @@ function renderMovieGrid() {
         return;
     }
 
-    // List of active banner movie IDs for quick checking
-    const activeMovieIds = activeBanners.map(b => b.movie_id);
-
     moviesList.forEach(movie => {
-        const isBanner = activeMovieIds.includes(movie.id);
+        // Check both movie_id AND image_url for solid matching
+        const activeBanner = activeBanners.find(
+            b => b.movie_id === movie.id || (b.image_url && b.image_url === movie.poster_url)
+        );
+
+        const isBanner = Boolean(activeBanner);
         const card = document.createElement("div");
         card.className = "movie-card";
 
@@ -89,16 +91,16 @@ function renderMovieGrid() {
 window.toggleBanner = async function(movieId, posterUrl, isCurrentlyBanner) {
     try {
         if (isCurrentlyBanner) {
-            // Remove from Banners (Deactivate or Delete banner entry)
+            // Remove from Banners (deletes matching movie_id or poster_url)
             const { error } = await supabase
                 .from("banners")
                 .delete()
-                .eq("movie_id", movieId);
+                .or(`movie_id.eq.${movieId},image_url.eq.${posterUrl}`);
 
             if (error) throw error;
 
         } else {
-            // Add to Banners with poster_url and movie_id
+            // Add to Banners with movie_id
             const { error } = await supabase
                 .from("banners")
                 .insert([
@@ -113,7 +115,7 @@ window.toggleBanner = async function(movieId, posterUrl, isCurrentlyBanner) {
             if (error) throw error;
         }
 
-        // Refresh Grid Layout
+        // Refresh Grid Immediately
         loadBannerMovies();
 
     } catch (error) {
