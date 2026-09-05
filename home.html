@@ -2,306 +2,149 @@
 <html lang="en">
 
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>FILMY OTT</title>
-
-
-<link rel="stylesheet" href="home.css">
-
-
-<link 
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-rel="stylesheet">
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FILMY OTT</title>
+    <link rel="stylesheet" href="home.css?v=20">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
-
 
 <body>
 
-
-<!-- HEADER -->
-
-<header class="header">
-
-
-<div class="brand">
-
-<img src="logo-192.png" alt="FILMY OTT Logo">
-
-
-<div>
-
-<h2>FILMY OTT</h2>
-
-<p>Premium Entertainment</p>
-
-</div>
-
-
-</div>
-
-
-
-<div class="profile" onclick="openProfile()">
-
-<img id="headerProfile" src="default-profile.png" alt="Profile">
-
-</div>
-
-
-</header>
-
-<!-- BANNER -->
-
-<section class="banner">
-
-<div class="banner-slider" id="bannerSlider">
-
-<img src="banner1.jpg">
-
-<img src="banner2.jpg">
-
-<img src="banner3.jpg">
-
-<img src="banner4.jpg">
-
-<img src="banner5.jpg">
-
-</div>
-
-</section>
-
-
-<!-- HOME TOP -->
-
-<section class="home-top">
-
-<!-- COMING SOON -->
-  
-  <section class="movies">
-
-<h2>
-🎬 <span data-lang="comingSoon">Coming Soon</span>
-</h2>
-
-<div id="comingSoonMovies" class="movie-grid">
-
-</div>
-    
-<div class="view-more-right">
-
-<span onclick="location.href='movies-list.html?type='">
-
-<span data-lang="viewMore">
-View More →
-</span>
-
-</span>
-
-</div>
-
-</section>
-
-
-  <!-- FEATURED MOVIES -->
-
-<section class="movies">
-
-<h2>
-🔯 <span data-lang="featuredMovies">Featured Movies</span>
-</h2>
-
-<div id="featuredMovies" class="movie-grid">
-
-</div>
-
-<div class="view-more-right">
-
-<span onclick="location.href='movies-list.html?type=featured'">
-
-<span data-lang="viewMore">
-View More →
-</span>
-
-</span>
-
-</div>
-
-</section>
-
-
-
-<!-- TRENDING MOVIES -->
-
-<section class="movies">
-
-<h2>
-🔥 <span data-lang="trendingMovies">Trending Movies</span>
-</h2>
-
-<div id="trendingMovies" class="movie-grid">
-
-</div>
-
-<div class="view-more-right">
-
-<span onclick="location.href='movies-list.html?type=trending'">
-
-<span data-lang="viewMore">
-View More →
-</span>
-
-</span>
-
-</div>
-
-</section>
-
-
-
-<!-- MOST WATCHED -->
-
-<section class="movies">
-
-<h2>
-👁️ <span data-lang="mostWatched">Most Watched</span>
-</h2>
-
-<div id="mostWatchedMovies" class="movie-grid">
-
-</div>
-
-<div class="view-more-right">
-
-<span onclick="location.href='movies-list.html?type=mostWatched'">
-
-<span data-lang="viewMore">
-View More →
-</span>
-
-</span>
-
-</div>
-
-</section>
-
-
-
-<!-- TOP RATED -->
-
-<section class="movies">
-
-<h2>
-🔝 <span data-lang="topRated">Top Rated</span>
-</h2>
-
-<div id="topRatedMovies" class="movie-grid">
-
-</div>
-
-<div class="view-more-right">
-
-<span onclick="location.href='movies-list.html?type=topRated'">
-
-<span data-lang="viewMore">
-View More →
-</span>
-
-</span>
-
-</div>
-
-</section>
-
-
-
-<!-- LATEST MOVIES -->
-
-<section class="movies">
-
-<h2>
-🆕 <span data-lang="latestMovies">Latest Movies</span>
-</h2>
-
-<div id="latestMovies" class="movie-grid">
-
-</div>
-
-<div class="view-more-right">
-
-<span onclick="location.href='movies-list.html?type=latest'">
-
-<span data-lang="viewMore">
-View More →
-</span>
-
-</span>
-
-</div>
-
-</section>
-
-
-  <!-- BOTTOM NAVIGATION -->
-
-<nav class="bottom-nav">
-
-<a class="active" href="home.html">
-
-<i class="fa-solid fa-house"></i>
-
-<span data-lang="home">Home</span>
-
-</a>
-
-
-<a href="movies-list.html">
-
-<i class="fa-solid fa-film"></i>
-
-<span data-lang="movies">Movies</span>
-
-</a>
-
-
-<a href="search.html">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<span data-lang="search">Search</span>
-
-</a>
-
-
-<a href="my-list.html">
-
-<i class="fa-solid fa-heart"></i>
-
-<span data-lang="myList">My List</span>
-
-</a>
-
-
-<a href="settings.html">
-
-<i class="fa-solid fa-gear"></i>
-
-<span data-lang="settings">Settings</span>
-
-</a>
-
-</nav>
-
-
-<!-- HOME JS -->
-
-<script type="module" src="home.js"></script>
-
+    <!-- HEADER (JS-PROOF MATCHED) -->
+    <header class="header">
+        <div class="brand">
+            <img src="logo-192.png" alt="FILMY OTT Logo">
+            <div class="brand-text-wrapper">
+                <span class="brand-title">FILMY OTT</span>
+                <span class="brand-sub">Premium Entertainment</span>
+            </div>
+        </div>
+
+        <div class="profile" onclick="openProfile()">
+            <img id="headerProfile" src="default-profile.png" alt="Profile">
+        </div>
+    </header>
+
+    <!-- MOVIE HERO SLIDER SECTION (DIRECT PLAY BUTTON INTEGRATED) -->
+    <section class="banner">
+        <div class="hero-slider-wrapper">
+            <div class="hero-slider" id="heroSlider">
+                <!-- Dynamic Hero Movie Posters Will Render Here -->
+            </div>
+            <div class="hero-dots" id="heroDots"></div>
+        </div>
+    </section>
+
+    <!-- HOME TOP -->
+    <section class="home-top">
+
+        <!-- COMING SOON -->
+        <section class="movies">
+            <h2>
+                🎬 <span data-lang="comingSoon">Coming Soon</span>
+            </h2>
+            <div id="comingSoonMovies" class="movie-grid home-scroll"></div>
+            <div class="view-more-right">
+                <span onclick="location.href='movies-list.html?type='">
+                    <span data-lang="viewMore">View More →</span>
+                </span>
+            </div>
+        </section>
+
+        <!-- FEATURED MOVIES -->
+        <section class="movies">
+            <h2>
+                🔯 <span data-lang="featuredMovies">Featured Movies</span>
+            </h2>
+            <div id="featuredMovies" class="movie-grid home-scroll"></div>
+            <div class="view-more-right">
+                <span onclick="location.href='movies-list.html?type=featured'">
+                    <span data-lang="viewMore">View More →</span>
+                </span>
+            </div>
+        </section>
+
+        <!-- TRENDING MOVIES -->
+        <section class="movies">
+            <h2>
+                🔥 <span data-lang="trendingMovies">Trending Movies</span>
+            </h2>
+            <div id="trendingMovies" class="movie-grid home-scroll"></div>
+            <div class="view-more-right">
+                <span onclick="location.href='movies-list.html?type=trending'">
+                    <span data-lang="viewMore">View More →</span>
+                </span>
+            </div>
+        </section>
+
+        <!-- MOST WATCHED -->
+        <section class="movies">
+            <h2>
+                👁️ <span data-lang="mostWatched">Most Watched</span>
+            </h2>
+            <div id="mostWatchedMovies" class="movie-grid home-scroll"></div>
+            <div class="view-more-right">
+                <span onclick="location.href='movies-list.html?type=mostWatched'">
+                    <span data-lang="viewMore">View More →</span>
+                </span>
+            </div>
+        </section>
+
+        <!-- TOP RATED -->
+        <section class="movies">
+            <h2>
+                🔝 <span data-lang="topRated">Top Rated</span>
+            </h2>
+            <div id="topRatedMovies" class="movie-grid home-scroll"></div>
+            <div class="view-more-right">
+                <span onclick="location.href='movies-list.html?type=topRated'">
+                    <span data-lang="viewMore">View More →</span>
+                </span>
+            </div>
+        </section>
+
+        <!-- LATEST MOVIES -->
+        <section class="movies">
+            <h2>
+                🆕 <span data-lang="latestMovies">Latest Movies</span>
+            </h2>
+            <div id="latestMovies" class="movie-grid home-scroll"></div>
+            <div class="view-more-right">
+                <span onclick="location.href='movies-list.html?type=latest'">
+                    <span data-lang="viewMore">View More →</span>
+                </span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <a class="active" href="home.html">
+            <i class="fa-solid fa-house"></i>
+            <span data-lang="home">Home</span>
+        </a>
+        <a href="movies-list.html">
+            <i class="fa-solid fa-film"></i>
+            <span data-lang="movies">Movies</span>
+        </a>
+        <a href="search.html">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span data-lang="search">Search</span>
+        </a>
+        <a href="my-list.html">
+            <i class="fa-solid fa-heart"></i>
+            <span data-lang="myList">My List</span>
+        </a>
+        <a href="settings.html">
+            <i class="fa-solid fa-gear"></i>
+            <span data-lang="settings">Settings</span>
+        </a>
+    </nav>
+
+    <!-- HOME JS -->
+    <script type="module" src="home.js"></script>
 </body>
 
 </html>
